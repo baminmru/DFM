@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-data-tree-leaf-heading"
+        data-cy="DataTreeLeafCreateUpdateHeading"
+        jhiTranslate="dfmApp.dataTreeLeaf.home.createOrEditLabel"
+      >
+        Create or edit a Data Tree Leaf
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="dfmApp.dataTreeLeaf.stereoType"
+            for="field_stereoType"
+            [ngbTooltip]="'dfmApp.dataTreeLeaf.help.stereoType' | translate"
+            >Stereo Type</label
+          >
+          <select class="form-control" name="stereoType" formControlName="stereoType" id="field_stereoType" data-cy="stereoType">
+            <option [ngValue]="null">{{ 'dfmApp.StereoTypeEnum.null' | translate }}</option>
+            <option *ngFor="let stereoTypeEnum of stereoTypeEnumValues" [value]="stereoTypeEnum">
+              {{ 'dfmApp.StereoTypeEnum.' + stereoTypeEnum | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataTreeLeaf.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataTreeLeaf.caption" for="field_caption">Caption</label>
+          <input type="text" class="form-control" name="caption" id="field_caption" data-cy="caption" formControlName="caption" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataTreeLeaf.documentation" for="field_documentation">Documentation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="documentation"
+            id="field_documentation"
+            data-cy="documentation"
+            formControlName="documentation"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label jhiTranslate="dfmApp.dataTreeLeaf.leafToField" for="field_leafToFields">Leaf To Field</label>
+          <select
+            class="form-control"
+            id="field_leafToFields"
+            data-cy="leafToField"
+            multiple
+            name="leafToFields"
+            formControlName="leafToFields"
+            [compareWith]="compareDataField"
+          >
+            <option [ngValue]="dataFieldOption" *ngFor="let dataFieldOption of dataFieldsSharedCollection">{{ dataFieldOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

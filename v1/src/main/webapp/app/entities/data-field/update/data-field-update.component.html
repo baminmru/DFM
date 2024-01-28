@@ -1,0 +1,93 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-data-field-heading" data-cy="DataFieldCreateUpdateHeading" jhiTranslate="dfmApp.dataField.home.createOrEditLabel">
+        Create or edit a Data Field
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.inputType" for="field_inputType">Input Type</label>
+          <select class="form-control" name="inputType" formControlName="inputType" id="field_inputType" data-cy="inputType">
+            <option [ngValue]="null">{{ 'dfmApp.InputTypeEnum.null' | translate }}</option>
+            <option *ngFor="let inputTypeEnum of inputTypeEnumValues" [value]="inputTypeEnum">
+              {{ 'dfmApp.InputTypeEnum.' + inputTypeEnum | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.fieldType" for="field_fieldType">Field Type</label>
+          <select class="form-control" name="fieldType" formControlName="fieldType" id="field_fieldType" data-cy="fieldType">
+            <option [ngValue]="null">{{ 'dfmApp.FieldTypeEnum.null' | translate }}</option>
+            <option *ngFor="let fieldTypeEnum of fieldTypeEnumValues" [value]="fieldTypeEnum">
+              {{ 'dfmApp.FieldTypeEnum.' + fieldTypeEnum | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.referenceRoot" for="field_referenceRoot">Reference Root</label>
+          <input
+            type="text"
+            class="form-control"
+            name="referenceRoot"
+            id="field_referenceRoot"
+            data-cy="referenceRoot"
+            formControlName="referenceRoot"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.allowNull" for="field_allowNull">Allow Null</label>
+          <input type="checkbox" class="form-check" name="allowNull" id="field_allowNull" data-cy="allowNull" formControlName="allowNull" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.caption" for="field_caption">Caption</label>
+          <input type="text" class="form-control" name="caption" id="field_caption" data-cy="caption" formControlName="caption" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.documentation" for="field_documentation">Documentation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="documentation"
+            id="field_documentation"
+            data-cy="documentation"
+            formControlName="documentation"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

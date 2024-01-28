@@ -1,0 +1,11 @@
+id;input_type;field_type;reference_root;allow_null;name;caption;documentation
+1;OPTION_INPUT;DATE_TYPE;Buckinghamshire East;true;functionalities;Diesel JSON;Northwest Southwest
+2;OPTION_INPUT;STRING_TYPE;mint GB;true;Pop Director;modulo Folding Other;boo
+3;REFERENCE_INPUT;INTEGER_TYPE;Account;false;Utah likewise;program out;Bicycle Digitized
+4;COMBOBOX_INPUT;STRING_TYPE;purple black;true;siemens;nam worn;process joule jaywalk
+5;INTEGER_INPUT;INTEGER_TYPE;Global Euro;true;auxiliary Electronics;Hat;holistic South
+6;COMBOBOX_INPUT;DATE_TYPE;Hybrid Luxurious sky;false;Borders;yum;Account quantifying
+7;INTEGER_INPUT;DATE_TYPE;needily North;false;New Bike;salmon transition;as Bronze Chevrolet
+8;DATETIME_INPUT;STRING_TYPE;Northeast aggravating;true;Paradigm;fatherly enthusiastically;Ethiopian motivating
+9;HTML_INPUT;DATE_TYPE;joule Jamaica lime;false;newton Direct Lutetium;lavender;Gasoline pull
+10;INTEGER_INPUT;BLOB_TYPE;invoice;true;recontextualize Lead;deposit female yawning;Electronic Southwest

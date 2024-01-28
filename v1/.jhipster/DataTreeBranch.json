@@ -1,0 +1,71 @@
+{
+  "applications": ["dfm"],
+  "changelogDate": "20240128114154",
+  "databaseType": "sql",
+  "entityTableName": "data_tree_branch",
+  "fields": [
+    {
+      "fieldName": "stereoType",
+      "fieldType": "StereoTypeEnum",
+      "fieldValues": "SINGLE_ROW,COLLECTION,TREE",
+      "javadoc": "stereoType"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentation",
+      "fieldType": "String"
+    }
+  ],
+  "javadoc": "Thy DataTreeBranch entity.",
+  "name": "DataTreeBranch",
+  "relationships": [
+    {
+      "otherEntityName": "dataTreeLeaf",
+      "otherEntityRelationshipName": "dataTreeBranch",
+      "relationshipName": "dataTreeLeaf",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "dataField",
+      "relationshipName": "branchToField",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "dataTreeBranch",
+      "otherEntityRelationshipName": "branchChild",
+      "relationshipName": "branchParent",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "options": {
+        "onDelete": "CASCADE"
+      },
+      "otherEntityName": "dataTreeRoot",
+      "otherEntityRelationshipName": "dataTreeBranch",
+      "relationshipName": "dataTreeRoot",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "options": {
+        "onDelete": "CASCADE"
+      },
+      "otherEntityName": "dataTreeBranch",
+      "otherEntityRelationshipName": "branchParent",
+      "relationshipName": "branchChild",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

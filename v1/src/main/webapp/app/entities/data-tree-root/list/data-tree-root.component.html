@@ -1,0 +1,132 @@
+<div>
+  <h2 id="page-heading" data-cy="DataTreeRootHeading">
+    <span jhiTranslate="dfmApp.dataTreeRoot.home.title">Data Tree Roots</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="dfmApp.dataTreeRoot.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-data-tree-root"
+        [routerLink]="['/data-tree-root/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="dfmApp.dataTreeRoot.home.createLabel"> Create a new Data Tree Root </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="dataTreeRoots?.length === 0">
+    <span jhiTranslate="dfmApp.dataTreeRoot.home.notFound">No Data Tree Roots found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="dataTreeRoots && dataTreeRoots.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="stereoType">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeRoot.stereoType">Stereo Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeRoot.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="caption">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeRoot.caption">Caption</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="documentation">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeRoot.documentation">Documentation</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dataTreeBranch.id">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeRoot.dataTreeBranch">Data Tree Branch</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="rootToField.id">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeRoot.rootToField">Root To Field</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataTreeRoot of dataTreeRoots; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/data-tree-root', dataTreeRoot.id, 'view']">{{ dataTreeRoot.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'dfmApp.StereoTypeEnum.' + dataTreeRoot.stereoType }}">{{ dataTreeRoot.stereoType }}</td>
+          <td>{{ dataTreeRoot.name }}</td>
+          <td>{{ dataTreeRoot.caption }}</td>
+          <td>{{ dataTreeRoot.documentation }}</td>
+          <td>
+            <div *ngIf="dataTreeRoot.dataTreeBranch">
+              <a [routerLink]="['/data-tree-branch', dataTreeRoot.dataTreeBranch.id, 'view']">{{ dataTreeRoot.dataTreeBranch.id }}</a>
+            </div>
+          </td>
+          <td>
+            <span *ngFor="let rootToField of dataTreeRoot.rootToFields; let last = last">
+              <a class="form-control-static" [routerLink]="['/data-field', rootToField.id, 'view']">{{ rootToField.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/data-tree-root', dataTreeRoot.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/data-tree-root', dataTreeRoot.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(dataTreeRoot)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

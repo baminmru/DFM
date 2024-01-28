@@ -1,0 +1,33 @@
+{
+  "dfmApp": {
+    "dataField": {
+      "home": {
+        "title": "Data Fields",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Data Field",
+        "createOrEditLabel": "Create or edit a Data Field",
+        "notFound": "No Data Fields found"
+      },
+      "created": "A new Data Field is created with identifier {{ param }}",
+      "updated": "A Data Field is updated with identifier {{ param }}",
+      "deleted": "A Data Field is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Data Field {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Field"
+      },
+      "id": "ID",
+      "inputType": "Input Type",
+      "fieldType": "Field Type",
+      "referenceRoot": "Reference Root",
+      "allowNull": "Allow Null",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "dataTreeRoot": "Data Tree Root",
+      "dataTreeBranch": "Data Tree Branch",
+      "dataTreeLeaf": "Data Tree Leaf"
+    }
+  }
+}

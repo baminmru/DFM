@@ -1,0 +1,144 @@
+<div>
+  <h2 id="page-heading" data-cy="DataTreeBranchHeading">
+    <span jhiTranslate="dfmApp.dataTreeBranch.home.title">Data Tree Branches</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="dfmApp.dataTreeBranch.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-data-tree-branch"
+        [routerLink]="['/data-tree-branch/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="dfmApp.dataTreeBranch.home.createLabel"> Create a new Data Tree Branch </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="dataTreeBranches?.length === 0">
+    <span jhiTranslate="dfmApp.dataTreeBranch.home.notFound">No Data Tree Branches found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="dataTreeBranches && dataTreeBranches.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="stereoType">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.stereoType">Stereo Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="caption">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.caption">Caption</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="documentation">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.documentation">Documentation</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dataTreeLeaf.id">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.dataTreeLeaf">Data Tree Leaf</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="branchToField.id">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.branchToField">Branch To Field</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="branchParent.id">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataTreeBranch.branchParent">Branch Parent</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataTreeBranch of dataTreeBranches; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/data-tree-branch', dataTreeBranch.id, 'view']">{{ dataTreeBranch.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'dfmApp.StereoTypeEnum.' + dataTreeBranch.stereoType }}">{{ dataTreeBranch.stereoType }}</td>
+          <td>{{ dataTreeBranch.name }}</td>
+          <td>{{ dataTreeBranch.caption }}</td>
+          <td>{{ dataTreeBranch.documentation }}</td>
+          <td>
+            <div *ngIf="dataTreeBranch.dataTreeLeaf">
+              <a [routerLink]="['/data-tree-leaf', dataTreeBranch.dataTreeLeaf.id, 'view']">{{ dataTreeBranch.dataTreeLeaf.id }}</a>
+            </div>
+          </td>
+          <td>
+            <span *ngFor="let branchToField of dataTreeBranch.branchToFields; let last = last">
+              <a class="form-control-static" [routerLink]="['/data-field', branchToField.id, 'view']">{{ branchToField.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <span *ngFor="let branchParent of dataTreeBranch.branchParents; let last = last">
+              <a class="form-control-static" [routerLink]="['/data-tree-branch', branchParent.id, 'view']">{{ branchParent.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/data-tree-branch', dataTreeBranch.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/data-tree-branch', dataTreeBranch.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(dataTreeBranch)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

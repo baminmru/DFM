@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="dataTreeLeaf">
+      <h2 data-cy="dataTreeLeafDetailsHeading"><span jhiTranslate="dfmApp.dataTreeLeaf.detail.title">Data Tree Leaf</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ dataTreeLeaf.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="dfmApp.dataTreeLeaf.stereoType" [ngbTooltip]="'dfmApp.dataTreeLeaf.help.stereoType' | translate"
+            >Stereo Type</span
+          >
+        </dt>
+        <dd>
+          <span jhiTranslate="{{ 'dfmApp.StereoTypeEnum.' + dataTreeLeaf.stereoType }}">{{ dataTreeLeaf.stereoType }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeLeaf.name">Name</span></dt>
+        <dd>
+          <span>{{ dataTreeLeaf.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeLeaf.caption">Caption</span></dt>
+        <dd>
+          <span>{{ dataTreeLeaf.caption }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeLeaf.documentation">Documentation</span></dt>
+        <dd>
+          <span>{{ dataTreeLeaf.documentation }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeLeaf.leafToField">Leaf To Field</span></dt>
+        <dd>
+          <span *ngFor="let leafToField of dataTreeLeaf.leafToFields; let last = last">
+            <a [routerLink]="['/data-field', leafToField.id, 'view']">{{ leafToField.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/data-tree-leaf', dataTreeLeaf.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

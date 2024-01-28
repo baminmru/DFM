@@ -1,0 +1,30 @@
+{
+  "dfmApp": {
+    "dataForest": {
+      "home": {
+        "title": "Data Forests",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Data Forest",
+        "createOrEditLabel": "Создать или отредактировать Data Forest",
+        "notFound": "Data Forests не найдено"
+      },
+      "created": "Новый Data Forest создан с идентификатором {{ param }}",
+      "updated": "Data Forest обновлен с идентификатором {{ param }}",
+      "deleted": "Data Forest удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Data Forest {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Forest"
+      },
+      "id": "ID",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "forestTrees": "Forest Trees",
+      "help": {
+        "name": "name"
+      }
+    }
+  }
+}

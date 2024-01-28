@@ -1,0 +1,35 @@
+{
+  "dfmApp": {
+    "dataTreeBranch": {
+      "home": {
+        "title": "Data Tree Branches",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Data Tree Branch",
+        "createOrEditLabel": "Создать или отредактировать Data Tree Branch",
+        "notFound": "Data Tree Branches не найдено"
+      },
+      "created": "Новый Data Tree Branch создан с идентификатором {{ param }}",
+      "updated": "Data Tree Branch обновлен с идентификатором {{ param }}",
+      "deleted": "Data Tree Branch удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Data Tree Branch {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Tree Branch"
+      },
+      "id": "ID",
+      "stereoType": "Stereo Type",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "dataTreeLeaf": "Data Tree Leaf",
+      "branchToField": "Branch To Field",
+      "branchParent": "Branch Parent",
+      "dataTreeRoot": "Data Tree Root",
+      "branchChild": "Branch Child",
+      "help": {
+        "stereoType": "stereoType"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "dfmApp": {
+    "dataTreeLeaf": {
+      "home": {
+        "title": "Data Tree Leaves",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Data Tree Leaf",
+        "createOrEditLabel": "Создать или отредактировать Data Tree Leaf",
+        "notFound": "Data Tree Leaves не найдено"
+      },
+      "created": "Новый Data Tree Leaf создан с идентификатором {{ param }}",
+      "updated": "Data Tree Leaf обновлен с идентификатором {{ param }}",
+      "deleted": "Data Tree Leaf удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Data Tree Leaf {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Tree Leaf"
+      },
+      "id": "ID",
+      "stereoType": "Stereo Type",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "leafToField": "Leaf To Field",
+      "dataTreeBranch": "Data Tree Branch",
+      "help": {
+        "stereoType": "stereoType"
+      }
+    }
+  }
+}

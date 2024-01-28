@@ -1,0 +1,1 @@
+jhipster jdl ..\JDL\dataTreeMeta.jdl

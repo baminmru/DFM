@@ -1,0 +1,33 @@
+{
+  "dfmApp": {
+    "dataField": {
+      "home": {
+        "title": "Data Fields",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Data Field",
+        "createOrEditLabel": "Создать или отредактировать Data Field",
+        "notFound": "Data Fields не найдено"
+      },
+      "created": "Новый Data Field создан с идентификатором {{ param }}",
+      "updated": "Data Field обновлен с идентификатором {{ param }}",
+      "deleted": "Data Field удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Data Field {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Field"
+      },
+      "id": "ID",
+      "inputType": "Input Type",
+      "fieldType": "Field Type",
+      "referenceRoot": "Reference Root",
+      "allowNull": "Allow Null",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "dataTreeRoot": "Data Tree Root",
+      "dataTreeBranch": "Data Tree Branch",
+      "dataTreeLeaf": "Data Tree Leaf"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "applications": ["dfm"],
+  "changelogDate": "20240128114155",
+  "databaseType": "sql",
+  "entityTableName": "data_tree_leaf",
+  "fields": [
+    {
+      "fieldName": "stereoType",
+      "fieldType": "StereoTypeEnum",
+      "fieldValues": "SINGLE_ROW,COLLECTION,TREE",
+      "javadoc": "stereoType"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentation",
+      "fieldType": "String"
+    }
+  ],
+  "name": "DataTreeLeaf",
+  "relationships": [
+    {
+      "otherEntityName": "dataField",
+      "relationshipName": "leafToField",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "options": {
+        "onDelete": "CASCADE"
+      },
+      "otherEntityName": "dataTreeBranch",
+      "otherEntityRelationshipName": "dataTreeLeaf",
+      "relationshipName": "dataTreeBranch",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

@@ -1,0 +1,3 @@
+org.springframework.test.context.ContextCustomizerFactory = com.bami.dfm.v1.\
+    config.SqlTestContainersSpringContextCustomizerFactory,com.bami.dfm.config.\
+    SqlTestContainersSpringContextCustomizerFactory

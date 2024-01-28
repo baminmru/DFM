@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="dataForest">
+      <h2 data-cy="dataForestDetailsHeading"><span jhiTranslate="dfmApp.dataForest.detail.title">Data Forest</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ dataForest.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataForest.name" [ngbTooltip]="'dfmApp.dataForest.help.name' | translate">Name</span></dt>
+        <dd>
+          <span>{{ dataForest.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataForest.caption">Caption</span></dt>
+        <dd>
+          <span>{{ dataForest.caption }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataForest.documentation">Documentation</span></dt>
+        <dd>
+          <span>{{ dataForest.documentation }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataForest.forestTrees">Forest Trees</span></dt>
+        <dd>
+          <div *ngIf="dataForest.forestTrees">
+            <a [routerLink]="['/data-tree-root', dataForest.forestTrees.id, 'view']">{{ dataForest.forestTrees.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/data-forest', dataForest.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

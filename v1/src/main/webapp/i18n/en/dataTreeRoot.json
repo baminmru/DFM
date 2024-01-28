@@ -1,0 +1,32 @@
+{
+  "dfmApp": {
+    "dataTreeRoot": {
+      "home": {
+        "title": "Data Tree Roots",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Data Tree Root",
+        "createOrEditLabel": "Create or edit a Data Tree Root",
+        "notFound": "No Data Tree Roots found"
+      },
+      "created": "A new Data Tree Root is created with identifier {{ param }}",
+      "updated": "A Data Tree Root is updated with identifier {{ param }}",
+      "deleted": "A Data Tree Root is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Data Tree Root {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Tree Root"
+      },
+      "id": "ID",
+      "stereoType": "Stereo Type",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "dataTreeBranch": "Data Tree Branch",
+      "rootToField": "Root To Field",
+      "help": {
+        "stereoType": "stereoType"
+      }
+    }
+  }
+}

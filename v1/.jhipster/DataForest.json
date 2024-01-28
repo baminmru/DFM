@@ -1,0 +1,31 @@
+{
+  "applications": ["dfm"],
+  "changelogDate": "20240128114157",
+  "databaseType": "sql",
+  "entityTableName": "data_forest",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "name"
+    },
+    {
+      "fieldName": "caption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentation",
+      "fieldType": "String"
+    }
+  ],
+  "name": "DataForest",
+  "relationships": [
+    {
+      "otherEntityName": "dataTreeRoot",
+      "relationshipName": "forestTrees",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

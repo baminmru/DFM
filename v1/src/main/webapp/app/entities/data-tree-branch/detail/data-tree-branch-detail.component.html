@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="dataTreeBranch">
+      <h2 data-cy="dataTreeBranchDetailsHeading"><span jhiTranslate="dfmApp.dataTreeBranch.detail.title">Data Tree Branch</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ dataTreeBranch.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="dfmApp.dataTreeBranch.stereoType" [ngbTooltip]="'dfmApp.dataTreeBranch.help.stereoType' | translate"
+            >Stereo Type</span
+          >
+        </dt>
+        <dd>
+          <span jhiTranslate="{{ 'dfmApp.StereoTypeEnum.' + dataTreeBranch.stereoType }}">{{ dataTreeBranch.stereoType }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeBranch.name">Name</span></dt>
+        <dd>
+          <span>{{ dataTreeBranch.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeBranch.caption">Caption</span></dt>
+        <dd>
+          <span>{{ dataTreeBranch.caption }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeBranch.documentation">Documentation</span></dt>
+        <dd>
+          <span>{{ dataTreeBranch.documentation }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeBranch.dataTreeLeaf">Data Tree Leaf</span></dt>
+        <dd>
+          <div *ngIf="dataTreeBranch.dataTreeLeaf">
+            <a [routerLink]="['/data-tree-leaf', dataTreeBranch.dataTreeLeaf.id, 'view']">{{ dataTreeBranch.dataTreeLeaf.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeBranch.branchToField">Branch To Field</span></dt>
+        <dd>
+          <span *ngFor="let branchToField of dataTreeBranch.branchToFields; let last = last">
+            <a [routerLink]="['/data-field', branchToField.id, 'view']">{{ branchToField.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeBranch.branchParent">Branch Parent</span></dt>
+        <dd>
+          <span *ngFor="let branchParent of dataTreeBranch.branchParents; let last = last">
+            <a [routerLink]="['/data-tree-branch', branchParent.id, 'view']">{{ branchParent.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/data-tree-branch', dataTreeBranch.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

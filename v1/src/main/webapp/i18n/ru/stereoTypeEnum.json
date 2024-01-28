@@ -1,0 +1,10 @@
+{
+  "dfmApp": {
+    "StereoTypeEnum": {
+      "null": "",
+      "SINGLE_ROW": "SINGLE_ROW",
+      "COLLECTION": "COLLECTION",
+      "TREE": "TREE"
+    }
+  }
+}

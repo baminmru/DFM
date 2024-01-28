@@ -1,0 +1,35 @@
+{
+  "dfmApp": {
+    "dataTreeBranch": {
+      "home": {
+        "title": "Data Tree Branches",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Data Tree Branch",
+        "createOrEditLabel": "Create or edit a Data Tree Branch",
+        "notFound": "No Data Tree Branches found"
+      },
+      "created": "A new Data Tree Branch is created with identifier {{ param }}",
+      "updated": "A Data Tree Branch is updated with identifier {{ param }}",
+      "deleted": "A Data Tree Branch is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Data Tree Branch {{ id }}?"
+      },
+      "detail": {
+        "title": "Data Tree Branch"
+      },
+      "id": "ID",
+      "stereoType": "Stereo Type",
+      "name": "Name",
+      "caption": "Caption",
+      "documentation": "Documentation",
+      "dataTreeLeaf": "Data Tree Leaf",
+      "branchToField": "Branch To Field",
+      "branchParent": "Branch Parent",
+      "dataTreeRoot": "Data Tree Root",
+      "branchChild": "Branch Child",
+      "help": {
+        "stereoType": "stereoType"
+      }
+    }
+  }
+}

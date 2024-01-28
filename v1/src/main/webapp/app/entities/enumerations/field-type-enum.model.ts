@@ -1,0 +1,9 @@
+export enum FieldTypeEnum {
+  STRING_TYPE = 'STRING_TYPE',
+
+  BLOB_TYPE = 'BLOB_TYPE',
+
+  DATE_TYPE = 'DATE_TYPE',
+
+  INTEGER_TYPE = 'INTEGER_TYPE',
+}

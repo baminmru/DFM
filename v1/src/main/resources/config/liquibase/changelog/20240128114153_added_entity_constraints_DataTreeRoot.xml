@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity DataTreeRoot.
+    -->
+    <changeSet id="20240128114153-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="data_tree_branch_id"
+                                 baseTableName="data_tree_root"
+                                 constraintName="fk_data_tree_root__data_tree_branch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="data_tree_branch"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="data_tree_root_id"
+                                 baseTableName="rel_data_tree_root__root_to_field"
+                                 constraintName="fk_rel_data_tree_root__root_to_field__data_tree_root_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="data_tree_root"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="root_to_field_id"
+                                 baseTableName="rel_data_tree_root__root_to_field"
+                                 constraintName="fk_rel_data_tree_root__root_to_field__root_to_field_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="data_field"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="dataTreeRoot">
+      <h2 data-cy="dataTreeRootDetailsHeading"><span jhiTranslate="dfmApp.dataTreeRoot.detail.title">Data Tree Root</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ dataTreeRoot.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="dfmApp.dataTreeRoot.stereoType" [ngbTooltip]="'dfmApp.dataTreeRoot.help.stereoType' | translate"
+            >Stereo Type</span
+          >
+        </dt>
+        <dd>
+          <span jhiTranslate="{{ 'dfmApp.StereoTypeEnum.' + dataTreeRoot.stereoType }}">{{ dataTreeRoot.stereoType }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeRoot.name">Name</span></dt>
+        <dd>
+          <span>{{ dataTreeRoot.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeRoot.caption">Caption</span></dt>
+        <dd>
+          <span>{{ dataTreeRoot.caption }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeRoot.documentation">Documentation</span></dt>
+        <dd>
+          <span>{{ dataTreeRoot.documentation }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeRoot.dataTreeBranch">Data Tree Branch</span></dt>
+        <dd>
+          <div *ngIf="dataTreeRoot.dataTreeBranch">
+            <a [routerLink]="['/data-tree-branch', dataTreeRoot.dataTreeBranch.id, 'view']">{{ dataTreeRoot.dataTreeBranch.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataTreeRoot.rootToField">Root To Field</span></dt>
+        <dd>
+          <span *ngFor="let rootToField of dataTreeRoot.rootToFields; let last = last">
+            <a [routerLink]="['/data-field', rootToField.id, 'view']">{{ rootToField.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/data-tree-root', dataTreeRoot.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

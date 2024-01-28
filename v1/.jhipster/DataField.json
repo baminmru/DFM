@@ -1,0 +1,42 @@
+{
+  "applications": ["dfm"],
+  "changelogDate": "20240128114156",
+  "databaseType": "sql",
+  "entityTableName": "data_field",
+  "fields": [
+    {
+      "fieldName": "inputType",
+      "fieldType": "InputTypeEnum",
+      "fieldValues": "PLAINTEX_INPUT,MULTILINE_INPUT,HTML_INPUT,DATE_INPUT,DATETIME_INPUT,TIME_INPUT,INTEGER_INPUT,NUMBER_INPUT,REFERENCE_INPUT,COMBOBOX_INPUT,OPTION_INPUT"
+    },
+    {
+      "fieldName": "fieldType",
+      "fieldType": "FieldTypeEnum",
+      "fieldValues": "STRING_TYPE,BLOB_TYPE,DATE_TYPE,INTEGER_TYPE"
+    },
+    {
+      "fieldName": "referenceRoot",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "allowNull",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentation",
+      "fieldType": "String"
+    }
+  ],
+  "javadoc": "The DataField entity.",
+  "name": "DataField",
+  "relationships": [],
+  "searchEngine": "no"
+}
