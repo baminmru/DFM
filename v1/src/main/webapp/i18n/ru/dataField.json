@@ -20,14 +20,20 @@
       "id": "ID",
       "inputType": "Input Type",
       "fieldType": "Field Type",
-      "referenceRoot": "Reference Root",
+      "sequence": "Sequence",
+      "isBrief": "Is Brief",
+      "briefSequence": "Brief Sequence",
       "allowNull": "Allow Null",
       "name": "Name",
       "caption": "Caption",
       "documentation": "Documentation",
-      "dataTreeRoot": "Data Tree Root",
-      "dataTreeBranch": "Data Tree Branch",
-      "dataTreeLeaf": "Data Tree Leaf"
+      "tabName": "Tab Name",
+      "groupName": "Group Name",
+      "generationStyle": "Generation Style",
+      "refToRoot": "Ref To Root",
+      "dataTreeBranchToField": "Data Tree Branch To Field",
+      "dataTreeLeafToField": "Data Tree Leaf To Field",
+      "dataTreeRootToField": "Data Tree Root To Field"
     }
   }
 }

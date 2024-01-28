@@ -22,6 +22,26 @@ export const EntityNavbarItems: NavbarItem[] = [
     translationKey: 'global.menu.entities.dataField',
   },
   {
+    name: 'DataTreeBranchToField',
+    route: '/data-tree-branch-to-field',
+    translationKey: 'global.menu.entities.dataTreeBranchToField',
+  },
+  {
+    name: 'DataTreeRootToField',
+    route: '/data-tree-root-to-field',
+    translationKey: 'global.menu.entities.dataTreeRootToField',
+  },
+  {
+    name: 'DataTreeLeafToField',
+    route: '/data-tree-leaf-to-field',
+    translationKey: 'global.menu.entities.dataTreeLeafToField',
+  },
+  {
+    name: 'DataTreeBranchLink',
+    route: '/data-tree-branch-link',
+    translationKey: 'global.menu.entities.dataTreeBranchLink',
+  },
+  {
     name: 'DataForest',
     route: '/data-forest',
     translationKey: 'global.menu.entities.dataForest',

@@ -1,0 +1,201 @@
+application {
+  config {
+    baseName dfm
+    applicationType gateway
+	authenticationType jwt
+    serverPort 8080
+	buildTool 	maven
+	databaseType 	sql
+	prodDatabaseType   postgresql
+	devDatabaseType 	h2Disk
+	clientFramework 	angular
+	serviceDiscoveryType eureka
+	languages [ru,en]
+	packageName com.bami.dfm
+  }
+  entities *  
+  
+
+}
+
+enum StereoTypeEnum{
+    SINGLE_ROW  
+    COLLECTION
+    TREE
+}
+
+
+enum InputTypeEnum{
+    PLAINTEX_INPUT
+    MULTILINE_INPUT
+    HTML_INPUT 
+    DATE_INPUT
+    DATETIME_INPUT
+    TIME_INPUT
+    INTEGER_INPUT
+    NUMBER_INPUT
+    REFERENCE_INPUT
+    COMBOBOX_INPUT
+    OPTION_INPUT
+}
+
+enum FieldTypeEnum{
+    STRING_TYPE
+    BLOB_TYPE
+    DATE_TYPE
+    INTEGER_TYPE
+
+}
+
+
+entity DataTreeRoot {
+  /** stereoType */
+    stereoType StereoTypeEnum required
+
+
+    name String required
+    caption String required
+    documentation String
+
+}
+
+/**
+ * Thy DataTreeBranch entity.
+ */
+entity DataTreeBranch {
+   
+  /** stereoType */
+    stereoType StereoTypeEnum required
+
+
+    name String required
+    caption String required
+    documentation String
+}
+
+
+
+/*
+ * The DataTreeLeaf entity.
+ */
+entity DataTreeLeaf
+{
+   /** stereoType */
+    stereoType StereoTypeEnum required
+
+
+    name String required
+    caption String required
+    documentation String
+}
+
+/**
+ * The DataField entity.
+ */
+entity DataField {
+
+    inputType InputTypeEnum required
+    fieldType FieldTypeEnum required
+
+    // regular sequence
+	sequence Integer required
+
+    // brief support
+    isBrief Boolean required
+    briefSequence Integer 
+
+    allowNull Boolean required
+    name String required
+    caption String required
+    documentation String
+
+    // options
+    tabName String
+    groupName String
+    generationStyle String
+
+}
+
+
+
+entity DataTreeBranchToField {
+}
+
+entity DataTreeRootToField {
+}
+
+entity DataTreeLeafToField {
+}
+
+entity DataTreeBranchLink {
+}
+
+
+
+relationship OneToMany {
+    @OnDelete(SETNULL) DataField {refToRoot} to DataTreeRoot
+}
+
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeRoot to DataTreeBranch
+}
+
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeBranch to  DataTreeLeaf
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeBranch {branchToField} 
+    to DataTreeBranchToField
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeBranchToField 
+    to DataField
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeBranch {BranchParent} 
+    to DataTreeBranchLink
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeBranchLink
+    to DataTreeBranch {BranchChild}
+}
+
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeLeaf {leafToField} 
+    to DataTreeLeafToField
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeLeafToField 
+    to DataField
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeRoot {rootToField} 
+    to DataTreeRootToField
+}
+
+relationship OneToMany {
+    @OnDelete(CASCADE) DataTreeRootToField 
+    to DataField
+}
+
+
+entity DataForest {
+
+
+    name String required
+    caption String required
+    documentation String
+}
+
+relationship OneToMany {
+    DataForest {forestTrees} to DataTreeRoot 
+}

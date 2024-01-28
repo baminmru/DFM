@@ -3,6 +3,8 @@ package com.bami.dfm.web.rest;
 import com.bami.dfm.domain.DataTreeLeaf;
 import com.bami.dfm.repository.DataTreeLeafRepository;
 import com.bami.dfm.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -50,7 +52,7 @@ public class DataTreeLeafResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/data-tree-leaves")
-    public Mono<ResponseEntity<DataTreeLeaf>> createDataTreeLeaf(@RequestBody DataTreeLeaf dataTreeLeaf) throws URISyntaxException {
+    public Mono<ResponseEntity<DataTreeLeaf>> createDataTreeLeaf(@Valid @RequestBody DataTreeLeaf dataTreeLeaf) throws URISyntaxException {
         log.debug("REST request to save DataTreeLeaf : {}", dataTreeLeaf);
         if (dataTreeLeaf.getId() != null) {
             throw new BadRequestAlertException("A new dataTreeLeaf cannot already have an ID", ENTITY_NAME, "idexists");
@@ -82,7 +84,7 @@ public class DataTreeLeafResource {
     @PutMapping("/data-tree-leaves/{id}")
     public Mono<ResponseEntity<DataTreeLeaf>> updateDataTreeLeaf(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataTreeLeaf dataTreeLeaf
+        @Valid @RequestBody DataTreeLeaf dataTreeLeaf
     ) throws URISyntaxException {
         log.debug("REST request to update DataTreeLeaf : {}, {}", id, dataTreeLeaf);
         if (dataTreeLeaf.getId() == null) {
@@ -125,7 +127,7 @@ public class DataTreeLeafResource {
     @PatchMapping(value = "/data-tree-leaves/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<DataTreeLeaf>> partialUpdateDataTreeLeaf(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataTreeLeaf dataTreeLeaf
+        @NotNull @RequestBody DataTreeLeaf dataTreeLeaf
     ) throws URISyntaxException {
         log.debug("REST request to partial update DataTreeLeaf partially : {}, {}", id, dataTreeLeaf);
         if (dataTreeLeaf.getId() == null) {
@@ -176,17 +178,12 @@ public class DataTreeLeafResource {
     /**
      * {@code GET  /data-tree-leaves} : get all the dataTreeLeaves.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dataTreeLeaves in body.
      */
     @GetMapping(value = "/data-tree-leaves", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<List<DataTreeLeaf>> getAllDataTreeLeaves(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public Mono<List<DataTreeLeaf>> getAllDataTreeLeaves() {
         log.debug("REST request to get all DataTreeLeaves");
-        if (eagerload) {
-            return dataTreeLeafRepository.findAllWithEagerRelationships().collectList();
-        } else {
-            return dataTreeLeafRepository.findAll().collectList();
-        }
+        return dataTreeLeafRepository.findAll().collectList();
     }
 
     /**
@@ -208,7 +205,7 @@ public class DataTreeLeafResource {
     @GetMapping("/data-tree-leaves/{id}")
     public Mono<ResponseEntity<DataTreeLeaf>> getDataTreeLeaf(@PathVariable Long id) {
         log.debug("REST request to get DataTreeLeaf : {}", id);
-        Mono<DataTreeLeaf> dataTreeLeaf = dataTreeLeafRepository.findOneWithEagerRelationships(id);
+        Mono<DataTreeLeaf> dataTreeLeaf = dataTreeLeafRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(dataTreeLeaf);
     }
 

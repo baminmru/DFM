@@ -92,10 +92,9 @@
             </div>
           </td>
           <td>
-            <span *ngFor="let rootToField of dataTreeRoot.rootToFields; let last = last">
-              <a class="form-control-static" [routerLink]="['/data-field', rootToField.id, 'view']">{{ rootToField.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="dataTreeRoot.rootToField">
+              <a [routerLink]="['/data-tree-root-to-field', dataTreeRoot.rootToField.id, 'view']">{{ dataTreeRoot.rootToField.id }}</a>
+            </div>
           </td>
           <td class="text-end">
             <div class="btn-group">

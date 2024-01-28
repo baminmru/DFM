@@ -25,7 +25,7 @@ describe('DataTreeRoot Form Service', () => {
             caption: expect.any(Object),
             documentation: expect.any(Object),
             dataTreeBranch: expect.any(Object),
-            rootToFields: expect.any(Object),
+            rootToField: expect.any(Object),
           })
         );
       });
@@ -41,7 +41,7 @@ describe('DataTreeRoot Form Service', () => {
             caption: expect.any(Object),
             documentation: expect.any(Object),
             dataTreeBranch: expect.any(Object),
-            rootToFields: expect.any(Object),
+            rootToField: expect.any(Object),
           })
         );
       });

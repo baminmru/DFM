@@ -25,6 +25,26 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./data-field/data-field.routes'),
       },
       {
+        path: 'data-tree-branch-to-field',
+        data: { pageTitle: 'dfmApp.dataTreeBranchToField.home.title' },
+        loadChildren: () => import('./data-tree-branch-to-field/data-tree-branch-to-field.routes'),
+      },
+      {
+        path: 'data-tree-root-to-field',
+        data: { pageTitle: 'dfmApp.dataTreeRootToField.home.title' },
+        loadChildren: () => import('./data-tree-root-to-field/data-tree-root-to-field.routes'),
+      },
+      {
+        path: 'data-tree-leaf-to-field',
+        data: { pageTitle: 'dfmApp.dataTreeLeafToField.home.title' },
+        loadChildren: () => import('./data-tree-leaf-to-field/data-tree-leaf-to-field.routes'),
+      },
+      {
+        path: 'data-tree-branch-link',
+        data: { pageTitle: 'dfmApp.dataTreeBranchLink.home.title' },
+        loadChildren: () => import('./data-tree-branch-link/data-tree-branch-link.routes'),
+      },
+      {
         path: 'data-forest',
         data: { pageTitle: 'dfmApp.dataForest.home.title' },
         loadChildren: () => import('./data-forest/data-forest.routes'),

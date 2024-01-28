@@ -31,16 +31,39 @@
               {{ 'dfmApp.StereoTypeEnum.' + stereoTypeEnum | translate }}
             </option>
           </select>
+          <div *ngIf="editForm.get('stereoType')!.invalid && (editForm.get('stereoType')!.dirty || editForm.get('stereoType')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('stereoType')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataTreeBranch.name" for="field_name">Name</label>
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataTreeBranch.caption" for="field_caption">Caption</label>
           <input type="text" class="form-control" name="caption" id="field_caption" data-cy="caption" formControlName="caption" />
+          <div *ngIf="editForm.get('caption')!.invalid && (editForm.get('caption')!.dirty || editForm.get('caption')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('caption')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -73,33 +96,38 @@
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="dfmApp.dataTreeBranch.branchToField" for="field_branchToFields">Branch To Field</label>
+          <label class="form-label" jhiTranslate="dfmApp.dataTreeBranch.branchToField" for="field_branchToField">Branch To Field</label>
           <select
             class="form-control"
-            id="field_branchToFields"
+            id="field_branchToField"
             data-cy="branchToField"
-            multiple
-            name="branchToFields"
-            formControlName="branchToFields"
-            [compareWith]="compareDataField"
+            name="branchToField"
+            formControlName="branchToField"
+            [compareWith]="compareDataTreeBranchToField"
           >
-            <option [ngValue]="dataFieldOption" *ngFor="let dataFieldOption of dataFieldsSharedCollection">{{ dataFieldOption.id }}</option>
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="dataTreeBranchToFieldOption"
+              *ngFor="let dataTreeBranchToFieldOption of dataTreeBranchToFieldsSharedCollection"
+            >
+              {{ dataTreeBranchToFieldOption.id }}
+            </option>
           </select>
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="dfmApp.dataTreeBranch.branchParent" for="field_branchParents">Branch Parent</label>
+          <label class="form-label" jhiTranslate="dfmApp.dataTreeBranch.branchParent" for="field_branchParent">Branch Parent</label>
           <select
             class="form-control"
-            id="field_branchParents"
+            id="field_branchParent"
             data-cy="branchParent"
-            multiple
-            name="branchParents"
-            formControlName="branchParents"
-            [compareWith]="compareDataTreeBranch"
+            name="branchParent"
+            formControlName="branchParent"
+            [compareWith]="compareDataTreeBranchLink"
           >
-            <option [ngValue]="dataTreeBranchOption" *ngFor="let dataTreeBranchOption of dataTreeBranchesSharedCollection">
-              {{ dataTreeBranchOption.id }}
+            <option [ngValue]="null"></option>
+            <option [ngValue]="dataTreeBranchLinkOption" *ngFor="let dataTreeBranchLinkOption of dataTreeBranchLinksSharedCollection">
+              {{ dataTreeBranchLinkOption.id }}
             </option>
           </select>
         </div>

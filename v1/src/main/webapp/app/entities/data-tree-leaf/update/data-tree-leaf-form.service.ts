@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type DataTreeLeafFormGroupInput = IDataTreeLeaf | PartialWithRequiredKeyOf<NewDataTreeLeaf>;
 
-type DataTreeLeafFormDefaults = Pick<NewDataTreeLeaf, 'id' | 'leafToFields'>;
+type DataTreeLeafFormDefaults = Pick<NewDataTreeLeaf, 'id'>;
 
 type DataTreeLeafFormGroupContent = {
   id: FormControl<IDataTreeLeaf['id'] | NewDataTreeLeaf['id']>;
@@ -22,7 +22,7 @@ type DataTreeLeafFormGroupContent = {
   name: FormControl<IDataTreeLeaf['name']>;
   caption: FormControl<IDataTreeLeaf['caption']>;
   documentation: FormControl<IDataTreeLeaf['documentation']>;
-  leafToFields: FormControl<IDataTreeLeaf['leafToFields']>;
+  leafToField: FormControl<IDataTreeLeaf['leafToField']>;
 };
 
 export type DataTreeLeafFormGroup = FormGroup<DataTreeLeafFormGroupContent>;
@@ -42,11 +42,17 @@ export class DataTreeLeafFormService {
           validators: [Validators.required],
         }
       ),
-      stereoType: new FormControl(dataTreeLeafRawValue.stereoType),
-      name: new FormControl(dataTreeLeafRawValue.name),
-      caption: new FormControl(dataTreeLeafRawValue.caption),
+      stereoType: new FormControl(dataTreeLeafRawValue.stereoType, {
+        validators: [Validators.required],
+      }),
+      name: new FormControl(dataTreeLeafRawValue.name, {
+        validators: [Validators.required],
+      }),
+      caption: new FormControl(dataTreeLeafRawValue.caption, {
+        validators: [Validators.required],
+      }),
       documentation: new FormControl(dataTreeLeafRawValue.documentation),
-      leafToFields: new FormControl(dataTreeLeafRawValue.leafToFields ?? []),
+      leafToField: new FormControl(dataTreeLeafRawValue.leafToField),
     });
   }
 
@@ -67,7 +73,6 @@ export class DataTreeLeafFormService {
   private getFormDefaults(): DataTreeLeafFormDefaults {
     return {
       id: null,
-      leafToFields: [],
     };
   }
 }

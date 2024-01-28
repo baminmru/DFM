@@ -3,7 +3,6 @@ package com.bami.dfm.web.rest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
 
 import com.bami.dfm.IntegrationTest;
 import com.bami.dfm.domain.DataTreeLeaf;
@@ -17,21 +16,16 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import reactor.core.publisher.Flux;
 
 /**
  * Integration tests for the {@link DataTreeLeafResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureWebTestClient(timeout = IntegrationTest.DEFAULT_ENTITY_TIMEOUT)
 @WithMockUser
 class DataTreeLeafResourceIT {
@@ -56,9 +50,6 @@ class DataTreeLeafResourceIT {
 
     @Autowired
     private DataTreeLeafRepository dataTreeLeafRepository;
-
-    @Mock
-    private DataTreeLeafRepository dataTreeLeafRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -100,7 +91,6 @@ class DataTreeLeafResourceIT {
 
     public static void deleteEntities(EntityManager em) {
         try {
-            em.deleteAll("rel_data_tree_leaf__leaf_to_field").block();
             em.deleteAll(DataTreeLeaf.class).block();
         } catch (Exception e) {
             // It can fail, if other entities are still referring this - it will be removed later.
@@ -164,6 +154,69 @@ class DataTreeLeafResourceIT {
     }
 
     @Test
+    void checkStereoTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataTreeLeafRepository.findAll().collectList().block().size();
+        // set the field null
+        dataTreeLeaf.setStereoType(null);
+
+        // Create the DataTreeLeaf, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataTreeLeaf))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataTreeLeaf> dataTreeLeafList = dataTreeLeafRepository.findAll().collectList().block();
+        assertThat(dataTreeLeafList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataTreeLeafRepository.findAll().collectList().block().size();
+        // set the field null
+        dataTreeLeaf.setName(null);
+
+        // Create the DataTreeLeaf, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataTreeLeaf))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataTreeLeaf> dataTreeLeafList = dataTreeLeafRepository.findAll().collectList().block();
+        assertThat(dataTreeLeafList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkCaptionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataTreeLeafRepository.findAll().collectList().block().size();
+        // set the field null
+        dataTreeLeaf.setCaption(null);
+
+        // Create the DataTreeLeaf, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataTreeLeaf))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataTreeLeaf> dataTreeLeafList = dataTreeLeafRepository.findAll().collectList().block();
+        assertThat(dataTreeLeafList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     void getAllDataTreeLeavesAsStream() {
         // Initialize the database
         dataTreeLeafRepository.save(dataTreeLeaf).block();
@@ -218,23 +271,6 @@ class DataTreeLeafResourceIT {
             .value(hasItem(DEFAULT_CAPTION))
             .jsonPath("$.[*].documentation")
             .value(hasItem(DEFAULT_DOCUMENTATION));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllDataTreeLeavesWithEagerRelationshipsIsEnabled() {
-        when(dataTreeLeafRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(Flux.empty());
-
-        webTestClient.get().uri(ENTITY_API_URL + "?eagerload=true").exchange().expectStatus().isOk();
-
-        verify(dataTreeLeafRepositoryMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllDataTreeLeavesWithEagerRelationshipsIsNotEnabled() {
-        when(dataTreeLeafRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(Flux.empty());
-
-        webTestClient.get().uri(ENTITY_API_URL + "?eagerload=false").exchange().expectStatus().isOk();
-        verify(dataTreeLeafRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

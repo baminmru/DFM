@@ -23,6 +23,9 @@ eureka:
 spring:
   application:
     name: dfm
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.gateway.config.GatewayMetricsAutoConfiguration
   cloud:
     config:
       enabled: false
@@ -79,7 +82,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: ZDYwZDM3N2NkZTVjZjlkYTk2MTIzMDk5MjMzNDQyMzU5MTEwZmE1MGY3YTIwYzQwYmI0NDU5ODI2OTM4NzMxODI3NDJmYWVmNGU5MTdiMTUzOTEzMmEyMTNiZTUwYmY3NzcxODA1NmI3N2M4MjI5NTRhYThkZGRiODQwOGI4MDI=
+        base64-secret: ODhkMzNhNGQ2OTBhYWJjNzY2NDE0NDE3YTQ5MmM4ZmUzYmI1NDg3NjE4ZjNjYjhhM2FlMDAwM2Y1YTYwZWFlZWYwZjI0YzVhMWVkMDYzODQxMWMwNzFkOTc0M2EwZDUxMGZjZmU4MTIzZTIxZDUxYWU4NDIwYzExZDllZDA0YTA=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 86400

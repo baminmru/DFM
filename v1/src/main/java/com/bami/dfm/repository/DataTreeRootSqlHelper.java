@@ -17,6 +17,7 @@ public class DataTreeRootSqlHelper {
         columns.add(Column.aliased("documentation", table, columnPrefix + "_documentation"));
 
         columns.add(Column.aliased("data_tree_branch_id", table, columnPrefix + "_data_tree_branch_id"));
+        columns.add(Column.aliased("root_to_field_id", table, columnPrefix + "_root_to_field_id"));
         return columns;
     }
 }

@@ -14,20 +14,23 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type DataFieldFormGroupInput = IDataField | PartialWithRequiredKeyOf<NewDataField>;
 
-type DataFieldFormDefaults = Pick<NewDataField, 'id' | 'allowNull' | 'dataTreeRoots' | 'dataTreeBranches' | 'dataTreeLeaves'>;
+type DataFieldFormDefaults = Pick<NewDataField, 'id' | 'isBrief' | 'allowNull'>;
 
 type DataFieldFormGroupContent = {
   id: FormControl<IDataField['id'] | NewDataField['id']>;
   inputType: FormControl<IDataField['inputType']>;
   fieldType: FormControl<IDataField['fieldType']>;
-  referenceRoot: FormControl<IDataField['referenceRoot']>;
+  sequence: FormControl<IDataField['sequence']>;
+  isBrief: FormControl<IDataField['isBrief']>;
+  briefSequence: FormControl<IDataField['briefSequence']>;
   allowNull: FormControl<IDataField['allowNull']>;
   name: FormControl<IDataField['name']>;
   caption: FormControl<IDataField['caption']>;
   documentation: FormControl<IDataField['documentation']>;
-  dataTreeRoots: FormControl<IDataField['dataTreeRoots']>;
-  dataTreeBranches: FormControl<IDataField['dataTreeBranches']>;
-  dataTreeLeaves: FormControl<IDataField['dataTreeLeaves']>;
+  tabName: FormControl<IDataField['tabName']>;
+  groupName: FormControl<IDataField['groupName']>;
+  generationStyle: FormControl<IDataField['generationStyle']>;
+  refToRoot: FormControl<IDataField['refToRoot']>;
 };
 
 export type DataFieldFormGroup = FormGroup<DataFieldFormGroupContent>;
@@ -47,16 +50,33 @@ export class DataFieldFormService {
           validators: [Validators.required],
         }
       ),
-      inputType: new FormControl(dataFieldRawValue.inputType),
-      fieldType: new FormControl(dataFieldRawValue.fieldType),
-      referenceRoot: new FormControl(dataFieldRawValue.referenceRoot),
-      allowNull: new FormControl(dataFieldRawValue.allowNull),
-      name: new FormControl(dataFieldRawValue.name),
-      caption: new FormControl(dataFieldRawValue.caption),
+      inputType: new FormControl(dataFieldRawValue.inputType, {
+        validators: [Validators.required],
+      }),
+      fieldType: new FormControl(dataFieldRawValue.fieldType, {
+        validators: [Validators.required],
+      }),
+      sequence: new FormControl(dataFieldRawValue.sequence, {
+        validators: [Validators.required],
+      }),
+      isBrief: new FormControl(dataFieldRawValue.isBrief, {
+        validators: [Validators.required],
+      }),
+      briefSequence: new FormControl(dataFieldRawValue.briefSequence),
+      allowNull: new FormControl(dataFieldRawValue.allowNull, {
+        validators: [Validators.required],
+      }),
+      name: new FormControl(dataFieldRawValue.name, {
+        validators: [Validators.required],
+      }),
+      caption: new FormControl(dataFieldRawValue.caption, {
+        validators: [Validators.required],
+      }),
       documentation: new FormControl(dataFieldRawValue.documentation),
-      dataTreeRoots: new FormControl(dataFieldRawValue.dataTreeRoots ?? []),
-      dataTreeBranches: new FormControl(dataFieldRawValue.dataTreeBranches ?? []),
-      dataTreeLeaves: new FormControl(dataFieldRawValue.dataTreeLeaves ?? []),
+      tabName: new FormControl(dataFieldRawValue.tabName),
+      groupName: new FormControl(dataFieldRawValue.groupName),
+      generationStyle: new FormControl(dataFieldRawValue.generationStyle),
+      refToRoot: new FormControl(dataFieldRawValue.refToRoot),
     });
   }
 
@@ -77,10 +97,8 @@ export class DataFieldFormService {
   private getFormDefaults(): DataFieldFormDefaults {
     return {
       id: null,
+      isBrief: false,
       allowNull: false,
-      dataTreeRoots: [],
-      dataTreeBranches: [],
-      dataTreeLeaves: [],
     };
   }
 }

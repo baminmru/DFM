@@ -3,6 +3,8 @@ package com.bami.dfm.web.rest;
 import com.bami.dfm.domain.DataTreeBranch;
 import com.bami.dfm.repository.DataTreeBranchRepository;
 import com.bami.dfm.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -50,7 +52,8 @@ public class DataTreeBranchResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/data-tree-branches")
-    public Mono<ResponseEntity<DataTreeBranch>> createDataTreeBranch(@RequestBody DataTreeBranch dataTreeBranch) throws URISyntaxException {
+    public Mono<ResponseEntity<DataTreeBranch>> createDataTreeBranch(@Valid @RequestBody DataTreeBranch dataTreeBranch)
+        throws URISyntaxException {
         log.debug("REST request to save DataTreeBranch : {}", dataTreeBranch);
         if (dataTreeBranch.getId() != null) {
             throw new BadRequestAlertException("A new dataTreeBranch cannot already have an ID", ENTITY_NAME, "idexists");
@@ -82,7 +85,7 @@ public class DataTreeBranchResource {
     @PutMapping("/data-tree-branches/{id}")
     public Mono<ResponseEntity<DataTreeBranch>> updateDataTreeBranch(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataTreeBranch dataTreeBranch
+        @Valid @RequestBody DataTreeBranch dataTreeBranch
     ) throws URISyntaxException {
         log.debug("REST request to update DataTreeBranch : {}, {}", id, dataTreeBranch);
         if (dataTreeBranch.getId() == null) {
@@ -125,7 +128,7 @@ public class DataTreeBranchResource {
     @PatchMapping(value = "/data-tree-branches/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<DataTreeBranch>> partialUpdateDataTreeBranch(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataTreeBranch dataTreeBranch
+        @NotNull @RequestBody DataTreeBranch dataTreeBranch
     ) throws URISyntaxException {
         log.debug("REST request to partial update DataTreeBranch partially : {}, {}", id, dataTreeBranch);
         if (dataTreeBranch.getId() == null) {
@@ -176,17 +179,12 @@ public class DataTreeBranchResource {
     /**
      * {@code GET  /data-tree-branches} : get all the dataTreeBranches.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dataTreeBranches in body.
      */
     @GetMapping(value = "/data-tree-branches", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<List<DataTreeBranch>> getAllDataTreeBranches(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public Mono<List<DataTreeBranch>> getAllDataTreeBranches() {
         log.debug("REST request to get all DataTreeBranches");
-        if (eagerload) {
-            return dataTreeBranchRepository.findAllWithEagerRelationships().collectList();
-        } else {
-            return dataTreeBranchRepository.findAll().collectList();
-        }
+        return dataTreeBranchRepository.findAll().collectList();
     }
 
     /**
@@ -208,7 +206,7 @@ public class DataTreeBranchResource {
     @GetMapping("/data-tree-branches/{id}")
     public Mono<ResponseEntity<DataTreeBranch>> getDataTreeBranch(@PathVariable Long id) {
         log.debug("REST request to get DataTreeBranch : {}", id);
-        Mono<DataTreeBranch> dataTreeBranch = dataTreeBranchRepository.findOneWithEagerRelationships(id);
+        Mono<DataTreeBranch> dataTreeBranch = dataTreeBranchRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(dataTreeBranch);
     }
 

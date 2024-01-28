@@ -3,6 +3,7 @@ package com.bami.dfm.domain;
 import com.bami.dfm.domain.enumeration.StereoTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,13 +29,16 @@ public class DataTreeBranch implements Serializable {
     /**
      * stereoType
      */
-    @Schema(description = "stereoType")
+    @Schema(description = "stereoType", required = true)
+    @NotNull(message = "must not be null")
     @Column("stereo_type")
     private StereoTypeEnum stereoType;
 
+    @NotNull(message = "must not be null")
     @Column("name")
     private String name;
 
+    @NotNull(message = "must not be null")
     @Column("caption")
     private String caption;
 
@@ -42,33 +46,33 @@ public class DataTreeBranch implements Serializable {
     private String documentation;
 
     @Transient
-    @JsonIgnoreProperties(value = { "leafToFields", "dataTreeBranches" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "leafToField", "dataTreeBranches" }, allowSetters = true)
     private DataTreeLeaf dataTreeLeaf;
 
     @Transient
-    @JsonIgnoreProperties(value = { "dataTreeRoots", "dataTreeBranches", "dataTreeLeaves" }, allowSetters = true)
-    private Set<DataField> branchToFields = new HashSet<>();
+    @JsonIgnoreProperties(value = { "dataField" }, allowSetters = true)
+    private DataTreeBranchToField branchToField;
 
     @Transient
-    @JsonIgnoreProperties(
-        value = { "dataTreeLeaf", "branchToFields", "branchParents", "dataTreeRoots", "branchChildren" },
-        allowSetters = true
-    )
-    private Set<DataTreeBranch> branchParents = new HashSet<>();
+    @JsonIgnoreProperties(value = { "dataTreeBranch" }, allowSetters = true)
+    private DataTreeBranchLink branchParent;
 
     @Transient
-    @JsonIgnoreProperties(value = { "dataTreeBranch", "rootToFields" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "dataTreeBranch", "rootToField" }, allowSetters = true)
     private Set<DataTreeRoot> dataTreeRoots = new HashSet<>();
 
     @Transient
-    @JsonIgnoreProperties(
-        value = { "dataTreeLeaf", "branchToFields", "branchParents", "dataTreeRoots", "branchChildren" },
-        allowSetters = true
-    )
-    private Set<DataTreeBranch> branchChildren = new HashSet<>();
+    @JsonIgnoreProperties(value = { "dataTreeBranch" }, allowSetters = true)
+    private Set<DataTreeBranchLink> branchChildren = new HashSet<>();
 
     @Column("data_tree_leaf_id")
     private Long dataTreeLeafId;
+
+    @Column("branch_to_field_id")
+    private Long branchToFieldId;
+
+    @Column("branch_parent_id")
+    private Long branchParentId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -151,53 +155,31 @@ public class DataTreeBranch implements Serializable {
         return this;
     }
 
-    public Set<DataField> getBranchToFields() {
-        return this.branchToFields;
+    public DataTreeBranchToField getBranchToField() {
+        return this.branchToField;
     }
 
-    public void setBranchToFields(Set<DataField> dataFields) {
-        this.branchToFields = dataFields;
+    public void setBranchToField(DataTreeBranchToField dataTreeBranchToField) {
+        this.branchToField = dataTreeBranchToField;
+        this.branchToFieldId = dataTreeBranchToField != null ? dataTreeBranchToField.getId() : null;
     }
 
-    public DataTreeBranch branchToFields(Set<DataField> dataFields) {
-        this.setBranchToFields(dataFields);
+    public DataTreeBranch branchToField(DataTreeBranchToField dataTreeBranchToField) {
+        this.setBranchToField(dataTreeBranchToField);
         return this;
     }
 
-    public DataTreeBranch addBranchToField(DataField dataField) {
-        this.branchToFields.add(dataField);
-        dataField.getDataTreeBranches().add(this);
-        return this;
+    public DataTreeBranchLink getBranchParent() {
+        return this.branchParent;
     }
 
-    public DataTreeBranch removeBranchToField(DataField dataField) {
-        this.branchToFields.remove(dataField);
-        dataField.getDataTreeBranches().remove(this);
-        return this;
+    public void setBranchParent(DataTreeBranchLink dataTreeBranchLink) {
+        this.branchParent = dataTreeBranchLink;
+        this.branchParentId = dataTreeBranchLink != null ? dataTreeBranchLink.getId() : null;
     }
 
-    public Set<DataTreeBranch> getBranchParents() {
-        return this.branchParents;
-    }
-
-    public void setBranchParents(Set<DataTreeBranch> dataTreeBranches) {
-        this.branchParents = dataTreeBranches;
-    }
-
-    public DataTreeBranch branchParents(Set<DataTreeBranch> dataTreeBranches) {
-        this.setBranchParents(dataTreeBranches);
-        return this;
-    }
-
-    public DataTreeBranch addBranchParent(DataTreeBranch dataTreeBranch) {
-        this.branchParents.add(dataTreeBranch);
-        dataTreeBranch.getBranchChildren().add(this);
-        return this;
-    }
-
-    public DataTreeBranch removeBranchParent(DataTreeBranch dataTreeBranch) {
-        this.branchParents.remove(dataTreeBranch);
-        dataTreeBranch.getBranchChildren().remove(this);
+    public DataTreeBranch branchParent(DataTreeBranchLink dataTreeBranchLink) {
+        this.setBranchParent(dataTreeBranchLink);
         return this;
     }
 
@@ -232,34 +214,34 @@ public class DataTreeBranch implements Serializable {
         return this;
     }
 
-    public Set<DataTreeBranch> getBranchChildren() {
+    public Set<DataTreeBranchLink> getBranchChildren() {
         return this.branchChildren;
     }
 
-    public void setBranchChildren(Set<DataTreeBranch> dataTreeBranches) {
+    public void setBranchChildren(Set<DataTreeBranchLink> dataTreeBranchLinks) {
         if (this.branchChildren != null) {
-            this.branchChildren.forEach(i -> i.removeBranchParent(this));
+            this.branchChildren.forEach(i -> i.setDataTreeBranch(null));
         }
-        if (dataTreeBranches != null) {
-            dataTreeBranches.forEach(i -> i.addBranchParent(this));
+        if (dataTreeBranchLinks != null) {
+            dataTreeBranchLinks.forEach(i -> i.setDataTreeBranch(this));
         }
-        this.branchChildren = dataTreeBranches;
+        this.branchChildren = dataTreeBranchLinks;
     }
 
-    public DataTreeBranch branchChildren(Set<DataTreeBranch> dataTreeBranches) {
-        this.setBranchChildren(dataTreeBranches);
+    public DataTreeBranch branchChildren(Set<DataTreeBranchLink> dataTreeBranchLinks) {
+        this.setBranchChildren(dataTreeBranchLinks);
         return this;
     }
 
-    public DataTreeBranch addBranchChild(DataTreeBranch dataTreeBranch) {
-        this.branchChildren.add(dataTreeBranch);
-        dataTreeBranch.getBranchParents().add(this);
+    public DataTreeBranch addBranchChild(DataTreeBranchLink dataTreeBranchLink) {
+        this.branchChildren.add(dataTreeBranchLink);
+        dataTreeBranchLink.setDataTreeBranch(this);
         return this;
     }
 
-    public DataTreeBranch removeBranchChild(DataTreeBranch dataTreeBranch) {
-        this.branchChildren.remove(dataTreeBranch);
-        dataTreeBranch.getBranchParents().remove(this);
+    public DataTreeBranch removeBranchChild(DataTreeBranchLink dataTreeBranchLink) {
+        this.branchChildren.remove(dataTreeBranchLink);
+        dataTreeBranchLink.setDataTreeBranch(null);
         return this;
     }
 
@@ -269,6 +251,22 @@ public class DataTreeBranch implements Serializable {
 
     public void setDataTreeLeafId(Long dataTreeLeaf) {
         this.dataTreeLeafId = dataTreeLeaf;
+    }
+
+    public Long getBranchToFieldId() {
+        return this.branchToFieldId;
+    }
+
+    public void setBranchToFieldId(Long dataTreeBranchToField) {
+        this.branchToFieldId = dataTreeBranchToField;
+    }
+
+    public Long getBranchParentId() {
+        return this.branchParentId;
+    }
+
+    public void setBranchParentId(Long dataTreeBranchLink) {
+        this.branchParentId = dataTreeBranchLink;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

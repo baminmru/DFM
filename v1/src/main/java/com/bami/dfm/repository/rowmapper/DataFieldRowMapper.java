@@ -29,11 +29,17 @@ public class DataFieldRowMapper implements BiFunction<Row, String, DataField> {
         entity.setId(converter.fromRow(row, prefix + "_id", Long.class));
         entity.setInputType(converter.fromRow(row, prefix + "_input_type", InputTypeEnum.class));
         entity.setFieldType(converter.fromRow(row, prefix + "_field_type", FieldTypeEnum.class));
-        entity.setReferenceRoot(converter.fromRow(row, prefix + "_reference_root", String.class));
+        entity.setSequence(converter.fromRow(row, prefix + "_sequence", Integer.class));
+        entity.setIsBrief(converter.fromRow(row, prefix + "_is_brief", Boolean.class));
+        entity.setBriefSequence(converter.fromRow(row, prefix + "_brief_sequence", Integer.class));
         entity.setAllowNull(converter.fromRow(row, prefix + "_allow_null", Boolean.class));
         entity.setName(converter.fromRow(row, prefix + "_name", String.class));
         entity.setCaption(converter.fromRow(row, prefix + "_caption", String.class));
         entity.setDocumentation(converter.fromRow(row, prefix + "_documentation", String.class));
+        entity.setTabName(converter.fromRow(row, prefix + "_tab_name", String.class));
+        entity.setGroupName(converter.fromRow(row, prefix + "_group_name", String.class));
+        entity.setGenerationStyle(converter.fromRow(row, prefix + "_generation_style", String.class));
+        entity.setRefToRootId(converter.fromRow(row, prefix + "_ref_to_root_id", Long.class));
         return entity;
     }
 }

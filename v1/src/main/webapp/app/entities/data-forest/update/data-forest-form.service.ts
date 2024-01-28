@@ -41,8 +41,12 @@ export class DataForestFormService {
           validators: [Validators.required],
         }
       ),
-      name: new FormControl(dataForestRawValue.name),
-      caption: new FormControl(dataForestRawValue.caption),
+      name: new FormControl(dataForestRawValue.name, {
+        validators: [Validators.required],
+      }),
+      caption: new FormControl(dataForestRawValue.caption, {
+        validators: [Validators.required],
+      }),
       documentation: new FormControl(dataForestRawValue.documentation),
       forestTrees: new FormControl(dataForestRawValue.forestTrees),
     });

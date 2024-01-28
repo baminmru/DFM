@@ -3,6 +3,8 @@ package com.bami.dfm.web.rest;
 import com.bami.dfm.domain.DataField;
 import com.bami.dfm.repository.DataFieldRepository;
 import com.bami.dfm.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -50,7 +52,7 @@ public class DataFieldResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/data-fields")
-    public Mono<ResponseEntity<DataField>> createDataField(@RequestBody DataField dataField) throws URISyntaxException {
+    public Mono<ResponseEntity<DataField>> createDataField(@Valid @RequestBody DataField dataField) throws URISyntaxException {
         log.debug("REST request to save DataField : {}", dataField);
         if (dataField.getId() != null) {
             throw new BadRequestAlertException("A new dataField cannot already have an ID", ENTITY_NAME, "idexists");
@@ -82,7 +84,7 @@ public class DataFieldResource {
     @PutMapping("/data-fields/{id}")
     public Mono<ResponseEntity<DataField>> updateDataField(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataField dataField
+        @Valid @RequestBody DataField dataField
     ) throws URISyntaxException {
         log.debug("REST request to update DataField : {}, {}", id, dataField);
         if (dataField.getId() == null) {
@@ -125,7 +127,7 @@ public class DataFieldResource {
     @PatchMapping(value = "/data-fields/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<DataField>> partialUpdateDataField(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataField dataField
+        @NotNull @RequestBody DataField dataField
     ) throws URISyntaxException {
         log.debug("REST request to partial update DataField partially : {}, {}", id, dataField);
         if (dataField.getId() == null) {
@@ -151,8 +153,14 @@ public class DataFieldResource {
                         if (dataField.getFieldType() != null) {
                             existingDataField.setFieldType(dataField.getFieldType());
                         }
-                        if (dataField.getReferenceRoot() != null) {
-                            existingDataField.setReferenceRoot(dataField.getReferenceRoot());
+                        if (dataField.getSequence() != null) {
+                            existingDataField.setSequence(dataField.getSequence());
+                        }
+                        if (dataField.getIsBrief() != null) {
+                            existingDataField.setIsBrief(dataField.getIsBrief());
+                        }
+                        if (dataField.getBriefSequence() != null) {
+                            existingDataField.setBriefSequence(dataField.getBriefSequence());
                         }
                         if (dataField.getAllowNull() != null) {
                             existingDataField.setAllowNull(dataField.getAllowNull());
@@ -165,6 +173,15 @@ public class DataFieldResource {
                         }
                         if (dataField.getDocumentation() != null) {
                             existingDataField.setDocumentation(dataField.getDocumentation());
+                        }
+                        if (dataField.getTabName() != null) {
+                            existingDataField.setTabName(dataField.getTabName());
+                        }
+                        if (dataField.getGroupName() != null) {
+                            existingDataField.setGroupName(dataField.getGroupName());
+                        }
+                        if (dataField.getGenerationStyle() != null) {
+                            existingDataField.setGenerationStyle(dataField.getGenerationStyle());
                         }
 
                         return existingDataField;

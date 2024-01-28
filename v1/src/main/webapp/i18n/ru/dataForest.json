@@ -21,10 +21,7 @@
       "name": "Name",
       "caption": "Caption",
       "documentation": "Documentation",
-      "forestTrees": "Forest Trees",
-      "help": {
-        "name": "name"
-      }
+      "forestTrees": "Forest Trees"
     }
   }
 }

@@ -25,9 +25,8 @@ describe('DataTreeBranch Form Service', () => {
             caption: expect.any(Object),
             documentation: expect.any(Object),
             dataTreeLeaf: expect.any(Object),
-            branchToFields: expect.any(Object),
-            branchParents: expect.any(Object),
-            branchChildren: expect.any(Object),
+            branchToField: expect.any(Object),
+            branchParent: expect.any(Object),
           })
         );
       });
@@ -43,9 +42,8 @@ describe('DataTreeBranch Form Service', () => {
             caption: expect.any(Object),
             documentation: expect.any(Object),
             dataTreeLeaf: expect.any(Object),
-            branchToFields: expect.any(Object),
-            branchParents: expect.any(Object),
-            branchChildren: expect.any(Object),
+            branchToField: expect.any(Object),
+            branchParent: expect.any(Object),
           })
         );
       });

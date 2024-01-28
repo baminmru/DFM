@@ -31,6 +31,7 @@ public class DataTreeRootRowMapper implements BiFunction<Row, String, DataTreeRo
         entity.setCaption(converter.fromRow(row, prefix + "_caption", String.class));
         entity.setDocumentation(converter.fromRow(row, prefix + "_documentation", String.class));
         entity.setDataTreeBranchId(converter.fromRow(row, prefix + "_data_tree_branch_id", Long.class));
+        entity.setRootToFieldId(converter.fromRow(row, prefix + "_root_to_field_id", Long.class));
         return entity;
     }
 }

@@ -3,6 +3,7 @@ package com.bami.dfm.domain;
 import com.bami.dfm.domain.enumeration.StereoTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,13 +28,16 @@ public class DataTreeLeaf implements Serializable {
     /**
      * stereoType
      */
-    @Schema(description = "stereoType")
+    @Schema(description = "stereoType", required = true)
+    @NotNull(message = "must not be null")
     @Column("stereo_type")
     private StereoTypeEnum stereoType;
 
+    @NotNull(message = "must not be null")
     @Column("name")
     private String name;
 
+    @NotNull(message = "must not be null")
     @Column("caption")
     private String caption;
 
@@ -41,15 +45,18 @@ public class DataTreeLeaf implements Serializable {
     private String documentation;
 
     @Transient
-    @JsonIgnoreProperties(value = { "dataTreeRoots", "dataTreeBranches", "dataTreeLeaves" }, allowSetters = true)
-    private Set<DataField> leafToFields = new HashSet<>();
+    @JsonIgnoreProperties(value = { "dataField" }, allowSetters = true)
+    private DataTreeLeafToField leafToField;
 
     @Transient
     @JsonIgnoreProperties(
-        value = { "dataTreeLeaf", "branchToFields", "branchParents", "dataTreeRoots", "branchChildren" },
+        value = { "dataTreeLeaf", "branchToField", "branchParent", "dataTreeRoots", "branchChildren" },
         allowSetters = true
     )
     private Set<DataTreeBranch> dataTreeBranches = new HashSet<>();
+
+    @Column("leaf_to_field_id")
+    private Long leafToFieldId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -118,28 +125,17 @@ public class DataTreeLeaf implements Serializable {
         this.documentation = documentation;
     }
 
-    public Set<DataField> getLeafToFields() {
-        return this.leafToFields;
+    public DataTreeLeafToField getLeafToField() {
+        return this.leafToField;
     }
 
-    public void setLeafToFields(Set<DataField> dataFields) {
-        this.leafToFields = dataFields;
+    public void setLeafToField(DataTreeLeafToField dataTreeLeafToField) {
+        this.leafToField = dataTreeLeafToField;
+        this.leafToFieldId = dataTreeLeafToField != null ? dataTreeLeafToField.getId() : null;
     }
 
-    public DataTreeLeaf leafToFields(Set<DataField> dataFields) {
-        this.setLeafToFields(dataFields);
-        return this;
-    }
-
-    public DataTreeLeaf addLeafToField(DataField dataField) {
-        this.leafToFields.add(dataField);
-        dataField.getDataTreeLeaves().add(this);
-        return this;
-    }
-
-    public DataTreeLeaf removeLeafToField(DataField dataField) {
-        this.leafToFields.remove(dataField);
-        dataField.getDataTreeLeaves().remove(this);
+    public DataTreeLeaf leafToField(DataTreeLeafToField dataTreeLeafToField) {
+        this.setLeafToField(dataTreeLeafToField);
         return this;
     }
 
@@ -172,6 +168,14 @@ public class DataTreeLeaf implements Serializable {
         this.dataTreeBranches.remove(dataTreeBranch);
         dataTreeBranch.setDataTreeLeaf(null);
         return this;
+    }
+
+    public Long getLeafToFieldId() {
+        return this.leafToFieldId;
+    }
+
+    public void setLeafToFieldId(Long dataTreeLeafToField) {
+        this.leafToFieldId = dataTreeLeafToField;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -31,16 +31,39 @@
               {{ 'dfmApp.StereoTypeEnum.' + stereoTypeEnum | translate }}
             </option>
           </select>
+          <div *ngIf="editForm.get('stereoType')!.invalid && (editForm.get('stereoType')!.dirty || editForm.get('stereoType')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('stereoType')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataTreeRoot.name" for="field_name">Name</label>
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataTreeRoot.caption" for="field_caption">Caption</label>
           <input type="text" class="form-control" name="caption" id="field_caption" data-cy="caption" formControlName="caption" />
+          <div *ngIf="editForm.get('caption')!.invalid && (editForm.get('caption')!.dirty || editForm.get('caption')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('caption')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -73,17 +96,19 @@
         </div>
 
         <div class="mb-3">
-          <label jhiTranslate="dfmApp.dataTreeRoot.rootToField" for="field_rootToFields">Root To Field</label>
+          <label class="form-label" jhiTranslate="dfmApp.dataTreeRoot.rootToField" for="field_rootToField">Root To Field</label>
           <select
             class="form-control"
-            id="field_rootToFields"
+            id="field_rootToField"
             data-cy="rootToField"
-            multiple
-            name="rootToFields"
-            formControlName="rootToFields"
-            [compareWith]="compareDataField"
+            name="rootToField"
+            formControlName="rootToField"
+            [compareWith]="compareDataTreeRootToField"
           >
-            <option [ngValue]="dataFieldOption" *ngFor="let dataFieldOption of dataFieldsSharedCollection">{{ dataFieldOption.id }}</option>
+            <option [ngValue]="null"></option>
+            <option [ngValue]="dataTreeRootToFieldOption" *ngFor="let dataTreeRootToFieldOption of dataTreeRootToFieldsSharedCollection">
+              {{ dataTreeRootToFieldOption.id }}
+            </option>
           </select>
         </div>
       </div>

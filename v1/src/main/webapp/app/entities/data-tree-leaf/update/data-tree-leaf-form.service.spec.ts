@@ -24,7 +24,7 @@ describe('DataTreeLeaf Form Service', () => {
             name: expect.any(Object),
             caption: expect.any(Object),
             documentation: expect.any(Object),
-            leafToFields: expect.any(Object),
+            leafToField: expect.any(Object),
           })
         );
       });
@@ -39,7 +39,7 @@ describe('DataTreeLeaf Form Service', () => {
             name: expect.any(Object),
             caption: expect.any(Object),
             documentation: expect.any(Object),
-            leafToFields: expect.any(Object),
+            leafToField: expect.any(Object),
           })
         );
       });

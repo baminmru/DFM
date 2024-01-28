@@ -98,16 +98,16 @@
             </div>
           </td>
           <td>
-            <span *ngFor="let branchToField of dataTreeBranch.branchToFields; let last = last">
-              <a class="form-control-static" [routerLink]="['/data-field', branchToField.id, 'view']">{{ branchToField.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="dataTreeBranch.branchToField">
+              <a [routerLink]="['/data-tree-branch-to-field', dataTreeBranch.branchToField.id, 'view']">{{
+                dataTreeBranch.branchToField.id
+              }}</a>
+            </div>
           </td>
           <td>
-            <span *ngFor="let branchParent of dataTreeBranch.branchParents; let last = last">
-              <a class="form-control-static" [routerLink]="['/data-tree-branch', branchParent.id, 'view']">{{ branchParent.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="dataTreeBranch.branchParent">
+              <a [routerLink]="['/data-tree-branch-link', dataTreeBranch.branchParent.id, 'view']">{{ dataTreeBranch.branchParent.id }}</a>
+            </div>
           </td>
           <td class="text-end">
             <div class="btn-group">

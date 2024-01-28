@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { DataFieldFormService } from './data-field-form.service';
 import { DataFieldService } from '../service/data-field.service';
 import { IDataField } from '../data-field.model';
+import { IDataTreeRoot } from 'app/entities/data-tree-root/data-tree-root.model';
+import { DataTreeRootService } from 'app/entities/data-tree-root/service/data-tree-root.service';
 
 import { DataFieldUpdateComponent } from './data-field-update.component';
 
@@ -18,6 +20,7 @@ describe('DataField Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let dataFieldFormService: DataFieldFormService;
   let dataFieldService: DataFieldService;
+  let dataTreeRootService: DataTreeRootService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,17 +42,43 @@ describe('DataField Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     dataFieldFormService = TestBed.inject(DataFieldFormService);
     dataFieldService = TestBed.inject(DataFieldService);
+    dataTreeRootService = TestBed.inject(DataTreeRootService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call DataTreeRoot query and add missing value', () => {
       const dataField: IDataField = { id: 456 };
+      const refToRoot: IDataTreeRoot = { id: 87721 };
+      dataField.refToRoot = refToRoot;
+
+      const dataTreeRootCollection: IDataTreeRoot[] = [{ id: 34931 }];
+      jest.spyOn(dataTreeRootService, 'query').mockReturnValue(of(new HttpResponse({ body: dataTreeRootCollection })));
+      const additionalDataTreeRoots = [refToRoot];
+      const expectedCollection: IDataTreeRoot[] = [...additionalDataTreeRoots, ...dataTreeRootCollection];
+      jest.spyOn(dataTreeRootService, 'addDataTreeRootToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ dataField });
       comp.ngOnInit();
 
+      expect(dataTreeRootService.query).toHaveBeenCalled();
+      expect(dataTreeRootService.addDataTreeRootToCollectionIfMissing).toHaveBeenCalledWith(
+        dataTreeRootCollection,
+        ...additionalDataTreeRoots.map(expect.objectContaining)
+      );
+      expect(comp.dataTreeRootsSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const dataField: IDataField = { id: 456 };
+      const refToRoot: IDataTreeRoot = { id: 20044 };
+      dataField.refToRoot = refToRoot;
+
+      activatedRoute.data = of({ dataField });
+      comp.ngOnInit();
+
+      expect(comp.dataTreeRootsSharedCollection).toContain(refToRoot);
       expect(comp.dataField).toEqual(dataField);
     });
   });
@@ -119,6 +148,18 @@ describe('DataField Management Update Component', () => {
       expect(dataFieldService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareDataTreeRoot', () => {
+      it('Should forward to dataTreeRootService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(dataTreeRootService, 'compareDataTreeRoot');
+        comp.compareDataTreeRoot(entity, entity2);
+        expect(dataTreeRootService.compareDataTreeRoot).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

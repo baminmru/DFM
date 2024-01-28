@@ -1,22 +1,25 @@
 {
   "applications": ["dfm"],
-  "changelogDate": "20240128114154",
+  "changelogDate": "20240128131009",
   "databaseType": "sql",
   "entityTableName": "data_tree_branch",
   "fields": [
     {
       "fieldName": "stereoType",
       "fieldType": "StereoTypeEnum",
+      "fieldValidateRules": ["required"],
       "fieldValues": "SINGLE_ROW,COLLECTION,TREE",
       "javadoc": "stereoType"
     },
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "caption",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "documentation",
@@ -34,17 +37,16 @@
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityName": "dataField",
+      "otherEntityName": "dataTreeBranchToField",
       "relationshipName": "branchToField",
       "relationshipSide": "left",
-      "relationshipType": "many-to-many"
+      "relationshipType": "many-to-one"
     },
     {
-      "otherEntityName": "dataTreeBranch",
-      "otherEntityRelationshipName": "branchChild",
+      "otherEntityName": "dataTreeBranchLink",
       "relationshipName": "branchParent",
       "relationshipSide": "left",
-      "relationshipType": "many-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "options": {
@@ -60,11 +62,10 @@
       "options": {
         "onDelete": "CASCADE"
       },
-      "otherEntityName": "dataTreeBranch",
-      "otherEntityRelationshipName": "branchParent",
+      "otherEntityName": "dataTreeBranchLink",
       "relationshipName": "branchChild",
       "relationshipSide": "right",
-      "relationshipType": "many-to-many"
+      "relationshipType": "one-to-many"
     }
   ],
   "searchEngine": "no"

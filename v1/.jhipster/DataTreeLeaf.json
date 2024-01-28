@@ -1,22 +1,25 @@
 {
   "applications": ["dfm"],
-  "changelogDate": "20240128114155",
+  "changelogDate": "20240128131010",
   "databaseType": "sql",
   "entityTableName": "data_tree_leaf",
   "fields": [
     {
       "fieldName": "stereoType",
       "fieldType": "StereoTypeEnum",
+      "fieldValidateRules": ["required"],
       "fieldValues": "SINGLE_ROW,COLLECTION,TREE",
       "javadoc": "stereoType"
     },
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "caption",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "documentation",
@@ -26,10 +29,10 @@
   "name": "DataTreeLeaf",
   "relationships": [
     {
-      "otherEntityName": "dataField",
+      "otherEntityName": "dataTreeLeafToField",
       "relationshipName": "leafToField",
       "relationshipSide": "left",
-      "relationshipType": "many-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "options": {

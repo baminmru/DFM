@@ -22,9 +22,17 @@
         <dd>
           <span jhiTranslate="{{ 'dfmApp.FieldTypeEnum.' + dataField.fieldType }}">{{ dataField.fieldType }}</span>
         </dd>
-        <dt><span jhiTranslate="dfmApp.dataField.referenceRoot">Reference Root</span></dt>
+        <dt><span jhiTranslate="dfmApp.dataField.sequence">Sequence</span></dt>
         <dd>
-          <span>{{ dataField.referenceRoot }}</span>
+          <span>{{ dataField.sequence }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataField.isBrief">Is Brief</span></dt>
+        <dd>
+          <span>{{ dataField.isBrief }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataField.briefSequence">Brief Sequence</span></dt>
+        <dd>
+          <span>{{ dataField.briefSequence }}</span>
         </dd>
         <dt><span jhiTranslate="dfmApp.dataField.allowNull">Allow Null</span></dt>
         <dd>
@@ -41,6 +49,24 @@
         <dt><span jhiTranslate="dfmApp.dataField.documentation">Documentation</span></dt>
         <dd>
           <span>{{ dataField.documentation }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataField.tabName">Tab Name</span></dt>
+        <dd>
+          <span>{{ dataField.tabName }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataField.groupName">Group Name</span></dt>
+        <dd>
+          <span>{{ dataField.groupName }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataField.generationStyle">Generation Style</span></dt>
+        <dd>
+          <span>{{ dataField.generationStyle }}</span>
+        </dd>
+        <dt><span jhiTranslate="dfmApp.dataField.refToRoot">Ref To Root</span></dt>
+        <dd>
+          <div *ngIf="dataField.refToRoot">
+            <a [routerLink]="['/data-tree-root', dataField.refToRoot.id, 'view']">{{ dataField.refToRoot.id }}</a>
+          </div>
         </dd>
       </dl>
 

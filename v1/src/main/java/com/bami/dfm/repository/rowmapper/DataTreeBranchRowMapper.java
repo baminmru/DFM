@@ -31,6 +31,8 @@ public class DataTreeBranchRowMapper implements BiFunction<Row, String, DataTree
         entity.setCaption(converter.fromRow(row, prefix + "_caption", String.class));
         entity.setDocumentation(converter.fromRow(row, prefix + "_documentation", String.class));
         entity.setDataTreeLeafId(converter.fromRow(row, prefix + "_data_tree_leaf_id", Long.class));
+        entity.setBranchToFieldId(converter.fromRow(row, prefix + "_branch_to_field_id", Long.class));
+        entity.setBranchParentId(converter.fromRow(row, prefix + "_branch_parent_id", Long.class));
         return entity;
     }
 }

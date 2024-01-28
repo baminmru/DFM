@@ -141,6 +141,48 @@ class DataForestResourceIT {
     }
 
     @Test
+    void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataForestRepository.findAll().collectList().block().size();
+        // set the field null
+        dataForest.setName(null);
+
+        // Create the DataForest, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataForest))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataForest> dataForestList = dataForestRepository.findAll().collectList().block();
+        assertThat(dataForestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkCaptionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataForestRepository.findAll().collectList().block().size();
+        // set the field null
+        dataForest.setCaption(null);
+
+        // Create the DataForest, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataForest))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataForest> dataForestList = dataForestRepository.findAll().collectList().block();
+        assertThat(dataForestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     void getAllDataForestsAsStream() {
         // Initialize the database
         dataForestRepository.save(dataForest).block();

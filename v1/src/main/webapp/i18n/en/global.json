@@ -11,6 +11,10 @@
         "dataTreeBranch": "Data Tree Branch",
         "dataTreeLeaf": "Data Tree Leaf",
         "dataField": "Data Field",
+        "dataTreeBranchToField": "Data Tree Branch To Field",
+        "dataTreeRootToField": "Data Tree Root To Field",
+        "dataTreeLeafToField": "Data Tree Leaf To Field",
+        "dataTreeBranchLink": "Data Tree Branch Link",
         "dataForest": "Data Forest",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
@@ -25,6 +29,7 @@
       },
       "admin": {
         "main": "Administration",
+        "gateway": "Gateway",
         "userManagement": "User management",
         "tracker": "User tracker",
         "metrics": "Metrics",

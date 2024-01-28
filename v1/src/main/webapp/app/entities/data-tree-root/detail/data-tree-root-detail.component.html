@@ -42,10 +42,9 @@
         </dd>
         <dt><span jhiTranslate="dfmApp.dataTreeRoot.rootToField">Root To Field</span></dt>
         <dd>
-          <span *ngFor="let rootToField of dataTreeRoot.rootToFields; let last = last">
-            <a [routerLink]="['/data-field', rootToField.id, 'view']">{{ rootToField.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="dataTreeRoot.rootToField">
+            <a [routerLink]="['/data-tree-root-to-field', dataTreeRoot.rootToField.id, 'view']">{{ dataTreeRoot.rootToField.id }}</a>
+          </div>
         </dd>
       </dl>
 

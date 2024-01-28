@@ -37,8 +37,14 @@ class DataFieldResourceIT {
     private static final FieldTypeEnum DEFAULT_FIELD_TYPE = FieldTypeEnum.STRING_TYPE;
     private static final FieldTypeEnum UPDATED_FIELD_TYPE = FieldTypeEnum.BLOB_TYPE;
 
-    private static final String DEFAULT_REFERENCE_ROOT = "AAAAAAAAAA";
-    private static final String UPDATED_REFERENCE_ROOT = "BBBBBBBBBB";
+    private static final Integer DEFAULT_SEQUENCE = 1;
+    private static final Integer UPDATED_SEQUENCE = 2;
+
+    private static final Boolean DEFAULT_IS_BRIEF = false;
+    private static final Boolean UPDATED_IS_BRIEF = true;
+
+    private static final Integer DEFAULT_BRIEF_SEQUENCE = 1;
+    private static final Integer UPDATED_BRIEF_SEQUENCE = 2;
 
     private static final Boolean DEFAULT_ALLOW_NULL = false;
     private static final Boolean UPDATED_ALLOW_NULL = true;
@@ -51,6 +57,15 @@ class DataFieldResourceIT {
 
     private static final String DEFAULT_DOCUMENTATION = "AAAAAAAAAA";
     private static final String UPDATED_DOCUMENTATION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_TAB_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_TAB_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_GROUP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_GROUP_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_GENERATION_STYLE = "AAAAAAAAAA";
+    private static final String UPDATED_GENERATION_STYLE = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/data-fields";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -79,11 +94,16 @@ class DataFieldResourceIT {
         DataField dataField = new DataField()
             .inputType(DEFAULT_INPUT_TYPE)
             .fieldType(DEFAULT_FIELD_TYPE)
-            .referenceRoot(DEFAULT_REFERENCE_ROOT)
+            .sequence(DEFAULT_SEQUENCE)
+            .isBrief(DEFAULT_IS_BRIEF)
+            .briefSequence(DEFAULT_BRIEF_SEQUENCE)
             .allowNull(DEFAULT_ALLOW_NULL)
             .name(DEFAULT_NAME)
             .caption(DEFAULT_CAPTION)
-            .documentation(DEFAULT_DOCUMENTATION);
+            .documentation(DEFAULT_DOCUMENTATION)
+            .tabName(DEFAULT_TAB_NAME)
+            .groupName(DEFAULT_GROUP_NAME)
+            .generationStyle(DEFAULT_GENERATION_STYLE);
         return dataField;
     }
 
@@ -97,11 +117,16 @@ class DataFieldResourceIT {
         DataField dataField = new DataField()
             .inputType(UPDATED_INPUT_TYPE)
             .fieldType(UPDATED_FIELD_TYPE)
-            .referenceRoot(UPDATED_REFERENCE_ROOT)
+            .sequence(UPDATED_SEQUENCE)
+            .isBrief(UPDATED_IS_BRIEF)
+            .briefSequence(UPDATED_BRIEF_SEQUENCE)
             .allowNull(UPDATED_ALLOW_NULL)
             .name(UPDATED_NAME)
             .caption(UPDATED_CAPTION)
-            .documentation(UPDATED_DOCUMENTATION);
+            .documentation(UPDATED_DOCUMENTATION)
+            .tabName(UPDATED_TAB_NAME)
+            .groupName(UPDATED_GROUP_NAME)
+            .generationStyle(UPDATED_GENERATION_STYLE);
         return dataField;
     }
 
@@ -143,11 +168,16 @@ class DataFieldResourceIT {
         DataField testDataField = dataFieldList.get(dataFieldList.size() - 1);
         assertThat(testDataField.getInputType()).isEqualTo(DEFAULT_INPUT_TYPE);
         assertThat(testDataField.getFieldType()).isEqualTo(DEFAULT_FIELD_TYPE);
-        assertThat(testDataField.getReferenceRoot()).isEqualTo(DEFAULT_REFERENCE_ROOT);
+        assertThat(testDataField.getSequence()).isEqualTo(DEFAULT_SEQUENCE);
+        assertThat(testDataField.getIsBrief()).isEqualTo(DEFAULT_IS_BRIEF);
+        assertThat(testDataField.getBriefSequence()).isEqualTo(DEFAULT_BRIEF_SEQUENCE);
         assertThat(testDataField.getAllowNull()).isEqualTo(DEFAULT_ALLOW_NULL);
         assertThat(testDataField.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDataField.getCaption()).isEqualTo(DEFAULT_CAPTION);
         assertThat(testDataField.getDocumentation()).isEqualTo(DEFAULT_DOCUMENTATION);
+        assertThat(testDataField.getTabName()).isEqualTo(DEFAULT_TAB_NAME);
+        assertThat(testDataField.getGroupName()).isEqualTo(DEFAULT_GROUP_NAME);
+        assertThat(testDataField.getGenerationStyle()).isEqualTo(DEFAULT_GENERATION_STYLE);
     }
 
     @Test
@@ -170,6 +200,153 @@ class DataFieldResourceIT {
         // Validate the DataField in the database
         List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
         assertThat(dataFieldList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    void checkInputTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setInputType(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkFieldTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setFieldType(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkSequenceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setSequence(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkIsBriefIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setIsBrief(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkAllowNullIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setAllowNull(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setName(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    void checkCaptionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = dataFieldRepository.findAll().collectList().block().size();
+        // set the field null
+        dataField.setCaption(null);
+
+        // Create the DataField, which fails.
+
+        webTestClient
+            .post()
+            .uri(ENTITY_API_URL)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(TestUtil.convertObjectToJsonBytes(dataField))
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+
+        List<DataField> dataFieldList = dataFieldRepository.findAll().collectList().block();
+        assertThat(dataFieldList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -197,11 +374,16 @@ class DataFieldResourceIT {
         DataField testDataField = dataFieldList.get(0);
         assertThat(testDataField.getInputType()).isEqualTo(DEFAULT_INPUT_TYPE);
         assertThat(testDataField.getFieldType()).isEqualTo(DEFAULT_FIELD_TYPE);
-        assertThat(testDataField.getReferenceRoot()).isEqualTo(DEFAULT_REFERENCE_ROOT);
+        assertThat(testDataField.getSequence()).isEqualTo(DEFAULT_SEQUENCE);
+        assertThat(testDataField.getIsBrief()).isEqualTo(DEFAULT_IS_BRIEF);
+        assertThat(testDataField.getBriefSequence()).isEqualTo(DEFAULT_BRIEF_SEQUENCE);
         assertThat(testDataField.getAllowNull()).isEqualTo(DEFAULT_ALLOW_NULL);
         assertThat(testDataField.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDataField.getCaption()).isEqualTo(DEFAULT_CAPTION);
         assertThat(testDataField.getDocumentation()).isEqualTo(DEFAULT_DOCUMENTATION);
+        assertThat(testDataField.getTabName()).isEqualTo(DEFAULT_TAB_NAME);
+        assertThat(testDataField.getGroupName()).isEqualTo(DEFAULT_GROUP_NAME);
+        assertThat(testDataField.getGenerationStyle()).isEqualTo(DEFAULT_GENERATION_STYLE);
     }
 
     @Test
@@ -226,8 +408,12 @@ class DataFieldResourceIT {
             .value(hasItem(DEFAULT_INPUT_TYPE.toString()))
             .jsonPath("$.[*].fieldType")
             .value(hasItem(DEFAULT_FIELD_TYPE.toString()))
-            .jsonPath("$.[*].referenceRoot")
-            .value(hasItem(DEFAULT_REFERENCE_ROOT))
+            .jsonPath("$.[*].sequence")
+            .value(hasItem(DEFAULT_SEQUENCE))
+            .jsonPath("$.[*].isBrief")
+            .value(hasItem(DEFAULT_IS_BRIEF.booleanValue()))
+            .jsonPath("$.[*].briefSequence")
+            .value(hasItem(DEFAULT_BRIEF_SEQUENCE))
             .jsonPath("$.[*].allowNull")
             .value(hasItem(DEFAULT_ALLOW_NULL.booleanValue()))
             .jsonPath("$.[*].name")
@@ -235,7 +421,13 @@ class DataFieldResourceIT {
             .jsonPath("$.[*].caption")
             .value(hasItem(DEFAULT_CAPTION))
             .jsonPath("$.[*].documentation")
-            .value(hasItem(DEFAULT_DOCUMENTATION));
+            .value(hasItem(DEFAULT_DOCUMENTATION))
+            .jsonPath("$.[*].tabName")
+            .value(hasItem(DEFAULT_TAB_NAME))
+            .jsonPath("$.[*].groupName")
+            .value(hasItem(DEFAULT_GROUP_NAME))
+            .jsonPath("$.[*].generationStyle")
+            .value(hasItem(DEFAULT_GENERATION_STYLE));
     }
 
     @Test
@@ -260,8 +452,12 @@ class DataFieldResourceIT {
             .value(is(DEFAULT_INPUT_TYPE.toString()))
             .jsonPath("$.fieldType")
             .value(is(DEFAULT_FIELD_TYPE.toString()))
-            .jsonPath("$.referenceRoot")
-            .value(is(DEFAULT_REFERENCE_ROOT))
+            .jsonPath("$.sequence")
+            .value(is(DEFAULT_SEQUENCE))
+            .jsonPath("$.isBrief")
+            .value(is(DEFAULT_IS_BRIEF.booleanValue()))
+            .jsonPath("$.briefSequence")
+            .value(is(DEFAULT_BRIEF_SEQUENCE))
             .jsonPath("$.allowNull")
             .value(is(DEFAULT_ALLOW_NULL.booleanValue()))
             .jsonPath("$.name")
@@ -269,7 +465,13 @@ class DataFieldResourceIT {
             .jsonPath("$.caption")
             .value(is(DEFAULT_CAPTION))
             .jsonPath("$.documentation")
-            .value(is(DEFAULT_DOCUMENTATION));
+            .value(is(DEFAULT_DOCUMENTATION))
+            .jsonPath("$.tabName")
+            .value(is(DEFAULT_TAB_NAME))
+            .jsonPath("$.groupName")
+            .value(is(DEFAULT_GROUP_NAME))
+            .jsonPath("$.generationStyle")
+            .value(is(DEFAULT_GENERATION_STYLE));
     }
 
     @Test
@@ -296,11 +498,16 @@ class DataFieldResourceIT {
         updatedDataField
             .inputType(UPDATED_INPUT_TYPE)
             .fieldType(UPDATED_FIELD_TYPE)
-            .referenceRoot(UPDATED_REFERENCE_ROOT)
+            .sequence(UPDATED_SEQUENCE)
+            .isBrief(UPDATED_IS_BRIEF)
+            .briefSequence(UPDATED_BRIEF_SEQUENCE)
             .allowNull(UPDATED_ALLOW_NULL)
             .name(UPDATED_NAME)
             .caption(UPDATED_CAPTION)
-            .documentation(UPDATED_DOCUMENTATION);
+            .documentation(UPDATED_DOCUMENTATION)
+            .tabName(UPDATED_TAB_NAME)
+            .groupName(UPDATED_GROUP_NAME)
+            .generationStyle(UPDATED_GENERATION_STYLE);
 
         webTestClient
             .put()
@@ -317,11 +524,16 @@ class DataFieldResourceIT {
         DataField testDataField = dataFieldList.get(dataFieldList.size() - 1);
         assertThat(testDataField.getInputType()).isEqualTo(UPDATED_INPUT_TYPE);
         assertThat(testDataField.getFieldType()).isEqualTo(UPDATED_FIELD_TYPE);
-        assertThat(testDataField.getReferenceRoot()).isEqualTo(UPDATED_REFERENCE_ROOT);
+        assertThat(testDataField.getSequence()).isEqualTo(UPDATED_SEQUENCE);
+        assertThat(testDataField.getIsBrief()).isEqualTo(UPDATED_IS_BRIEF);
+        assertThat(testDataField.getBriefSequence()).isEqualTo(UPDATED_BRIEF_SEQUENCE);
         assertThat(testDataField.getAllowNull()).isEqualTo(UPDATED_ALLOW_NULL);
         assertThat(testDataField.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDataField.getCaption()).isEqualTo(UPDATED_CAPTION);
         assertThat(testDataField.getDocumentation()).isEqualTo(UPDATED_DOCUMENTATION);
+        assertThat(testDataField.getTabName()).isEqualTo(UPDATED_TAB_NAME);
+        assertThat(testDataField.getGroupName()).isEqualTo(UPDATED_GROUP_NAME);
+        assertThat(testDataField.getGenerationStyle()).isEqualTo(UPDATED_GENERATION_STYLE);
     }
 
     @Test
@@ -397,10 +609,12 @@ class DataFieldResourceIT {
 
         partialUpdatedDataField
             .inputType(UPDATED_INPUT_TYPE)
-            .referenceRoot(UPDATED_REFERENCE_ROOT)
+            .sequence(UPDATED_SEQUENCE)
+            .briefSequence(UPDATED_BRIEF_SEQUENCE)
+            .allowNull(UPDATED_ALLOW_NULL)
             .name(UPDATED_NAME)
             .caption(UPDATED_CAPTION)
-            .documentation(UPDATED_DOCUMENTATION);
+            .generationStyle(UPDATED_GENERATION_STYLE);
 
         webTestClient
             .patch()
@@ -417,11 +631,16 @@ class DataFieldResourceIT {
         DataField testDataField = dataFieldList.get(dataFieldList.size() - 1);
         assertThat(testDataField.getInputType()).isEqualTo(UPDATED_INPUT_TYPE);
         assertThat(testDataField.getFieldType()).isEqualTo(DEFAULT_FIELD_TYPE);
-        assertThat(testDataField.getReferenceRoot()).isEqualTo(UPDATED_REFERENCE_ROOT);
-        assertThat(testDataField.getAllowNull()).isEqualTo(DEFAULT_ALLOW_NULL);
+        assertThat(testDataField.getSequence()).isEqualTo(UPDATED_SEQUENCE);
+        assertThat(testDataField.getIsBrief()).isEqualTo(DEFAULT_IS_BRIEF);
+        assertThat(testDataField.getBriefSequence()).isEqualTo(UPDATED_BRIEF_SEQUENCE);
+        assertThat(testDataField.getAllowNull()).isEqualTo(UPDATED_ALLOW_NULL);
         assertThat(testDataField.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDataField.getCaption()).isEqualTo(UPDATED_CAPTION);
-        assertThat(testDataField.getDocumentation()).isEqualTo(UPDATED_DOCUMENTATION);
+        assertThat(testDataField.getDocumentation()).isEqualTo(DEFAULT_DOCUMENTATION);
+        assertThat(testDataField.getTabName()).isEqualTo(DEFAULT_TAB_NAME);
+        assertThat(testDataField.getGroupName()).isEqualTo(DEFAULT_GROUP_NAME);
+        assertThat(testDataField.getGenerationStyle()).isEqualTo(UPDATED_GENERATION_STYLE);
     }
 
     @Test
@@ -438,11 +657,16 @@ class DataFieldResourceIT {
         partialUpdatedDataField
             .inputType(UPDATED_INPUT_TYPE)
             .fieldType(UPDATED_FIELD_TYPE)
-            .referenceRoot(UPDATED_REFERENCE_ROOT)
+            .sequence(UPDATED_SEQUENCE)
+            .isBrief(UPDATED_IS_BRIEF)
+            .briefSequence(UPDATED_BRIEF_SEQUENCE)
             .allowNull(UPDATED_ALLOW_NULL)
             .name(UPDATED_NAME)
             .caption(UPDATED_CAPTION)
-            .documentation(UPDATED_DOCUMENTATION);
+            .documentation(UPDATED_DOCUMENTATION)
+            .tabName(UPDATED_TAB_NAME)
+            .groupName(UPDATED_GROUP_NAME)
+            .generationStyle(UPDATED_GENERATION_STYLE);
 
         webTestClient
             .patch()
@@ -459,11 +683,16 @@ class DataFieldResourceIT {
         DataField testDataField = dataFieldList.get(dataFieldList.size() - 1);
         assertThat(testDataField.getInputType()).isEqualTo(UPDATED_INPUT_TYPE);
         assertThat(testDataField.getFieldType()).isEqualTo(UPDATED_FIELD_TYPE);
-        assertThat(testDataField.getReferenceRoot()).isEqualTo(UPDATED_REFERENCE_ROOT);
+        assertThat(testDataField.getSequence()).isEqualTo(UPDATED_SEQUENCE);
+        assertThat(testDataField.getIsBrief()).isEqualTo(UPDATED_IS_BRIEF);
+        assertThat(testDataField.getBriefSequence()).isEqualTo(UPDATED_BRIEF_SEQUENCE);
         assertThat(testDataField.getAllowNull()).isEqualTo(UPDATED_ALLOW_NULL);
         assertThat(testDataField.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDataField.getCaption()).isEqualTo(UPDATED_CAPTION);
         assertThat(testDataField.getDocumentation()).isEqualTo(UPDATED_DOCUMENTATION);
+        assertThat(testDataField.getTabName()).isEqualTo(UPDATED_TAB_NAME);
+        assertThat(testDataField.getGroupName()).isEqualTo(UPDATED_GROUP_NAME);
+        assertThat(testDataField.getGenerationStyle()).isEqualTo(UPDATED_GENERATION_STYLE);
     }
 
     @Test

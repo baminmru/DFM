@@ -3,6 +3,8 @@ package com.bami.dfm.web.rest;
 import com.bami.dfm.domain.DataForest;
 import com.bami.dfm.repository.DataForestRepository;
 import com.bami.dfm.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -50,7 +52,7 @@ public class DataForestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/data-forests")
-    public Mono<ResponseEntity<DataForest>> createDataForest(@RequestBody DataForest dataForest) throws URISyntaxException {
+    public Mono<ResponseEntity<DataForest>> createDataForest(@Valid @RequestBody DataForest dataForest) throws URISyntaxException {
         log.debug("REST request to save DataForest : {}", dataForest);
         if (dataForest.getId() != null) {
             throw new BadRequestAlertException("A new dataForest cannot already have an ID", ENTITY_NAME, "idexists");
@@ -82,7 +84,7 @@ public class DataForestResource {
     @PutMapping("/data-forests/{id}")
     public Mono<ResponseEntity<DataForest>> updateDataForest(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataForest dataForest
+        @Valid @RequestBody DataForest dataForest
     ) throws URISyntaxException {
         log.debug("REST request to update DataForest : {}, {}", id, dataForest);
         if (dataForest.getId() == null) {
@@ -125,7 +127,7 @@ public class DataForestResource {
     @PatchMapping(value = "/data-forests/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<DataForest>> partialUpdateDataForest(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody DataForest dataForest
+        @NotNull @RequestBody DataForest dataForest
     ) throws URISyntaxException {
         log.debug("REST request to partial update DataForest partially : {}, {}", id, dataForest);
         if (dataForest.getId() == null) {

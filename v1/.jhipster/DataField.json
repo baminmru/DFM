@@ -1,42 +1,106 @@
 {
   "applications": ["dfm"],
-  "changelogDate": "20240128114156",
+  "changelogDate": "20240128131011",
   "databaseType": "sql",
   "entityTableName": "data_field",
   "fields": [
     {
       "fieldName": "inputType",
       "fieldType": "InputTypeEnum",
+      "fieldValidateRules": ["required"],
       "fieldValues": "PLAINTEX_INPUT,MULTILINE_INPUT,HTML_INPUT,DATE_INPUT,DATETIME_INPUT,TIME_INPUT,INTEGER_INPUT,NUMBER_INPUT,REFERENCE_INPUT,COMBOBOX_INPUT,OPTION_INPUT"
     },
     {
       "fieldName": "fieldType",
       "fieldType": "FieldTypeEnum",
+      "fieldValidateRules": ["required"],
       "fieldValues": "STRING_TYPE,BLOB_TYPE,DATE_TYPE,INTEGER_TYPE"
     },
     {
-      "fieldName": "referenceRoot",
-      "fieldType": "String"
+      "fieldName": "sequence",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isBrief",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "briefSequence",
+      "fieldType": "Integer"
     },
     {
       "fieldName": "allowNull",
-      "fieldType": "Boolean"
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "name",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "caption",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "documentation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tabName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "groupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "generationStyle",
       "fieldType": "String"
     }
   ],
   "javadoc": "The DataField entity.",
   "name": "DataField",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "dataTreeRoot",
+      "relationshipName": "refToRoot",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "options": {
+        "onDelete": "CASCADE"
+      },
+      "otherEntityName": "dataTreeBranchToField",
+      "otherEntityRelationshipName": "dataField",
+      "relationshipName": "dataTreeBranchToField",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "options": {
+        "onDelete": "CASCADE"
+      },
+      "otherEntityName": "dataTreeLeafToField",
+      "otherEntityRelationshipName": "dataField",
+      "relationshipName": "dataTreeLeafToField",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "options": {
+        "onDelete": "CASCADE"
+      },
+      "otherEntityName": "dataTreeRootToField",
+      "otherEntityRelationshipName": "dataField",
+      "relationshipName": "dataTreeRootToField",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "searchEngine": "no"
 }

@@ -10,8 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTreeLeafFormService, DataTreeLeafFormGroup } from './data-tree-leaf-form.service';
 import { IDataTreeLeaf } from '../data-tree-leaf.model';
 import { DataTreeLeafService } from '../service/data-tree-leaf.service';
-import { IDataField } from 'app/entities/data-field/data-field.model';
-import { DataFieldService } from 'app/entities/data-field/service/data-field.service';
+import { IDataTreeLeafToField } from 'app/entities/data-tree-leaf-to-field/data-tree-leaf-to-field.model';
+import { DataTreeLeafToFieldService } from 'app/entities/data-tree-leaf-to-field/service/data-tree-leaf-to-field.service';
 import { StereoTypeEnum } from 'app/entities/enumerations/stereo-type-enum.model';
 
 @Component({
@@ -25,18 +25,19 @@ export class DataTreeLeafUpdateComponent implements OnInit {
   dataTreeLeaf: IDataTreeLeaf | null = null;
   stereoTypeEnumValues = Object.keys(StereoTypeEnum);
 
-  dataFieldsSharedCollection: IDataField[] = [];
+  dataTreeLeafToFieldsSharedCollection: IDataTreeLeafToField[] = [];
 
   editForm: DataTreeLeafFormGroup = this.dataTreeLeafFormService.createDataTreeLeafFormGroup();
 
   constructor(
     protected dataTreeLeafService: DataTreeLeafService,
     protected dataTreeLeafFormService: DataTreeLeafFormService,
-    protected dataFieldService: DataFieldService,
+    protected dataTreeLeafToFieldService: DataTreeLeafToFieldService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareDataField = (o1: IDataField | null, o2: IDataField | null): boolean => this.dataFieldService.compareDataField(o1, o2);
+  compareDataTreeLeafToField = (o1: IDataTreeLeafToField | null, o2: IDataTreeLeafToField | null): boolean =>
+    this.dataTreeLeafToFieldService.compareDataTreeLeafToField(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ dataTreeLeaf }) => {
@@ -86,21 +87,25 @@ export class DataTreeLeafUpdateComponent implements OnInit {
     this.dataTreeLeaf = dataTreeLeaf;
     this.dataTreeLeafFormService.resetForm(this.editForm, dataTreeLeaf);
 
-    this.dataFieldsSharedCollection = this.dataFieldService.addDataFieldToCollectionIfMissing<IDataField>(
-      this.dataFieldsSharedCollection,
-      ...(dataTreeLeaf.leafToFields ?? [])
-    );
+    this.dataTreeLeafToFieldsSharedCollection =
+      this.dataTreeLeafToFieldService.addDataTreeLeafToFieldToCollectionIfMissing<IDataTreeLeafToField>(
+        this.dataTreeLeafToFieldsSharedCollection,
+        dataTreeLeaf.leafToField
+      );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.dataFieldService
+    this.dataTreeLeafToFieldService
       .query()
-      .pipe(map((res: HttpResponse<IDataField[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IDataTreeLeafToField[]>) => res.body ?? []))
       .pipe(
-        map((dataFields: IDataField[]) =>
-          this.dataFieldService.addDataFieldToCollectionIfMissing<IDataField>(dataFields, ...(this.dataTreeLeaf?.leafToFields ?? []))
+        map((dataTreeLeafToFields: IDataTreeLeafToField[]) =>
+          this.dataTreeLeafToFieldService.addDataTreeLeafToFieldToCollectionIfMissing<IDataTreeLeafToField>(
+            dataTreeLeafToFields,
+            this.dataTreeLeaf?.leafToField
+          )
         )
       )
-      .subscribe((dataFields: IDataField[]) => (this.dataFieldsSharedCollection = dataFields));
+      .subscribe((dataTreeLeafToFields: IDataTreeLeafToField[]) => (this.dataTreeLeafToFieldsSharedCollection = dataTreeLeafToFields));
   }
 }

@@ -14,30 +14,23 @@ import reactor.core.publisher.Mono;
 @SuppressWarnings("unused")
 @Repository
 public interface DataTreeBranchRepository extends ReactiveCrudRepository<DataTreeBranch, Long>, DataTreeBranchRepositoryInternal {
-    @Override
-    Mono<DataTreeBranch> findOneWithEagerRelationships(Long id);
-
-    @Override
-    Flux<DataTreeBranch> findAllWithEagerRelationships();
-
-    @Override
-    Flux<DataTreeBranch> findAllWithEagerRelationships(Pageable page);
-
     @Query("SELECT * FROM data_tree_branch entity WHERE entity.data_tree_leaf_id = :id")
     Flux<DataTreeBranch> findByDataTreeLeaf(Long id);
 
     @Query("SELECT * FROM data_tree_branch entity WHERE entity.data_tree_leaf_id IS NULL")
     Flux<DataTreeBranch> findAllWhereDataTreeLeafIsNull();
 
-    @Query(
-        "SELECT entity.* FROM data_tree_branch entity JOIN rel_data_tree_branch__branch_to_field joinTable ON entity.id = joinTable.branch_to_field_id WHERE joinTable.branch_to_field_id = :id"
-    )
+    @Query("SELECT * FROM data_tree_branch entity WHERE entity.branch_to_field_id = :id")
     Flux<DataTreeBranch> findByBranchToField(Long id);
 
-    @Query(
-        "SELECT entity.* FROM data_tree_branch entity JOIN rel_data_tree_branch__branch_parent joinTable ON entity.id = joinTable.branch_parent_id WHERE joinTable.branch_parent_id = :id"
-    )
+    @Query("SELECT * FROM data_tree_branch entity WHERE entity.branch_to_field_id IS NULL")
+    Flux<DataTreeBranch> findAllWhereBranchToFieldIsNull();
+
+    @Query("SELECT * FROM data_tree_branch entity WHERE entity.branch_parent_id = :id")
     Flux<DataTreeBranch> findByBranchParent(Long id);
+
+    @Query("SELECT * FROM data_tree_branch entity WHERE entity.branch_parent_id IS NULL")
+    Flux<DataTreeBranch> findAllWhereBranchParentIsNull();
 
     @Override
     <S extends DataTreeBranch> Mono<S> save(S entity);
@@ -62,12 +55,4 @@ interface DataTreeBranchRepositoryInternal {
     Mono<DataTreeBranch> findById(Long id);
     // this is not supported at the moment because of https://github.com/jhipster/generator-jhipster/issues/18269
     // Flux<DataTreeBranch> findAllBy(Pageable pageable, Criteria criteria);
-
-    Mono<DataTreeBranch> findOneWithEagerRelationships(Long id);
-
-    Flux<DataTreeBranch> findAllWithEagerRelationships();
-
-    Flux<DataTreeBranch> findAllWithEagerRelationships(Pageable page);
-
-    Mono<Void> deleteById(Long id);
 }

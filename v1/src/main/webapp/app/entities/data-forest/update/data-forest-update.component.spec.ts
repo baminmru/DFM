@@ -50,10 +50,10 @@ describe('DataForest Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call DataTreeRoot query and add missing value', () => {
       const dataForest: IDataForest = { id: 456 };
-      const forestTrees: IDataTreeRoot = { id: 49532 };
+      const forestTrees: IDataTreeRoot = { id: 47904 };
       dataForest.forestTrees = forestTrees;
 
-      const dataTreeRootCollection: IDataTreeRoot[] = [{ id: 29823 }];
+      const dataTreeRootCollection: IDataTreeRoot[] = [{ id: 54682 }];
       jest.spyOn(dataTreeRootService, 'query').mockReturnValue(of(new HttpResponse({ body: dataTreeRootCollection })));
       const additionalDataTreeRoots = [forestTrees];
       const expectedCollection: IDataTreeRoot[] = [...additionalDataTreeRoots, ...dataTreeRootCollection];
@@ -72,7 +72,7 @@ describe('DataForest Management Update Component', () => {
 
     it('Should update editForm', () => {
       const dataForest: IDataForest = { id: 456 };
-      const forestTrees: IDataTreeRoot = { id: 75843 };
+      const forestTrees: IDataTreeRoot = { id: 22855 };
       dataForest.forestTrees = forestTrees;
 
       activatedRoute.data = of({ dataForest });

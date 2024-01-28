@@ -12,8 +12,8 @@ import { IDataTreeRoot } from '../data-tree-root.model';
 import { DataTreeRootService } from '../service/data-tree-root.service';
 import { IDataTreeBranch } from 'app/entities/data-tree-branch/data-tree-branch.model';
 import { DataTreeBranchService } from 'app/entities/data-tree-branch/service/data-tree-branch.service';
-import { IDataField } from 'app/entities/data-field/data-field.model';
-import { DataFieldService } from 'app/entities/data-field/service/data-field.service';
+import { IDataTreeRootToField } from 'app/entities/data-tree-root-to-field/data-tree-root-to-field.model';
+import { DataTreeRootToFieldService } from 'app/entities/data-tree-root-to-field/service/data-tree-root-to-field.service';
 import { StereoTypeEnum } from 'app/entities/enumerations/stereo-type-enum.model';
 
 @Component({
@@ -28,7 +28,7 @@ export class DataTreeRootUpdateComponent implements OnInit {
   stereoTypeEnumValues = Object.keys(StereoTypeEnum);
 
   dataTreeBranchesSharedCollection: IDataTreeBranch[] = [];
-  dataFieldsSharedCollection: IDataField[] = [];
+  dataTreeRootToFieldsSharedCollection: IDataTreeRootToField[] = [];
 
   editForm: DataTreeRootFormGroup = this.dataTreeRootFormService.createDataTreeRootFormGroup();
 
@@ -36,14 +36,15 @@ export class DataTreeRootUpdateComponent implements OnInit {
     protected dataTreeRootService: DataTreeRootService,
     protected dataTreeRootFormService: DataTreeRootFormService,
     protected dataTreeBranchService: DataTreeBranchService,
-    protected dataFieldService: DataFieldService,
+    protected dataTreeRootToFieldService: DataTreeRootToFieldService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareDataTreeBranch = (o1: IDataTreeBranch | null, o2: IDataTreeBranch | null): boolean =>
     this.dataTreeBranchService.compareDataTreeBranch(o1, o2);
 
-  compareDataField = (o1: IDataField | null, o2: IDataField | null): boolean => this.dataFieldService.compareDataField(o1, o2);
+  compareDataTreeRootToField = (o1: IDataTreeRootToField | null, o2: IDataTreeRootToField | null): boolean =>
+    this.dataTreeRootToFieldService.compareDataTreeRootToField(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ dataTreeRoot }) => {
@@ -97,10 +98,11 @@ export class DataTreeRootUpdateComponent implements OnInit {
       this.dataTreeBranchesSharedCollection,
       dataTreeRoot.dataTreeBranch
     );
-    this.dataFieldsSharedCollection = this.dataFieldService.addDataFieldToCollectionIfMissing<IDataField>(
-      this.dataFieldsSharedCollection,
-      ...(dataTreeRoot.rootToFields ?? [])
-    );
+    this.dataTreeRootToFieldsSharedCollection =
+      this.dataTreeRootToFieldService.addDataTreeRootToFieldToCollectionIfMissing<IDataTreeRootToField>(
+        this.dataTreeRootToFieldsSharedCollection,
+        dataTreeRoot.rootToField
+      );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -117,14 +119,17 @@ export class DataTreeRootUpdateComponent implements OnInit {
       )
       .subscribe((dataTreeBranches: IDataTreeBranch[]) => (this.dataTreeBranchesSharedCollection = dataTreeBranches));
 
-    this.dataFieldService
+    this.dataTreeRootToFieldService
       .query()
-      .pipe(map((res: HttpResponse<IDataField[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IDataTreeRootToField[]>) => res.body ?? []))
       .pipe(
-        map((dataFields: IDataField[]) =>
-          this.dataFieldService.addDataFieldToCollectionIfMissing<IDataField>(dataFields, ...(this.dataTreeRoot?.rootToFields ?? []))
+        map((dataTreeRootToFields: IDataTreeRootToField[]) =>
+          this.dataTreeRootToFieldService.addDataTreeRootToFieldToCollectionIfMissing<IDataTreeRootToField>(
+            dataTreeRootToFields,
+            this.dataTreeRoot?.rootToField
+          )
         )
       )
-      .subscribe((dataFields: IDataField[]) => (this.dataFieldsSharedCollection = dataFields));
+      .subscribe((dataTreeRootToFields: IDataTreeRootToField[]) => (this.dataTreeRootToFieldsSharedCollection = dataTreeRootToFields));
   }
 }

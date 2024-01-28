@@ -9,8 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { DataTreeLeafFormService } from './data-tree-leaf-form.service';
 import { DataTreeLeafService } from '../service/data-tree-leaf.service';
 import { IDataTreeLeaf } from '../data-tree-leaf.model';
-import { IDataField } from 'app/entities/data-field/data-field.model';
-import { DataFieldService } from 'app/entities/data-field/service/data-field.service';
+import { IDataTreeLeafToField } from 'app/entities/data-tree-leaf-to-field/data-tree-leaf-to-field.model';
+import { DataTreeLeafToFieldService } from 'app/entities/data-tree-leaf-to-field/service/data-tree-leaf-to-field.service';
 
 import { DataTreeLeafUpdateComponent } from './data-tree-leaf-update.component';
 
@@ -20,7 +20,7 @@ describe('DataTreeLeaf Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let dataTreeLeafFormService: DataTreeLeafFormService;
   let dataTreeLeafService: DataTreeLeafService;
-  let dataFieldService: DataFieldService;
+  let dataTreeLeafToFieldService: DataTreeLeafToFieldService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,43 +42,43 @@ describe('DataTreeLeaf Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     dataTreeLeafFormService = TestBed.inject(DataTreeLeafFormService);
     dataTreeLeafService = TestBed.inject(DataTreeLeafService);
-    dataFieldService = TestBed.inject(DataFieldService);
+    dataTreeLeafToFieldService = TestBed.inject(DataTreeLeafToFieldService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call DataField query and add missing value', () => {
+    it('Should call DataTreeLeafToField query and add missing value', () => {
       const dataTreeLeaf: IDataTreeLeaf = { id: 456 };
-      const leafToFields: IDataField[] = [{ id: 85944 }];
-      dataTreeLeaf.leafToFields = leafToFields;
+      const leafToField: IDataTreeLeafToField = { id: 46117 };
+      dataTreeLeaf.leafToField = leafToField;
 
-      const dataFieldCollection: IDataField[] = [{ id: 69078 }];
-      jest.spyOn(dataFieldService, 'query').mockReturnValue(of(new HttpResponse({ body: dataFieldCollection })));
-      const additionalDataFields = [...leafToFields];
-      const expectedCollection: IDataField[] = [...additionalDataFields, ...dataFieldCollection];
-      jest.spyOn(dataFieldService, 'addDataFieldToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const dataTreeLeafToFieldCollection: IDataTreeLeafToField[] = [{ id: 12492 }];
+      jest.spyOn(dataTreeLeafToFieldService, 'query').mockReturnValue(of(new HttpResponse({ body: dataTreeLeafToFieldCollection })));
+      const additionalDataTreeLeafToFields = [leafToField];
+      const expectedCollection: IDataTreeLeafToField[] = [...additionalDataTreeLeafToFields, ...dataTreeLeafToFieldCollection];
+      jest.spyOn(dataTreeLeafToFieldService, 'addDataTreeLeafToFieldToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ dataTreeLeaf });
       comp.ngOnInit();
 
-      expect(dataFieldService.query).toHaveBeenCalled();
-      expect(dataFieldService.addDataFieldToCollectionIfMissing).toHaveBeenCalledWith(
-        dataFieldCollection,
-        ...additionalDataFields.map(expect.objectContaining)
+      expect(dataTreeLeafToFieldService.query).toHaveBeenCalled();
+      expect(dataTreeLeafToFieldService.addDataTreeLeafToFieldToCollectionIfMissing).toHaveBeenCalledWith(
+        dataTreeLeafToFieldCollection,
+        ...additionalDataTreeLeafToFields.map(expect.objectContaining)
       );
-      expect(comp.dataFieldsSharedCollection).toEqual(expectedCollection);
+      expect(comp.dataTreeLeafToFieldsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const dataTreeLeaf: IDataTreeLeaf = { id: 456 };
-      const leafToField: IDataField = { id: 57192 };
-      dataTreeLeaf.leafToFields = [leafToField];
+      const leafToField: IDataTreeLeafToField = { id: 15656 };
+      dataTreeLeaf.leafToField = leafToField;
 
       activatedRoute.data = of({ dataTreeLeaf });
       comp.ngOnInit();
 
-      expect(comp.dataFieldsSharedCollection).toContain(leafToField);
+      expect(comp.dataTreeLeafToFieldsSharedCollection).toContain(leafToField);
       expect(comp.dataTreeLeaf).toEqual(dataTreeLeaf);
     });
   });
@@ -152,13 +152,13 @@ describe('DataTreeLeaf Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareDataField', () => {
-      it('Should forward to dataFieldService', () => {
+    describe('compareDataTreeLeafToField', () => {
+      it('Should forward to dataTreeLeafToFieldService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(dataFieldService, 'compareDataField');
-        comp.compareDataField(entity, entity2);
-        expect(dataFieldService.compareDataField).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(dataTreeLeafToFieldService, 'compareDataTreeLeafToField');
+        comp.compareDataTreeLeafToField(entity, entity2);
+        expect(dataTreeLeafToFieldService.compareDataTreeLeafToField).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

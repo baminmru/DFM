@@ -1,5 +1,6 @@
 import { IDataTreeLeaf } from 'app/entities/data-tree-leaf/data-tree-leaf.model';
-import { IDataField } from 'app/entities/data-field/data-field.model';
+import { IDataTreeBranchToField } from 'app/entities/data-tree-branch-to-field/data-tree-branch-to-field.model';
+import { IDataTreeBranchLink } from 'app/entities/data-tree-branch-link/data-tree-branch-link.model';
 import { StereoTypeEnum } from 'app/entities/enumerations/stereo-type-enum.model';
 
 export interface IDataTreeBranch {
@@ -9,9 +10,8 @@ export interface IDataTreeBranch {
   caption?: string | null;
   documentation?: string | null;
   dataTreeLeaf?: Pick<IDataTreeLeaf, 'id'> | null;
-  branchToFields?: Pick<IDataField, 'id'>[] | null;
-  branchParents?: Pick<IDataTreeBranch, 'id'>[] | null;
-  branchChildren?: Pick<IDataTreeBranch, 'id'>[] | null;
+  branchToField?: Pick<IDataTreeBranchToField, 'id'> | null;
+  branchParent?: Pick<IDataTreeBranchLink, 'id'> | null;
 }
 
 export type NewDataTreeBranch = Omit<IDataTreeBranch, 'id'> & { id: null };

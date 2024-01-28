@@ -1,7 +1,7 @@
 package com.bami.dfm.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -21,13 +21,11 @@ public class DataForest implements Serializable {
     @Column("id")
     private Long id;
 
-    /**
-     * name
-     */
-    @Schema(description = "name")
+    @NotNull(message = "must not be null")
     @Column("name")
     private String name;
 
+    @NotNull(message = "must not be null")
     @Column("caption")
     private String caption;
 
@@ -35,7 +33,7 @@ public class DataForest implements Serializable {
     private String documentation;
 
     @Transient
-    @JsonIgnoreProperties(value = { "dataTreeBranch", "rootToFields" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "dataTreeBranch", "rootToField" }, allowSetters = true)
     private DataTreeRoot forestTrees;
 
     @Column("forest_trees_id")

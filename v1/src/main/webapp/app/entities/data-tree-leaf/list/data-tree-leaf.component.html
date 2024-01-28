@@ -81,10 +81,9 @@
           <td>{{ dataTreeLeaf.caption }}</td>
           <td>{{ dataTreeLeaf.documentation }}</td>
           <td>
-            <span *ngFor="let leafToField of dataTreeLeaf.leafToFields; let last = last">
-              <a class="form-control-static" [routerLink]="['/data-field', leafToField.id, 'view']">{{ leafToField.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="dataTreeLeaf.leafToField">
+              <a [routerLink]="['/data-tree-leaf-to-field', dataTreeLeaf.leafToField.id, 'view']">{{ dataTreeLeaf.leafToField.id }}</a>
+            </div>
           </td>
           <td class="text-end">
             <div class="btn-group">

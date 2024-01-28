@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type DataTreeRootFormGroupInput = IDataTreeRoot | PartialWithRequiredKeyOf<NewDataTreeRoot>;
 
-type DataTreeRootFormDefaults = Pick<NewDataTreeRoot, 'id' | 'rootToFields'>;
+type DataTreeRootFormDefaults = Pick<NewDataTreeRoot, 'id'>;
 
 type DataTreeRootFormGroupContent = {
   id: FormControl<IDataTreeRoot['id'] | NewDataTreeRoot['id']>;
@@ -23,7 +23,7 @@ type DataTreeRootFormGroupContent = {
   caption: FormControl<IDataTreeRoot['caption']>;
   documentation: FormControl<IDataTreeRoot['documentation']>;
   dataTreeBranch: FormControl<IDataTreeRoot['dataTreeBranch']>;
-  rootToFields: FormControl<IDataTreeRoot['rootToFields']>;
+  rootToField: FormControl<IDataTreeRoot['rootToField']>;
 };
 
 export type DataTreeRootFormGroup = FormGroup<DataTreeRootFormGroupContent>;
@@ -43,12 +43,18 @@ export class DataTreeRootFormService {
           validators: [Validators.required],
         }
       ),
-      stereoType: new FormControl(dataTreeRootRawValue.stereoType),
-      name: new FormControl(dataTreeRootRawValue.name),
-      caption: new FormControl(dataTreeRootRawValue.caption),
+      stereoType: new FormControl(dataTreeRootRawValue.stereoType, {
+        validators: [Validators.required],
+      }),
+      name: new FormControl(dataTreeRootRawValue.name, {
+        validators: [Validators.required],
+      }),
+      caption: new FormControl(dataTreeRootRawValue.caption, {
+        validators: [Validators.required],
+      }),
       documentation: new FormControl(dataTreeRootRawValue.documentation),
       dataTreeBranch: new FormControl(dataTreeRootRawValue.dataTreeBranch),
-      rootToFields: new FormControl(dataTreeRootRawValue.rootToFields ?? []),
+      rootToField: new FormControl(dataTreeRootRawValue.rootToField),
     });
   }
 
@@ -69,7 +75,6 @@ export class DataTreeRootFormService {
   private getFormDefaults(): DataTreeRootFormDefaults {
     return {
       id: null,
-      rootToFields: [],
     };
   }
 }

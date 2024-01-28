@@ -16,6 +16,7 @@ public class DataTreeLeafSqlHelper {
         columns.add(Column.aliased("caption", table, columnPrefix + "_caption"));
         columns.add(Column.aliased("documentation", table, columnPrefix + "_documentation"));
 
+        columns.add(Column.aliased("leaf_to_field_id", table, columnPrefix + "_leaf_to_field_id"));
         return columns;
     }
 }

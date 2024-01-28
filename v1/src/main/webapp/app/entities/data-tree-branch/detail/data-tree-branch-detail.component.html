@@ -42,17 +42,17 @@
         </dd>
         <dt><span jhiTranslate="dfmApp.dataTreeBranch.branchToField">Branch To Field</span></dt>
         <dd>
-          <span *ngFor="let branchToField of dataTreeBranch.branchToFields; let last = last">
-            <a [routerLink]="['/data-field', branchToField.id, 'view']">{{ branchToField.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="dataTreeBranch.branchToField">
+            <a [routerLink]="['/data-tree-branch-to-field', dataTreeBranch.branchToField.id, 'view']">{{
+              dataTreeBranch.branchToField.id
+            }}</a>
+          </div>
         </dd>
         <dt><span jhiTranslate="dfmApp.dataTreeBranch.branchParent">Branch Parent</span></dt>
         <dd>
-          <span *ngFor="let branchParent of dataTreeBranch.branchParents; let last = last">
-            <a [routerLink]="['/data-tree-branch', branchParent.id, 'view']">{{ branchParent.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="dataTreeBranch.branchParent">
+            <a [routerLink]="['/data-tree-branch-link', dataTreeBranch.branchParent.id, 'view']">{{ dataTreeBranch.branchParent.id }}</a>
+          </div>
         </dd>
       </dl>
 

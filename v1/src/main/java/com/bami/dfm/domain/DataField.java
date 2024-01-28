@@ -4,6 +4,7 @@ import com.bami.dfm.domain.enumeration.FieldTypeEnum;
 import com.bami.dfm.domain.enumeration.InputTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,41 +27,67 @@ public class DataField implements Serializable {
     @Column("id")
     private Long id;
 
+    @NotNull(message = "must not be null")
     @Column("input_type")
     private InputTypeEnum inputType;
 
+    @NotNull(message = "must not be null")
     @Column("field_type")
     private FieldTypeEnum fieldType;
 
-    @Column("reference_root")
-    private String referenceRoot;
+    @NotNull(message = "must not be null")
+    @Column("sequence")
+    private Integer sequence;
 
+    @NotNull(message = "must not be null")
+    @Column("is_brief")
+    private Boolean isBrief;
+
+    @Column("brief_sequence")
+    private Integer briefSequence;
+
+    @NotNull(message = "must not be null")
     @Column("allow_null")
     private Boolean allowNull;
 
+    @NotNull(message = "must not be null")
     @Column("name")
     private String name;
 
+    @NotNull(message = "must not be null")
     @Column("caption")
     private String caption;
 
     @Column("documentation")
     private String documentation;
 
-    @Transient
-    @JsonIgnoreProperties(value = { "dataTreeBranch", "rootToFields" }, allowSetters = true)
-    private Set<DataTreeRoot> dataTreeRoots = new HashSet<>();
+    @Column("tab_name")
+    private String tabName;
+
+    @Column("group_name")
+    private String groupName;
+
+    @Column("generation_style")
+    private String generationStyle;
 
     @Transient
-    @JsonIgnoreProperties(
-        value = { "dataTreeLeaf", "branchToFields", "branchParents", "dataTreeRoots", "branchChildren" },
-        allowSetters = true
-    )
-    private Set<DataTreeBranch> dataTreeBranches = new HashSet<>();
+    @JsonIgnoreProperties(value = { "dataTreeBranch", "rootToField" }, allowSetters = true)
+    private DataTreeRoot refToRoot;
 
     @Transient
-    @JsonIgnoreProperties(value = { "leafToFields", "dataTreeBranches" }, allowSetters = true)
-    private Set<DataTreeLeaf> dataTreeLeaves = new HashSet<>();
+    @JsonIgnoreProperties(value = { "dataField" }, allowSetters = true)
+    private Set<DataTreeBranchToField> dataTreeBranchToFields = new HashSet<>();
+
+    @Transient
+    @JsonIgnoreProperties(value = { "dataField" }, allowSetters = true)
+    private Set<DataTreeLeafToField> dataTreeLeafToFields = new HashSet<>();
+
+    @Transient
+    @JsonIgnoreProperties(value = { "dataField" }, allowSetters = true)
+    private Set<DataTreeRootToField> dataTreeRootToFields = new HashSet<>();
+
+    @Column("ref_to_root_id")
+    private Long refToRootId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -103,17 +130,43 @@ public class DataField implements Serializable {
         this.fieldType = fieldType;
     }
 
-    public String getReferenceRoot() {
-        return this.referenceRoot;
+    public Integer getSequence() {
+        return this.sequence;
     }
 
-    public DataField referenceRoot(String referenceRoot) {
-        this.setReferenceRoot(referenceRoot);
+    public DataField sequence(Integer sequence) {
+        this.setSequence(sequence);
         return this;
     }
 
-    public void setReferenceRoot(String referenceRoot) {
-        this.referenceRoot = referenceRoot;
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    public Boolean getIsBrief() {
+        return this.isBrief;
+    }
+
+    public DataField isBrief(Boolean isBrief) {
+        this.setIsBrief(isBrief);
+        return this;
+    }
+
+    public void setIsBrief(Boolean isBrief) {
+        this.isBrief = isBrief;
+    }
+
+    public Integer getBriefSequence() {
+        return this.briefSequence;
+    }
+
+    public DataField briefSequence(Integer briefSequence) {
+        this.setBriefSequence(briefSequence);
+        return this;
+    }
+
+    public void setBriefSequence(Integer briefSequence) {
+        this.briefSequence = briefSequence;
     }
 
     public Boolean getAllowNull() {
@@ -168,97 +221,158 @@ public class DataField implements Serializable {
         this.documentation = documentation;
     }
 
-    public Set<DataTreeRoot> getDataTreeRoots() {
-        return this.dataTreeRoots;
+    public String getTabName() {
+        return this.tabName;
     }
 
-    public void setDataTreeRoots(Set<DataTreeRoot> dataTreeRoots) {
-        if (this.dataTreeRoots != null) {
-            this.dataTreeRoots.forEach(i -> i.removeRootToField(this));
+    public DataField tabName(String tabName) {
+        this.setTabName(tabName);
+        return this;
+    }
+
+    public void setTabName(String tabName) {
+        this.tabName = tabName;
+    }
+
+    public String getGroupName() {
+        return this.groupName;
+    }
+
+    public DataField groupName(String groupName) {
+        this.setGroupName(groupName);
+        return this;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getGenerationStyle() {
+        return this.generationStyle;
+    }
+
+    public DataField generationStyle(String generationStyle) {
+        this.setGenerationStyle(generationStyle);
+        return this;
+    }
+
+    public void setGenerationStyle(String generationStyle) {
+        this.generationStyle = generationStyle;
+    }
+
+    public DataTreeRoot getRefToRoot() {
+        return this.refToRoot;
+    }
+
+    public void setRefToRoot(DataTreeRoot dataTreeRoot) {
+        this.refToRoot = dataTreeRoot;
+        this.refToRootId = dataTreeRoot != null ? dataTreeRoot.getId() : null;
+    }
+
+    public DataField refToRoot(DataTreeRoot dataTreeRoot) {
+        this.setRefToRoot(dataTreeRoot);
+        return this;
+    }
+
+    public Set<DataTreeBranchToField> getDataTreeBranchToFields() {
+        return this.dataTreeBranchToFields;
+    }
+
+    public void setDataTreeBranchToFields(Set<DataTreeBranchToField> dataTreeBranchToFields) {
+        if (this.dataTreeBranchToFields != null) {
+            this.dataTreeBranchToFields.forEach(i -> i.setDataField(null));
         }
-        if (dataTreeRoots != null) {
-            dataTreeRoots.forEach(i -> i.addRootToField(this));
+        if (dataTreeBranchToFields != null) {
+            dataTreeBranchToFields.forEach(i -> i.setDataField(this));
         }
-        this.dataTreeRoots = dataTreeRoots;
+        this.dataTreeBranchToFields = dataTreeBranchToFields;
     }
 
-    public DataField dataTreeRoots(Set<DataTreeRoot> dataTreeRoots) {
-        this.setDataTreeRoots(dataTreeRoots);
+    public DataField dataTreeBranchToFields(Set<DataTreeBranchToField> dataTreeBranchToFields) {
+        this.setDataTreeBranchToFields(dataTreeBranchToFields);
         return this;
     }
 
-    public DataField addDataTreeRoot(DataTreeRoot dataTreeRoot) {
-        this.dataTreeRoots.add(dataTreeRoot);
-        dataTreeRoot.getRootToFields().add(this);
+    public DataField addDataTreeBranchToField(DataTreeBranchToField dataTreeBranchToField) {
+        this.dataTreeBranchToFields.add(dataTreeBranchToField);
+        dataTreeBranchToField.setDataField(this);
         return this;
     }
 
-    public DataField removeDataTreeRoot(DataTreeRoot dataTreeRoot) {
-        this.dataTreeRoots.remove(dataTreeRoot);
-        dataTreeRoot.getRootToFields().remove(this);
+    public DataField removeDataTreeBranchToField(DataTreeBranchToField dataTreeBranchToField) {
+        this.dataTreeBranchToFields.remove(dataTreeBranchToField);
+        dataTreeBranchToField.setDataField(null);
         return this;
     }
 
-    public Set<DataTreeBranch> getDataTreeBranches() {
-        return this.dataTreeBranches;
+    public Set<DataTreeLeafToField> getDataTreeLeafToFields() {
+        return this.dataTreeLeafToFields;
     }
 
-    public void setDataTreeBranches(Set<DataTreeBranch> dataTreeBranches) {
-        if (this.dataTreeBranches != null) {
-            this.dataTreeBranches.forEach(i -> i.removeBranchToField(this));
+    public void setDataTreeLeafToFields(Set<DataTreeLeafToField> dataTreeLeafToFields) {
+        if (this.dataTreeLeafToFields != null) {
+            this.dataTreeLeafToFields.forEach(i -> i.setDataField(null));
         }
-        if (dataTreeBranches != null) {
-            dataTreeBranches.forEach(i -> i.addBranchToField(this));
+        if (dataTreeLeafToFields != null) {
+            dataTreeLeafToFields.forEach(i -> i.setDataField(this));
         }
-        this.dataTreeBranches = dataTreeBranches;
+        this.dataTreeLeafToFields = dataTreeLeafToFields;
     }
 
-    public DataField dataTreeBranches(Set<DataTreeBranch> dataTreeBranches) {
-        this.setDataTreeBranches(dataTreeBranches);
+    public DataField dataTreeLeafToFields(Set<DataTreeLeafToField> dataTreeLeafToFields) {
+        this.setDataTreeLeafToFields(dataTreeLeafToFields);
         return this;
     }
 
-    public DataField addDataTreeBranch(DataTreeBranch dataTreeBranch) {
-        this.dataTreeBranches.add(dataTreeBranch);
-        dataTreeBranch.getBranchToFields().add(this);
+    public DataField addDataTreeLeafToField(DataTreeLeafToField dataTreeLeafToField) {
+        this.dataTreeLeafToFields.add(dataTreeLeafToField);
+        dataTreeLeafToField.setDataField(this);
         return this;
     }
 
-    public DataField removeDataTreeBranch(DataTreeBranch dataTreeBranch) {
-        this.dataTreeBranches.remove(dataTreeBranch);
-        dataTreeBranch.getBranchToFields().remove(this);
+    public DataField removeDataTreeLeafToField(DataTreeLeafToField dataTreeLeafToField) {
+        this.dataTreeLeafToFields.remove(dataTreeLeafToField);
+        dataTreeLeafToField.setDataField(null);
         return this;
     }
 
-    public Set<DataTreeLeaf> getDataTreeLeaves() {
-        return this.dataTreeLeaves;
+    public Set<DataTreeRootToField> getDataTreeRootToFields() {
+        return this.dataTreeRootToFields;
     }
 
-    public void setDataTreeLeaves(Set<DataTreeLeaf> dataTreeLeaves) {
-        if (this.dataTreeLeaves != null) {
-            this.dataTreeLeaves.forEach(i -> i.removeLeafToField(this));
+    public void setDataTreeRootToFields(Set<DataTreeRootToField> dataTreeRootToFields) {
+        if (this.dataTreeRootToFields != null) {
+            this.dataTreeRootToFields.forEach(i -> i.setDataField(null));
         }
-        if (dataTreeLeaves != null) {
-            dataTreeLeaves.forEach(i -> i.addLeafToField(this));
+        if (dataTreeRootToFields != null) {
+            dataTreeRootToFields.forEach(i -> i.setDataField(this));
         }
-        this.dataTreeLeaves = dataTreeLeaves;
+        this.dataTreeRootToFields = dataTreeRootToFields;
     }
 
-    public DataField dataTreeLeaves(Set<DataTreeLeaf> dataTreeLeaves) {
-        this.setDataTreeLeaves(dataTreeLeaves);
+    public DataField dataTreeRootToFields(Set<DataTreeRootToField> dataTreeRootToFields) {
+        this.setDataTreeRootToFields(dataTreeRootToFields);
         return this;
     }
 
-    public DataField addDataTreeLeaf(DataTreeLeaf dataTreeLeaf) {
-        this.dataTreeLeaves.add(dataTreeLeaf);
-        dataTreeLeaf.getLeafToFields().add(this);
+    public DataField addDataTreeRootToField(DataTreeRootToField dataTreeRootToField) {
+        this.dataTreeRootToFields.add(dataTreeRootToField);
+        dataTreeRootToField.setDataField(this);
         return this;
     }
 
-    public DataField removeDataTreeLeaf(DataTreeLeaf dataTreeLeaf) {
-        this.dataTreeLeaves.remove(dataTreeLeaf);
-        dataTreeLeaf.getLeafToFields().remove(this);
+    public DataField removeDataTreeRootToField(DataTreeRootToField dataTreeRootToField) {
+        this.dataTreeRootToFields.remove(dataTreeRootToField);
+        dataTreeRootToField.setDataField(null);
         return this;
+    }
+
+    public Long getRefToRootId() {
+        return this.refToRootId;
+    }
+
+    public void setRefToRootId(Long dataTreeRoot) {
+        this.refToRootId = dataTreeRoot;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -287,11 +401,16 @@ public class DataField implements Serializable {
             "id=" + getId() +
             ", inputType='" + getInputType() + "'" +
             ", fieldType='" + getFieldType() + "'" +
-            ", referenceRoot='" + getReferenceRoot() + "'" +
+            ", sequence=" + getSequence() +
+            ", isBrief='" + getIsBrief() + "'" +
+            ", briefSequence=" + getBriefSequence() +
             ", allowNull='" + getAllowNull() + "'" +
             ", name='" + getName() + "'" +
             ", caption='" + getCaption() + "'" +
             ", documentation='" + getDocumentation() + "'" +
+            ", tabName='" + getTabName() + "'" +
+            ", groupName='" + getGroupName() + "'" +
+            ", generationStyle='" + getGenerationStyle() + "'" +
             "}";
     }
 }

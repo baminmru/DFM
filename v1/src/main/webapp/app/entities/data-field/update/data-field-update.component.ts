@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataFieldFormService, DataFieldFormGroup } from './data-field-form.service';
 import { IDataField } from '../data-field.model';
 import { DataFieldService } from '../service/data-field.service';
+import { IDataTreeRoot } from 'app/entities/data-tree-root/data-tree-root.model';
+import { DataTreeRootService } from 'app/entities/data-tree-root/service/data-tree-root.service';
 import { InputTypeEnum } from 'app/entities/enumerations/input-type-enum.model';
 import { FieldTypeEnum } from 'app/entities/enumerations/field-type-enum.model';
 
@@ -25,13 +27,19 @@ export class DataFieldUpdateComponent implements OnInit {
   inputTypeEnumValues = Object.keys(InputTypeEnum);
   fieldTypeEnumValues = Object.keys(FieldTypeEnum);
 
+  dataTreeRootsSharedCollection: IDataTreeRoot[] = [];
+
   editForm: DataFieldFormGroup = this.dataFieldFormService.createDataFieldFormGroup();
 
   constructor(
     protected dataFieldService: DataFieldService,
     protected dataFieldFormService: DataFieldFormService,
+    protected dataTreeRootService: DataTreeRootService,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareDataTreeRoot = (o1: IDataTreeRoot | null, o2: IDataTreeRoot | null): boolean =>
+    this.dataTreeRootService.compareDataTreeRoot(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ dataField }) => {
@@ -39,6 +47,8 @@ export class DataFieldUpdateComponent implements OnInit {
       if (dataField) {
         this.updateForm(dataField);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -78,5 +88,22 @@ export class DataFieldUpdateComponent implements OnInit {
   protected updateForm(dataField: IDataField): void {
     this.dataField = dataField;
     this.dataFieldFormService.resetForm(this.editForm, dataField);
+
+    this.dataTreeRootsSharedCollection = this.dataTreeRootService.addDataTreeRootToCollectionIfMissing<IDataTreeRoot>(
+      this.dataTreeRootsSharedCollection,
+      dataField.refToRoot
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.dataTreeRootService
+      .query()
+      .pipe(map((res: HttpResponse<IDataTreeRoot[]>) => res.body ?? []))
+      .pipe(
+        map((dataTreeRoots: IDataTreeRoot[]) =>
+          this.dataTreeRootService.addDataTreeRootToCollectionIfMissing<IDataTreeRoot>(dataTreeRoots, this.dataField?.refToRoot)
+        )
+      )
+      .subscribe((dataTreeRoots: IDataTreeRoot[]) => (this.dataTreeRootsSharedCollection = dataTreeRoots));
   }
 }

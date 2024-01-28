@@ -1,11 +1,11 @@
-id;input_type;field_type;reference_root;allow_null;name;caption;documentation
-1;OPTION_INPUT;DATE_TYPE;Buckinghamshire East;true;functionalities;Diesel JSON;Northwest Southwest
-2;OPTION_INPUT;STRING_TYPE;mint GB;true;Pop Director;modulo Folding Other;boo
-3;REFERENCE_INPUT;INTEGER_TYPE;Account;false;Utah likewise;program out;Bicycle Digitized
-4;COMBOBOX_INPUT;STRING_TYPE;purple black;true;siemens;nam worn;process joule jaywalk
-5;INTEGER_INPUT;INTEGER_TYPE;Global Euro;true;auxiliary Electronics;Hat;holistic South
-6;COMBOBOX_INPUT;DATE_TYPE;Hybrid Luxurious sky;false;Borders;yum;Account quantifying
-7;INTEGER_INPUT;DATE_TYPE;needily North;false;New Bike;salmon transition;as Bronze Chevrolet
-8;DATETIME_INPUT;STRING_TYPE;Northeast aggravating;true;Paradigm;fatherly enthusiastically;Ethiopian motivating
-9;HTML_INPUT;DATE_TYPE;joule Jamaica lime;false;newton Direct Lutetium;lavender;Gasoline pull
-10;INTEGER_INPUT;BLOB_TYPE;invoice;true;recontextualize Lead;deposit female yawning;Electronic Southwest
+id;input_type;field_type;sequence;is_brief;brief_sequence;allow_null;name;caption;documentation;tab_name;group_name;generation_style
+1;OPTION_INPUT;DATE_TYPE;62285;false;73177;false;Implementation functionalities;Diesel JSON;Northwest Southwest;India mint GB;Persistent Southeast;Strategist
+2;INTEGER_INPUT;INTEGER_TYPE;45729;false;60669;true;boo;black Account Investment;likewise PNG Chips;1080p parsing;Outdoors Courts;accusantium
+3;REFERENCE_INPUT;INTEGER_TYPE;53573;true;72519;true;Coordinator Bicycle Loan;lest Global;Granite Intersex;Electronics;Hat;holistic South
+4;COMBOBOX_INPUT;DATE_TYPE;80348;true;85420;false;furthermore initiatives array;Steel;West strategize;1080p quantifying;MTF needily;North
+5;NUMBER_INPUT;STRING_TYPE;62584;false;27242;true;Handmade;salmon transition;as Bronze Chevrolet;Jessica Sterling;magenta frivolous;Central fatherly enthusiastically
+6;DATETIME_INPUT;BLOB_TYPE;25089;false;36926;true;International;application Manat Zinc;newton Direct Lutetium;lavender;Gasoline pull;Bronze invoice
+7;OPTION_INPUT;BLOB_TYPE;30433;true;66348;false;Avon female Buckinghamshire;yawning provident;Southwest;Liaison;Hybrid;Product Arab Cadillac
+8;TIME_INPUT;STRING_TYPE;17067;true;64016;true;Cobalt pink Enhanced;Texas Ngultrum;olive EXE radical;Handmade Customer Industrial;Hybrid Classical;Luxembourg
+9;INTEGER_INPUT;STRING_TYPE;37211;false;94657;true;Elegant pink;Steel optimize;Northeast static;Tasty Trial;Tricycle Fountainebleau;Buckinghamshire Beauty Steel
+10;COMBOBOX_INPUT;INTEGER_TYPE;24488;false;9576;false;Cis;Markets;henry Bicycle ivory;District;male Money;geez Bedfordshire Ergonomic

@@ -30,6 +30,7 @@ public class DataTreeLeafRowMapper implements BiFunction<Row, String, DataTreeLe
         entity.setName(converter.fromRow(row, prefix + "_name", String.class));
         entity.setCaption(converter.fromRow(row, prefix + "_caption", String.class));
         entity.setDocumentation(converter.fromRow(row, prefix + "_documentation", String.class));
+        entity.setLeafToFieldId(converter.fromRow(row, prefix + "_leaf_to_field_id", Long.class));
         return entity;
     }
 }

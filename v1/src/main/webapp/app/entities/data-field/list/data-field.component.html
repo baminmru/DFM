@@ -50,9 +50,21 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="referenceRoot">
+          <th scope="col" jhiSortBy="sequence">
             <div class="d-flex">
-              <span jhiTranslate="dfmApp.dataField.referenceRoot">Reference Root</span>
+              <span jhiTranslate="dfmApp.dataField.sequence">Sequence</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="isBrief">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataField.isBrief">Is Brief</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="briefSequence">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataField.briefSequence">Brief Sequence</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -80,6 +92,30 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="tabName">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataField.tabName">Tab Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="groupName">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataField.groupName">Group Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="generationStyle">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataField.generationStyle">Generation Style</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="refToRoot.id">
+            <div class="d-flex">
+              <span jhiTranslate="dfmApp.dataField.refToRoot">Ref To Root</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -90,11 +126,21 @@
           </td>
           <td jhiTranslate="{{ 'dfmApp.InputTypeEnum.' + dataField.inputType }}">{{ dataField.inputType }}</td>
           <td jhiTranslate="{{ 'dfmApp.FieldTypeEnum.' + dataField.fieldType }}">{{ dataField.fieldType }}</td>
-          <td>{{ dataField.referenceRoot }}</td>
+          <td>{{ dataField.sequence }}</td>
+          <td>{{ dataField.isBrief }}</td>
+          <td>{{ dataField.briefSequence }}</td>
           <td>{{ dataField.allowNull }}</td>
           <td>{{ dataField.name }}</td>
           <td>{{ dataField.caption }}</td>
           <td>{{ dataField.documentation }}</td>
+          <td>{{ dataField.tabName }}</td>
+          <td>{{ dataField.groupName }}</td>
+          <td>{{ dataField.generationStyle }}</td>
+          <td>
+            <div *ngIf="dataField.refToRoot">
+              <a [routerLink]="['/data-tree-root', dataField.refToRoot.id, 'view']">{{ dataField.refToRoot.id }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

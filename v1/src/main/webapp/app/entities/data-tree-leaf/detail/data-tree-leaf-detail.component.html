@@ -36,10 +36,9 @@
         </dd>
         <dt><span jhiTranslate="dfmApp.dataTreeLeaf.leafToField">Leaf To Field</span></dt>
         <dd>
-          <span *ngFor="let leafToField of dataTreeLeaf.leafToFields; let last = last">
-            <a [routerLink]="['/data-field', leafToField.id, 'view']">{{ leafToField.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="dataTreeLeaf.leafToField">
+            <a [routerLink]="['/data-tree-leaf-to-field', dataTreeLeaf.leafToField.id, 'view']">{{ dataTreeLeaf.leafToField.id }}</a>
+          </div>
         </dd>
       </dl>
 

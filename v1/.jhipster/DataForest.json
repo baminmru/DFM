@@ -1,17 +1,18 @@
 {
   "applications": ["dfm"],
-  "changelogDate": "20240128114157",
+  "changelogDate": "20240128131016",
   "databaseType": "sql",
   "entityTableName": "data_forest",
   "fields": [
     {
       "fieldName": "name",
       "fieldType": "String",
-      "javadoc": "name"
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "caption",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "documentation",

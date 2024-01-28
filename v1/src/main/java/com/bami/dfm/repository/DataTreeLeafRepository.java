@@ -14,19 +14,11 @@ import reactor.core.publisher.Mono;
 @SuppressWarnings("unused")
 @Repository
 public interface DataTreeLeafRepository extends ReactiveCrudRepository<DataTreeLeaf, Long>, DataTreeLeafRepositoryInternal {
-    @Override
-    Mono<DataTreeLeaf> findOneWithEagerRelationships(Long id);
-
-    @Override
-    Flux<DataTreeLeaf> findAllWithEagerRelationships();
-
-    @Override
-    Flux<DataTreeLeaf> findAllWithEagerRelationships(Pageable page);
-
-    @Query(
-        "SELECT entity.* FROM data_tree_leaf entity JOIN rel_data_tree_leaf__leaf_to_field joinTable ON entity.id = joinTable.leaf_to_field_id WHERE joinTable.leaf_to_field_id = :id"
-    )
+    @Query("SELECT * FROM data_tree_leaf entity WHERE entity.leaf_to_field_id = :id")
     Flux<DataTreeLeaf> findByLeafToField(Long id);
+
+    @Query("SELECT * FROM data_tree_leaf entity WHERE entity.leaf_to_field_id IS NULL")
+    Flux<DataTreeLeaf> findAllWhereLeafToFieldIsNull();
 
     @Override
     <S extends DataTreeLeaf> Mono<S> save(S entity);
@@ -51,12 +43,4 @@ interface DataTreeLeafRepositoryInternal {
     Mono<DataTreeLeaf> findById(Long id);
     // this is not supported at the moment because of https://github.com/jhipster/generator-jhipster/issues/18269
     // Flux<DataTreeLeaf> findAllBy(Pageable pageable, Criteria criteria);
-
-    Mono<DataTreeLeaf> findOneWithEagerRelationships(Long id);
-
-    Flux<DataTreeLeaf> findAllWithEagerRelationships();
-
-    Flux<DataTreeLeaf> findAllWithEagerRelationships(Pageable page);
-
-    Mono<Void> deleteById(Long id);
 }

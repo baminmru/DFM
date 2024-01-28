@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type DataTreeBranchFormGroupInput = IDataTreeBranch | PartialWithRequiredKeyOf<NewDataTreeBranch>;
 
-type DataTreeBranchFormDefaults = Pick<NewDataTreeBranch, 'id' | 'branchToFields' | 'branchParents' | 'branchChildren'>;
+type DataTreeBranchFormDefaults = Pick<NewDataTreeBranch, 'id'>;
 
 type DataTreeBranchFormGroupContent = {
   id: FormControl<IDataTreeBranch['id'] | NewDataTreeBranch['id']>;
@@ -23,9 +23,8 @@ type DataTreeBranchFormGroupContent = {
   caption: FormControl<IDataTreeBranch['caption']>;
   documentation: FormControl<IDataTreeBranch['documentation']>;
   dataTreeLeaf: FormControl<IDataTreeBranch['dataTreeLeaf']>;
-  branchToFields: FormControl<IDataTreeBranch['branchToFields']>;
-  branchParents: FormControl<IDataTreeBranch['branchParents']>;
-  branchChildren: FormControl<IDataTreeBranch['branchChildren']>;
+  branchToField: FormControl<IDataTreeBranch['branchToField']>;
+  branchParent: FormControl<IDataTreeBranch['branchParent']>;
 };
 
 export type DataTreeBranchFormGroup = FormGroup<DataTreeBranchFormGroupContent>;
@@ -45,14 +44,19 @@ export class DataTreeBranchFormService {
           validators: [Validators.required],
         }
       ),
-      stereoType: new FormControl(dataTreeBranchRawValue.stereoType),
-      name: new FormControl(dataTreeBranchRawValue.name),
-      caption: new FormControl(dataTreeBranchRawValue.caption),
+      stereoType: new FormControl(dataTreeBranchRawValue.stereoType, {
+        validators: [Validators.required],
+      }),
+      name: new FormControl(dataTreeBranchRawValue.name, {
+        validators: [Validators.required],
+      }),
+      caption: new FormControl(dataTreeBranchRawValue.caption, {
+        validators: [Validators.required],
+      }),
       documentation: new FormControl(dataTreeBranchRawValue.documentation),
       dataTreeLeaf: new FormControl(dataTreeBranchRawValue.dataTreeLeaf),
-      branchToFields: new FormControl(dataTreeBranchRawValue.branchToFields ?? []),
-      branchParents: new FormControl(dataTreeBranchRawValue.branchParents ?? []),
-      branchChildren: new FormControl(dataTreeBranchRawValue.branchChildren ?? []),
+      branchToField: new FormControl(dataTreeBranchRawValue.branchToField),
+      branchParent: new FormControl(dataTreeBranchRawValue.branchParent),
     });
   }
 
@@ -73,9 +77,6 @@ export class DataTreeBranchFormService {
   private getFormDefaults(): DataTreeBranchFormDefaults {
     return {
       id: null,
-      branchToFields: [],
-      branchParents: [],
-      branchChildren: [],
     };
   }
 }

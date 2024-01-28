@@ -21,6 +21,15 @@
               {{ 'dfmApp.InputTypeEnum.' + inputTypeEnum | translate }}
             </option>
           </select>
+          <div *ngIf="editForm.get('inputType')!.invalid && (editForm.get('inputType')!.dirty || editForm.get('inputType')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('inputType')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -31,33 +40,100 @@
               {{ 'dfmApp.FieldTypeEnum.' + fieldTypeEnum | translate }}
             </option>
           </select>
+          <div *ngIf="editForm.get('fieldType')!.invalid && (editForm.get('fieldType')!.dirty || editForm.get('fieldType')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fieldType')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="dfmApp.dataField.referenceRoot" for="field_referenceRoot">Reference Root</label>
+          <label class="form-label" jhiTranslate="dfmApp.dataField.sequence" for="field_sequence">Sequence</label>
+          <input type="number" class="form-control" name="sequence" id="field_sequence" data-cy="sequence" formControlName="sequence" />
+          <div *ngIf="editForm.get('sequence')!.invalid && (editForm.get('sequence')!.dirty || editForm.get('sequence')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('sequence')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('sequence')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.isBrief" for="field_isBrief">Is Brief</label>
+          <input type="checkbox" class="form-check" name="isBrief" id="field_isBrief" data-cy="isBrief" formControlName="isBrief" />
+          <div *ngIf="editForm.get('isBrief')!.invalid && (editForm.get('isBrief')!.dirty || editForm.get('isBrief')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('isBrief')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.briefSequence" for="field_briefSequence">Brief Sequence</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
-            name="referenceRoot"
-            id="field_referenceRoot"
-            data-cy="referenceRoot"
-            formControlName="referenceRoot"
+            name="briefSequence"
+            id="field_briefSequence"
+            data-cy="briefSequence"
+            formControlName="briefSequence"
           />
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataField.allowNull" for="field_allowNull">Allow Null</label>
           <input type="checkbox" class="form-check" name="allowNull" id="field_allowNull" data-cy="allowNull" formControlName="allowNull" />
+          <div *ngIf="editForm.get('allowNull')!.invalid && (editForm.get('allowNull')!.dirty || editForm.get('allowNull')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('allowNull')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataField.name" for="field_name">Name</label>
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="dfmApp.dataField.caption" for="field_caption">Caption</label>
           <input type="text" class="form-control" name="caption" id="field_caption" data-cy="caption" formControlName="caption" />
+          <div *ngIf="editForm.get('caption')!.invalid && (editForm.get('caption')!.dirty || editForm.get('caption')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('caption')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -70,6 +146,45 @@
             data-cy="documentation"
             formControlName="documentation"
           />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.tabName" for="field_tabName">Tab Name</label>
+          <input type="text" class="form-control" name="tabName" id="field_tabName" data-cy="tabName" formControlName="tabName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.groupName" for="field_groupName">Group Name</label>
+          <input type="text" class="form-control" name="groupName" id="field_groupName" data-cy="groupName" formControlName="groupName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.generationStyle" for="field_generationStyle">Generation Style</label>
+          <input
+            type="text"
+            class="form-control"
+            name="generationStyle"
+            id="field_generationStyle"
+            data-cy="generationStyle"
+            formControlName="generationStyle"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="dfmApp.dataField.refToRoot" for="field_refToRoot">Ref To Root</label>
+          <select
+            class="form-control"
+            id="field_refToRoot"
+            data-cy="refToRoot"
+            name="refToRoot"
+            formControlName="refToRoot"
+            [compareWith]="compareDataTreeRoot"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="dataTreeRootOption" *ngFor="let dataTreeRootOption of dataTreeRootsSharedCollection">
+              {{ dataTreeRootOption.id }}
+            </option>
+          </select>
         </div>
       </div>
 

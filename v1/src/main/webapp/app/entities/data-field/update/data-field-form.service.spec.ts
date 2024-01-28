@@ -22,14 +22,17 @@ describe('DataField Form Service', () => {
             id: expect.any(Object),
             inputType: expect.any(Object),
             fieldType: expect.any(Object),
-            referenceRoot: expect.any(Object),
+            sequence: expect.any(Object),
+            isBrief: expect.any(Object),
+            briefSequence: expect.any(Object),
             allowNull: expect.any(Object),
             name: expect.any(Object),
             caption: expect.any(Object),
             documentation: expect.any(Object),
-            dataTreeRoots: expect.any(Object),
-            dataTreeBranches: expect.any(Object),
-            dataTreeLeaves: expect.any(Object),
+            tabName: expect.any(Object),
+            groupName: expect.any(Object),
+            generationStyle: expect.any(Object),
+            refToRoot: expect.any(Object),
           })
         );
       });
@@ -42,14 +45,17 @@ describe('DataField Form Service', () => {
             id: expect.any(Object),
             inputType: expect.any(Object),
             fieldType: expect.any(Object),
-            referenceRoot: expect.any(Object),
+            sequence: expect.any(Object),
+            isBrief: expect.any(Object),
+            briefSequence: expect.any(Object),
             allowNull: expect.any(Object),
             name: expect.any(Object),
             caption: expect.any(Object),
             documentation: expect.any(Object),
-            dataTreeRoots: expect.any(Object),
-            dataTreeBranches: expect.any(Object),
-            dataTreeLeaves: expect.any(Object),
+            tabName: expect.any(Object),
+            groupName: expect.any(Object),
+            generationStyle: expect.any(Object),
+            refToRoot: expect.any(Object),
           })
         );
       });

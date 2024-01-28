@@ -11,8 +11,10 @@ import { DataTreeBranchService } from '../service/data-tree-branch.service';
 import { IDataTreeBranch } from '../data-tree-branch.model';
 import { IDataTreeLeaf } from 'app/entities/data-tree-leaf/data-tree-leaf.model';
 import { DataTreeLeafService } from 'app/entities/data-tree-leaf/service/data-tree-leaf.service';
-import { IDataField } from 'app/entities/data-field/data-field.model';
-import { DataFieldService } from 'app/entities/data-field/service/data-field.service';
+import { IDataTreeBranchToField } from 'app/entities/data-tree-branch-to-field/data-tree-branch-to-field.model';
+import { DataTreeBranchToFieldService } from 'app/entities/data-tree-branch-to-field/service/data-tree-branch-to-field.service';
+import { IDataTreeBranchLink } from 'app/entities/data-tree-branch-link/data-tree-branch-link.model';
+import { DataTreeBranchLinkService } from 'app/entities/data-tree-branch-link/service/data-tree-branch-link.service';
 
 import { DataTreeBranchUpdateComponent } from './data-tree-branch-update.component';
 
@@ -23,7 +25,8 @@ describe('DataTreeBranch Management Update Component', () => {
   let dataTreeBranchFormService: DataTreeBranchFormService;
   let dataTreeBranchService: DataTreeBranchService;
   let dataTreeLeafService: DataTreeLeafService;
-  let dataFieldService: DataFieldService;
+  let dataTreeBranchToFieldService: DataTreeBranchToFieldService;
+  let dataTreeBranchLinkService: DataTreeBranchLinkService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,7 +49,8 @@ describe('DataTreeBranch Management Update Component', () => {
     dataTreeBranchFormService = TestBed.inject(DataTreeBranchFormService);
     dataTreeBranchService = TestBed.inject(DataTreeBranchService);
     dataTreeLeafService = TestBed.inject(DataTreeLeafService);
-    dataFieldService = TestBed.inject(DataFieldService);
+    dataTreeBranchToFieldService = TestBed.inject(DataTreeBranchToFieldService);
+    dataTreeBranchLinkService = TestBed.inject(DataTreeBranchLinkService);
 
     comp = fixture.componentInstance;
   });
@@ -74,65 +78,65 @@ describe('DataTreeBranch Management Update Component', () => {
       expect(comp.dataTreeLeavesSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call DataField query and add missing value', () => {
+    it('Should call DataTreeBranchToField query and add missing value', () => {
       const dataTreeBranch: IDataTreeBranch = { id: 456 };
-      const branchToFields: IDataField[] = [{ id: 22951 }];
-      dataTreeBranch.branchToFields = branchToFields;
+      const branchToField: IDataTreeBranchToField = { id: 77874 };
+      dataTreeBranch.branchToField = branchToField;
 
-      const dataFieldCollection: IDataField[] = [{ id: 90631 }];
-      jest.spyOn(dataFieldService, 'query').mockReturnValue(of(new HttpResponse({ body: dataFieldCollection })));
-      const additionalDataFields = [...branchToFields];
-      const expectedCollection: IDataField[] = [...additionalDataFields, ...dataFieldCollection];
-      jest.spyOn(dataFieldService, 'addDataFieldToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const dataTreeBranchToFieldCollection: IDataTreeBranchToField[] = [{ id: 56948 }];
+      jest.spyOn(dataTreeBranchToFieldService, 'query').mockReturnValue(of(new HttpResponse({ body: dataTreeBranchToFieldCollection })));
+      const additionalDataTreeBranchToFields = [branchToField];
+      const expectedCollection: IDataTreeBranchToField[] = [...additionalDataTreeBranchToFields, ...dataTreeBranchToFieldCollection];
+      jest.spyOn(dataTreeBranchToFieldService, 'addDataTreeBranchToFieldToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ dataTreeBranch });
       comp.ngOnInit();
 
-      expect(dataFieldService.query).toHaveBeenCalled();
-      expect(dataFieldService.addDataFieldToCollectionIfMissing).toHaveBeenCalledWith(
-        dataFieldCollection,
-        ...additionalDataFields.map(expect.objectContaining)
+      expect(dataTreeBranchToFieldService.query).toHaveBeenCalled();
+      expect(dataTreeBranchToFieldService.addDataTreeBranchToFieldToCollectionIfMissing).toHaveBeenCalledWith(
+        dataTreeBranchToFieldCollection,
+        ...additionalDataTreeBranchToFields.map(expect.objectContaining)
       );
-      expect(comp.dataFieldsSharedCollection).toEqual(expectedCollection);
+      expect(comp.dataTreeBranchToFieldsSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call DataTreeBranch query and add missing value', () => {
+    it('Should call DataTreeBranchLink query and add missing value', () => {
       const dataTreeBranch: IDataTreeBranch = { id: 456 };
-      const branchParents: IDataTreeBranch[] = [{ id: 21876 }];
-      dataTreeBranch.branchParents = branchParents;
+      const branchParent: IDataTreeBranchLink = { id: 11273 };
+      dataTreeBranch.branchParent = branchParent;
 
-      const dataTreeBranchCollection: IDataTreeBranch[] = [{ id: 42884 }];
-      jest.spyOn(dataTreeBranchService, 'query').mockReturnValue(of(new HttpResponse({ body: dataTreeBranchCollection })));
-      const additionalDataTreeBranches = [...branchParents];
-      const expectedCollection: IDataTreeBranch[] = [...additionalDataTreeBranches, ...dataTreeBranchCollection];
-      jest.spyOn(dataTreeBranchService, 'addDataTreeBranchToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const dataTreeBranchLinkCollection: IDataTreeBranchLink[] = [{ id: 83865 }];
+      jest.spyOn(dataTreeBranchLinkService, 'query').mockReturnValue(of(new HttpResponse({ body: dataTreeBranchLinkCollection })));
+      const additionalDataTreeBranchLinks = [branchParent];
+      const expectedCollection: IDataTreeBranchLink[] = [...additionalDataTreeBranchLinks, ...dataTreeBranchLinkCollection];
+      jest.spyOn(dataTreeBranchLinkService, 'addDataTreeBranchLinkToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ dataTreeBranch });
       comp.ngOnInit();
 
-      expect(dataTreeBranchService.query).toHaveBeenCalled();
-      expect(dataTreeBranchService.addDataTreeBranchToCollectionIfMissing).toHaveBeenCalledWith(
-        dataTreeBranchCollection,
-        ...additionalDataTreeBranches.map(expect.objectContaining)
+      expect(dataTreeBranchLinkService.query).toHaveBeenCalled();
+      expect(dataTreeBranchLinkService.addDataTreeBranchLinkToCollectionIfMissing).toHaveBeenCalledWith(
+        dataTreeBranchLinkCollection,
+        ...additionalDataTreeBranchLinks.map(expect.objectContaining)
       );
-      expect(comp.dataTreeBranchesSharedCollection).toEqual(expectedCollection);
+      expect(comp.dataTreeBranchLinksSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const dataTreeBranch: IDataTreeBranch = { id: 456 };
       const dataTreeLeaf: IDataTreeLeaf = { id: 40057 };
       dataTreeBranch.dataTreeLeaf = dataTreeLeaf;
-      const branchToField: IDataField = { id: 34750 };
-      dataTreeBranch.branchToFields = [branchToField];
-      const branchParent: IDataTreeBranch = { id: 42162 };
-      dataTreeBranch.branchParents = [branchParent];
+      const branchToField: IDataTreeBranchToField = { id: 12384 };
+      dataTreeBranch.branchToField = branchToField;
+      const branchParent: IDataTreeBranchLink = { id: 48849 };
+      dataTreeBranch.branchParent = branchParent;
 
       activatedRoute.data = of({ dataTreeBranch });
       comp.ngOnInit();
 
       expect(comp.dataTreeLeavesSharedCollection).toContain(dataTreeLeaf);
-      expect(comp.dataFieldsSharedCollection).toContain(branchToField);
-      expect(comp.dataTreeBranchesSharedCollection).toContain(branchParent);
+      expect(comp.dataTreeBranchToFieldsSharedCollection).toContain(branchToField);
+      expect(comp.dataTreeBranchLinksSharedCollection).toContain(branchParent);
       expect(comp.dataTreeBranch).toEqual(dataTreeBranch);
     });
   });
@@ -216,23 +220,23 @@ describe('DataTreeBranch Management Update Component', () => {
       });
     });
 
-    describe('compareDataField', () => {
-      it('Should forward to dataFieldService', () => {
+    describe('compareDataTreeBranchToField', () => {
+      it('Should forward to dataTreeBranchToFieldService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(dataFieldService, 'compareDataField');
-        comp.compareDataField(entity, entity2);
-        expect(dataFieldService.compareDataField).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(dataTreeBranchToFieldService, 'compareDataTreeBranchToField');
+        comp.compareDataTreeBranchToField(entity, entity2);
+        expect(dataTreeBranchToFieldService.compareDataTreeBranchToField).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('compareDataTreeBranch', () => {
-      it('Should forward to dataTreeBranchService', () => {
+    describe('compareDataTreeBranchLink', () => {
+      it('Should forward to dataTreeBranchLinkService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(dataTreeBranchService, 'compareDataTreeBranch');
-        comp.compareDataTreeBranch(entity, entity2);
-        expect(dataTreeBranchService.compareDataTreeBranch).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(dataTreeBranchLinkService, 'compareDataTreeBranchLink');
+        comp.compareDataTreeBranchLink(entity, entity2);
+        expect(dataTreeBranchLinkService.compareDataTreeBranchLink).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

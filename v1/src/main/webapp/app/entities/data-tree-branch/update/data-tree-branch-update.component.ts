@@ -12,8 +12,10 @@ import { IDataTreeBranch } from '../data-tree-branch.model';
 import { DataTreeBranchService } from '../service/data-tree-branch.service';
 import { IDataTreeLeaf } from 'app/entities/data-tree-leaf/data-tree-leaf.model';
 import { DataTreeLeafService } from 'app/entities/data-tree-leaf/service/data-tree-leaf.service';
-import { IDataField } from 'app/entities/data-field/data-field.model';
-import { DataFieldService } from 'app/entities/data-field/service/data-field.service';
+import { IDataTreeBranchToField } from 'app/entities/data-tree-branch-to-field/data-tree-branch-to-field.model';
+import { DataTreeBranchToFieldService } from 'app/entities/data-tree-branch-to-field/service/data-tree-branch-to-field.service';
+import { IDataTreeBranchLink } from 'app/entities/data-tree-branch-link/data-tree-branch-link.model';
+import { DataTreeBranchLinkService } from 'app/entities/data-tree-branch-link/service/data-tree-branch-link.service';
 import { StereoTypeEnum } from 'app/entities/enumerations/stereo-type-enum.model';
 
 @Component({
@@ -28,8 +30,8 @@ export class DataTreeBranchUpdateComponent implements OnInit {
   stereoTypeEnumValues = Object.keys(StereoTypeEnum);
 
   dataTreeLeavesSharedCollection: IDataTreeLeaf[] = [];
-  dataFieldsSharedCollection: IDataField[] = [];
-  dataTreeBranchesSharedCollection: IDataTreeBranch[] = [];
+  dataTreeBranchToFieldsSharedCollection: IDataTreeBranchToField[] = [];
+  dataTreeBranchLinksSharedCollection: IDataTreeBranchLink[] = [];
 
   editForm: DataTreeBranchFormGroup = this.dataTreeBranchFormService.createDataTreeBranchFormGroup();
 
@@ -37,17 +39,19 @@ export class DataTreeBranchUpdateComponent implements OnInit {
     protected dataTreeBranchService: DataTreeBranchService,
     protected dataTreeBranchFormService: DataTreeBranchFormService,
     protected dataTreeLeafService: DataTreeLeafService,
-    protected dataFieldService: DataFieldService,
+    protected dataTreeBranchToFieldService: DataTreeBranchToFieldService,
+    protected dataTreeBranchLinkService: DataTreeBranchLinkService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareDataTreeLeaf = (o1: IDataTreeLeaf | null, o2: IDataTreeLeaf | null): boolean =>
     this.dataTreeLeafService.compareDataTreeLeaf(o1, o2);
 
-  compareDataField = (o1: IDataField | null, o2: IDataField | null): boolean => this.dataFieldService.compareDataField(o1, o2);
+  compareDataTreeBranchToField = (o1: IDataTreeBranchToField | null, o2: IDataTreeBranchToField | null): boolean =>
+    this.dataTreeBranchToFieldService.compareDataTreeBranchToField(o1, o2);
 
-  compareDataTreeBranch = (o1: IDataTreeBranch | null, o2: IDataTreeBranch | null): boolean =>
-    this.dataTreeBranchService.compareDataTreeBranch(o1, o2);
+  compareDataTreeBranchLink = (o1: IDataTreeBranchLink | null, o2: IDataTreeBranchLink | null): boolean =>
+    this.dataTreeBranchLinkService.compareDataTreeBranchLink(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ dataTreeBranch }) => {
@@ -101,14 +105,16 @@ export class DataTreeBranchUpdateComponent implements OnInit {
       this.dataTreeLeavesSharedCollection,
       dataTreeBranch.dataTreeLeaf
     );
-    this.dataFieldsSharedCollection = this.dataFieldService.addDataFieldToCollectionIfMissing<IDataField>(
-      this.dataFieldsSharedCollection,
-      ...(dataTreeBranch.branchToFields ?? [])
-    );
-    this.dataTreeBranchesSharedCollection = this.dataTreeBranchService.addDataTreeBranchToCollectionIfMissing<IDataTreeBranch>(
-      this.dataTreeBranchesSharedCollection,
-      ...(dataTreeBranch.branchParents ?? [])
-    );
+    this.dataTreeBranchToFieldsSharedCollection =
+      this.dataTreeBranchToFieldService.addDataTreeBranchToFieldToCollectionIfMissing<IDataTreeBranchToField>(
+        this.dataTreeBranchToFieldsSharedCollection,
+        dataTreeBranch.branchToField
+      );
+    this.dataTreeBranchLinksSharedCollection =
+      this.dataTreeBranchLinkService.addDataTreeBranchLinkToCollectionIfMissing<IDataTreeBranchLink>(
+        this.dataTreeBranchLinksSharedCollection,
+        dataTreeBranch.branchParent
+      );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -122,27 +128,32 @@ export class DataTreeBranchUpdateComponent implements OnInit {
       )
       .subscribe((dataTreeLeaves: IDataTreeLeaf[]) => (this.dataTreeLeavesSharedCollection = dataTreeLeaves));
 
-    this.dataFieldService
+    this.dataTreeBranchToFieldService
       .query()
-      .pipe(map((res: HttpResponse<IDataField[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IDataTreeBranchToField[]>) => res.body ?? []))
       .pipe(
-        map((dataFields: IDataField[]) =>
-          this.dataFieldService.addDataFieldToCollectionIfMissing<IDataField>(dataFields, ...(this.dataTreeBranch?.branchToFields ?? []))
-        )
-      )
-      .subscribe((dataFields: IDataField[]) => (this.dataFieldsSharedCollection = dataFields));
-
-    this.dataTreeBranchService
-      .query()
-      .pipe(map((res: HttpResponse<IDataTreeBranch[]>) => res.body ?? []))
-      .pipe(
-        map((dataTreeBranches: IDataTreeBranch[]) =>
-          this.dataTreeBranchService.addDataTreeBranchToCollectionIfMissing<IDataTreeBranch>(
-            dataTreeBranches,
-            ...(this.dataTreeBranch?.branchParents ?? [])
+        map((dataTreeBranchToFields: IDataTreeBranchToField[]) =>
+          this.dataTreeBranchToFieldService.addDataTreeBranchToFieldToCollectionIfMissing<IDataTreeBranchToField>(
+            dataTreeBranchToFields,
+            this.dataTreeBranch?.branchToField
           )
         )
       )
-      .subscribe((dataTreeBranches: IDataTreeBranch[]) => (this.dataTreeBranchesSharedCollection = dataTreeBranches));
+      .subscribe(
+        (dataTreeBranchToFields: IDataTreeBranchToField[]) => (this.dataTreeBranchToFieldsSharedCollection = dataTreeBranchToFields)
+      );
+
+    this.dataTreeBranchLinkService
+      .query()
+      .pipe(map((res: HttpResponse<IDataTreeBranchLink[]>) => res.body ?? []))
+      .pipe(
+        map((dataTreeBranchLinks: IDataTreeBranchLink[]) =>
+          this.dataTreeBranchLinkService.addDataTreeBranchLinkToCollectionIfMissing<IDataTreeBranchLink>(
+            dataTreeBranchLinks,
+            this.dataTreeBranch?.branchParent
+          )
+        )
+      )
+      .subscribe((dataTreeBranchLinks: IDataTreeBranchLink[]) => (this.dataTreeBranchLinksSharedCollection = dataTreeBranchLinks));
   }
 }

@@ -1,10 +1,10 @@
 package com.bami.dfm.repository;
 
 
-import com.bami.dfm.domain.DataField;
 import com.bami.dfm.domain.DataTreeRoot;
 import com.bami.dfm.repository.rowmapper.DataTreeBranchRowMapper;
 import com.bami.dfm.repository.rowmapper.DataTreeRootRowMapper;
+import com.bami.dfm.repository.rowmapper.DataTreeRootToFieldRowMapper;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
 import java.util.List;
@@ -38,21 +38,18 @@ class DataTreeRootRepositoryInternalImpl extends SimpleR2dbcRepository<DataTreeR
     private final EntityManager entityManager;
 
     private final DataTreeBranchRowMapper datatreebranchMapper;
+    private final DataTreeRootToFieldRowMapper datatreeroottofieldMapper;
     private final DataTreeRootRowMapper datatreerootMapper;
 
     private static final Table entityTable = Table.aliased("data_tree_root", EntityManager.ENTITY_ALIAS);
     private static final Table dataTreeBranchTable = Table.aliased("data_tree_branch", "dataTreeBranch");
-
-    private static final EntityManager.LinkTable rootToFieldLink = new EntityManager.LinkTable(
-        "rel_data_tree_root__root_to_field",
-        "data_tree_root_id",
-        "root_to_field_id"
-    );
+    private static final Table rootToFieldTable = Table.aliased("data_tree_root_to_field", "rootToField");
 
     public DataTreeRootRepositoryInternalImpl(
         R2dbcEntityTemplate template,
         EntityManager entityManager,
         DataTreeBranchRowMapper datatreebranchMapper,
+        DataTreeRootToFieldRowMapper datatreeroottofieldMapper,
         DataTreeRootRowMapper datatreerootMapper,
         R2dbcEntityOperations entityOperations,
         R2dbcConverter converter
@@ -66,6 +63,7 @@ class DataTreeRootRepositoryInternalImpl extends SimpleR2dbcRepository<DataTreeR
         this.r2dbcEntityTemplate = template;
         this.entityManager = entityManager;
         this.datatreebranchMapper = datatreebranchMapper;
+        this.datatreeroottofieldMapper = datatreeroottofieldMapper;
         this.datatreerootMapper = datatreerootMapper;
     }
 
@@ -77,13 +75,17 @@ class DataTreeRootRepositoryInternalImpl extends SimpleR2dbcRepository<DataTreeR
     RowsFetchSpec<DataTreeRoot> createQuery(Pageable pageable, Condition whereClause) {
         List<Expression> columns = DataTreeRootSqlHelper.getColumns(entityTable, EntityManager.ENTITY_ALIAS);
         columns.addAll(DataTreeBranchSqlHelper.getColumns(dataTreeBranchTable, "dataTreeBranch"));
+        columns.addAll(DataTreeRootToFieldSqlHelper.getColumns(rootToFieldTable, "rootToField"));
         SelectFromAndJoinCondition selectFrom = Select
             .builder()
             .select(columns)
             .from(entityTable)
             .leftOuterJoin(dataTreeBranchTable)
             .on(Column.create("data_tree_branch_id", entityTable))
-            .equals(Column.create("id", dataTreeBranchTable));
+            .equals(Column.create("id", dataTreeBranchTable))
+            .leftOuterJoin(rootToFieldTable)
+            .on(Column.create("root_to_field_id", entityTable))
+            .equals(Column.create("id", rootToFieldTable));
         // we do not support Criteria here for now as of https://github.com/jhipster/generator-jhipster/issues/18269
         String select = entityManager.createSelect(selectFrom, DataTreeRoot.class, pageable, whereClause);
         return db.sql(select).map(this::process);
@@ -100,45 +102,15 @@ class DataTreeRootRepositoryInternalImpl extends SimpleR2dbcRepository<DataTreeR
         return createQuery(null, whereClause).one();
     }
 
-    @Override
-    public Mono<DataTreeRoot> findOneWithEagerRelationships(Long id) {
-        return findById(id);
-    }
-
-    @Override
-    public Flux<DataTreeRoot> findAllWithEagerRelationships() {
-        return findAll();
-    }
-
-    @Override
-    public Flux<DataTreeRoot> findAllWithEagerRelationships(Pageable page) {
-        return findAllBy(page);
-    }
-
     private DataTreeRoot process(Row row, RowMetadata metadata) {
         DataTreeRoot entity = datatreerootMapper.apply(row, "e");
         entity.setDataTreeBranch(datatreebranchMapper.apply(row, "dataTreeBranch"));
+        entity.setRootToField(datatreeroottofieldMapper.apply(row, "rootToField"));
         return entity;
     }
 
     @Override
     public <S extends DataTreeRoot> Mono<S> save(S entity) {
-        return super.save(entity).flatMap((S e) -> updateRelations(e));
-    }
-
-    protected <S extends DataTreeRoot> Mono<S> updateRelations(S entity) {
-        Mono<Void> result = entityManager
-            .updateLinkTable(rootToFieldLink, entity.getId(), entity.getRootToFields().stream().map(DataField::getId))
-            .then();
-        return result.thenReturn(entity);
-    }
-
-    @Override
-    public Mono<Void> deleteById(Long entityId) {
-        return deleteRelations(entityId).then(super.deleteById(entityId));
-    }
-
-    protected Mono<Void> deleteRelations(Long entityId) {
-        return entityManager.deleteFromLinkTable(rootToFieldLink, entityId);
+        return super.save(entity);
     }
 }
