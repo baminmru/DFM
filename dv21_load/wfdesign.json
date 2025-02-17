@@ -1,0 +1,18 @@
+ {
+  "type": "object",
+  "properties": {
+    "WFDesign": {
+      "type": "object",
+      "properties": {
+        "ProcessDefinition": {
+          "type": "array",
+          "ID": "",
+          "Name": "",
+          "Comment": "",
+          "items": { "type": "object", "properties": { "[object Object]": { "type": "0" } } }
+        }
+      },
+      "ID": ""
+    }
+  }
+}
