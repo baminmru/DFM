@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="1A23B05C-453F-466A-8F66-5A24DC28E6C8" Alias="TaskHierarchy" Version="6" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{74754F3D-A110-445C-A689-97BF8B196856},license:" NonSearchable="true" IconFile="" NoLockOnOpen="true" NoHardShortcuts="true" FolderCard="true">
+	<Name>
+		<LocalizedString Language="en">CardHierarchy</LocalizedString>
+		<LocalizedString Language="ru">Карточка папки иерархического отображения задач</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Section" Type="struct" ID="A16069D3-7133-439B-A606-9B513A5C9BB9">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="Field" ID="743F4BBB-110E-40D5-BD17-F6CA75BD820B" Type="int" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

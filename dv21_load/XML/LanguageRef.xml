@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="24265C3B-1628-48D3-8638-3E4E02BD4F2C" Alias="Language" Version="2" ProgID="clsid:{042B567C-017F-48BD-87E9-4E0014657D21},license:" Dictionary="true" NonSearchable="true" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">Language Dictionary</LocalizedString>
+		<LocalizedString Language="ru">Справочник языков</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="coll" ID="C66824FF-D7BB-4688-B49A-BEA822F17AA9">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Главная</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="E6833656-242C-4BC8-A1D6-86BC03E00F08" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="1A56CC25-26AA-470F-BACB-50E9D8427EC1" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Описание</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DontUse" ID="4504E965-C165-4965-B53A-DB4163ECA080" Type="bool" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DontUse</LocalizedString>
+					<LocalizedString Language="ru">Использовать</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

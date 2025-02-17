@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="C046AA31-9BB0-4602-B665-00A6B51E4368" Alias="FileTemplate" Version="8" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{E318F1B6-5626-4872-B260-100D2584A237},license:" IconFile="">
+	<Name>
+		<LocalizedString Language="en">FileTemplate</LocalizedString>
+		<LocalizedString Language="ru">Шаблон файла</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="struct" ID="4F24DD01-997A-4D30-AAD9-1397A76490CA">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Описание шаблона</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="A142BDA0-1EB3-442B-BB10-499492CC9090" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Название шаблона</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Author" ID="4AF5E8D4-FD10-4EA0-ADA2-601BEE9DBBF2" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Author</LocalizedString>
+					<LocalizedString Language="ru">Автор шаблона</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Rubric" ID="B44A73E2-98B7-416E-9BF7-180C3985D103" Type="refid" RefType="233CA964-5025-4187-80C1-F56BCC9DBD1E" RefSection="899C1470-9ADF-4D33-8E69-9944EB44DBE7" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Rubric</LocalizedString>
+					<LocalizedString Language="ru">Рубрика документов</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="05D9A938-59AA-4CF8-92A3-10A1C8B286E8" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Описание шаблона</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="FileID" ID="256E3ECB-C0BD-4D09-B632-304B439CA317" Type="fileid" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">FileID</LocalizedString>
+					<LocalizedString Language="ru">Файл</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="E855DAF0-0B83-4EC5-9947-9BC2C83BF379" Alias="RegistrationCardLite" Version="57" ProgID="clsid:{4474328F-C8D5-46ED-9E55-E4E404E3FFDA},license:" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">Registration Card Lite Edition</LocalizedString>
+		<LocalizedString Language="ru">Регистрационная карточка (Lite)</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="FileVersions" Type="coll" ID="894EC6BB-3230-4B81-AE46-D86D37C524A0">
+			<Name>
+				<LocalizedString Language="en">File Versions</LocalizedString>
+				<LocalizedString Language="ru">Версии Файлов</LocalizedString>
+			</Name>
+			<Field Alias="Number" ID="82AAFB2D-1DE2-4A6C-9EC9-F4C8EB7DD1A4" Type="int" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Name" ID="EEB02B93-1A54-467A-9DD6-A0BFC6971052" Type="string" Max="50" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Version Name</LocalizedString>
+					<LocalizedString Language="ru">Имя Версии</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="VersionDate" ID="F746A168-3EA4-4397-A17F-84E7CC52D983" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Version Date</LocalizedString>
+					<LocalizedString Language="ru">Дата создания версии</LocalizedString>
+				</Name>
+			</Field>
+			<Section Alias="RefFiles" Type="coll" ID="9862C58E-E096-4A6F-8F25-DC35842E5228">
+				<Name>
+					<LocalizedString Language="en">File References</LocalizedString>
+					<LocalizedString Language="ru">Ссылки на файлы</LocalizedString>
+				</Name>
+				<Field Alias="RefFileObj" ID="7DC8E6EF-86CB-4DA6-8846-448CA3A120E5" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+					<Name>
+						<LocalizedString Language="en">Ref To File</LocalizedString>
+						<LocalizedString Language="ru">Ссылка на файл</LocalizedString>
+					</Name>
+				</Field>
+				<Field Alias="Opened" ID="5153F173-D63F-4231-BEAD-7771BE21F03E" Type="bool" DefaultValue="0" CopyBehavior="Copy">
+					<Name>
+						<LocalizedString Language="en">Opened Flag</LocalizedString>
+						<LocalizedString Language="ru">Признак Открытого Файла</LocalizedString>
+					</Name>
+				</Field>
+				<Field Alias="FldUserID" ID="F4F808E1-363F-4612-B70F-9902AB203BF2" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+					<Name>
+						<LocalizedString Language="en">User Identifier</LocalizedString>
+						<LocalizedString Language="ru">Идентификатор Пользователя</LocalizedString>
+					</Name>
+				</Field>
+				<Field Alias="FldUserName" ID="399FC4C6-6510-4023-A13E-47042863CB12" Type="string" Max="100" DefaultValue="" CopyBehavior="Copy">
+					<Name>
+						<LocalizedString Language="en">User Name</LocalizedString>
+						<LocalizedString Language="ru">Имя Пользователя</LocalizedString>
+					</Name>
+				</Field>
+				<Field Alias="FileName" ID="D8983386-18DB-40DA-BED2-8D39D7263CB6" Type="string" Max="255" DefaultValue="" CopyBehavior="Copy">
+					<Name>
+						<LocalizedString Language="en">Field</LocalizedString>
+						<LocalizedString Language="ru">Поле</LocalizedString>
+					</Name>
+				</Field>
+				<Field Alias="FldDate" ID="E79C457D-9916-43B3-B629-D33CABCB1B6E" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+					<Name>
+						<LocalizedString Language="en">File Ref Date</LocalizedString>
+						<LocalizedString Language="ru">Дата редактирования</LocalizedString>
+					</Name>
+				</Field>
+				<Section Alias="FileComments" Type="coll" ID="3BEB969D-E527-4A39-8236-C26B8C9E7D51">
+					<Name>
+						<LocalizedString Language="en">Comments</LocalizedString>
+						<LocalizedString Language="ru">Комментарии</LocalizedString>
+					</Name>
+					<Field Alias="FldUserName" ID="3D94B43A-3099-49F1-A195-435C6D46CAB9" Type="string" Max="150" DefaultValue="" CopyBehavior="Copy">
+						<Name>
+							<LocalizedString Language="en">UserName</LocalizedString>
+							<LocalizedString Language="ru">Заголовок</LocalizedString>
+						</Name>
+					</Field>
+					<Field Alias="FldDate" ID="0D7DCC58-4048-47BF-9754-1EF791E3FBF0" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+						<Name>
+							<LocalizedString Language="en">Field</LocalizedString>
+							<LocalizedString Language="ru">Поле</LocalizedString>
+						</Name>
+					</Field>
+					<Field Alias="FldText" ID="A0C4C41D-BB0F-4DB5-A6AF-56293EF63AEA" Type="text" DefaultValue="" CopyBehavior="Copy">
+						<Name>
+							<LocalizedString Language="en">Field</LocalizedString>
+							<LocalizedString Language="ru">Поле</LocalizedString>
+						</Name>
+					</Field>
+					<Field Alias="FldUserID" ID="478FF4C0-D314-4495-B503-7C28FF407F91" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+						<Name>
+							<LocalizedString Language="en">User ID</LocalizedString>
+							<LocalizedString Language="ru">Идентификатор пользователя</LocalizedString>
+						</Name>
+					</Field>
+				</Section>
+			</Section>
+		</Section>
+	</Sections>
+</CardDefinition>

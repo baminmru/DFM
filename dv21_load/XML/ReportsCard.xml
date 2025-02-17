@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="5E227735-29C2-4CA0-AC23-4BB9EFA8CA86" Alias="ReportsCard" Version="50" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{D0569414-0465-4A02-86AA-F0548DF99815}" IconFile="S:\Projects\DDMERT_DMS\Design\icons\3 заявка\отчет1.ico" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">Standard reports card</LocalizedString>
+		<LocalizedString Language="ru">Карточка стандартных отчетов</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="struct" ID="95507033-A328-41A4-894B-69FAD82424A8">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="ResCardViewID" ID="57284D30-73CA-4C43-9A53-55D1BB3B7A06" Type="refid" RefType="{17F8F0B3-7E93-45E9-B250-EED4E93F3FA3}" RefSection="{A6B842C8-4876-4B5A-BFD7-7A9BB2CEA657}" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ResCardViewID</LocalizedString>
+					<LocalizedString Language="ru">ResCardViewID</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CurrentReport" ID="D6C819D5-99A1-4DD8-B8CD-BF60F2A9DECB" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CurrentReport</LocalizedString>
+					<LocalizedString Language="ru">CurrentReport</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RegFrom" ID="7D93FBBB-958D-4420-91AC-31718DF3F208" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RegFrom</LocalizedString>
+					<LocalizedString Language="ru">RegFrom</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RegTo" ID="01BCDD04-DB2B-4D99-B253-A266F3B2E208" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RegTo</LocalizedString>
+					<LocalizedString Language="ru">RegTo</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CtlMin" ID="093D7168-40D1-4118-8A39-051397433AE0" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CtlMin</LocalizedString>
+					<LocalizedString Language="ru">CtlMin</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RegFromExec" ID="77E6A440-10CE-4819-8C15-2A1534D7A97D" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RegFromExec</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RegToExec" ID="5CDDDAF6-6BE7-4C25-A55C-4838B84FE3F9" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RegToExec</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Report47View" ID="DB7E3B66-7EB9-419B-93E2-C544758601AD" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Report47View</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="WEBParams" ID="5E28F268-AD57-4EA2-99D1-98B038D3325F" Type="text" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">WEBParams</LocalizedString>
+					<LocalizedString Language="ru">Параметры ASPX-страницы</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ArchiveDept" ID="0AC31BAF-FF50-4CD5-B152-3A12B7A9976C" Type="refid" RefType="9B410616-87D2-4AED-BBB6-2718A9DA4CE8" RefSection="74CEC36B-5944-4E64-B27E-93CF580B8F46" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ArchiveDept</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ArchiveCase" ID="31192AD0-3072-47C7-AEF6-53FBFA89D6CE" Type="refid" RefType="9B410616-87D2-4AED-BBB6-2718A9DA4CE8" RefSection="74CEC36B-5944-4E64-B27E-93CF580B8F46" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ArchiveCase</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ArchiveFolder" ID="8CE49594-ECA7-446A-BE68-21116EA41DA9" Type="refid" RefType="9B410616-87D2-4AED-BBB6-2718A9DA4CE8" RefSection="1671E8BE-92CB-4744-BB7F-6616C722E06E" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ArchiveFolder</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DocsFlow_RegDateFrom" ID="7B356202-FD7F-4434-B2DD-236D39F95F54" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DocsFlow_RegDateFrom</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DocsFlow_RegDateTo" ID="A7296FB5-45D4-403E-98DC-954E40065B8D" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DocsFlow_RegDateTo</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="DocTypes" Type="coll" ID="99880D85-E468-4D2C-AC61-BC49B17AA925">
+			<Name>
+				<LocalizedString Language="en">DocTypes</LocalizedString>
+				<LocalizedString Language="ru">DocTypes</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="E098C403-A774-4289-A394-A60E5C5A5122" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Name</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="DC23B83C-9777-4164-8790-A6A81132622A" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Value</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Rubrics" Type="coll" ID="88079C48-8358-4357-8CCA-0368DBCE2484">
+			<Name>
+				<LocalizedString Language="en">Rubric</LocalizedString>
+				<LocalizedString Language="ru">Rubric</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="8999DCDB-0830-432E-B723-A3062A913281" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Name</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="03654E9F-AEF8-441D-B7DF-7D4195E269DD" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Value</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Users" Type="coll" ID="B5B4B017-CD21-4D4B-B9BE-56C2F8560D01">
+			<Name>
+				<LocalizedString Language="en">Users</LocalizedString>
+				<LocalizedString Language="ru">Users</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="E5E5FFF1-8981-42AD-8279-D578BC166B00" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="EBBE972D-483A-4805-A491-506C94FC00AC" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Value</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Units" Type="coll" ID="F0AF1CCD-4DB3-4517-A503-1B52D629E762">
+			<Name>
+				<LocalizedString Language="en">Units</LocalizedString>
+				<LocalizedString Language="ru">Units</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="8CCCA86A-0B72-40B6-A184-633576087977" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="E23D182B-ABC6-4BC6-B68A-699FF63514F6" Type="uniqueid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Value</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="UnitsExec" Type="coll" ID="92401B90-2007-446A-B3CB-EA49D3669068">
+			<Name>
+				<LocalizedString Language="en">UnitsExec</LocalizedString>
+				<LocalizedString Language="ru">Раздел подразделений для сводки</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="F2CD48C6-AD52-48AE-A536-2BA5FB790A38" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="448033A8-5DBF-42E7-9DC8-0182670F2D3E" Type="uniqueid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="DocFlowDepts" Type="coll" ID="1E3EDB88-5C95-4108-9686-0F605E0FA183">
+			<Name>
+				<LocalizedString Language="en">DocFlowDepts</LocalizedString>
+				<LocalizedString Language="ru">Подразделения</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="792B9F9D-4608-4F5D-91AD-6655FD16CC9A" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="E1A9D345-8B13-45B9-861D-9F74E4E159CC" Type="uniqueid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+	<ViewElements />
+</CardDefinition>

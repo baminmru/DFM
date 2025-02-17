@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="FD6D05C3-0973-48ED-9B8B-6717C498645F" Alias="ControlCard" Version="17" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{D92685D8-3FFD-4B32-8BEA-58F9A26B7E76},license:omhlljooqmsjklllsith" IconFile="S:\Projects\DDMERT_DMS\Design\icons\карточка контроля\k2.ico" NoLockOnOpen="true" FolderCard="true" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">ControlCard</LocalizedString>
+		<LocalizedString Language="ru">Карточка контроля</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Departments" Type="coll" ID="DCFCE1BD-53D5-44E1-8922-7BAA511BDF71">
+			<Name>
+				<LocalizedString Language="en">Departments</LocalizedString>
+				<LocalizedString Language="ru">Департаменты за которыми осуществляется контроль</LocalizedString>
+			</Name>
+			<Field Alias="Value" ID="9DA2C304-F2C1-43F4-8D53-C4D3B0BBAF71" Type="uniqueid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="7473F07F-11ED-4762-9F1E-7FF10808DDD1" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Значение</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Name" ID="1B3C206F-5636-4F74-ADAF-4B11CCEC7F1D" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Название</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Settings" Type="struct" ID="D917B31C-9DCF-43D7-B185-6B7EAEA89E66">
+			<Name>
+				<LocalizedString Language="en">Settings</LocalizedString>
+				<LocalizedString Language="ru">Настройки</LocalizedString>
+			</Name>
+			<Field Alias="IsCitizenRequest" ID="6293A99D-8FE7-4559-BEDD-88107E7A615F" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">IsCitizenRequest</LocalizedString>
+					<LocalizedString Language="ru">Обращение граждан</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsOrder" ID="E099485A-5641-4A0B-847C-E6061D81C9A3" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">IsOrder</LocalizedString>
+					<LocalizedString Language="ru">Включать приказы</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsOffTime" ID="0EEA059A-8B45-4B70-8BC8-A216E78B3B53" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">IsOffTime</LocalizedString>
+					<LocalizedString Language="ru">Просроченные</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ControlType" ID="5BE55C07-D1CF-44A3-92C8-3C6F2FFF9168" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ControlType</LocalizedString>
+					<LocalizedString Language="ru">Вид контроля</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="3C60D1B2-FCA7-4F69-8FE4-E19929C26E81" Alias="ResTask" Version="214" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{80DDF638-09D4-49FC-9638-B5958F60E3B5},license:mhpjfhimphpjkkrlgh" IconFile="" NoHardShortcuts="true" FetchMode="1" SimpleSecurity="true">
+	<Name>
+		<LocalizedString Language="en">Task card</LocalizedString>
+		<LocalizedString Language="ru">Карточка задания</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="struct" ID="8A75FE24-64A7-4233-9E92-5133B552732F" ContainsProperties="true">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Основной раздел</LocalizedString>
+			</Name>
+			<Field Alias="Parent" ID="F34CD47D-7A47-4293-834E-0AF6A89627C4" Type="refcardid" RefType="3C60D1B2-FCA7-4F69-8FE4-E19929C26E81" RefSection="8A75FE24-64A7-4233-9E92-5133B552732F" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Parent resolution</LocalizedString>
+					<LocalizedString Language="ru">Родительская резолюция</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Parent_Executor">Executor</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="ExecTime" ID="99245835-14E4-4CA3-9CFB-AAFA736B8124" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Execution time</LocalizedString>
+					<LocalizedString Language="ru">Срок исполнения</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="InspectionExecTime" ID="17A9ED09-CD66-4D74-94C7-04234321AD5E" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Inspection execution time</LocalizedString>
+					<LocalizedString Language="ru">Контрольный срок исполнения</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ActualExecTime" ID="D4AF6662-D282-43CD-9965-8208EC17DE54" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Date of actual completetion</LocalizedString>
+					<LocalizedString Language="ru">Фактический срок исполнения</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ResolutionText" ID="EB38FAE1-3AC8-4912-A948-FACC2699A0C2" Type="text" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Resolution text</LocalizedString>
+					<LocalizedString Language="ru">Текст резолюции</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="InspectionTermReason" ID="EAE4FEFE-C74F-4451-8D6C-A856793357C0" Type="string" Max="2000" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Reason for inspection termination</LocalizedString>
+					<LocalizedString Language="ru">Ход исполнения</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="TaskText" ID="9DA701A8-22E9-4E96-A51C-EAF4BCA4CBBA" Type="string" Max="5000" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Task text</LocalizedString>
+					<LocalizedString Language="ru">Текст задания</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CompletePerc" ID="B01D86A1-F28B-424D-A691-CE8518045833" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Percentage of completition</LocalizedString>
+					<LocalizedString Language="ru">Процент выполнения</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Executor" ID="95E0B727-5B9F-4AA6-917B-981228916086" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Executor</LocalizedString>
+					<LocalizedString Language="ru">Исполнитель</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Executor_FName">FirstName</RefField>
+					<RefField Alias="Executor_MName">MiddleName</RefField>
+					<RefField Alias="Executor_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="ExecutorType" ID="87395A45-A52D-41CE-905E-D19821C27DC2" Type="enum" DeleteLinkedOnValueChange="false" DefaultValue="1" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Executor type</LocalizedString>
+					<LocalizedString Language="ru">Тип исполнителя</LocalizedString>
+				</Name>
+				<Enum Alias="Responsible" Value="0">
+					<Name>
+						<LocalizedString Language="en">Responsible</LocalizedString>
+						<LocalizedString Language="ru">Ответственный</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Coexecutor" Value="1">
+					<Name>
+						<LocalizedString Language="en">Coexecutor</LocalizedString>
+						<LocalizedString Language="ru">Соисполнитель</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Examination" Value="2">
+					<Name>
+						<LocalizedString Language="en">Examination</LocalizedString>
+						<LocalizedString Language="ru">Ознакомление</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+			<Field Alias="Inspector" ID="774F8BB0-315E-4330-AC9E-036A4B90F977" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Inspector</LocalizedString>
+					<LocalizedString Language="ru">Контролер</LocalizedString>
+				</Name>
+				<RefFields />
+			</Field>
+			<Field Alias="TaskState" ID="B052C78D-51E4-4F12-9D89-0934DB7DF718" Type="enum" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">TaskState</LocalizedString>
+					<LocalizedString Language="ru">Состояние задания</LocalizedString>
+				</Name>
+				<Enum Alias="Prepare" Value="0">
+					<Name>
+						<LocalizedString Language="en">Prepare</LocalizedString>
+						<LocalizedString Language="ru">Подготавливается</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="OnApproval" Value="1">
+					<Name>
+						<LocalizedString Language="en">On approval</LocalizedString>
+						<LocalizedString Language="ru">На рассмотрении</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="InWork" Value="2">
+					<Name>
+						<LocalizedString Language="en">In work</LocalizedString>
+						<LocalizedString Language="ru">В работе</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Suspended" Value="3">
+					<Name>
+						<LocalizedString Language="en">Suspended</LocalizedString>
+						<LocalizedString Language="ru">Отложено</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Complete" Value="4">
+					<Name>
+						<LocalizedString Language="en">Complete</LocalizedString>
+						<LocalizedString Language="ru">Исполнена</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Inspected" Value="5">
+					<Name>
+						<LocalizedString Language="en">Inspected</LocalizedString>
+						<LocalizedString Language="ru">На проверке</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+			<Field Alias="RegCard" ID="A1B16CB2-9930-4118-BDB9-7393F33C911C" Type="refcardid" RefType="628543E2-931A-41A0-8206-1FC2BC2139A3" RefSection="E00D1868-6349-4D18-9E15-D18DA8C72ED5" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Registration card</LocalizedString>
+					<LocalizedString Language="ru">Регистрационная карточка</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="RegCard_Id">RegId</RefField>
+					<RefField Alias="RegCard_Date">CreationDate</RefField>
+					<RefField Alias="RegCard_Inspection">Inspection</RefField>
+					<RefField Alias="RegCard_Inspector">Inspector</RefField>
+					<RefField Alias="RegCard_CardType">CardType</RefField>
+					<RefField Alias="RegCard_DocImportance">DocImportance</RefField>
+					<RefField Alias="RegCard_DocType">DocType</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="Operator" ID="E0CDAB3C-F268-42E1-9093-37037EB041E7" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Operator</LocalizedString>
+					<LocalizedString Language="ru">Ввел данные</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Operator_FName">FirstName</RefField>
+					<RefField Alias="Operator_MName">MiddleName</RefField>
+					<RefField Alias="Operator_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="ExecReport" ID="45BE1712-E3F7-4167-8AA1-B72E2B085CE2" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Execution report</LocalizedString>
+					<LocalizedString Language="ru">Отчет об исполнении</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Author" ID="8D2DC546-8C59-494C-AE52-5A2807789324" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Author</LocalizedString>
+					<LocalizedString Language="ru">Автор задания</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Author_FName">FirstName</RefField>
+					<RefField Alias="Author_MName">MiddleName</RefField>
+					<RefField Alias="Author_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="PartNumber" ID="7229CAD1-0E41-4DA6-9FE9-B08484B67ACE" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Part number</LocalizedString>
+					<LocalizedString Language="ru">Номер пункта</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="MinistryInspection" ID="6FDAF3CD-B5ED-46D6-9AFA-B5C26AEB591E" Type="enum" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Ministry inspection</LocalizedString>
+					<LocalizedString Language="ru">Министерский контроль</LocalizedString>
+				</Name>
+				<Enum Alias="No" Value="0">
+					<Name>
+						<LocalizedString Language="ru">Контроль отсутствует</LocalizedString>
+						<LocalizedString Language="en">Not inspected</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Yes" Value="1">
+					<Name>
+						<LocalizedString Language="en">Inspected</LocalizedString>
+						<LocalizedString Language="ru">На контроле</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Released" Value="2">
+					<Name>
+						<LocalizedString Language="en">Inspection released</LocalizedString>
+						<LocalizedString Language="ru">Снято с контроля</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Delegated" Value="3">
+					<Name>
+						<LocalizedString Language="en">Inspection delegated</LocalizedString>
+						<LocalizedString Language="ru">Контроль делегирован</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+			<Field Alias="Pursuance" ID="7F831481-CBF7-4FBC-84CE-587EBF248E7A" Type="refcardid" RefType="628543E2-931A-41A0-8206-1FC2BC2139A3" RefSection="E00D1868-6349-4D18-9E15-D18DA8C72ED5" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Weak" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Regcard in pursuance of</LocalizedString>
+					<LocalizedString Language="ru">Документ во исполнение резолюции</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Pursuance_CreationDate">CreationDate</RefField>
+					<RefField Alias="Pursuance_RegId">RegId</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="ReplacementCard" ID="4BDFD9E0-F65F-4887-831C-0EBC02F197CD" Type="refcardid" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Replacepment card</LocalizedString>
+					<LocalizedString Language="ru">Замещающая карточка</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="SentToRevision" ID="C5B561D0-DFEC-4573-807C-F8E18DDE58CF" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Was sent to revision</LocalizedString>
+					<LocalizedString Language="ru">Отправлено на доработку</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="TreeKey" ID="56E56136-6B09-493C-8ED5-7DC53275E11C" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="+" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Tree key</LocalizedString>
+					<LocalizedString Language="ru">Ключ в дереве</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ProjectCreator" ID="8A256AAB-D348-4EA7-AAEA-D553D42089DF" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Project creator</LocalizedString>
+					<LocalizedString Language="ru">Создатель проекта резолюции</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="ProjectCreator_FName">FirstName</RefField>
+					<RefField Alias="ProjectCreator_MName">MiddleName</RefField>
+					<RefField Alias="ProjectCreator_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="ProjectApprover" ID="C1D867ED-96AA-42D8-94AF-D691D21EB8D7" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Project approver</LocalizedString>
+					<LocalizedString Language="ru">Утвердил проект</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="ProjectApprover_FName">FirstName</RefField>
+					<RefField Alias="ProjectApprover_MName">MiddleName</RefField>
+					<RefField Alias="ProjectApprover_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="PathsCount" ID="382D64D7-EA9A-447B-A886-313924C9B0DC" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Paths count</LocalizedString>
+					<LocalizedString Language="ru">Количество пройденных маршрутов</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsProjectApproved" ID="577CF8E6-0761-43DD-A563-C76B1C6027EE" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Project approved</LocalizedString>
+					<LocalizedString Language="ru">Проект утвержден</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RevisionNote" ID="7E1A3BB3-FFC4-4E9E-BB1A-5271F95FBFD5" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RevisionNote</LocalizedString>
+					<LocalizedString Language="ru">Замечания</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ApprovalDate" ID="3D91E953-7936-40E8-9716-2EEAC9D2D810" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Approval Date</LocalizedString>
+					<LocalizedString Language="ru">Дата утверждения проекта</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Category" ID="6C54ADE6-31FA-4DF4-9290-FAC8F44E673C" Type="refid" RefType="233CA964-5025-4187-80C1-F56BCC9DBD1E" RefSection="899C1470-9ADF-4D33-8E69-9944EB44DBE7" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Category</LocalizedString>
+					<LocalizedString Language="ru">Категория задания</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ChildAuthor" ID="313F9A75-E7A8-43BF-A59F-CF3ED910EA07" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Author of child resolutions</LocalizedString>
+					<LocalizedString Language="ru">Автор дочерних резолюции</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="ChildAuthor_FName">FirstName</RefField>
+					<RefField Alias="ChildAuthor_MName">MiddleName</RefField>
+					<RefField Alias="ChildAuthor_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="ExecutorNumber" ID="B1EEC5BF-986D-41AA-BCB9-C68DE5E6ED39" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Executor number</LocalizedString>
+					<LocalizedString Language="ru">Номер исполнителя</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Importance" ID="314909A7-796E-44B4-8FD1-7FBCCBD7977B" Type="enum" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Importance</LocalizedString>
+					<LocalizedString Language="ru">Срочность</LocalizedString>
+				</Name>
+				<Enum Alias="Normal" Value="0">
+					<Name>
+						<LocalizedString Language="en">Normal</LocalizedString>
+						<LocalizedString Language="ru">Обычная</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Expess" Value="1">
+					<Name>
+						<LocalizedString Language="en">Express</LocalizedString>
+						<LocalizedString Language="ru">Срочно</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Extraurgent" Value="2">
+					<Name>
+						<LocalizedString Language="en">Extraurgent</LocalizedString>
+						<LocalizedString Language="ru">В.Срочно</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+			<Field Alias="Priority" ID="0DB5143E-DD79-4909-A271-A5669D040D16" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="1" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Priority</LocalizedString>
+					<LocalizedString Language="ru">Приоритет</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Efforts" ID="3C2B6995-169B-4881-9BC0-D104A105B17B" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Efforts</LocalizedString>
+					<LocalizedString Language="ru">Трудозатраты</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsPermanent" ID="DB69793B-A886-4D3C-9FAD-E546D031D1D4" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Permanent</LocalizedString>
+					<LocalizedString Language="ru">Постоянное</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="StartDate" ID="EC987A84-678D-4C3A-ADAF-CD4EF76200C0" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">StartDate</LocalizedString>
+					<LocalizedString Language="ru">Плановое начало работ</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ActualStartDate" ID="0E83EAB6-876D-46F9-AFB2-3B8F32679952" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ActualStartDate</LocalizedString>
+					<LocalizedString Language="ru">Фактическое начало работы</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsPlanned" ID="671021B8-A9F8-4CE5-95CE-DC058E82A572" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Planned</LocalizedString>
+					<LocalizedString Language="ru">Плановое</LocalizedString>
+				</Name>
+			</Field>
+			<Constraints>
+				<Constraint Type="Index">
+					<ConstraintField>Parent</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>Executor</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>RegCard</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>TreeKey</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>Author</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>ProjectApprover</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>ProjectCreator</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>ChildAuthor</ConstraintField>
+				</Constraint>
+			</Constraints>
+		</Section>
+		<Section Alias="Children" Type="coll" ID="3B7683C6-3556-4931-8434-9FB4E82A08E7">
+			<Name>
+				<LocalizedString Language="en">Children resolutions</LocalizedString>
+				<LocalizedString Language="ru">Дочерние резолюции</LocalizedString>
+			</Name>
+			<Field Alias="ResID" ID="42FF2000-33D0-4045-ABBE-5CD68ED95087" Type="refcardid" RefType="3C60D1B2-FCA7-4F69-8FE4-E19929C26E81" RefSection="8A75FE24-64A7-4233-9E92-5133B552732F" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Hard" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Child resolution</LocalizedString>
+					<LocalizedString Language="ru">Дочерняя резолюция</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="">ExecutorType</RefField>
+					<RefField Alias="">PartNumber</RefField>
+					<RefField Alias="">ExecutorNumber</RefField>
+				</RefFields>
+			</Field>
+			<SortBy>
+				<Field>PartNumber</Field>
+				<Field>ExecutorNumber</Field>
+			</SortBy>
+		</Section>
+		<Section Alias="Signatures" Type="coll" ID="A8B126A4-B42F-42C3-A6A5-00B31F614137">
+			<Name>
+				<LocalizedString Language="en">Signatures</LocalizedString>
+				<LocalizedString Language="ru">Подписи согласования проекта</LocalizedString>
+			</Name>
+			<Field Alias="Number" ID="E74D78B2-CDBE-4EDF-B5C7-D4A9BF7902BC" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Number</LocalizedString>
+					<LocalizedString Language="ru">Порядковый номер исполнителя</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Employee" ID="71B1ADCB-726A-4ECB-A7B5-F90EF658524E" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Employee</LocalizedString>
+					<LocalizedString Language="ru">Согласующее лицо</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Employee_FName">FirstName</RefField>
+					<RefField Alias="Employee_MName">MiddleName</RefField>
+					<RefField Alias="Employee_LName">LastName</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="Task" ID="9679FF7C-37F0-4600-B61E-137BF8D999C2" Type="refcardid" RefType="3C60D1B2-FCA7-4F69-8FE4-E19929C26E81" RefSection="8A75FE24-64A7-4233-9E92-5133B552732F" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Hard" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Task</LocalizedString>
+					<LocalizedString Language="ru">Задание на согласование</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="">TaskState</RefField>
+					<RefField Alias="">SentToRevision</RefField>
+				</RefFields>
+			</Field>
+			<SortBy>
+				<Field>Number</Field>
+			</SortBy>
+		</Section>
+		<Section Alias="Log" Type="coll" ID="AE2420AA-CCCA-4221-943A-AE833F4420A9">
+			<Name>
+				<LocalizedString Language="en">Log</LocalizedString>
+				<LocalizedString Language="ru">Журнал событий</LocalizedString>
+			</Name>
+			<Field Alias="Date" ID="5D696EB5-CC11-49B7-B08E-E4038FBF227C" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Event date</LocalizedString>
+					<LocalizedString Language="ru">Дата события</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Type" ID="4F8CDF4A-1DA4-4B14-A806-26AA88242007" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Event type</LocalizedString>
+					<LocalizedString Language="ru">Тип события</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Employee" ID="B3211648-4822-442E-A6B4-C3D226F56822" Type="refid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Employee</LocalizedString>
+					<LocalizedString Language="ru">Сотрудник</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="8AA7BD45-98AE-4D0A-A561-C36B63EC5B23" Type="string" Max="8000" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Описание</LocalizedString>
+				</Name>
+			</Field>
+			<SortBy>
+				<Field Descending="true">Date</Field>
+			</SortBy>
+		</Section>
+	</Sections>
+	<ViewElements>
+		<ViewElement Alias="MainView" ID="366C4078-D5C2-4759-974D-54567E3AB628">
+			<Name>
+				<LocalizedString Language="en">MainView</LocalizedString>
+				<LocalizedString Language="ru">Главное представление</LocalizedString>
+			</Name>
+			<Columns>
+				<Column Alias="Author" ID="2C4B0CB0-F721-48AA-9891-B1A967E0FF64" Expression="">
+					<Name>
+						<LocalizedString Language="en">Author</LocalizedString>
+						<LocalizedString Language="ru">Подготовил резолюцию</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Author" Separator="">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="Author" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="Author" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="ExecutorType" ID="569ED822-2FAE-4F98-9E19-CC13698C3FEE">
+					<Name>
+						<LocalizedString Language="en">ExecutorType</LocalizedString>
+						<LocalizedString Language="ru">Вариант исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="" IsEnum="true" ID="87395A45-A52D-41CE-905E-D19821C27DC2">ExecutorType</DataColumn>
+				</Column>
+				<Column Alias="StartDate" ID="D61E3DF8-9F6D-4531-8E73-D96662222DAC">
+					<Name>
+						<LocalizedString Language="en">StartDate</LocalizedString>
+						<LocalizedString Language="ru">Дата создания задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">StartDate</DataColumn>
+				</Column>
+				<Column Alias="ExecTime" ID="7CBEB75E-082A-46FD-8B33-68E6FE3AD9FC">
+					<Name>
+						<LocalizedString Language="en">ExecTime</LocalizedString>
+						<LocalizedString Language="ru">Плановый срок исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="ExecTime" TableAlias="main" Separator="/">ExecTime</DataColumn>
+				</Column>
+				<Column Alias="InspectionExecTime" ID="F56FF0A5-22DE-4C40-89A2-907BFABF3FB8">
+					<Name>
+						<LocalizedString Language="en">Inspection Execution Time</LocalizedString>
+						<LocalizedString Language="ru">Контрольный срок исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">InspectionExecTime</DataColumn>
+				</Column>
+				<Column Alias="CompletePerc" ID="3DBE1118-9479-4D14-B0A1-DBADB59CB1F2">
+					<Name>
+						<LocalizedString Language="en">CompletePerc</LocalizedString>
+						<LocalizedString Language="ru">Процент выполнения задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">CompletePerc</DataColumn>
+				</Column>
+				<Column Alias="TaskState" ID="516207E2-BF21-4A35-858F-E53B1D106526">
+					<Name>
+						<LocalizedString Language="en">TaskState</LocalizedString>
+						<LocalizedString Language="ru">Состояние задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="" IsEnum="true" ID="B052C78D-51E4-4F12-9D89-0934DB7DF718">TaskState</DataColumn>
+				</Column>
+				<Column Alias="MinistryInspection" ID="41E4A3B5-A9C3-4F39-92FB-41437A6B78EB">
+					<Name>
+						<LocalizedString Language="en">MinistryInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак министерского контроля</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">MinistryInspection</DataColumn>
+				</Column>
+				<Column Alias="Inspector" ID="BAC08AAD-FCA9-47D3-9A40-1C9D02E408CE">
+					<Name>
+						<LocalizedString Language="en">Inspector</LocalizedString>
+						<LocalizedString Language="ru">Контролер задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Inspector" Separator="">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="Inspector" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="Inspector" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="TaskText" ID="0E0691C6-2F2C-4AEE-AC1A-5EEA1E72FF25">
+					<Name>
+						<LocalizedString Language="en">TaskText</LocalizedString>
+						<LocalizedString Language="ru">Текст задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">TaskText</DataColumn>
+				</Column>
+				<Column Alias="Executor" ID="7F35B349-7415-456B-8048-29C53324110A">
+					<Name>
+						<LocalizedString Language="en">Executor</LocalizedString>
+						<LocalizedString Language="ru">Исполнитель</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Executor" Separator="">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="Executor" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="Executor" Separator=" ">MiddleName</DataColumn>
+					<DataColumn Alias="" TableAlias="ExecutorDepart" Separator=", ">Name</DataColumn>
+				</Column>
+				<Column Alias="ActualExecTime" ID="F0F79ABD-82D9-4137-BC7F-2846A10C73CD">
+					<Name>
+						<LocalizedString Language="en">ActualExecTime</LocalizedString>
+						<LocalizedString Language="ru">Фактический срок исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">ActualExecTime</DataColumn>
+				</Column>
+				<Column Alias="RegNumber" ID="86C1DEF1-7E74-488D-90A1-C3E6F8CEDF19" Expression="">
+					<Name>
+						<LocalizedString Language="en">RegNumber</LocalizedString>
+						<LocalizedString Language="ru">Регистрационный номер</LocalizedString>
+					</Name>
+					<DataColumn Alias="RegCardNumber" TableAlias="RegCard" Separator="">RegId</DataColumn>
+					<DataColumn Alias="ReplRegCardNumber" TableAlias="ReplRegCard" Separator="">RegId</DataColumn>
+				</Column>
+				<Column Alias="RegCreationDate" ID="DD571BEF-58B4-4EEF-9640-DDD4BDA342B3" Expression="">
+					<Name>
+						<LocalizedString Language="en">Creation date</LocalizedString>
+						<LocalizedString Language="ru">Дата регистрации</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="">CreationDate</DataColumn>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="">CreationDate</DataColumn>
+				</Column>
+				<Column Alias="RegAuthor" ID="EEE9A2C3-0B8A-4A6F-8CCC-69F00A06D139">
+					<Name>
+						<LocalizedString Language="en">RegAuthor</LocalizedString>
+						<LocalizedString Language="ru">Исполнитель РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardAuthor" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCardAuthor" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCardAuthor" Separator="">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="RegCardType" ID="75E6AF59-A66D-43EC-9CAD-B59D0FF4F547">
+					<Name>
+						<LocalizedString Language="en">RegCardType</LocalizedString>
+						<LocalizedString Language="ru">Тип документа</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="" IsEnum="true" ID="61E4C139-C6A2-446A-ADAF-8C4EBDE249A1">CardType</DataColumn>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="" IsEnum="true" ID="61E4C139-C6A2-446A-ADAF-8C4EBDE249A1">CardType</DataColumn>
+				</Column>
+				<Column Alias="RegRestricted" ID="394EF90C-AA12-4FC1-B38B-9C01B1D811C1">
+					<Name>
+						<LocalizedString Language="en">Restricted</LocalizedString>
+						<LocalizedString Language="ru">Признак ДСП</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="" IsEnum="true" ID="EF9F62D0-74D5-4A85-A564-D46A8E47D29F">Restricted</DataColumn>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="" IsEnum="true" ID="EF9F62D0-74D5-4A85-A564-D46A8E47D29F">Restricted</DataColumn>
+				</Column>
+				<Column Alias="RegInspection" ID="4D374DE0-4ED4-4A30-B856-83357C65E86A">
+					<Name>
+						<LocalizedString Language="en">RegInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак внешнего контроля</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="">Inspection</DataColumn>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="">Inspection</DataColumn>
+				</Column>
+				<Column Alias="PursRegNumber" ID="2DF4E890-60CF-4D35-B660-6D6FA5E2FB34">
+					<Name>
+						<LocalizedString Language="en">PursRegNumber</LocalizedString>
+						<LocalizedString Language="ru">Номер документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Pursuance" Separator="">RegId</DataColumn>
+				</Column>
+				<Column Alias="PursRegDate" ID="0BB94F99-D9E9-4CDE-89AC-1856417E1023">
+					<Name>
+						<LocalizedString Language="en">PursRegDate</LocalizedString>
+						<LocalizedString Language="ru">Дата регистрации документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Pursuance" Separator="">CreationDate</DataColumn>
+				</Column>
+				<Column Alias="PursExecutor" ID="B083270C-475F-4DA0-9E66-DEF85045F9B2">
+					<Name>
+						<LocalizedString Language="en">PursExecutor</LocalizedString>
+						<LocalizedString Language="ru">Исполнитель документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceAuthor" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="PursuanceAuthor" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="PursuanceAuthor" Separator="">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="PursCardType" ID="60F41480-61A3-4839-860A-FBA11CD17B17">
+					<Name>
+						<LocalizedString Language="en">PursCardType</LocalizedString>
+						<LocalizedString Language="ru">Тип документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Pursuance" Separator="" IsEnum="true" ID="61E4C139-C6A2-446A-ADAF-8C4EBDE249A1">CardType</DataColumn>
+				</Column>
+				<Column Alias="PursDSP" ID="3C486EF7-E61F-4C29-8133-2987C765D8AD">
+					<Name>
+						<LocalizedString Language="en">PursDSP</LocalizedString>
+						<LocalizedString Language="ru">Признак ДСП во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Pursuance" Separator="" IsEnum="true" ID="EF9F62D0-74D5-4A85-A564-D46A8E47D29F">Restricted</DataColumn>
+				</Column>
+				<Column Alias="PursInspection" ID="7967D4B0-5EA7-473F-806A-C91563887F50">
+					<Name>
+						<LocalizedString Language="en">PursInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак внешнего контроля документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Pursuance" Separator="">Inspection</DataColumn>
+				</Column>
+				<Column Alias="Category" ID="B0485482-C28B-467A-9274-2EBF80A23736">
+					<Name>
+						<LocalizedString Language="en">View column</LocalizedString>
+						<LocalizedString Language="ru">Колонка представления</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Categories" Separator="">Name</DataColumn>
+				</Column>
+				<Column Alias="InspectionTermReason" ID="D642BA53-71E2-40FE-9E31-43A3C04EF9D7" Expression="">
+					<Name>
+						<LocalizedString Language="en">Inspection termination reason</LocalizedString>
+						<LocalizedString Language="ru">Ход исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">InspectionTermReason</DataColumn>
+				</Column>
+				<Column Alias="RegImportance" ID="A32A9D9F-A150-49B8-A5B4-98589C6E1A1C" Expression="">
+					<Name>
+						<LocalizedString Language="en">Importance</LocalizedString>
+						<LocalizedString Language="ru">Срочность РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="" IsEnum="true" ID="F7A8C554-1213-4D67-AA0A-3E3FDBFC0B19">DocImportance</DataColumn>
+					<DataColumn Alias="" TableAlias="Pursuance" Separator="" IsEnum="true" ID="F7A8C554-1213-4D67-AA0A-3E3FDBFC0B19">DocImportance</DataColumn>
+				</Column>
+				<Column Alias="RegDocType" ID="54792847-E218-415B-922A-28DD1CC65926">
+					<Name>
+						<LocalizedString Language="en">DocType</LocalizedString>
+						<LocalizedString Language="ru">Тип документа</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="DocType" Separator="">Name</DataColumn>
+					<DataColumn Alias="" TableAlias="ReplDocType" Separator="">Name</DataColumn>
+				</Column>
+				<Column Alias="RegContent" ID="588ACC7A-A482-467B-98ED-76E8C6B60F39" Expression="">
+					<Name>
+						<LocalizedString Language="en">Content</LocalizedString>
+						<LocalizedString Language="ru">Содержание РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="">Content</DataColumn>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="">Content</DataColumn>
+				</Column>
+				<Column Alias="RegDescription" ID="B30A6678-AFA3-405A-B2AB-01E9E39978AA" Expression="">
+					<Name>
+						<LocalizedString Language="en">RegCard Description</LocalizedString>
+						<LocalizedString Language="ru">Описание РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="DocType" Separator="">Name</DataColumn>
+					<DataColumn Alias="" TableAlias="RegHeadAddressee" Separator=", ">AddresseeName</DataColumn>
+					<DataColumn Alias="" TableAlias="RegHeadAddressee" Separator=" от ">DocDate</DataColumn>
+					<DataColumn Alias="" TableAlias="RegHeadAddressee" Separator=" № ">DocId</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCard" Separator=" ">Content</DataColumn>
+				</Column>
+				<Column Alias="Operator" ID="AD1D7919-01C8-47FA-A1D4-71FB17904677" Expression="">
+					<Name>
+						<LocalizedString Language="en">Operator</LocalizedString>
+						<LocalizedString Language="ru">Ввел данные</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="Operator" Separator="">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="Operator" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="Operator" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="RegAddresseeFrom" ID="C8B4D969-6724-411B-B264-BF6AE434BF85" Expression="">
+					<Name>
+						<LocalizedString Language="en">RegAddresseesFrom</LocalizedString>
+						<LocalizedString Language="ru">Корресподенты РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="">AddresseesFrom</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="">AddresseesFrom</DataColumn>
+				</Column>
+				<Column Alias="RegAddresseeTo" ID="56F24D55-ADAE-491F-A44E-3DDB46E68287" Expression="">
+					<Name>
+						<LocalizedString Language="en">RegAddresseesTo</LocalizedString>
+						<LocalizedString Language="ru">Получатели РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="ReplRegCard" Separator="">AddresseesTo</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCard" Separator="">AddresseesTo</DataColumn>
+				</Column>
+				<Column Alias="RegDocId" ID="633F03DB-5B28-49D4-BBCC-F81C1A884D55" Expression="">
+					<Name>
+						<LocalizedString Language="en">Mission Id</LocalizedString>
+						<LocalizedString Language="ru">Номер поручения</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="ReplRegCardHeadAddresse" Separator="">DocId</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCardHeadAddressee" Separator="">DocId</DataColumn>
+				</Column>
+				<Column Alias="RegDocDate" ID="CD97347C-C69F-4FB4-92A4-1DAE70DFF196" Expression="">
+					<Name>
+						<LocalizedString Language="en">Mission Date</LocalizedString>
+						<LocalizedString Language="ru">Дата поручения</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="ReplRegCardHeadAddresse" Separator="">DocDate</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCardHeadAddressee" Separator="">DocDate</DataColumn>
+				</Column>
+			</Columns>
+			<Data>
+				<Table ID="8A75FE24-64A7-4233-9E92-5133B552732F" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="Author" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="E00D1868-6349-4D18-9E15-D18DA8C72ED5" Alias="RegCard" LeftColumnAlias="RegCard" RightColumnAlias="InstanceID" WithTable="main" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="RegCardAuthor" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="RegCard" />
+				<JoinTable ID="49AD5A2D-17EC-46E2-A49E-C58D0BBD9C1A" Alias="DocType" LeftColumnAlias="DocType" RightColumnAlias="RowID" WithTable="RegCard" />
+				<JoinTable ID="E00D1868-6349-4D18-9E15-D18DA8C72ED5" Alias="Pursuance" LeftColumnAlias="Pursuance" RightColumnAlias="InstanceID" WithTable="main" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="PursuanceAuthor" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="Pursuance" />
+				<JoinTable ID="49AD5A2D-17EC-46E2-A49E-C58D0BBD9C1A" Alias="PursuanceDocType" LeftColumnAlias="DocType" RightColumnAlias="RowID" WithTable="Pursuance" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="Executor" LeftColumnAlias="Executor" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="Inspector" LeftColumnAlias="Inspector" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="E00D1868-6349-4D18-9E15-D18DA8C72ED5" Alias="ReplRegCard" LeftColumnAlias="ReplacementCard" RightColumnAlias="InstanceID" WithTable="main" />
+				<JoinTable ID="899C1470-9ADF-4D33-8E69-9944EB44DBE7" Alias="Categories" LeftColumnAlias="Category" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="7473F07F-11ED-4762-9F1E-7FF10808DDD1" Alias="ExecutorDepart" LeftColumnAlias="ParentRowID" RightColumnAlias="RowID" WithTable="Executor" />
+				<JoinTable ID="49AD5A2D-17EC-46E2-A49E-C58D0BBD9C1A" Alias="ReplDocType" LeftColumnAlias="DocType" RightColumnAlias="RowID" WithTable="ReplRegCard" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="ReplRegAuthor" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="ReplRegCard" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="Operator" LeftColumnAlias="Operator" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="E5E08979-EDFB-4502-AB3F-FB584489D90D" Alias="RegCardHeadAddressee" LeftColumnAlias="HeadAddressee" RightColumnAlias="RowID" WithTable="RegCard" />
+				<JoinTable ID="E5E08979-EDFB-4502-AB3F-FB584489D90D" Alias="ReplRegCardHeadAddresse" LeftColumnAlias="HeadAddressee" RightColumnAlias="RowID" WithTable="ReplRegCard" />
+			</Data>
+		</ViewElement>
+		<ViewElement Alias="ReportView" ID="C6FD10F6-B8A2-4A3A-8696-819B82C9D2BA">
+			<Name>
+				<LocalizedString Language="en">ReportView</LocalizedString>
+				<LocalizedString Language="ru">Представление для отчетов</LocalizedString>
+			</Name>
+			<Columns>
+				<Column Alias="Author" ID="D90FA2E7-9583-4866-A497-543EF8728A27">
+					<Name>
+						<LocalizedString Language="en">Author</LocalizedString>
+						<LocalizedString Language="ru">Подготовил резолюцию</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="AuthorTable" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="AuthorTable" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="AuthorTable" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="ExecutorType" ID="6B08CC7C-5D38-46C0-9C97-F6650E260603">
+					<Name>
+						<LocalizedString Language="en">ExecutorType</LocalizedString>
+						<LocalizedString Language="ru">Вариант исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="ExecutorType" TableAlias="main" Separator=" " IsEnum="true" ID="87395A45-A52D-41CE-905E-D19821C27DC2">ExecutorType</DataColumn>
+				</Column>
+				<Column Alias="StartDate" ID="0774B3C4-0288-4879-A5F2-71844D1040F3">
+					<Name>
+						<LocalizedString Language="en">StartDate</LocalizedString>
+						<LocalizedString Language="ru">Дата создания задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="StartDate" TableAlias="main" Separator=" ">StartDate</DataColumn>
+				</Column>
+				<Column Alias="ExecTime" ID="A93BE174-B3E7-4C3E-8C34-29873FF98DEF">
+					<Name>
+						<LocalizedString Language="en">ExecTime</LocalizedString>
+						<LocalizedString Language="ru">Плановый срок исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="ExecTime" TableAlias="main" Separator=" ">ExecTime</DataColumn>
+				</Column>
+				<Column Alias="InspectionExecTime" ID="A2DAAAD0-504D-4E94-899F-6A8ACC7CA4CD">
+					<Name>
+						<LocalizedString Language="en">InspectionExecTime</LocalizedString>
+						<LocalizedString Language="ru">Контрольный срок исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="InspectionExecTime" TableAlias="main" Separator=" ">InspectionExecTime</DataColumn>
+				</Column>
+				<Column Alias="CompletePerc" ID="0BB2DC19-35B7-4F4C-A805-5F876899554A">
+					<Name>
+						<LocalizedString Language="en">CompletePerc</LocalizedString>
+						<LocalizedString Language="ru">Процент выполнения задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="CompletePerc" TableAlias="main" Separator=" ">CompletePerc</DataColumn>
+				</Column>
+				<Column Alias="TaskState" ID="870AD551-9F2F-4BA3-81B4-50BA1A52DF18">
+					<Name>
+						<LocalizedString Language="en">TaskState</LocalizedString>
+						<LocalizedString Language="ru">Состояние задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="TaskState" TableAlias="main" Separator=" " IsEnum="true" ID="B052C78D-51E4-4F12-9D89-0934DB7DF718">TaskState</DataColumn>
+				</Column>
+				<Column Alias="Operator" ID="82882A88-5B4E-41D4-B988-93FB2DAEBF84">
+					<Name>
+						<LocalizedString Language="en">Operator</LocalizedString>
+						<LocalizedString Language="ru">Ввел данные</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="AuthorTable" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="AuthorTable" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="AuthorTable" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="DepartmentInspection" ID="2BB2CAD2-B937-48FB-B93A-96429DDA1CAC">
+					<Name>
+						<LocalizedString Language="en">DepartmentInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак контроля департамента</LocalizedString>
+					</Name>
+					<DataColumn Alias="DepartmentInspectation" TableAlias="main" Separator=" ">DepartmentInspection</DataColumn>
+				</Column>
+				<Column Alias="MinistryInspection" ID="183CE73E-6A38-44C8-85AD-D2211ABF43D1">
+					<Name>
+						<LocalizedString Language="en">MinistryInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак министерского контроля</LocalizedString>
+					</Name>
+					<DataColumn Alias="MinistInspec" TableAlias="main" Separator=" ">MinistryInspection</DataColumn>
+				</Column>
+				<Column Alias="Inspector" ID="5E2EBD6C-A8F4-40E1-82BC-B3920CFDFFC6">
+					<Name>
+						<LocalizedString Language="en">Inspector</LocalizedString>
+						<LocalizedString Language="ru">Контролер задания</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="InspectorTable" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="InspectorTable" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="InspectorTable" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="TaskText" ID="2EEAF859-607D-48E4-9943-A5A6F1522BBD">
+					<Name>
+						<LocalizedString Language="en">TaskText</LocalizedString>
+						<LocalizedString Language="ru">Название</LocalizedString>
+					</Name>
+					<DataColumn Alias="ResolutionText" TableAlias="main" Separator=" ">ResolutionText</DataColumn>
+				</Column>
+				<Column Alias="Pursuance" ID="59C44857-88AB-4AD3-A32F-14146F7CDB58">
+					<Name>
+						<LocalizedString Language="en">Pursuance</LocalizedString>
+						<LocalizedString Language="ru">Документ во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="RegIG" TableAlias="PursuanceTable" Separator=" ">RegId</DataColumn>
+					<DataColumn Alias="CreationDate" TableAlias="PursuanceTable" Separator="/">CreationDate</DataColumn>
+					<DataColumn Alias="AuthorFN" TableAlias="PursuanceAuthorTable" Separator="/">FirstName</DataColumn>
+					<DataColumn Alias="CardType" TableAlias="PursuanceTable" Separator="/" IsEnum="true" ID="61E4C139-C6A2-446A-ADAF-8C4EBDE249A1">CardType</DataColumn>
+					<DataColumn Alias="DocType" TableAlias="PursuanceDocTypeTable" Separator="/">Name</DataColumn>
+					<DataColumn Alias="Restricted" TableAlias="PursuanceTable" Separator="/" IsEnum="true" ID="EF9F62D0-74D5-4A85-A564-D46A8E47D29F">Restricted</DataColumn>
+					<DataColumn Alias="AuthorMN" TableAlias="PursuanceAuthorTable" Separator="/">MiddleName</DataColumn>
+					<DataColumn Alias="AuthorLN" TableAlias="PursuanceAuthorTable" Separator="/">LastName</DataColumn>
+				</Column>
+				<Column Alias="Executor" ID="CC5961C9-9AD5-4B05-A3ED-819076EE483D">
+					<Name>
+						<LocalizedString Language="en">Executor</LocalizedString>
+						<LocalizedString Language="ru">Исполнитель</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="ExecutorTable" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="ExecutorTable" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="ExecutorTable" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="ActualExecTime" ID="9560069B-1777-419C-A670-7EC6A9187D5A">
+					<Name>
+						<LocalizedString Language="en">ActualExecTime</LocalizedString>
+						<LocalizedString Language="ru">Фактический срок исполнения</LocalizedString>
+					</Name>
+					<DataColumn Alias="ActualExecTime" TableAlias="main" Separator=" ">ActualExecTime</DataColumn>
+				</Column>
+				<Column Alias="RegNumber" ID="2456AA9C-CCDD-4D20-A170-E86854EDA015">
+					<Name>
+						<LocalizedString Language="en">RegNumber</LocalizedString>
+						<LocalizedString Language="ru">Регистрационный номер</LocalizedString>
+					</Name>
+					<DataColumn Alias="RegCardNumber" TableAlias="RegCardTable" Separator=" ">RegId</DataColumn>
+				</Column>
+				<Column Alias="RegestrationDate" ID="D663D2A2-E8AB-40AF-860F-FD34D406AFC1">
+					<Name>
+						<LocalizedString Language="en">RegestrationDate</LocalizedString>
+						<LocalizedString Language="ru">Дата регистрации</LocalizedString>
+					</Name>
+					<DataColumn Alias="RegestrationDate" TableAlias="PursuanceTable" Separator=" ">CreationDate</DataColumn>
+				</Column>
+				<Column Alias="RegExecutor" ID="1C95405C-4724-4A42-82AD-FF96CF5805AA">
+					<Name>
+						<LocalizedString Language="en">RegExecutor</LocalizedString>
+						<LocalizedString Language="ru">Ввел данные РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="RegCardAuthorLN" TableAlias="RegCardAuthorTable" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="RegCardAuthorFN" TableAlias="RegCardAuthorTable" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="RegCardAuthorTable" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="RegDocType2" ID="4549DC67-0388-4C69-A5B5-12B8403A55B6">
+					<Name>
+						<LocalizedString Language="en">RegDocType2</LocalizedString>
+						<LocalizedString Language="ru">Тип документа</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator="" IsEnum="true" ID="61E4C139-C6A2-446A-ADAF-8C4EBDE249A1">CardType</DataColumn>
+				</Column>
+				<Column Alias="RegDocType" ID="B6536982-48FE-476C-B845-D9DC54DC4AC8">
+					<Name>
+						<LocalizedString Language="en">RegDocType</LocalizedString>
+						<LocalizedString Language="ru">Вид документа</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegDocumentTypesTable" Separator="">Name</DataColumn>
+				</Column>
+				<Column Alias="RegDSP" ID="61EC6187-BC92-4000-9031-0F07D23CADFB">
+					<Name>
+						<LocalizedString Language="en">RegDSP</LocalizedString>
+						<LocalizedString Language="ru">Признак ДСП</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator=" " IsEnum="true" ID="EF9F62D0-74D5-4A85-A564-D46A8E47D29F">Restricted</DataColumn>
+				</Column>
+				<Column Alias="RegInspection" ID="D1EA9465-A30D-484B-8964-448B3B818289">
+					<Name>
+						<LocalizedString Language="en">RegInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак внешнего контроля</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator="">Inspection</DataColumn>
+				</Column>
+				<Column Alias="PursRegNumber" ID="2ABF5ED8-5958-4054-BBEE-25CEA56845D8">
+					<Name>
+						<LocalizedString Language="en">PursRegNumber</LocalizedString>
+						<LocalizedString Language="ru">Номер документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceTable" Separator="">RegId</DataColumn>
+				</Column>
+				<Column Alias="PursRegDate" ID="F3F3AC19-D1F6-481B-A932-A3379E1F86FE">
+					<Name>
+						<LocalizedString Language="en">PursRegDate</LocalizedString>
+						<LocalizedString Language="ru">Дата регистрации документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceTable" Separator="">CreationDate</DataColumn>
+				</Column>
+				<Column Alias="PursExecutor" ID="5972C090-7D00-49FE-8E46-6AF9E36C47EF">
+					<Name>
+						<LocalizedString Language="en">PursExecutor</LocalizedString>
+						<LocalizedString Language="ru">Исполнитель документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceAuthorTable" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="PursuanceAuthorTable" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="PursuanceAuthorTable" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="PursCardType" ID="93DCD228-146E-4ABB-8A06-8BCA0EBB4350">
+					<Name>
+						<LocalizedString Language="en">PursCardType</LocalizedString>
+						<LocalizedString Language="ru">Тип документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceTable" Separator="" IsEnum="true" ID="61E4C139-C6A2-446A-ADAF-8C4EBDE249A1">CardType</DataColumn>
+				</Column>
+				<Column Alias="PursDocType" ID="0D052DBB-5FC8-4F09-921C-324A844B2DFE">
+					<Name>
+						<LocalizedString Language="en">PursDocType</LocalizedString>
+						<LocalizedString Language="ru">Вид документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceDocTypeTable" Separator="">Name</DataColumn>
+				</Column>
+				<Column Alias="PursDSP" ID="2ED4F544-0F78-4A2C-9481-F8F3F497F5A9">
+					<Name>
+						<LocalizedString Language="en">PursDSP</LocalizedString>
+						<LocalizedString Language="ru">Признак ДСП во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceTable" Separator="" IsEnum="true" ID="EF9F62D0-74D5-4A85-A564-D46A8E47D29F">Restricted</DataColumn>
+				</Column>
+				<Column Alias="PursInspection" ID="4E854014-9DC2-4BEB-BD46-6811B9C3760D">
+					<Name>
+						<LocalizedString Language="en">PursInspection</LocalizedString>
+						<LocalizedString Language="ru">Признак внешнего контроля документа во исполнение</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="PursuanceTable" Separator="">Inspection</DataColumn>
+				</Column>
+				<Column Alias="RegCardContent" ID="58197624-D95D-4923-8BB4-26832CA05AD7">
+					<Name>
+						<LocalizedString Language="en">RegCardContent</LocalizedString>
+						<LocalizedString Language="ru">Краткое содержание РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator="">Content</DataColumn>
+				</Column>
+				<Column Alias="ExecReport" ID="F89B95A8-14B4-4379-88C5-01D1AC1AF47A">
+					<Name>
+						<LocalizedString Language="en">ExecReport</LocalizedString>
+						<LocalizedString Language="ru">Отчет о выполнении</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="main" Separator="">ExecReport</DataColumn>
+				</Column>
+				<Column Alias="ExecutorPhone" ID="B8815096-C142-4ED0-94EE-B276D4CBEADC">
+					<Name>
+						<LocalizedString Language="en">ExecutorPhone</LocalizedString>
+						<LocalizedString Language="ru">Телефон исполнителя</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="ExecutorTable" Separator="">Phone</DataColumn>
+				</Column>
+				<Column Alias="RegAddrFrom" ID="F665C8D2-03F0-4CAC-8374-80A0CAB720F4">
+					<Name>
+						<LocalizedString Language="en">RegAddrFrom</LocalizedString>
+						<LocalizedString Language="ru">Отправители РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator="">AddresseesFrom</DataColumn>
+				</Column>
+				<Column Alias="RegAddrTo" ID="BB873389-BD1A-4D03-8E99-F86070C99441">
+					<Name>
+						<LocalizedString Language="en">RegAddrTo</LocalizedString>
+						<LocalizedString Language="ru">Получатели РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator="">AddresseesTo</DataColumn>
+				</Column>
+				<Column Alias="RegCreationDate" ID="319136A4-C0D3-4C83-9B3F-C0496A617958">
+					<Name>
+						<LocalizedString Language="en">View column</LocalizedString>
+						<LocalizedString Language="ru">Дата создания РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegCardTable" Separator="">CreationDate</DataColumn>
+				</Column>
+				<Column Alias="RegOutNum" ID="54408B0C-1E4F-4D7B-A6F6-3D8DBD224CF6">
+					<Name>
+						<LocalizedString Language="en">RegOutNum</LocalizedString>
+						<LocalizedString Language="ru">Номер бумажного оригинала РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegHeadAddress" Separator="">DocId</DataColumn>
+				</Column>
+				<Column Alias="RegOutDate" ID="BBA5F979-DD53-4EC5-88DA-B8306965BFB7">
+					<Name>
+						<LocalizedString Language="en">RegOutDate</LocalizedString>
+						<LocalizedString Language="ru">Дата бумажного оригинала РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegHeadAddress" Separator="">DocDate</DataColumn>
+				</Column>
+				<Column Alias="RegJPSign" ID="7C4B1138-3FAF-44AE-B777-9453D98BA71F">
+					<Name>
+						<LocalizedString Language="en">RegJPSign</LocalizedString>
+						<LocalizedString Language="ru">Подписал бумажный оригинал РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="DocSignEmpl" Separator=" ">LastName</DataColumn>
+					<DataColumn Alias="" TableAlias="DocSignEmpl" Separator=" ">FirstName</DataColumn>
+					<DataColumn Alias="" TableAlias="DocSignEmpl" Separator=" ">MiddleName</DataColumn>
+				</Column>
+				<Column Alias="RegHeadAddresseeName" ID="B9773FE5-F2CD-42BC-AEDC-FFC6865BC3D1">
+					<Name>
+						<LocalizedString Language="en">RegHeadAddresseeName</LocalizedString>
+						<LocalizedString Language="ru">Корреспондент РК</LocalizedString>
+					</Name>
+					<DataColumn Alias="" TableAlias="RegHeadAddress" Separator="">AddresseeName</DataColumn>
+				</Column>
+			</Columns>
+			<Data>
+				<Table ID="8A75FE24-64A7-4233-9E92-5133B552732F" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="AuthorTable" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="E00D1868-6349-4D18-9E15-D18DA8C72ED5" Alias="RegCardTable" LeftColumnAlias="RegCard" RightColumnAlias="InstanceID" WithTable="main" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="RegCardAuthorTable" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="RegCardTable" />
+				<JoinTable ID="49AD5A2D-17EC-46E2-A49E-C58D0BBD9C1A" Alias="DocTypeTable" LeftColumnAlias="DocType" RightColumnAlias="RowID" WithTable="RegCardTable" />
+				<JoinTable ID="E00D1868-6349-4D18-9E15-D18DA8C72ED5" Alias="PursuanceTable" LeftColumnAlias="Pursuance" RightColumnAlias="InstanceID" WithTable="main" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="PursuanceAuthorTable" LeftColumnAlias="Author" RightColumnAlias="RowID" WithTable="PursuanceTable" />
+				<JoinTable ID="49AD5A2D-17EC-46E2-A49E-C58D0BBD9C1A" Alias="PursuanceDocTypeTable" LeftColumnAlias="DocType" RightColumnAlias="RowID" WithTable="PursuanceTable" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="ExecutorTable" LeftColumnAlias="Executor" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="49AD5A2D-17EC-46E2-A49E-C58D0BBD9C1A" Alias="RegDocumentTypesTable" LeftColumnAlias="DocType" RightColumnAlias="RowID" WithTable="RegCardTable" />
+				<JoinTable ID="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" Alias="InspectorTable" LeftColumnAlias="Inspector" RightColumnAlias="RowID" WithTable="main" />
+				<JoinTable ID="E5E08979-EDFB-4502-AB3F-FB584489D90D" Alias="RegHeadAddress" LeftColumnAlias="HeadAddressee" RightColumnAlias="RowID" WithTable="RegCardTable" />
+				<JoinTable ID="1A46BF0F-2D02-4AC9-8866-5ADF245921E8" Alias="DocSignEmpl" LeftColumnAlias="DocSignature" RightColumnAlias="RowID" WithTable="RegHeadAddress" />
+			</Data>
+		</ViewElement>
+	</ViewElements>
+</CardDefinition>

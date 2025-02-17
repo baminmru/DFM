@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="938677C1-BCCA-411F-ADFD-92D03A00105A" Alias="PlanningCard" Version="18" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{07C00EE2-D3F3-41C1-940D-D66DD99D36B9},license:klmnnoqqmlulyopoukljvm" IconFile="" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">PlanningCard</LocalizedString>
+		<LocalizedString Language="ru">Карточка планирования</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Departments" Type="coll" ID="E74AE699-B681-4AE3-8403-E7585149869A">
+			<Name>
+				<LocalizedString Language="en">Departments</LocalizedString>
+				<LocalizedString Language="ru">Выбранные департаменты</LocalizedString>
+			</Name>
+			<Field Alias="DepartmentID" ID="FE7E1DD5-FFC6-4880-B6E2-94A7E2DB2B60" Type="uniqueid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DepartmentID</LocalizedString>
+					<LocalizedString Language="ru">GUID подразделения</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Employees" Type="coll" ID="77E317A9-F883-4A50-B713-F7F63FAC7E77">
+			<Name>
+				<LocalizedString Language="en">Employees</LocalizedString>
+				<LocalizedString Language="ru">Выбранные департаменты сотрудники</LocalizedString>
+			</Name>
+			<Field Alias="EmployeeID" ID="9026680C-B47C-4DC8-BEA3-117D4D83AC2B" Type="uniqueid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">EmployeeID</LocalizedString>
+					<LocalizedString Language="ru">GUID сотрудника</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="FilterSettings" Type="struct" ID="3254B4FB-D4BD-4086-B64B-C5FC3D173E59">
+			<Name>
+				<LocalizedString Language="en">FilterSettings</LocalizedString>
+				<LocalizedString Language="ru">Установки фильтра</LocalizedString>
+			</Name>
+			<Field Alias="PlannedStartExecDateFrom" ID="1FAFF566-60EB-4F2A-B080-F376F60DD2A7" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">PlannedStartExecDateFrom</LocalizedString>
+					<LocalizedString Language="ru">Плановый срок начала с</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="PlannedStartExecDateTo" ID="9C08C6D7-0DE7-43C1-9EEC-CEA2A3DAE478" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">PlannedStartExecDateTo</LocalizedString>
+					<LocalizedString Language="ru">Плановый срок начала по</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="PlannedEndExecDateFrom" ID="34E0CCEE-E5E1-4694-8821-A0258BD70927" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">PlannedEndExecDateFrom</LocalizedString>
+					<LocalizedString Language="ru">Плановый срок окончания с</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="PlannedEndExecDateTo" ID="B1F8EED6-7770-4D4C-A121-C78F0872D238" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">PlannedEndExecDateTo</LocalizedString>
+					<LocalizedString Language="ru">Плановый срок окончания по</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsOnlyApproved" ID="08959500-A345-469A-8D8E-D9F91C909EFB" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">IsOnlyApproved</LocalizedString>
+					<LocalizedString Language="ru">Только утверждённые</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsStartDateOutTime" ID="EB19BBD8-DFED-470B-B424-96360EF9F84C" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">IsStartDateOutTime</LocalizedString>
+					<LocalizedString Language="ru">Только с просроченным сроком начала</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="StartDateExpiration" ID="90FC09A8-8A4E-443B-B093-C6500090F5CB" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">StartDateExpiration</LocalizedString>
+					<LocalizedString Language="ru">Количество дней просрочки начала работ</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="IsEndDateOutTime" ID="F394345D-BAC7-4C4B-AFDC-31F683D0162E" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">IsEndDateOutTime</LocalizedString>
+					<LocalizedString Language="ru">Только с просроченным сроком окончания</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="EndDateExpiration" ID="5BB509EA-2A49-49B3-BFCD-201C14F949C9" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">EndDateExpiration</LocalizedString>
+					<LocalizedString Language="ru">Количество дней просрочки окончания работ</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

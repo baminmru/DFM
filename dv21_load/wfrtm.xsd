@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GUID_TYPE">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="38" />
+      <xs:minLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="WFRuntime">
+    <xs:annotation>
+      <xs:documentation>Экземпляр процесса</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element minOccurs="0" maxOccurs="1" name="ProcessInstance" type="ProcessInstance_TYPE">
+          <xs:annotation>
+            <xs:documentation>Экземпляр процесса</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="ProcessInstance_ID">
+            <xs:selector xpath="ProcessInstance" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ID" type="GUID_TYPE" use="required">
+        <xs:annotation>
+          <xs:documentation>Card id</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PIRole_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RealName" use="required">
+      <xs:annotation>
+        <xs:documentation>Имя пользователя</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="PersonID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Идентификатор исполнителя из каталога</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PersonCatalog" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Каталог из которого назначена роль</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="PIComment_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CommentDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата комментария</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Comment" use="required">
+      <xs:annotation>
+        <xs:documentation>Комментарий</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Role" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Исполнитель</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="PIParameter_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Value" use="required">
+      <xs:annotation>
+        <xs:documentation>Значение параметра</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="BasedOn" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Создан на основе</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="PIDocument_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DocumentID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Идентификатор документа в хранилище</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BasedOn" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Создан на основании</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="PIStatistic_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Pass" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Номер прохода</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="EventTime" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Когда случилось</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="EventName" use="required">
+      <xs:annotation>
+        <xs:documentation>Что случилось</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="FuncState" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Состояние функции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PState" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Состояние процесса</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Role" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Кто</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FunctionInstance" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Экземпляр функции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FIRight_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RightID" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Идентификатор права</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BasedOn" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Право на основании определения</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FIShortcut_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ShortcutID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Идентификатор ярлыка</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BasedOn" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Реализует ярлык из определения</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FIComment_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CommentDate" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Дата комментария</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Comment" use="required">
+      <xs:annotation>
+        <xs:documentation>Комментарий</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Role" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Исполнитель</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionInstance_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FIRight" type="FIRight_TYPE">
+        <xs:annotation>
+          <xs:documentation>Права для выполнения функции</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FIShortcut" type="FIShortcut_TYPE">
+        <xs:annotation>
+          <xs:documentation>Установленные ярлыки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FIComment" type="FIComment_TYPE">
+        <xs:annotation>
+          <xs:documentation>Комментарии к функции</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Pass" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Номер прохода</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="WrkingTime" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Время активности функции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BasedOn" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Создана по согласно определению</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="State" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Состояние</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ProcessInstance_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PIRole" type="PIRole_TYPE">
+        <xs:annotation>
+          <xs:documentation>Исполнители роли</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PIComment" type="PIComment_TYPE">
+        <xs:annotation>
+          <xs:documentation>Комментарии к процессу</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PIParameter" type="PIParameter_TYPE">
+        <xs:annotation>
+          <xs:documentation>Параметры</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PIDocument" type="PIDocument_TYPE">
+        <xs:annotation>
+          <xs:documentation>Документы</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PIStatistic" type="PIStatistic_TYPE">
+        <xs:annotation>
+          <xs:documentation>Статистические данные</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionInstance" type="FunctionInstance_TYPE">
+        <xs:annotation>
+          <xs:documentation>Экземпляр функции</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название экземпляра процесса</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Owner" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Владелец</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="StartTime" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Момент запуска</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BasedOn" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Описание процесса</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="State" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Состояние процесса</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

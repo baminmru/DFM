@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="0E960C76-5ABC-4A76-ABD7-0C2E1AFCD38C" Alias="ResTexts" Version="9" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{B3F278FD-8D52-4C59-A29D-6EDFFE0197EE},license:" Dictionary="true" NonSearchable="true" IconFile="" NoHardShortcuts="true" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">Resolution texts dictionary</LocalizedString>
+		<LocalizedString Language="ru">Справочник текстов резолюций</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="coll" ID="2341F81E-0B01-424B-85F0-4351CB82DFF1">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Главная</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="C9616481-B155-4AB6-A1E2-1ADA7D379587" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="CB375960-D3FF-45B2-925B-386D3BE016D6" Type="string" Max="4000" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Описание</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DontUse" ID="EC0F060B-00E8-41B5-9320-A0221557AADA" Type="bool" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DontUse</LocalizedString>
+					<LocalizedString Language="ru">Использовать</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

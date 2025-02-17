@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="8E3E3F39-5C6A-458A-A5A6-96E6023FE940" Alias="ResTaskFilter" Version="8" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{84FCDA54-7622-44F3-B959-1A317636F981},license:" NonSearchable="true" NonCreatable="true" IconFile="S:\Projects\DDMERT_DMS\Design\icons\4 заявка\иконки РК и резолюции\резолюция фильтр.ico" NoLockOnOpen="true" UIExtension="true" NoHardShortcuts="true" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">ResTaskFilter</LocalizedString>
+		<LocalizedString Language="ru">Карточка фильтра карточек задания</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Section" Type="struct" ID="BCC1E4FE-7FF6-431C-9DE0-3C46E60D18AA">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="Field" ID="21EF3DDC-4415-4D28-82D6-399DA2B29D85" Type="int" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

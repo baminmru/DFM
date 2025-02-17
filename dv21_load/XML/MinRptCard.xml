@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="57777AAB-55DD-425D-851C-60BC63B9458D" Alias="MinRptCard" Version="38" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{B7E01E2C-9EF9-4110-87EB-52AB0D9EC8CD}" IconFile="">
+	<Name>
+		<LocalizedString Language="en">Ministry Reports Card</LocalizedString>
+		<LocalizedString Language="ru">Карточка отчетов по поручениям на МК</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="struct" ID="4ADF4E1C-EE98-498B-9CC8-89A86475566B">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="ResCardViewID" ID="24BD1887-3952-431E-B15C-934C3CF3680F" Type="refid" RefType="{17F8F0B3-7E93-45E9-B250-EED4E93F3FA3}" RefSection="{A6B842C8-4876-4B5A-BFD7-7A9BB2CEA657}" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ResCardViewID</LocalizedString>
+					<LocalizedString Language="ru">ResCardViewID</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CurrentReport" ID="04FAE951-D1A0-4172-BE37-CDE6BCBFB7D1" Type="int" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CurrentReport</LocalizedString>
+					<LocalizedString Language="ru">CurrentReport</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CtlMin" ID="B7BB4609-1461-45B2-8AED-2C151318490A" Type="bool" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CtlMin</LocalizedString>
+					<LocalizedString Language="ru">CtlMin</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CtlExt" ID="E89D3F15-F6D2-4F30-98D3-A7717B550E5D" Type="bool" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CtlDep</LocalizedString>
+					<LocalizedString Language="ru">CtlDep</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Units" Type="coll" ID="70240B83-79C5-4D94-A649-ADA485955FDB">
+			<Name>
+				<LocalizedString Language="en">Users</LocalizedString>
+				<LocalizedString Language="ru">Users</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="E82F56F9-2620-4526-B318-E5595663863D" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Value" ID="DFCBA6D1-A79F-445C-B538-3D1E56E02D3F" Type="uniqueid" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Value</LocalizedString>
+					<LocalizedString Language="ru">Value</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+	<ViewElements />
+</CardDefinition>

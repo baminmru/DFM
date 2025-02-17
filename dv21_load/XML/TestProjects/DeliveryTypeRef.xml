@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="5286D5AB-9C7C-4C2F-8B4D-FC1B24C368E2" Alias="DeliveryType" Version="4" ProgID="clsid:{EF32802B-EB6D-4D29-925F-0214B3A5B584},license:" Dictionary="true" NonSearchable="true" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">Delivery type dictionary</LocalizedString>
+		<LocalizedString Language="ru">Справочник типов доставки</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="coll" ID="7547E5DD-4FA6-408F-95DE-4C9539BF7BF6">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Главная</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="5BAA9365-5792-4167-A01F-E3D83CC36171" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="5633CD75-6830-4CBE-8A97-D53DE1EA707C" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Описание</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DontUse" ID="D4534FAF-C32E-485B-803F-34E77915EAD0" Type="bool" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DontUse</LocalizedString>
+					<LocalizedString Language="ru">Использовать</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

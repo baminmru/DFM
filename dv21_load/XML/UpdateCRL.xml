@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="6F4C979E-3125-43AF-9D1C-1AB8EBD11F54" Alias="UpdateCRL" Version="0" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="" IconFile="" UIExtension="true">
+	<Name>
+		<LocalizedString Language="en">Update CRL card</LocalizedString>
+		<LocalizedString Language="ru">Карточка обновления CRL</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Section" Type="struct" ID="B151301C-17DC-4B31-94B6-D3EB4AC1D472">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="Field" ID="46BF1C3E-A0A1-47EF-BF0B-B6509EEB7A2D" Type="int" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

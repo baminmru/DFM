@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="FCC369A4-C657-4994-A2F5-4BA3DD6F084E" Alias="Scan" Version="14" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{259D51E5-4AF9-4FDF-B8AA-9049E8289B8B},license:ogcfidgiqdcgmgmhhc" NonSearchable="true" IconFile="S:\Projects\DDMERT_DMS\Design\icons\3 заявка\сканировать.ico" NoHardShortcuts="true" AlwaysRead="true" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">Scan</LocalizedString>
+		<LocalizedString Language="ru">Карточка сканирования</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Settings" Type="struct" ID="6EE0B22E-25DD-4B04-AC40-8DFDD6558550">
+			<Name>
+				<LocalizedString Language="en">Settings</LocalizedString>
+				<LocalizedString Language="ru">Установки</LocalizedString>
+			</Name>
+			<Field Alias="Res" ID="25FBE64B-96E7-4627-AB83-F27B003E7C11" Type="int" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="1" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Res</LocalizedString>
+					<LocalizedString Language="ru">Разрешение</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Type" ID="95E51758-E0EF-4AD4-88FC-EE81311E1292" Type="enum" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="1" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Type</LocalizedString>
+					<LocalizedString Language="ru">Тип изображения</LocalizedString>
+				</Name>
+				<Enum Alias="Color" Value="0">
+					<Name>
+						<LocalizedString Language="en">Color</LocalizedString>
+						<LocalizedString Language="ru">Цветной</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="BlackWhite" Value="1">
+					<Name>
+						<LocalizedString Language="en">BlackWhite</LocalizedString>
+						<LocalizedString Language="ru">Чёрно-белый</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+			<Field Alias="DocType" ID="5FC38724-144D-4C70-BA5A-5926080642D5" Type="int" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DocType</LocalizedString>
+					<LocalizedString Language="ru">Формат документа</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="WorkingFolder" ID="603335F9-6994-4FBD-98AD-81846EC84D14" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">WorkingFolder</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

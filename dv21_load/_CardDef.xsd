@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.3 U (http://www.xmlspy.com) by Bami (Digdes) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="CardDefinition">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Actions" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Action" type="ActionType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Modes" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Mode" type="ModeType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Name" type="LocalizedStrings"/>
+				<xs:element name="Sections" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Section" type="SectionType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ViewElements" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ViewElement" type="ViewElementType" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+			<xs:attribute name="ID" type="xs:string" use="required"/>
+			<xs:attribute name="CategoryID" type="xs:string" use="required"/>
+			<xs:attribute name="Alias" type="xs:string" use="required"/>
+			<xs:attribute name="Version" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FieldType">
+		<xs:sequence>
+			<xs:element name="Name" type="LocalizedStrings"/>
+			<xs:element name="Enum" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="Name" type="xs:string" use="required"/>
+					<xs:attribute name="Value" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Alias" type="xs:string" use="required"/>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+		<xs:attribute name="Type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="int"/>
+					<xs:enumeration value="bool"/>
+					<xs:enumeration value="datetime"/>
+					<xs:enumeration value="enum"/>
+					<xs:enumeration value="bitmask"/>
+					<xs:enumeration value="uniqueid"/>
+					<xs:enumeration value="userid"/>
+					<xs:enumeration value="string"/>
+					<xs:enumeration value="unistring"/>
+					<xs:enumeration value="fileid"/>
+					<xs:enumeration value="float"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Max" type="xs:int" use="optional"/>
+		<xs:attribute name="NotNull" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="SectionType">
+		<xs:sequence>
+			<xs:element name="Name" type="LocalizedStrings"/>
+			<xs:element name="Field" type="FieldType" maxOccurs="unbounded"/>
+			<xs:element name="Section" type="SectionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Alias" type="xs:string" use="required"/>
+		<xs:attribute name="Type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="struct"/>
+					<xs:enumeration value="coll"/>
+					<xs:enumeration value="tree"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ActionType">
+		<xs:sequence>
+			<xs:element name="Name" type="LocalizedStrings"/>
+		</xs:sequence>
+		<xs:attribute name="ID" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="38"/>
+					<xs:minLength value="38"/>
+					<xs:maxLength value="38"/>
+					<xs:whiteSpace value="collapse"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ModeType">
+		<xs:sequence>
+			<xs:element name="Name" type="LocalizedStrings"/>
+			<xs:element name="Restrict" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="Type" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="action"/>
+								<xs:enumeration value="section"/>
+								<xs:enumeration value="field"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="ID" type="xs:string" use="required"/>
+					<xs:attribute name="AllowRun" type="xs:boolean" use="optional"/>
+					<xs:attribute name="AllowCreate" type="xs:boolean" use="optional"/>
+					<xs:attribute name="AllowUpdate" type="xs:boolean" use="optional"/>
+					<xs:attribute name="AllowDelete" type="xs:boolean" use="optional"/>
+					<xs:attribute name="AllowRead" type="xs:boolean" use="optional"/>
+					<xs:attribute name="AllowWrite" type="xs:boolean" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+		<xs:attribute name="AllowAllActions" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ViewElementType">
+		<xs:sequence>
+			<xs:element name="Name" type="LocalizedStrings"/>
+			<xs:element name="Columns">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Column" type="ViewColumnType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+		<xs:attribute name="Default" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ViewColumnType">
+		<xs:sequence>
+			<xs:element name="Name" type="LocalizedStrings"/>
+		</xs:sequence>
+		<xs:attribute name="Alias" type="xs:string" use="required"/>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="LocalizedStrings">
+		<xs:sequence>
+			<xs:element name="LocalizedString" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Language" type="xs:language" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

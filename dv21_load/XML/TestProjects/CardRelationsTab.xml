@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="F823BD6E-C29B-495F-B335-494D5416A108" Alias="CardRelationsTab" Version="42" ProgID="clsid:{B26F2088-F3D8-421B-87AA-17A10D5EEA33},license:" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">CardRelationsTab</LocalizedString>
+		<LocalizedString Language="ru">Карточка связи</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="struct" ID="030574C1-EB77-479C-8CD8-496BFC8B7E4C">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Основа</LocalizedString>
+			</Name>
+			<Field Alias="RegId" ID="5D0BDC36-F6DE-4245-8D91-F48E07ABB4EF" Type="text" Max="50" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RegId</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CreationDate" ID="30931742-6E2B-4B08-A328-AE97241B48F8" Type="string" Max="50" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CreationDate</LocalizedString>
+					<LocalizedString Language="ru">Дата создания</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Content" ID="4DAE121E-4DAA-4717-B853-E12D9B6FDBE6" Type="string" Max="255" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Content</LocalizedString>
+					<LocalizedString Language="ru">Содержание</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="CardType" ID="6619627F-E9A8-416A-842E-F93717158DE1" Type="enum" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">CardType</LocalizedString>
+					<LocalizedString Language="ru">Тип документа</LocalizedString>
+				</Name>
+				<Enum Alias="Inc" Value="0">
+					<Name>
+						<LocalizedString Language="en">Incomming</LocalizedString>
+						<LocalizedString Language="ru">Значение перечисления</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Out" Value="1">
+					<Name>
+						<LocalizedString Language="en">Outgoing</LocalizedString>
+						<LocalizedString Language="ru">Значение перечисления</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="Int" Value="2">
+					<Name>
+						<LocalizedString Language="en">Internal</LocalizedString>
+						<LocalizedString Language="ru">Значение перечисления</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+		</Section>
+		<Section Alias="Childs" Type="coll" ID="74CE8326-7BFD-4723-B2AB-181BEDE84F2A">
+			<Name>
+				<LocalizedString Language="en">Childs</LocalizedString>
+				<LocalizedString Language="ru">Коллекция дочерних карточек</LocalizedString>
+			</Name>
+			<Field Alias="ChildCardID" ID="2617A96A-386D-43A3-BD8D-1A23CF066075" Type="refcardid" RefType="F012060D-A5C4-49FD-AD3D-D3B9B0B67150" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ChildCardID</LocalizedString>
+					<LocalizedString Language="ru">ID экземпляра дочерней карточки</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Link" ID="782A88E0-68AD-4BF2-B7AD-AA491A8F1EB7" Type="refid" RefType="38165FA6-FA69-4261-9EC3-675FEBB89C8B" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Link</LocalizedString>
+					<LocalizedString Language="ru">ID связи</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Comment" ID="D5A14213-58AC-4F38-A61A-0C871750EB7C" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Comment</LocalizedString>
+					<LocalizedString Language="ru">Комментарий</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="Parents" Type="coll" ID="146C85A7-AB54-49FA-A7B2-3005DF1C1519">
+			<Name>
+				<LocalizedString Language="en">Parents</LocalizedString>
+				<LocalizedString Language="ru">Коллекция родительских карточек</LocalizedString>
+			</Name>
+			<Field Alias="ParentCardID" ID="6D8C9D70-F737-4615-8312-0D663EDBAD0A" Type="refcardid" RefType="F012060D-A5C4-49FD-AD3D-D3B9B0B67150" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ParentCardID</LocalizedString>
+					<LocalizedString Language="ru">ID экземпляра родительской карточки</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Link" ID="915610B3-747C-48EB-B033-181546928EDA" Type="refid" RefType="38165FA6-FA69-4261-9EC3-675FEBB89C8B" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Link</LocalizedString>
+					<LocalizedString Language="ru">ID связи</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Comment" ID="5FEFE3EB-5509-41D7-BF6C-FCD03C8CC5A6" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Comment</LocalizedString>
+					<LocalizedString Language="ru">Комментарий</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

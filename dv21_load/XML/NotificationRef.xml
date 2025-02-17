@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="287816E5-D1A5-4E54-88D0-D0A2DD80C92E" Alias="NotificationRef" Version="53" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{ED0394EC-1987-472C-A284-602F483E99A0},license:egdgghmgodbgcfhgodhbdc" Dictionary="true" NonSearchable="true" IconFile="" NoLockOnOpen="true" NoHardShortcuts="true" AlwaysRead="true" FetchMode="8" SimpleSecurity="true">
+	<Actions />
+	<Name>
+		<LocalizedString Language="en">Notification service card</LocalizedString>
+		<LocalizedString Language="ru">Карточка сервиса уведомлений</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Log" Type="coll" ID="A68A8B55-57F1-4B69-8F67-691C63367E0B" AllowConcurrentAccess="true" SuppressSearch="true">
+			<Name>
+				<LocalizedString Language="en">Log</LocalizedString>
+				<LocalizedString Language="ru">Журнал</LocalizedString>
+			</Name>
+			<Field Alias="Card" ID="1574E263-D804-4F8E-9A2C-00BFAEFE6B36" Type="refcardid" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Card</LocalizedString>
+					<LocalizedString Language="ru">Карточка</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Card_Description" SysField="true">Description</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="Folder" ID="D4154375-6901-48BE-BE3F-815072A4184F" Type="refid" RefType="DA86FABF-4DD7-4A86-B6FF-C58C24D12DE2" RefSection="FE27631D-EEEA-4E2E-A04C-D4351282FB55" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Folder</LocalizedString>
+					<LocalizedString Language="ru">Папка</LocalizedString>
+				</Name>
+				<RefFields>
+					<RefField Alias="Folder_Name">Name</RefField>
+				</RefFields>
+			</Field>
+			<Field Alias="SubfolderName" ID="E0F854AC-BF25-4728-A0E8-F043CF03FC57" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">SubfolderName</LocalizedString>
+					<LocalizedString Language="ru">SubfolderName</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="E026AC05-C119-4A66-B9ED-AF1944D26363" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Description</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="TaskType" ID="3AF6F9A8-BF6B-418F-AF28-8C4A1D28E269" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Create shortcut</LocalizedString>
+					<LocalizedString Language="ru">Создать ярлык</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Email" ID="A2198DB4-1CBE-4E52-83CB-76AA6FA40C1E" Type="string" Max="100" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Email</LocalizedString>
+					<LocalizedString Language="ru">Почтовый адрес для уведомления</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RemText" ID="BCE9639A-9135-4A38-AD14-82FE3812D101" Type="text" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DateCreated" ID="22B8F681-3115-4B14-AC2A-892DD77C54BE" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DateCreated</LocalizedString>
+					<LocalizedString Language="ru">DateCreated</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DateOccur" ID="F3C8D7DB-4E52-4A57-A888-9D2F89B5E94D" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DateOccur</LocalizedString>
+					<LocalizedString Language="ru">DateOccur</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DateRemind" ID="74688712-CCC5-452B-A090-BA3CA1653772" Type="datetime" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DateRemind</LocalizedString>
+					<LocalizedString Language="ru">DateRemind</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RemindBeforePeriod" ID="7FEF2A8F-AE52-43BF-8CC0-9730B34C2A5C" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RemindBeforePeriod</LocalizedString>
+					<LocalizedString Language="ru">RemindBeforePeriod</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RemindAfterPeriod" ID="BD713B35-68FC-471E-B013-E8FA1635C499" Type="int" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RemindAfterPeriod</LocalizedString>
+					<LocalizedString Language="ru">RemindAfterPeriod</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Completed" ID="442DF5BB-CE65-43CE-A462-38C3F32AE156" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="True" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Completed</LocalizedString>
+					<LocalizedString Language="ru">Завершено</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ExecReport" ID="A8A86D90-79D8-42A8-AAD9-290D9B3E9959" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Execution report</LocalizedString>
+					<LocalizedString Language="ru">Отчет о выполнении</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Occured" ID="7A7111FA-CE60-4191-B19F-108CDA834AB7" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Occured</LocalizedString>
+					<LocalizedString Language="ru">Occured</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="ExecuteFailed" ID="28162283-C286-4D0A-9356-0F638DFADB18" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ExecuteFailed</LocalizedString>
+					<LocalizedString Language="ru">ExecuteFailed</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="PrevShortcutID" ID="4547107D-5637-42A1-8857-87E7769E330D" Type="uniqueid" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="AltFolder" ID="7BF3816B-9825-4489-BB89-F0902AF7AB38" Type="refcardid" RefType="DA86FABF-4DD7-4A86-B6FF-C58C24D12DE2" RefSection="FE27631D-EEEA-4E2E-A04C-D4351282FB55" DeleteLinkedOnValueChange="false" DefaultValue="" RefKind="Simple" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">AltFolder</LocalizedString>
+					<LocalizedString Language="ru">AltFolder</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="AltSubfolderName" ID="D6920EB0-8977-4B5E-BD7B-E7B93ECFD82D" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">AltSubfolderName</LocalizedString>
+					<LocalizedString Language="ru">AltSubfolderName</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="AltEmail" ID="3ADF41B9-3815-4D29-B867-1CAA427E435C" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="SyncRights" ID="FCA50A12-7F09-4803-806C-774C3D48C632" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">SyncRights</LocalizedString>
+					<LocalizedString Language="ru">SyncRights</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

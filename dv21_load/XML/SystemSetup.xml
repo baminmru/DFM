@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="DC2CB6BF-7D1A-414A-B12C-F53BADA47D70" Alias="SystemSetup" Version="13" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="progid:SystemSetup.ExtCard" Dictionary="true" NonSearchable="true" NonViewable="true" NonCreatable="true" IconFile="" UIExtension="true" AlwaysRead="true" FetchMode="8" SimpleSecurity="true">
+	<Name>
+		<LocalizedString Language="en">System Setup</LocalizedString>
+		<LocalizedString Language="ru">Карточка системных настроек</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="DisabledRoles" Type="coll" ID="7A683F83-5100-44D7-BE30-972D576BFF91">
+			<Name>
+				<LocalizedString Language="en">Disabled roles</LocalizedString>
+				<LocalizedString Language="ru">Отключенные роли</LocalizedString>
+			</Name>
+			<Field Alias="Card" ID="84A46B8F-DFA4-4292-82CB-97610B5DA520" Type="enum" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Card</LocalizedString>
+					<LocalizedString Language="ru">Карточка</LocalizedString>
+				</Name>
+				<Enum Alias="RegCard" Value="0">
+					<Name>
+						<LocalizedString Language="en">RegCard</LocalizedString>
+						<LocalizedString Language="ru">РК</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="ResTask" Value="1">
+					<Name>
+						<LocalizedString Language="en">ResTask</LocalizedString>
+						<LocalizedString Language="ru">Резолюция</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+			<Field Alias="Name" ID="62D91B2C-01FE-46C5-B423-54FD8B17216D" Type="string" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Role name</LocalizedString>
+					<LocalizedString Language="ru">Название роли</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Disabled" ID="670A3DDD-24A3-4F26-9C5E-DCF23D96E0F3" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Disabled</LocalizedString>
+					<LocalizedString Language="ru">Отключена</LocalizedString>
+				</Name>
+			</Field>
+			<Constraints>
+				<Constraint Type="UniqueGlobal">
+					<ConstraintField>Card</ConstraintField>
+					<ConstraintField>Name</ConstraintField>
+				</Constraint>
+			</Constraints>
+		</Section>
+		<Section Alias="Main" Type="struct" ID="B6C7A499-BC33-48BC-86F4-BF54C104071B">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Основные настройки</LocalizedString>
+			</Name>
+			<Field Alias="ServerName" ID="312CDA17-4A84-489E-82A5-229EEA37B0E3" Type="string" Max="256" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">ServerName</LocalizedString>
+					<LocalizedString Language="ru">Имя машины сервера</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+		<Section Alias="DisabledEvents" Type="coll" ID="AEF12A71-2F42-41B2-A708-5B1B629E60D5">
+			<Name>
+				<LocalizedString Language="en">Disabled events</LocalizedString>
+				<LocalizedString Language="ru">Отключенные события</LocalizedString>
+			</Name>
+			<Field Alias="Type" ID="01A096AB-9C17-48F1-BB91-7C68841FE2CA" Type="int" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Event Type</LocalizedString>
+					<LocalizedString Language="ru">Тип события</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Disabled" ID="B64616A0-D956-4A75-A9A9-71082B2D220E" Type="bool" DeleteLinkedOnValueChange="false" DefaultValue="0" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Disabled</LocalizedString>
+					<LocalizedString Language="ru">Отключено</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

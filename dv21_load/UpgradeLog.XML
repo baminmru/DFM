@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="dv21_load">
+</Property><Property Name="Solution File" Value="C:\BAMI\Projects\dv21_load\dv21_load.sln">
+</Property><Property Name="User Options File" Value="C:\BAMI\Projects\dv21_load\dv21_load.suo">
+</Property><Property Name="Date" Value="28 июля 2006 г.">
+</Property><Property Name="Time" Value="13:04">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="dv21_load.sln" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\dv21_load.sln">
+</Event><Event ErrorLevel="0" Project="" Source="dv21_load.suo" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\dv21_load.suo">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="dv21_load.csproj" Description="Project file successfully backed up as C:\BAMI\Projects\dv21_load\Backup\dv21_load.csproj">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="dv21_load.csproj.user" Description="Project user file successfully backed up as C:\BAMI\Projects\dv21_load\Backup\dv21_load.csproj.user">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="CardDef.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\CardDef.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlAction.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlAction.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlCardDefinition.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlCardDefinition.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlEnum.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlEnum.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlFieldType.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlFieldType.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlModeType.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlModeType.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlRestrict.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlRestrict.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlSectionType.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlSectionType.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlviewColumn.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlviewColumn.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlViewElement.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlViewElement.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="deffile.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\deffile.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="Form2.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\Form2.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="frmSectionView.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\frmSectionView.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="LStringEditor.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\LStringEditor.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="TypeLib.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\TypeLib.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="Utils.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\Utils.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="XSDGen.cs" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\XSDGen.cs">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="App.ico" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\App.ico">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlAction.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlAction.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlCardDefinition.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlCardDefinition.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlEnum.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlEnum.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlFieldType.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlFieldType.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlModeType.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlModeType.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlRestrict.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlRestrict.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlSectionType.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlSectionType.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlviewColumn.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlviewColumn.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="ctlViewElement.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\ctlViewElement.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="Form2.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\Form2.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="frmSectionView.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\frmSectionView.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="LStringEditor.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\LStringEditor.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="TypeLib.resx" Description="File successfully backed up as C:\BAMI\Projects\dv21_load\Backup\TypeLib.resx">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="dv21_load.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="dv21_load" Source="dv21_load.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="dv21_load.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="dv21_load.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="dv21_load" Source="dv21_load.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

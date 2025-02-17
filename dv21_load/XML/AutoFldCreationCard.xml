@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="862A5C0D-5772-4C65-8120-35E46EBCBA6C" Alias="AutoFldCreation" Version="11" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{EC17733F-ECF1-42A8-AA54-DBF618A61727},license:oepenepgchjeegejddrcjcmd" NonSearchable="true" IconFile="" NoHardShortcuts="true" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">AutoFldCreation</LocalizedString>
+		<LocalizedString Language="ru">Карточка автоматического создания папок</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Section" Type="struct" ID="3746249C-5E96-4882-BA1D-C7AE13C232F2">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="Field" ID="E13023E9-475C-4D67-8EBE-DC5B140C7A63" Type="int" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

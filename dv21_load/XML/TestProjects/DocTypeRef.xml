@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="ED7F3D0D-9282-46D9-9B1D-5C85AB2B183E" Alias="DocType" Version="4" ProgID="clsid:{1C51DD19-D42D-41F5-BF93-A7BDA37A1B45},license:" Dictionary="true" NonSearchable="true" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">Document types dictionary</LocalizedString>
+		<LocalizedString Language="ru">Справочник типов документов</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="coll" ID="4D83CEFE-5AEC-46A3-96D6-3C977FBE0586">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Главная</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="D2CFACD1-8F7A-409D-9CA9-E04678D34055" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Description" ID="5633CD75-6830-4CBE-8A97-D53DE1EA707C" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Description</LocalizedString>
+					<LocalizedString Language="ru">Описание</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="DontUse" ID="9BC7AACA-8FE2-4BC6-AA8F-4DA96DC3D98B" Type="bool" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">DontUse</LocalizedString>
+					<LocalizedString Language="ru">Использовать</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

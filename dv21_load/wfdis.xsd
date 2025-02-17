@@ -1,0 +1,638 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GUID_TYPE">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="38" />
+      <xs:minLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="WFDesign">
+    <xs:annotation>
+      <xs:documentation>Описание процессов</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessDefinition" type="ProcessDefinition_TYPE">
+          <xs:annotation>
+            <xs:documentation>Определение процесса</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="ProcessDefinition_ID">
+            <xs:selector xpath="ProcessDefinition" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ID" type="GUID_TYPE" use="required">
+        <xs:annotation>
+          <xs:documentation>Card id</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProcessParam_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="DefValue" use="required">
+      <xs:annotation>
+        <xs:documentation>По умолчанию</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="IsParameter" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Это параметр процесса</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ProcessRole_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ProcessDocument_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DocumentAlias" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ObjectType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип документа</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="CreateInsideProcess" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Создается в рамках процесса</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="BinderMode" use="required">
+      <xs:annotation>
+        <xs:documentation>Режим при открытии в режиме папки процесса</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="DMSType" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Хранилище документа</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionStateDetector_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ScanInterval" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Интервал сканирования</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Agent" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Агент выполняющий сканирование</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DetectScript" use="required">
+      <xs:annotation>
+        <xs:documentation>Запускающий скрипт</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Currentstate" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Текущее состояние</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NextState" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Новое состояние</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="SubProcessInit_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SyncStart" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Синхронный запуск</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="InitScript" use="required">
+      <xs:annotation>
+        <xs:documentation>Инициализация процесса</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Subprocess" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Определение запускаемого процесса</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="EstimationData_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AvgCost" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Средняя стоимость</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DivCost" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Отклонение в стоимости</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AvgTime" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Среднее время исполнения</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DivTime" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Отклонение времени исполнения</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionException_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ScanInterval" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Интервал сканирования</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DetectScript" use="required">
+      <xs:annotation>
+        <xs:documentation>Запускающий скрипт</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="4000" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Agent" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Агент</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:int" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="SubRoles_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Role" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Роль</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionDelegation_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionDelegation" type="FunctionDelegation_TYPE">
+        <xs:annotation>
+          <xs:documentation>Описание делегирования ( as tree subitem )</xs:documentation>
+        </xs:annotation>
+        <xs:unique name="FunctionDelegation_ID">
+          <xs:selector xpath="FunctionDelegation" />
+          <xs:field xpath="@ID" />
+        </xs:unique>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubRoles" type="SubRoles_TYPE">
+        <xs:annotation>
+          <xs:documentation>Получатели</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AllowDelegate" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Разрешено делегирование</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AllowTransmit" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Разрешена передача</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionShortcut_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Storage" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Хранилище</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Catalog" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Идентификатор каталога</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Folder" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Идентификатор папки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Mode" use="required">
+      <xs:annotation>
+        <xs:documentation>Режим работы</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ToFunction" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Ярлык на функцию</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ForCheckOnly" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Для контролера</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionRight_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Действие</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Allow" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Разрешено</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="shortcut" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Ярлык</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Role" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Роль</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Document" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Докмент</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ProcessFunction_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionStateDetector" type="FunctionStateDetector_TYPE">
+        <xs:annotation>
+          <xs:documentation>Агенты - детекторы состояний</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="SubProcessInit" type="SubProcessInit_TYPE">
+        <xs:annotation>
+          <xs:documentation>Дочерний процесс</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="EstimationData" type="EstimationData_TYPE">
+        <xs:annotation>
+          <xs:documentation>Параметры для расчета характеристик</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionException" type="FunctionException_TYPE">
+        <xs:annotation>
+          <xs:documentation>Исключительные ситуации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionDelegation" type="FunctionDelegation_TYPE">
+        <xs:annotation>
+          <xs:documentation>Описание делегирования </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionShortcut" type="FunctionShortcut_TYPE">
+        <xs:annotation>
+          <xs:documentation>Ярлыки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionRight" type="FunctionRight_TYPE">
+        <xs:annotation>
+          <xs:documentation>Права</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Icon" use="required">
+      <xs:annotation>
+        <xs:documentation>Иконка</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="PreCondition" use="required">
+      <xs:annotation>
+        <xs:documentation>Условие для запуска</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="PostCondition" use="required">
+      <xs:annotation>
+        <xs:documentation>Условие завершения</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ActionScript" use="required">
+      <xs:annotation>
+        <xs:documentation>Скрипт для автоматического исполнения</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ScanInterval" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>Временной интервал для проверки состояния и исключительных ситуаций</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AutoDetectState" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation>Определять состояние автоматически</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Description" use="required">
+      <xs:annotation>
+        <xs:documentation>Описание</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="MinPriority" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Начальное значение приоритета функции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="MaxPriority" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Конечное значение приоритета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IncPriority" type="xs:decimal" use="optional">
+      <xs:annotation>
+        <xs:documentation>Коэффицент прироста приоритета</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="TimeLimit" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>Предельная длительность</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Functiontype" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип функции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="FunctionLinks_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="FromFunct" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>От фукции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ToFunc" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>К функции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ProcessVersion_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessVersion" type="ProcessVersion_TYPE">
+        <xs:annotation>
+          <xs:documentation>Версия процесса( as tree subitem )</xs:documentation>
+        </xs:annotation>
+        <xs:unique name="ProcessVersion_ID">
+          <xs:selector xpath="ProcessVersion" />
+          <xs:field xpath="@ID" />
+        </xs:unique>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessParam" type="ProcessParam_TYPE">
+        <xs:annotation>
+          <xs:documentation>Параметры и переменные процесса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessRole" type="ProcessRole_TYPE">
+        <xs:annotation>
+          <xs:documentation>Роли процесса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessDocument" type="ProcessDocument_TYPE">
+        <xs:annotation>
+          <xs:documentation>Документы процесса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessFunction" type="ProcessFunction_TYPE">
+        <xs:annotation>
+          <xs:documentation>Функции процесса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FunctionLinks" type="FunctionLinks_TYPE">
+        <xs:annotation>
+          <xs:documentation>Переходы</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Version" use="required">
+      <xs:annotation>
+        <xs:documentation>Версия</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="80" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="IsCurrent" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Признак текущей версии</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IsRestricted" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Запрещено к использованию</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ProcessDefinition_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessVersion" type="ProcessVersion_TYPE">
+        <xs:annotation>
+          <xs:documentation>Версия процесса</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Comment" use="required">
+      <xs:annotation>
+        <xs:documentation>Комментарий</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

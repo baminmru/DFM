@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="D0E8725D-BFE1-43B2-95E9-4AE42B07F04C" Alias="DictionaryCleaner" Version="6" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{6FA9E318-6CFE-454E-8D43-6808E5ACE29F},license:" NonSearchable="true" IconFile="" FetchMode="1" SimpleSecurity="true">
+	<Name>
+		<LocalizedString Language="en">DictionaryCleaner</LocalizedString>
+		<LocalizedString Language="ru">Подмена значений справочников</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="coll" ID="FBB73E94-3AF6-41CE-8097-68C58A6BEA6E">
+			<Name>
+				<LocalizedString Language="en">Main</LocalizedString>
+				<LocalizedString Language="ru">Главный раздел</LocalizedString>
+			</Name>
+			<Field Alias="SectionId" ID="F78AF2DC-2281-488A-AD3E-16C11CCF239F" Type="uniqueid" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Section identifier</LocalizedString>
+					<LocalizedString Language="ru">Идентификатор секции</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="NewValue" ID="7D548BFE-6F40-4787-A263-1A19AFF43D89" Type="uniqueid" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">New value</LocalizedString>
+					<LocalizedString Language="ru">Новое значение</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="OldValue" ID="4945CF3C-0B4A-4AFA-A8E8-3A3DCB3F04C7" Type="uniqueid" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Old value</LocalizedString>
+					<LocalizedString Language="ru">Старое значение</LocalizedString>
+				</Name>
+			</Field>
+			<Constraints>
+				<Constraint Type="Index">
+					<ConstraintField>SectionId</ConstraintField>
+				</Constraint>
+				<Constraint Type="Index">
+					<ConstraintField>OldValue</ConstraintField>
+				</Constraint>
+			</Constraints>
+		</Section>
+		<Section Alias="UniqueConstraint" Type="coll" ID="D685F664-2B5B-42BE-A7F6-ED69558FAE67">
+			<Name>
+				<LocalizedString Language="en">Unique constraint</LocalizedString>
+				<LocalizedString Language="ru">Ограничение уникальности</LocalizedString>
+			</Name>
+			<Field Alias="RefId" ID="9FD12FF6-979D-493C-BE78-D63AAC25E9B8" Type="uniqueid" NotNull="true" DeleteLinkedOnValueChange="false" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Reference identifier</LocalizedString>
+					<LocalizedString Language="ru">Идентификатор ссылки</LocalizedString>
+				</Name>
+			</Field>
+			<Constraints>
+				<Constraint Type="UniqueGlobal">
+					<ConstraintField>RefId</ConstraintField>
+				</Constraint>
+			</Constraints>
+		</Section>
+	</Sections>
+</CardDefinition>

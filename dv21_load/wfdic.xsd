@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GUID_TYPE">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="38" />
+      <xs:minLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="WFDictionary">
+    <xs:annotation>
+      <xs:documentation>Справочники СУБП</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="functionType" type="functionType_TYPE">
+          <xs:annotation>
+            <xs:documentation>Тип функции</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="functionType_ID">
+            <xs:selector xpath="functionType" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="processState" type="processState_TYPE">
+          <xs:annotation>
+            <xs:documentation>Состояния процесса</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="processState_ID">
+            <xs:selector xpath="processState" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="functionState" type="functionState_TYPE">
+          <xs:annotation>
+            <xs:documentation>Состояние функции</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="functionState_ID">
+            <xs:selector xpath="functionState" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="JoinAndCrossType" type="JoinAndCrossType_TYPE">
+          <xs:annotation>
+            <xs:documentation>Типы  разветвлений и объединений</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="JoinAndCrossType_ID">
+            <xs:selector xpath="JoinAndCrossType" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="DMSType" type="DMSType_TYPE">
+          <xs:annotation>
+            <xs:documentation>Хранилище документов</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="DMSType_ID">
+            <xs:selector xpath="DMSType" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Catolog" type="Catolog_TYPE">
+          <xs:annotation>
+            <xs:documentation>Внешний каталог пользователей</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="Catolog_ID">
+            <xs:selector xpath="Catolog" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="StorageType" type="StorageType_TYPE">
+          <xs:annotation>
+            <xs:documentation>Внешний навигатор</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="StorageType_ID">
+            <xs:selector xpath="StorageType" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="AgentList" type="AgentList_TYPE">
+          <xs:annotation>
+            <xs:documentation>Зарегистрированные компоненты - агенты</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="AgentList_ID">
+            <xs:selector xpath="AgentList" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ID" type="GUID_TYPE" use="required">
+        <xs:annotation>
+          <xs:documentation>Card id</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="functionType_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Agent" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Агент, реализующий функцию</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="JoinType" type="GUID_TYPE" use="optional">
+      <xs:annotation>
+        <xs:documentation>Подкласс типа объединения и разветвления</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="processState_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="functionState_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="JoinAndCrossType_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="IsJoin" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Это объединение</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="DMSGateParameters_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Value" use="required">
+      <xs:annotation>
+        <xs:documentation>Значение</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="DMSType_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DMSGateParameters" type="DMSGateParameters_TYPE">
+        <xs:annotation>
+          <xs:documentation>Параметры инициализации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ProgID" use="required">
+      <xs:annotation>
+        <xs:documentation>Интерфейс</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="CatalogGateParameters_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Value" use="required">
+      <xs:annotation>
+        <xs:documentation>Значение</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Catolog_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CatalogGateParameters" type="CatalogGateParameters_TYPE">
+        <xs:annotation>
+          <xs:documentation>Параметры инициализации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ProgID" use="required">
+      <xs:annotation>
+        <xs:documentation>Интерфейс</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="StorageGateParameter_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Value" use="required">
+      <xs:annotation>
+        <xs:documentation>Значение</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="StorageType_TYPE">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StorageGateParameter" type="StorageGateParameter_TYPE">
+        <xs:annotation>
+          <xs:documentation>Параметры инициализации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ProgID" use="required">
+      <xs:annotation>
+        <xs:documentation>Интерфейс</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="AgentList_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" use="required">
+      <xs:annotation>
+        <xs:documentation>Название</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="AgentType" use="required">
+      <xs:annotation>
+        <xs:documentation>Тип агента</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Детектор состояния">
+            <xs:annotation>
+              <xs:documentation>Детектор состояния</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Функция">
+            <xs:annotation>
+              <xs:documentation>Функция</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Детектор исключительной ситуации">
+            <xs:annotation>
+              <xs:documentation>Детектор исключительной ситуации</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ProgID" use="required">
+      <xs:annotation>
+        <xs:documentation>Интерфейс</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="255" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

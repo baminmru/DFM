@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardLibrary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="C219EA07-C958-4A70-AC25-A83F92B42AE3" Alias="MertDMSLib" ControlInfo="progid:MertDMSCardLib.CardLib" IconFile="" Version="262" MsiProductCode="76848636-8900-4A48-BDE4-C4F4811DF086" MsiPackageName="DDMERT_DMS\DDMERT_DMS.msi">
+	<Definitions>
+		<RefCardDefinition>Resolution.xml</RefCardDefinition>
+		<RefCardDefinition>NotificationRef.xml</RefCardDefinition>
+		<RefCardDefinition>RegistrationCard.xml</RefCardDefinition>
+		<RefCardDefinition>AutoFldCreationCard.xml</RefCardDefinition>
+		<RefCardDefinition>ReportsCard.xml</RefCardDefinition>
+		<RefCardDefinition>RegFilter.xml</RefCardDefinition>
+		<RefCardDefinition>ResTaskFilter.xml</RefCardDefinition>
+		<RefCardDefinition>FileTemplate.xml</RefCardDefinition>
+		<RefCardDefinition>Scan.xml</RefCardDefinition>
+		<RefCardDefinition>DicCleaner.xml</RefCardDefinition>
+		<RefCardDefinition>ControlCard.xml</RefCardDefinition>
+		<RefCardDefinition>ResTexts.xml</RefCardDefinition>
+		<RefCardDefinition>SystemSetup.xml</RefCardDefinition>
+		<RefCardDefinition>PlanningCard.xml</RefCardDefinition>
+	</Definitions>
+	<Name>
+		<LocalizedString Language="ru">Карточки документооборота</LocalizedString>
+		<LocalizedString Language="en">MERT Cards</LocalizedString>
+	</Name>
+	<Reports>
+		<Report Alias="Report47" ID="296DC846-C44C-46D1-8987-E077A693F932" SQLFile="">
+			<Name>
+				<LocalizedString Language="en">Report47</LocalizedString>
+				<LocalizedString Language="ru">Отчет 47</LocalizedString>
+			</Name>
+			<Parameter Type="datetime" Name="RegDateFrom"/>
+			<Parameter Type="datetime" Name="RegDateUntil"/>
+			<Parameter Type="string" Name="DocTypesXmlStr"/>
+			<Parameter Type="string" Name="RubricXmlStr"/>
+			<Parameter Type="string" Name="AuthorsXmlStr"/>
+			<Parameter Type="string" Name="ExecutorsXmlStr"/>
+			<Parameter Type="integer" Name="MinisterCtrl"/>
+			<Parameter Type="string" Name="ReportType"/>
+		</Report>
+		<Report Alias="DeptControlReport" ID="0A14F76E-CB20-41D3-AA86-B76BC8C956F6" SQLFile="">
+			<Name>
+				<LocalizedString Language="en">DeptControlReport</LocalizedString>
+				<LocalizedString Language="ru">Отчет контроля по департаментам</LocalizedString>
+			</Name>
+			<Parameter Type="string" Name="DepartmentsIDs"/>
+			<Parameter Type="datetime" Name="RegDateFrom"/>
+			<Parameter Type="datetime" Name="RegDateUntil"/>
+		</Report>
+		<Report Alias="ArchiveRpt" ID="A93AC3EA-C485-4A48-9A32-D41FCBED7902" SQLFile="">
+			<Name>
+				<LocalizedString Language="en">ArchiveRpt</LocalizedString>
+				<LocalizedString Language="ru">Опись дел</LocalizedString>
+			</Name>
+			<Parameter Type="string" Name="DeptID"/>
+			<Parameter Type="string" Name="CaseID"/>
+			<Parameter Type="string" Name="FolderID"/>
+			<Parameter Type="string" Name="Year"/>
+		</Report>
+	</Reports>
+</CardLibrary>

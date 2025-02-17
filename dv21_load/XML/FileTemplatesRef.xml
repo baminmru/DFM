@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="4A7F7B71-C08D-4E84-ACBC-811D2A8B1420" Alias="FileTemplatesRef" Version="5" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{3E0F6160-3C7E-469C-BE8F-0E52064424B0},license:omkojnnlwokmoonoklpjtl" Dictionary="true" NonSearchable="true" IconFile="" AlwaysRead="true">
+	<Name>
+		<LocalizedString Language="en">FileTemplatesRef</LocalizedString>
+		<LocalizedString Language="ru">Справочник шаблонов файлов</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Templates" Type="coll" ID="0C51794A-324D-4B5D-88F5-B509697DAB17">
+			<Name>
+				<LocalizedString Language="en">Templates</LocalizedString>
+				<LocalizedString Language="ru">Шаблоны</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="43DFFAAB-735F-425A-AC0D-1BDDEC2D2595" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Name</LocalizedString>
+					<LocalizedString Language="ru">Название шаблона</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Path" ID="C9B68701-BE8C-4E34-9170-72343C61B903" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Path</LocalizedString>
+					<LocalizedString Language="ru">Путь к файлу шаблона</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

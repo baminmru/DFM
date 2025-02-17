@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="27A2FC2B-28B9-4470-864B-D6C9E50FACE2" Alias="ArchiveCard" Version="7" ProgID="clsid:{E370D329-14B7-4982-AE34-A91A1AB2C106},license:" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">ArchiveCard</LocalizedString>
+		<LocalizedString Language="ru">Карточка Архива</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Archive" Type="struct" ID="C1E2273C-AB99-46A8-A278-8B6C460F05C7">
+			<Name>
+				<LocalizedString Language="en">Archive</LocalizedString>
+				<LocalizedString Language="ru">Архив</LocalizedString>
+			</Name>
+			<Field Alias="SubdivisionID" ID="6E928CCB-4DB4-47D5-9D1E-4C82D975EF49" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">SubdivisionID</LocalizedString>
+					<LocalizedString Language="ru">ID Подразделения</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="AffairID" ID="0813AEC1-CC9D-45DF-93C6-854BCAF36F61" Type="refid" RefType="9B410616-87D2-4AED-BBB6-2718A9DA4CE8" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">AffairID</LocalizedString>
+					<LocalizedString Language="ru">ID Дела</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="PageNumber" ID="13C874F2-FE0D-4275-A42D-7D04383B4941" Type="string" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">PageNumber</LocalizedString>
+					<LocalizedString Language="ru">Количество страниц в томе</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="FolderID" ID="44DF19D3-F990-41AE-A78C-EB7D73B9F4E8" Type="refid" RefType="9B410616-87D2-4AED-BBB6-2718A9DA4CE8" RefSection="1671E8BE-92CB-4744-BB7F-6616C722E06E" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">FolderID</LocalizedString>
+					<LocalizedString Language="ru">ID одной из папок дела (AffairID)</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>

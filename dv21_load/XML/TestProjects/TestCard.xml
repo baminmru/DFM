@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="A39B81AB-A365-478C-9F66-6AA71247AD31" Alias="TestCard" Version="22" ProgID="clsid:{8644A0C7-96E0-41BE-992D-6453C68B5F94},license:" IconFile="" LoaderVersion="" LoaderCabName="" LoaderCLSID="" PathToLoaderFile="">
+	<Category ID="1B62F127-8596-4F79-B080-47FDEDC3E325">
+		<Name>
+			<LocalizedString Language="en">Custom Cards</LocalizedString>
+			<LocalizedString Language="ru">Пользовательские карточки</LocalizedString>
+		</Name>
+	</Category>
+	<Name>
+		<LocalizedString Language="en">TestCard</LocalizedString>
+		<LocalizedString Language="ru">ТестКард</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Main" Type="struct" ID="BA073B61-30D5-4121-B003-E60AD3AC2CAC">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="Name" ID="5C1FEE5F-DE12-439F-82DD-028D26A9A697" Type="string" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="RefEmp" ID="2FD7130F-914A-446B-8088-7C7F6358A289" Type="refid" NotNull="false" RefType="980E836D-D6B2-4701-94E0-150748C57162" RefSection="55A791BE-205D-4DC4-ABF5-3C30D8266A7D" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">RefEmp</LocalizedString>
+				</Name>
+			</Field>
+			<Field Alias="Field" ID="AFA1B42B-FB45-44D5-9A8A-0374474165EA" Type="enum" NotNull="false" UserDependent="false" DefaultValue="" SuppressSearch="false" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+				<Enum Alias="EnumValue0" Value="0">
+					<Name>
+						<LocalizedString Language="en">Enum value0</LocalizedString>
+						<LocalizedString Language="ru">Значение перечисления0</LocalizedString>
+					</Name>
+				</Enum>
+				<Enum Alias="EnumValue1" Value="1">
+					<Name>
+						<LocalizedString Language="en">Enum value1</LocalizedString>
+						<LocalizedString Language="ru">Значение перечисления</LocalizedString>
+					</Name>
+				</Enum>
+			</Field>
+		</Section>
+	</Sections>
+	<ViewElements>
+		<ViewElement Alias="Digest" ID="156162AE-0F24-4E82-82BF-2E34F9552E84">
+			<Name>
+				<LocalizedString Language="en">View</LocalizedString>
+				<LocalizedString Language="ru">Представление</LocalizedString>
+			</Name>
+			<Columns>
+				<Column Alias="Digest" ID="986E6D81-4984-44DF-96A1-175C1FEF5858" Type="single">
+					<Name>
+						<LocalizedString Language="en">View column</LocalizedString>
+						<LocalizedString Language="ru">Колонка представления</LocalizedString>
+					</Name>
+				</Column>
+			</Columns>
+		</ViewElement>
+	</ViewElements>
+</CardDefinition>

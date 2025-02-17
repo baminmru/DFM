@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="AE1F16C8-66A4-4D57-A9DC-6F857741694E" Alias="RegFilter" Version="15" LibraryID="C219EA07-C958-4A70-AC25-A83F92B42AE3" ProgID="clsid:{E51E2F90-587C-4F0E-A219-8401690B09F7},license:" NonSearchable="true" NonCreatable="true" IconFile="S:\Projects\DDMERT_DMS\Design\icons\4 заявка\иконки РК и резолюции\карточка - фильтр.ico" NoLockOnOpen="true" UIExtension="true" NoHardShortcuts="true" FetchMode="8">
+	<Name>
+		<LocalizedString Language="en">RegFilter</LocalizedString>
+		<LocalizedString Language="ru">Карточка фильтра РК</LocalizedString>
+	</Name>
+	<Sections>
+		<Section Alias="Section" Type="struct" ID="92F8E183-56A3-4D18-8668-164A2D6110EC">
+			<Name>
+				<LocalizedString Language="en">Section</LocalizedString>
+				<LocalizedString Language="ru">Секция</LocalizedString>
+			</Name>
+			<Field Alias="Field" ID="30A76282-5C48-4DED-A5CE-0FB49291795A" Type="int" DefaultValue="" CopyBehavior="Copy">
+				<Name>
+					<LocalizedString Language="en">Field</LocalizedString>
+					<LocalizedString Language="ru">Поле</LocalizedString>
+				</Name>
+			</Field>
+		</Section>
+	</Sections>
+</CardDefinition>
