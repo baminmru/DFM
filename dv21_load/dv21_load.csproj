@@ -197,6 +197,14 @@
       <DependentUpon>TypeLib.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CardDef.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CardDef.xsx">
+      <DependentUpon>CardDef.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

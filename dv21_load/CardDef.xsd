@@ -39,9 +39,11 @@
 			<xs:attribute name="CategoryID" type="xs:string" use="optional"/>
 			<xs:attribute name="Alias" type="xs:string" use="required"/>
 			<xs:attribute name="Version" type="xs:int" use="required"/>
+      <xs:attribute name="SingleTone" type="xs:boolean" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="FieldType">
+	
+  <xs:complexType name="FieldType">
 		<xs:sequence>
 			<xs:element name="Name" type="LocalizedStrings"/>
 			<xs:element name="Enum" minOccurs="0" maxOccurs="unbounded">
@@ -84,6 +86,8 @@
 			<xs:element name="Section" type="SectionType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="Alias" type="xs:string" use="required"/>
+    <xs:attribute name="AddHistory" type="xs:boolean" use="required"/>
+    <xs:attribute name="AddWhoInfo" type="xs:boolean" use="required"/>
 		<xs:attribute name="Type" use="required">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
@@ -103,8 +107,6 @@
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
 					<xs:length value="38"/>
-					<xs:minLength value="38"/>
-					<xs:maxLength value="38"/>
 					<xs:whiteSpace value="collapse"/>
 				</xs:restriction>
 			</xs:simpleType>

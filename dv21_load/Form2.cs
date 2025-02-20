@@ -85,7 +85,9 @@ namespace dv21_load
 		private System.Windows.Forms.MenuItem menuItem5;
 		private System.Windows.Forms.MenuItem mnuTypeLib;
 		private System.Windows.Forms.UserControl ctl;
-
+        private MenuItem mnuGenPG;
+        private MenuItem menuItem6;
+        private string LastOpenFile;
 
 		
 
@@ -128,522 +130,549 @@ namespace dv21_load
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(Form2));
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.mainMenu1 = new System.Windows.Forms.MainMenu();
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this.mnuLoad = new System.Windows.Forms.MenuItem();
-			this.mnuLoadData = new System.Windows.Forms.MenuItem();
-			this.mnuSave = new System.Windows.Forms.MenuItem();
-			this.mnuRefreshTree = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this.mnuExit = new System.Windows.Forms.MenuItem();
-			this.menuItem3 = new System.Windows.Forms.MenuItem();
-			this.mnuConvertToXSD = new System.Windows.Forms.MenuItem();
-			this.mnuconst_CS = new System.Windows.Forms.MenuItem();
-			this.mnuConst_VB = new System.Windows.Forms.MenuItem();
-			this.mnuConst_CPP = new System.Windows.Forms.MenuItem();
-			this.menuItem5 = new System.Windows.Forms.MenuItem();
-			this.mnuTypeLib = new System.Windows.Forms.MenuItem();
-			this.tvStruct = new System.Windows.Forms.TreeView();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.pnlColumn = new dv21_ctl.ctlviewColumn();
-			this.pnlRestrict = new dv21_ctl.ctlRestrict();
-			this.pnlModeType = new dv21_ctl.ctlModeType();
-			this.pnlAction = new dv21_ctl.ctlAction();
-			this.pnlViewElement = new dv21_ctl.ctlViewElement();
-			this.pnlEnum = new dv21_ctl.ctlEnum();
-			this.pnlFieldType = new dv21_ctl.ctlFieldType();
-			this.pnlSectionType = new dv21_ctl.ctlSectionType();
-			this.pnlCardDefinition = new dv21_ctl.ctlCardDefinition();
-			this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
-			this.dlgSave = new System.Windows.Forms.SaveFileDialog();
-			this.mnuSections = new System.Windows.Forms.ContextMenu();
-			this.mnuSecsAddSec = new System.Windows.Forms.MenuItem();
-			this.mnuSection = new System.Windows.Forms.ContextMenu();
-			this.mnuSecDel = new System.Windows.Forms.MenuItem();
-			this.mnuSecAddFld = new System.Windows.Forms.MenuItem();
-			this.mnuSecAddSec = new System.Windows.Forms.MenuItem();
-			this.mnuField = new System.Windows.Forms.ContextMenu();
-			this.mnuFldDel = new System.Windows.Forms.MenuItem();
-			this.mnuFldAddEnum = new System.Windows.Forms.MenuItem();
-			this.mnuEnum = new System.Windows.Forms.ContextMenu();
-			this.mnuEnumDel = new System.Windows.Forms.MenuItem();
-			this.mnuModes = new System.Windows.Forms.ContextMenu();
-			this.mnuModesAddMode = new System.Windows.Forms.MenuItem();
-			this.mnuMode = new System.Windows.Forms.ContextMenu();
-			this.mnuModeDel = new System.Windows.Forms.MenuItem();
-			this.mnuModeAddRestrict = new System.Windows.Forms.MenuItem();
-			this.mnuRestrict = new System.Windows.Forms.ContextMenu();
-			this.mnuRestrictDel = new System.Windows.Forms.MenuItem();
-			this.mnuActions = new System.Windows.Forms.ContextMenu();
-			this.mnuActionsAddAction = new System.Windows.Forms.MenuItem();
-			this.mnuAction = new System.Windows.Forms.ContextMenu();
-			this.mnuActionDel = new System.Windows.Forms.MenuItem();
-			this.mnuViews = new System.Windows.Forms.ContextMenu();
-			this.mnuViewsAddView = new System.Windows.Forms.MenuItem();
-			this.mnuView = new System.Windows.Forms.ContextMenu();
-			this.mnuViewDel = new System.Windows.Forms.MenuItem();
-			this.mnuViewAddcolumn = new System.Windows.Forms.MenuItem();
-			this.mnuColumn = new System.Windows.Forms.ContextMenu();
-			this.mnuColumnDel = new System.Windows.Forms.MenuItem();
-			this.dlgSaveXSD = new System.Windows.Forms.SaveFileDialog();
-			this.panel1.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// imageList1
-			// 
-			this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-			this.imageList1.ImageSize = new System.Drawing.Size(32, 32);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			// 
-			// mainMenu1
-			// 
-			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItem1,
-																					  this.menuItem3});
-			// 
-			// menuItem1
-			// 
-			this.menuItem1.Index = 0;
-			this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItem2,
-																					  this.mnuLoad,
-																					  this.mnuLoadData,
-																					  this.mnuSave,
-																					  this.mnuRefreshTree,
-																					  this.menuItem4,
-																					  this.mnuExit});
-			this.menuItem1.Text = "File";
-			// 
-			// menuItem2
-			// 
-			this.menuItem2.Index = 0;
-			this.menuItem2.Text = "New";
-			this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
-			// 
-			// mnuLoad
-			// 
-			this.mnuLoad.Index = 1;
-			this.mnuLoad.Text = "Load";
-			this.mnuLoad.Click += new System.EventHandler(this.mnuLoad_Click);
-			// 
-			// mnuLoadData
-			// 
-			this.mnuLoadData.Index = 2;
-			this.mnuLoadData.Text = "Load Test Data";
-			this.mnuLoadData.Click += new System.EventHandler(this.mnuLoadData_Click);
-			// 
-			// mnuSave
-			// 
-			this.mnuSave.Index = 3;
-			this.mnuSave.Text = "Save";
-			this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
-			// 
-			// mnuRefreshTree
-			// 
-			this.mnuRefreshTree.Index = 4;
-			this.mnuRefreshTree.Text = "Refresh tree";
-			this.mnuRefreshTree.Click += new System.EventHandler(this.mnuRefreshTree_Click);
-			// 
-			// menuItem4
-			// 
-			this.menuItem4.Index = 5;
-			this.menuItem4.Text = "-";
-			// 
-			// mnuExit
-			// 
-			this.mnuExit.Index = 6;
-			this.mnuExit.Text = "Exit";
-			this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
-			// 
-			// menuItem3
-			// 
-			this.menuItem3.Index = 1;
-			this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.mnuConvertToXSD,
-																					  this.mnuconst_CS,
-																					  this.mnuConst_VB,
-																					  this.mnuConst_CPP,
-																					  this.menuItem5,
-																					  this.mnuTypeLib});
-			this.menuItem3.Text = "Tools";
-			// 
-			// mnuConvertToXSD
-			// 
-			this.mnuConvertToXSD.Index = 0;
-			this.mnuConvertToXSD.Text = "Convert to XSD";
-			this.mnuConvertToXSD.Click += new System.EventHandler(this.mnuConvertToXSD_Click);
-			// 
-			// mnuconst_CS
-			// 
-			this.mnuconst_CS.Index = 1;
-			this.mnuconst_CS.Text = "C# constants";
-			this.mnuconst_CS.Click += new System.EventHandler(this.mnuconst_CS_Click);
-			// 
-			// mnuConst_VB
-			// 
-			this.mnuConst_VB.Index = 2;
-			this.mnuConst_VB.Text = "VB constants";
-			this.mnuConst_VB.Click += new System.EventHandler(this.mnuConst_VB_Click);
-			// 
-			// mnuConst_CPP
-			// 
-			this.mnuConst_CPP.Index = 3;
-			this.mnuConst_CPP.Text = "C++ constants";
-			this.mnuConst_CPP.Click += new System.EventHandler(this.mnuConst_CPP_Click);
-			// 
-			// menuItem5
-			// 
-			this.menuItem5.Index = 4;
-			this.menuItem5.Text = "-";
-			// 
-			// mnuTypeLib
-			// 
-			this.mnuTypeLib.Index = 5;
-			this.mnuTypeLib.Text = "Type library";
-			this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
-			// 
-			// tvStruct
-			// 
-			this.tvStruct.Dock = System.Windows.Forms.DockStyle.Left;
-			this.tvStruct.ImageList = this.imageList1;
-			this.tvStruct.Indent = 35;
-			this.tvStruct.ItemHeight = 32;
-			this.tvStruct.Name = "tvStruct";
-			this.tvStruct.Size = new System.Drawing.Size(224, 449);
-			this.tvStruct.TabIndex = 3;
-			this.tvStruct.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvStruct_MouseUp);
-			this.tvStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvStruct_AfterSelect);
-			// 
-			// splitter1
-			// 
-			this.splitter1.Location = new System.Drawing.Point(224, 0);
-			this.splitter1.MinExtra = 300;
-			this.splitter1.MinSize = 150;
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(8, 449);
-			this.splitter1.TabIndex = 4;
-			this.splitter1.TabStop = false;
-			this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitter1_SplitterMoved);
-			// 
-			// panel1
-			// 
-			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panel1.Controls.AddRange(new System.Windows.Forms.Control[] {
-																				 this.pnlColumn,
-																				 this.pnlRestrict,
-																				 this.pnlModeType,
-																				 this.pnlAction,
-																				 this.pnlViewElement,
-																				 this.pnlEnum,
-																				 this.pnlFieldType,
-																				 this.pnlSectionType,
-																				 this.pnlCardDefinition});
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(232, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(464, 449);
-			this.panel1.TabIndex = 5;
-			this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-			// 
-			// pnlColumn
-			// 
-			this.pnlColumn.BackColor = System.Drawing.Color.Green;
-			this.pnlColumn.Column = null;
-			this.pnlColumn.Location = new System.Drawing.Point(248, 224);
-			this.pnlColumn.Name = "pnlColumn";
-			this.pnlColumn.Size = new System.Drawing.Size(216, 240);
-			this.pnlColumn.TabIndex = 8;
-			// 
-			// pnlRestrict
-			// 
-			this.pnlRestrict.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(255)), ((System.Byte)(192)), ((System.Byte)(255)));
-			this.pnlRestrict.Location = new System.Drawing.Point(224, 192);
-			this.pnlRestrict.Name = "pnlRestrict";
-			this.pnlRestrict.Restrict = null;
-			this.pnlRestrict.Size = new System.Drawing.Size(216, 216);
-			this.pnlRestrict.TabIndex = 6;
-			// 
-			// pnlModeType
-			// 
-			this.pnlModeType.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(192)), ((System.Byte)(192)), ((System.Byte)(255)));
-			this.pnlModeType.Location = new System.Drawing.Point(192, 168);
-			this.pnlModeType.Mode = null;
-			this.pnlModeType.Name = "pnlModeType";
-			this.pnlModeType.Size = new System.Drawing.Size(344, 248);
-			this.pnlModeType.TabIndex = 5;
-			this.pnlModeType.Load += new System.EventHandler(this.pnlModeType_Load);
-			// 
-			// pnlAction
-			// 
-			this.pnlAction.Action = null;
-			this.pnlAction.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(224)), ((System.Byte)(224)), ((System.Byte)(224)));
-			this.pnlAction.Location = new System.Drawing.Point(168, 144);
-			this.pnlAction.Name = "pnlAction";
-			this.pnlAction.Size = new System.Drawing.Size(208, 200);
-			this.pnlAction.TabIndex = 7;
-			// 
-			// pnlViewElement
-			// 
-			this.pnlViewElement.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(192)), ((System.Byte)(255)), ((System.Byte)(255)));
-			this.pnlViewElement.Location = new System.Drawing.Point(128, 112);
-			this.pnlViewElement.Name = "pnlViewElement";
-			this.pnlViewElement.Size = new System.Drawing.Size(216, 248);
-			this.pnlViewElement.TabIndex = 4;
-			this.pnlViewElement.View = null;
-			// 
-			// pnlEnum
-			// 
-			this.pnlEnum.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(192)), ((System.Byte)(255)), ((System.Byte)(192)));
-			this.pnlEnum.Enum = null;
-			this.pnlEnum.Location = new System.Drawing.Point(96, 80);
-			this.pnlEnum.Name = "pnlEnum";
-			this.pnlEnum.Size = new System.Drawing.Size(232, 136);
-			this.pnlEnum.TabIndex = 3;
-			// 
-			// pnlFieldType
-			// 
-			this.pnlFieldType.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(255)), ((System.Byte)(255)), ((System.Byte)(192)));
-			this.pnlFieldType.Field = null;
-			this.pnlFieldType.Location = new System.Drawing.Point(56, 56);
-			this.pnlFieldType.Name = "pnlFieldType";
-			this.pnlFieldType.Size = new System.Drawing.Size(248, 392);
-			this.pnlFieldType.TabIndex = 2;
-			// 
-			// pnlSectionType
-			// 
-			this.pnlSectionType.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(255)), ((System.Byte)(224)), ((System.Byte)(192)));
-			this.pnlSectionType.Location = new System.Drawing.Point(32, 32);
-			this.pnlSectionType.Name = "pnlSectionType";
-			this.pnlSectionType.Section = null;
-			this.pnlSectionType.Size = new System.Drawing.Size(240, 304);
-			this.pnlSectionType.TabIndex = 1;
-			this.pnlSectionType.Visible = false;
-			// 
-			// pnlCardDefinition
-			// 
-			this.pnlCardDefinition.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(255)), ((System.Byte)(192)), ((System.Byte)(192)));
-			this.pnlCardDefinition.cd = null;
-			this.pnlCardDefinition.Location = new System.Drawing.Point(8, 8);
-			this.pnlCardDefinition.Name = "pnlCardDefinition";
-			this.pnlCardDefinition.Size = new System.Drawing.Size(232, 312);
-			this.pnlCardDefinition.TabIndex = 0;
-			this.pnlCardDefinition.Load += new System.EventHandler(this.pnlCardDefinition_Load);
-			// 
-			// dlgOpen
-			// 
-			this.dlgOpen.DefaultExt = "xml";
-			this.dlgOpen.Filter = "XML files|*.xml|AllFiles|*.*";
-			this.dlgOpen.ReadOnlyChecked = true;
-			this.dlgOpen.RestoreDirectory = true;
-			this.dlgOpen.Title = "Select card definition file";
-			// 
-			// dlgSave
-			// 
-			this.dlgSave.CreatePrompt = true;
-			this.dlgSave.DefaultExt = "xml";
-			this.dlgSave.Filter = "XML files|*.xml|AllFiles|*.*";
-			this.dlgSave.RestoreDirectory = true;
-			this.dlgSave.Title = "Save card definition";
-			// 
-			// mnuSections
-			// 
-			this.mnuSections.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						this.mnuSecsAddSec});
-			// 
-			// mnuSecsAddSec
-			// 
-			this.mnuSecsAddSec.Index = 0;
-			this.mnuSecsAddSec.Text = "Добавить раздел";
-			this.mnuSecsAddSec.Click += new System.EventHandler(this.mnuSecsAddSec_Click);
-			// 
-			// mnuSection
-			// 
-			this.mnuSection.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					   this.mnuSecDel,
-																					   this.mnuSecAddFld,
-																					   this.mnuSecAddSec});
-			// 
-			// mnuSecDel
-			// 
-			this.mnuSecDel.Index = 0;
-			this.mnuSecDel.Text = "Удалить";
-			this.mnuSecDel.Click += new System.EventHandler(this.mnuSecDel_Click);
-			// 
-			// mnuSecAddFld
-			// 
-			this.mnuSecAddFld.Index = 1;
-			this.mnuSecAddFld.Text = "Добваить поле";
-			this.mnuSecAddFld.Click += new System.EventHandler(this.mnuSecAddFld_Click);
-			// 
-			// mnuSecAddSec
-			// 
-			this.mnuSecAddSec.Index = 2;
-			this.mnuSecAddSec.Text = "Добавить раздел";
-			this.mnuSecAddSec.Click += new System.EventHandler(this.mnuSecAddSec_Click);
-			// 
-			// mnuField
-			// 
-			this.mnuField.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					 this.mnuFldDel,
-																					 this.mnuFldAddEnum});
-			// 
-			// mnuFldDel
-			// 
-			this.mnuFldDel.Index = 0;
-			this.mnuFldDel.Text = "Удалить поле";
-			this.mnuFldDel.Click += new System.EventHandler(this.mnuFldDel_Click);
-			// 
-			// mnuFldAddEnum
-			// 
-			this.mnuFldAddEnum.Index = 1;
-			this.mnuFldAddEnum.Text = "Добавить возможные значения";
-			this.mnuFldAddEnum.Click += new System.EventHandler(this.mnuFldAddEnum_Click);
-			// 
-			// mnuEnum
-			// 
-			this.mnuEnum.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					this.mnuEnumDel});
-			this.mnuEnum.Popup += new System.EventHandler(this.mnuEnum_Popup);
-			// 
-			// mnuEnumDel
-			// 
-			this.mnuEnumDel.Index = 0;
-			this.mnuEnumDel.Text = "Удалить";
-			this.mnuEnumDel.Click += new System.EventHandler(this.mnuEnumDel_Click);
-			// 
-			// mnuModes
-			// 
-			this.mnuModes.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					 this.mnuModesAddMode});
-			// 
-			// mnuModesAddMode
-			// 
-			this.mnuModesAddMode.Index = 0;
-			this.mnuModesAddMode.Text = "Добавить режим";
-			this.mnuModesAddMode.Click += new System.EventHandler(this.mnuModesAddMode_Click);
-			// 
-			// mnuMode
-			// 
-			this.mnuMode.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					this.mnuModeDel,
-																					this.mnuModeAddRestrict});
-			// 
-			// mnuModeDel
-			// 
-			this.mnuModeDel.Index = 0;
-			this.mnuModeDel.Text = "Удалить";
-			this.mnuModeDel.Click += new System.EventHandler(this.mnuModeDel_Click);
-			// 
-			// mnuModeAddRestrict
-			// 
-			this.mnuModeAddRestrict.Index = 1;
-			this.mnuModeAddRestrict.Text = "Добавить ограничение";
-			this.mnuModeAddRestrict.Click += new System.EventHandler(this.mnuModeAddRestrict_Click);
-			// 
-			// mnuRestrict
-			// 
-			this.mnuRestrict.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																						this.mnuRestrictDel});
-			// 
-			// mnuRestrictDel
-			// 
-			this.mnuRestrictDel.Index = 0;
-			this.mnuRestrictDel.Text = "Удалить";
-			this.mnuRestrictDel.Click += new System.EventHandler(this.mnuRestrictDel_Click);
-			// 
-			// mnuActions
-			// 
-			this.mnuActions.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					   this.mnuActionsAddAction});
-			// 
-			// mnuActionsAddAction
-			// 
-			this.mnuActionsAddAction.Index = 0;
-			this.mnuActionsAddAction.Text = "Добавить метод";
-			this.mnuActionsAddAction.Click += new System.EventHandler(this.mnuActionsAddAction_Click);
-			// 
-			// mnuAction
-			// 
-			this.mnuAction.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.mnuActionDel});
-			// 
-			// mnuActionDel
-			// 
-			this.mnuActionDel.Index = 0;
-			this.mnuActionDel.Text = "Удалить";
-			this.mnuActionDel.Click += new System.EventHandler(this.mnuActionDel_Click);
-			// 
-			// mnuViews
-			// 
-			this.mnuViews.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					 this.mnuViewsAddView});
-			// 
-			// mnuViewsAddView
-			// 
-			this.mnuViewsAddView.Index = 0;
-			this.mnuViewsAddView.Text = "Добавить представление";
-			this.mnuViewsAddView.Click += new System.EventHandler(this.mnuViewsAddView_Click);
-			// 
-			// mnuView
-			// 
-			this.mnuView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					this.mnuViewDel,
-																					this.mnuViewAddcolumn});
-			// 
-			// mnuViewDel
-			// 
-			this.mnuViewDel.Index = 0;
-			this.mnuViewDel.Text = "Удалить";
-			this.mnuViewDel.Click += new System.EventHandler(this.mnuViewDel_Click);
-			// 
-			// mnuViewAddcolumn
-			// 
-			this.mnuViewAddcolumn.Index = 1;
-			this.mnuViewAddcolumn.Text = "Добавить  колонку";
-			this.mnuViewAddcolumn.Click += new System.EventHandler(this.mnuViewAddcolumn_Click);
-			// 
-			// mnuColumn
-			// 
-			this.mnuColumn.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.mnuColumnDel});
-			// 
-			// mnuColumnDel
-			// 
-			this.mnuColumnDel.Index = 0;
-			this.mnuColumnDel.Text = "Удалить";
-			this.mnuColumnDel.Click += new System.EventHandler(this.mnuColumnDel_Click);
-			// 
-			// dlgSaveXSD
-			// 
-			this.dlgSaveXSD.CreatePrompt = true;
-			this.dlgSaveXSD.DefaultExt = "xsd";
-			this.dlgSaveXSD.Filter = "XSD files|*.xsd|AllFiles|*.*";
-			this.dlgSaveXSD.RestoreDirectory = true;
-			this.dlgSaveXSD.Title = "Save card definition";
-			// 
-			// Form2
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(696, 449);
-			this.Controls.AddRange(new System.Windows.Forms.Control[] {
-																		  this.panel1,
-																		  this.splitter1,
-																		  this.tvStruct});
-			this.Menu = this.mainMenu1;
-			this.MinimumSize = new System.Drawing.Size(480, 400);
-			this.Name = "Form2";
-			this.Text = "Card Schema Editor";
-			this.Resize += new System.EventHandler(this.Form2_Resize);
-			this.Closing += new System.ComponentModel.CancelEventHandler(this.Form2_Closing);
-			this.Load += new System.EventHandler(this.Form2_Load);
-			this.panel1.ResumeLayout(false);
-			this.ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.mnuLoad = new System.Windows.Forms.MenuItem();
+            this.mnuLoadData = new System.Windows.Forms.MenuItem();
+            this.mnuSave = new System.Windows.Forms.MenuItem();
+            this.mnuRefreshTree = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.mnuExit = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.mnuConvertToXSD = new System.Windows.Forms.MenuItem();
+            this.mnuconst_CS = new System.Windows.Forms.MenuItem();
+            this.mnuConst_VB = new System.Windows.Forms.MenuItem();
+            this.mnuConst_CPP = new System.Windows.Forms.MenuItem();
+            this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.mnuTypeLib = new System.Windows.Forms.MenuItem();
+            this.tvStruct = new System.Windows.Forms.TreeView();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlColumn = new dv21_ctl.ctlviewColumn();
+            this.pnlRestrict = new dv21_ctl.ctlRestrict();
+            this.pnlModeType = new dv21_ctl.ctlModeType();
+            this.pnlAction = new dv21_ctl.ctlAction();
+            this.pnlViewElement = new dv21_ctl.ctlViewElement();
+            this.pnlEnum = new dv21_ctl.ctlEnum();
+            this.pnlFieldType = new dv21_ctl.ctlFieldType();
+            this.pnlSectionType = new dv21_ctl.ctlSectionType();
+            this.pnlCardDefinition = new dv21_ctl.ctlCardDefinition();
+            this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
+            this.dlgSave = new System.Windows.Forms.SaveFileDialog();
+            this.mnuSections = new System.Windows.Forms.ContextMenu();
+            this.mnuSecsAddSec = new System.Windows.Forms.MenuItem();
+            this.mnuSection = new System.Windows.Forms.ContextMenu();
+            this.mnuSecDel = new System.Windows.Forms.MenuItem();
+            this.mnuSecAddFld = new System.Windows.Forms.MenuItem();
+            this.mnuSecAddSec = new System.Windows.Forms.MenuItem();
+            this.mnuField = new System.Windows.Forms.ContextMenu();
+            this.mnuFldDel = new System.Windows.Forms.MenuItem();
+            this.mnuFldAddEnum = new System.Windows.Forms.MenuItem();
+            this.mnuEnum = new System.Windows.Forms.ContextMenu();
+            this.mnuEnumDel = new System.Windows.Forms.MenuItem();
+            this.mnuModes = new System.Windows.Forms.ContextMenu();
+            this.mnuModesAddMode = new System.Windows.Forms.MenuItem();
+            this.mnuMode = new System.Windows.Forms.ContextMenu();
+            this.mnuModeDel = new System.Windows.Forms.MenuItem();
+            this.mnuModeAddRestrict = new System.Windows.Forms.MenuItem();
+            this.mnuRestrict = new System.Windows.Forms.ContextMenu();
+            this.mnuRestrictDel = new System.Windows.Forms.MenuItem();
+            this.mnuActions = new System.Windows.Forms.ContextMenu();
+            this.mnuActionsAddAction = new System.Windows.Forms.MenuItem();
+            this.mnuAction = new System.Windows.Forms.ContextMenu();
+            this.mnuActionDel = new System.Windows.Forms.MenuItem();
+            this.mnuViews = new System.Windows.Forms.ContextMenu();
+            this.mnuViewsAddView = new System.Windows.Forms.MenuItem();
+            this.mnuView = new System.Windows.Forms.ContextMenu();
+            this.mnuViewDel = new System.Windows.Forms.MenuItem();
+            this.mnuViewAddcolumn = new System.Windows.Forms.MenuItem();
+            this.mnuColumn = new System.Windows.Forms.ContextMenu();
+            this.mnuColumnDel = new System.Windows.Forms.MenuItem();
+            this.dlgSaveXSD = new System.Windows.Forms.SaveFileDialog();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.mnuGenPG = new System.Windows.Forms.MenuItem();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "");
+            this.imageList1.Images.SetKeyName(1, "");
+            this.imageList1.Images.SetKeyName(2, "");
+            this.imageList1.Images.SetKeyName(3, "");
+            this.imageList1.Images.SetKeyName(4, "");
+            this.imageList1.Images.SetKeyName(5, "");
+            this.imageList1.Images.SetKeyName(6, "");
+            this.imageList1.Images.SetKeyName(7, "");
+            this.imageList1.Images.SetKeyName(8, "");
+            this.imageList1.Images.SetKeyName(9, "");
+            this.imageList1.Images.SetKeyName(10, "");
+            this.imageList1.Images.SetKeyName(11, "");
+            this.imageList1.Images.SetKeyName(12, "");
+            // 
+            // mainMenu1
+            // 
+            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem3});
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 0;
+            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem2,
+            this.mnuLoad,
+            this.mnuLoadData,
+            this.mnuSave,
+            this.mnuRefreshTree,
+            this.menuItem4,
+            this.mnuExit});
+            this.menuItem1.Text = "File";
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 0;
+            this.menuItem2.Text = "New";
+            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            // 
+            // mnuLoad
+            // 
+            this.mnuLoad.Index = 1;
+            this.mnuLoad.Text = "Load";
+            this.mnuLoad.Click += new System.EventHandler(this.mnuLoad_Click);
+            // 
+            // mnuLoadData
+            // 
+            this.mnuLoadData.Index = 2;
+            this.mnuLoadData.Text = "Load Test Data";
+            this.mnuLoadData.Click += new System.EventHandler(this.mnuLoadData_Click);
+            // 
+            // mnuSave
+            // 
+            this.mnuSave.Index = 3;
+            this.mnuSave.Text = "Save";
+            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            // 
+            // mnuRefreshTree
+            // 
+            this.mnuRefreshTree.Index = 4;
+            this.mnuRefreshTree.Text = "Refresh tree";
+            this.mnuRefreshTree.Click += new System.EventHandler(this.mnuRefreshTree_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 5;
+            this.menuItem4.Text = "-";
+            // 
+            // mnuExit
+            // 
+            this.mnuExit.Index = 6;
+            this.mnuExit.Text = "Exit";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            // 
+            // menuItem3
+            // 
+            this.menuItem3.Index = 1;
+            this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuConvertToXSD,
+            this.mnuconst_CS,
+            this.mnuConst_VB,
+            this.mnuConst_CPP,
+            this.mnuGenPG,
+            this.menuItem5,
+            this.menuItem6,
+            this.mnuTypeLib});
+            this.menuItem3.Text = "Tools";
+            // 
+            // mnuConvertToXSD
+            // 
+            this.mnuConvertToXSD.Index = 0;
+            this.mnuConvertToXSD.Text = "Convert to XSD";
+            this.mnuConvertToXSD.Click += new System.EventHandler(this.mnuConvertToXSD_Click);
+            // 
+            // mnuconst_CS
+            // 
+            this.mnuconst_CS.Index = 1;
+            this.mnuconst_CS.Text = "C# constants";
+            this.mnuconst_CS.Click += new System.EventHandler(this.mnuconst_CS_Click);
+            // 
+            // mnuConst_VB
+            // 
+            this.mnuConst_VB.Index = 2;
+            this.mnuConst_VB.Text = "VB constants";
+            this.mnuConst_VB.Click += new System.EventHandler(this.mnuConst_VB_Click);
+            // 
+            // mnuConst_CPP
+            // 
+            this.mnuConst_CPP.Index = 3;
+            this.mnuConst_CPP.Text = "C++ constants";
+            this.mnuConst_CPP.Click += new System.EventHandler(this.mnuConst_CPP_Click);
+            // 
+            // menuItem5
+            // 
+            this.menuItem5.Index = 5;
+            this.menuItem5.Text = "-";
+            // 
+            // mnuTypeLib
+            // 
+            this.mnuTypeLib.Index = 7;
+            this.mnuTypeLib.Text = "Type library";
+            this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
+            // 
+            // tvStruct
+            // 
+            this.tvStruct.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tvStruct.ImageIndex = 0;
+            this.tvStruct.ImageList = this.imageList1;
+            this.tvStruct.Indent = 35;
+            this.tvStruct.ItemHeight = 32;
+            this.tvStruct.Location = new System.Drawing.Point(0, 0);
+            this.tvStruct.Name = "tvStruct";
+            this.tvStruct.SelectedImageIndex = 0;
+            this.tvStruct.Size = new System.Drawing.Size(224, 449);
+            this.tvStruct.TabIndex = 3;
+            this.tvStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvStruct_AfterSelect);
+            this.tvStruct.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvStruct_MouseUp);
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(224, 0);
+            this.splitter1.MinExtra = 300;
+            this.splitter1.MinSize = 150;
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(8, 449);
+            this.splitter1.TabIndex = 4;
+            this.splitter1.TabStop = false;
+            this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitter1_SplitterMoved);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.pnlColumn);
+            this.panel1.Controls.Add(this.pnlRestrict);
+            this.panel1.Controls.Add(this.pnlModeType);
+            this.panel1.Controls.Add(this.pnlAction);
+            this.panel1.Controls.Add(this.pnlViewElement);
+            this.panel1.Controls.Add(this.pnlEnum);
+            this.panel1.Controls.Add(this.pnlFieldType);
+            this.panel1.Controls.Add(this.pnlSectionType);
+            this.panel1.Controls.Add(this.pnlCardDefinition);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(232, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(464, 449);
+            this.panel1.TabIndex = 5;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // pnlColumn
+            // 
+            this.pnlColumn.BackColor = System.Drawing.Color.Green;
+            this.pnlColumn.Column = null;
+            this.pnlColumn.Location = new System.Drawing.Point(248, 224);
+            this.pnlColumn.Name = "pnlColumn";
+            this.pnlColumn.Size = new System.Drawing.Size(216, 240);
+            this.pnlColumn.TabIndex = 8;
+            // 
+            // pnlRestrict
+            // 
+            this.pnlRestrict.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.pnlRestrict.Location = new System.Drawing.Point(224, 192);
+            this.pnlRestrict.Name = "pnlRestrict";
+            this.pnlRestrict.Restrict = null;
+            this.pnlRestrict.Size = new System.Drawing.Size(216, 216);
+            this.pnlRestrict.TabIndex = 6;
+            // 
+            // pnlModeType
+            // 
+            this.pnlModeType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.pnlModeType.Location = new System.Drawing.Point(192, 168);
+            this.pnlModeType.Mode = null;
+            this.pnlModeType.Name = "pnlModeType";
+            this.pnlModeType.Size = new System.Drawing.Size(344, 248);
+            this.pnlModeType.TabIndex = 5;
+            this.pnlModeType.Load += new System.EventHandler(this.pnlModeType_Load);
+            // 
+            // pnlAction
+            // 
+            this.pnlAction.Action = null;
+            this.pnlAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pnlAction.Location = new System.Drawing.Point(168, 144);
+            this.pnlAction.Name = "pnlAction";
+            this.pnlAction.Size = new System.Drawing.Size(208, 200);
+            this.pnlAction.TabIndex = 7;
+            // 
+            // pnlViewElement
+            // 
+            this.pnlViewElement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.pnlViewElement.Location = new System.Drawing.Point(128, 112);
+            this.pnlViewElement.Name = "pnlViewElement";
+            this.pnlViewElement.Size = new System.Drawing.Size(216, 248);
+            this.pnlViewElement.TabIndex = 4;
+            this.pnlViewElement.View = null;
+            // 
+            // pnlEnum
+            // 
+            this.pnlEnum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pnlEnum.Enum = null;
+            this.pnlEnum.Location = new System.Drawing.Point(96, 80);
+            this.pnlEnum.Name = "pnlEnum";
+            this.pnlEnum.Size = new System.Drawing.Size(232, 136);
+            this.pnlEnum.TabIndex = 3;
+            // 
+            // pnlFieldType
+            // 
+            this.pnlFieldType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pnlFieldType.Field = null;
+            this.pnlFieldType.Location = new System.Drawing.Point(56, 56);
+            this.pnlFieldType.Name = "pnlFieldType";
+            this.pnlFieldType.Size = new System.Drawing.Size(248, 392);
+            this.pnlFieldType.TabIndex = 2;
+            // 
+            // pnlSectionType
+            // 
+            this.pnlSectionType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.pnlSectionType.Location = new System.Drawing.Point(32, 32);
+            this.pnlSectionType.Name = "pnlSectionType";
+            this.pnlSectionType.Section = null;
+            this.pnlSectionType.Size = new System.Drawing.Size(240, 304);
+            this.pnlSectionType.TabIndex = 1;
+            this.pnlSectionType.Visible = false;
+            // 
+            // pnlCardDefinition
+            // 
+            this.pnlCardDefinition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pnlCardDefinition.cd = null;
+            this.pnlCardDefinition.Location = new System.Drawing.Point(8, 8);
+            this.pnlCardDefinition.Name = "pnlCardDefinition";
+            this.pnlCardDefinition.Size = new System.Drawing.Size(232, 312);
+            this.pnlCardDefinition.TabIndex = 0;
+            this.pnlCardDefinition.Load += new System.EventHandler(this.pnlCardDefinition_Load);
+            // 
+            // dlgOpen
+            // 
+            this.dlgOpen.DefaultExt = "xml";
+            this.dlgOpen.Filter = "XML files|*.xml|AllFiles|*.*";
+            this.dlgOpen.ReadOnlyChecked = true;
+            this.dlgOpen.RestoreDirectory = true;
+            this.dlgOpen.Title = "Select card definition file";
+            // 
+            // dlgSave
+            // 
+            this.dlgSave.CreatePrompt = true;
+            this.dlgSave.DefaultExt = "xml";
+            this.dlgSave.Filter = "XML files|*.xml|AllFiles|*.*";
+            this.dlgSave.RestoreDirectory = true;
+            this.dlgSave.Title = "Save card definition";
+            // 
+            // mnuSections
+            // 
+            this.mnuSections.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuSecsAddSec});
+            // 
+            // mnuSecsAddSec
+            // 
+            this.mnuSecsAddSec.Index = 0;
+            this.mnuSecsAddSec.Text = "Добавить раздел";
+            this.mnuSecsAddSec.Click += new System.EventHandler(this.mnuSecsAddSec_Click);
+            // 
+            // mnuSection
+            // 
+            this.mnuSection.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuSecDel,
+            this.mnuSecAddFld,
+            this.mnuSecAddSec});
+            // 
+            // mnuSecDel
+            // 
+            this.mnuSecDel.Index = 0;
+            this.mnuSecDel.Text = "Удалить";
+            this.mnuSecDel.Click += new System.EventHandler(this.mnuSecDel_Click);
+            // 
+            // mnuSecAddFld
+            // 
+            this.mnuSecAddFld.Index = 1;
+            this.mnuSecAddFld.Text = "Добваить поле";
+            this.mnuSecAddFld.Click += new System.EventHandler(this.mnuSecAddFld_Click);
+            // 
+            // mnuSecAddSec
+            // 
+            this.mnuSecAddSec.Index = 2;
+            this.mnuSecAddSec.Text = "Добавить раздел";
+            this.mnuSecAddSec.Click += new System.EventHandler(this.mnuSecAddSec_Click);
+            // 
+            // mnuField
+            // 
+            this.mnuField.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuFldDel,
+            this.mnuFldAddEnum});
+            // 
+            // mnuFldDel
+            // 
+            this.mnuFldDel.Index = 0;
+            this.mnuFldDel.Text = "Удалить поле";
+            this.mnuFldDel.Click += new System.EventHandler(this.mnuFldDel_Click);
+            // 
+            // mnuFldAddEnum
+            // 
+            this.mnuFldAddEnum.Index = 1;
+            this.mnuFldAddEnum.Text = "Добавить возможные значения";
+            this.mnuFldAddEnum.Click += new System.EventHandler(this.mnuFldAddEnum_Click);
+            // 
+            // mnuEnum
+            // 
+            this.mnuEnum.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuEnumDel});
+            this.mnuEnum.Popup += new System.EventHandler(this.mnuEnum_Popup);
+            // 
+            // mnuEnumDel
+            // 
+            this.mnuEnumDel.Index = 0;
+            this.mnuEnumDel.Text = "Удалить";
+            this.mnuEnumDel.Click += new System.EventHandler(this.mnuEnumDel_Click);
+            // 
+            // mnuModes
+            // 
+            this.mnuModes.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuModesAddMode});
+            // 
+            // mnuModesAddMode
+            // 
+            this.mnuModesAddMode.Index = 0;
+            this.mnuModesAddMode.Text = "Добавить режим";
+            this.mnuModesAddMode.Click += new System.EventHandler(this.mnuModesAddMode_Click);
+            // 
+            // mnuMode
+            // 
+            this.mnuMode.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuModeDel,
+            this.mnuModeAddRestrict});
+            // 
+            // mnuModeDel
+            // 
+            this.mnuModeDel.Index = 0;
+            this.mnuModeDel.Text = "Удалить";
+            this.mnuModeDel.Click += new System.EventHandler(this.mnuModeDel_Click);
+            // 
+            // mnuModeAddRestrict
+            // 
+            this.mnuModeAddRestrict.Index = 1;
+            this.mnuModeAddRestrict.Text = "Добавить ограничение";
+            this.mnuModeAddRestrict.Click += new System.EventHandler(this.mnuModeAddRestrict_Click);
+            // 
+            // mnuRestrict
+            // 
+            this.mnuRestrict.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuRestrictDel});
+            // 
+            // mnuRestrictDel
+            // 
+            this.mnuRestrictDel.Index = 0;
+            this.mnuRestrictDel.Text = "Удалить";
+            this.mnuRestrictDel.Click += new System.EventHandler(this.mnuRestrictDel_Click);
+            // 
+            // mnuActions
+            // 
+            this.mnuActions.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuActionsAddAction});
+            // 
+            // mnuActionsAddAction
+            // 
+            this.mnuActionsAddAction.Index = 0;
+            this.mnuActionsAddAction.Text = "Добавить метод";
+            this.mnuActionsAddAction.Click += new System.EventHandler(this.mnuActionsAddAction_Click);
+            // 
+            // mnuAction
+            // 
+            this.mnuAction.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuActionDel});
+            // 
+            // mnuActionDel
+            // 
+            this.mnuActionDel.Index = 0;
+            this.mnuActionDel.Text = "Удалить";
+            this.mnuActionDel.Click += new System.EventHandler(this.mnuActionDel_Click);
+            // 
+            // mnuViews
+            // 
+            this.mnuViews.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuViewsAddView});
+            // 
+            // mnuViewsAddView
+            // 
+            this.mnuViewsAddView.Index = 0;
+            this.mnuViewsAddView.Text = "Добавить представление";
+            this.mnuViewsAddView.Click += new System.EventHandler(this.mnuViewsAddView_Click);
+            // 
+            // mnuView
+            // 
+            this.mnuView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuViewDel,
+            this.mnuViewAddcolumn});
+            // 
+            // mnuViewDel
+            // 
+            this.mnuViewDel.Index = 0;
+            this.mnuViewDel.Text = "Удалить";
+            this.mnuViewDel.Click += new System.EventHandler(this.mnuViewDel_Click);
+            // 
+            // mnuViewAddcolumn
+            // 
+            this.mnuViewAddcolumn.Index = 1;
+            this.mnuViewAddcolumn.Text = "Добавить  колонку";
+            this.mnuViewAddcolumn.Click += new System.EventHandler(this.mnuViewAddcolumn_Click);
+            // 
+            // mnuColumn
+            // 
+            this.mnuColumn.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuColumnDel});
+            // 
+            // mnuColumnDel
+            // 
+            this.mnuColumnDel.Index = 0;
+            this.mnuColumnDel.Text = "Удалить";
+            this.mnuColumnDel.Click += new System.EventHandler(this.mnuColumnDel_Click);
+            // 
+            // dlgSaveXSD
+            // 
+            this.dlgSaveXSD.CreatePrompt = true;
+            this.dlgSaveXSD.DefaultExt = "xsd";
+            this.dlgSaveXSD.Filter = "XSD files|*.xsd|AllFiles|*.*";
+            this.dlgSaveXSD.RestoreDirectory = true;
+            this.dlgSaveXSD.Title = "Save card definition";
+            // 
+            // menuItem6
+            // 
+            this.menuItem6.Index = 6;
+            this.menuItem6.Text = "-";
+            // 
+            // mnuGenPG
+            // 
+            this.mnuGenPG.Index = 4;
+            this.mnuGenPG.Text = "PG script";
+            this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
+            // 
+            // Form2
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.ClientSize = new System.Drawing.Size(696, 449);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.tvStruct);
+            this.Menu = this.mainMenu1;
+            this.MinimumSize = new System.Drawing.Size(480, 400);
+            this.Name = "Form2";
+            this.Text = "Card Schema Editor";
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.Form2_Closing);
+            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Resize += new System.EventHandler(this.Form2_Resize);
+            this.panel1.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -869,7 +898,9 @@ namespace dv21_load
 			{
 				dlgOpen.ShowDialog(); 
 				cd =MyUtils.DeSerializeObject(dlgOpen.FileName );
-				ReloadTree(cd);
+				LastOpenFile = dlgOpen.FileName;
+				this.Text = LastOpenFile;
+                ReloadTree(cd);
 			}
 			catch{}
 
@@ -879,8 +910,10 @@ namespace dv21_load
 		{
 			try
 			{
-				dlgSave.ShowDialog();
-				MyUtils.SerializeObject(dlgSave.FileName ,cd);
+                dlgSave.FileName = LastOpenFile;
+                dlgSave.ShowDialog();
+                
+                MyUtils.SerializeObject(dlgSave.FileName ,cd);
 			}
 			catch{}
 		}
@@ -1579,7 +1612,7 @@ namespace dv21_load
 
 				xg.cd = this.cd;
 				schema=xg.BuildSchema(); 
-				schema.Compile(null);
+				//schema.Compile(null);
 				
 				System.Xml.XmlNamespaceManager nsmgr = new System.Xml.XmlNamespaceManager(new System.Xml.NameTable());
 				nsmgr.AddNamespace("xs", dv21_xsd.XSDT.nsn);
@@ -1779,8 +1812,12 @@ namespace dv21_load
 		{
 		
 		}
-		
-	}
+
+        private void mnuGenPG_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 
 
 
