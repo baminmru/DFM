@@ -87,6 +87,7 @@ namespace dv21_load
 		private System.Windows.Forms.UserControl ctl;
         private MenuItem mnuGenPG;
         private MenuItem menuItem6;
+        private SaveFileDialog dlgSaveSQL;
         private string LastOpenFile;
 
 		
@@ -147,7 +148,9 @@ namespace dv21_load
             this.mnuconst_CS = new System.Windows.Forms.MenuItem();
             this.mnuConst_VB = new System.Windows.Forms.MenuItem();
             this.mnuConst_CPP = new System.Windows.Forms.MenuItem();
+            this.mnuGenPG = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
             this.mnuTypeLib = new System.Windows.Forms.MenuItem();
             this.tvStruct = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
@@ -193,8 +196,7 @@ namespace dv21_load
             this.mnuColumn = new System.Windows.Forms.ContextMenu();
             this.mnuColumnDel = new System.Windows.Forms.MenuItem();
             this.dlgSaveXSD = new System.Windows.Forms.SaveFileDialog();
-            this.menuItem6 = new System.Windows.Forms.MenuItem();
-            this.mnuGenPG = new System.Windows.Forms.MenuItem();
+            this.dlgSaveSQL = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -284,8 +286,8 @@ namespace dv21_load
             this.mnuconst_CS,
             this.mnuConst_VB,
             this.mnuConst_CPP,
-            this.mnuGenPG,
             this.menuItem5,
+            this.mnuGenPG,
             this.menuItem6,
             this.mnuTypeLib});
             this.menuItem3.Text = "Tools";
@@ -314,10 +316,21 @@ namespace dv21_load
             this.mnuConst_CPP.Text = "C++ constants";
             this.mnuConst_CPP.Click += new System.EventHandler(this.mnuConst_CPP_Click);
             // 
+            // mnuGenPG
+            // 
+            this.mnuGenPG.Index = 5;
+            this.mnuGenPG.Text = "PG script";
+            this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
+            // 
             // menuItem5
             // 
-            this.menuItem5.Index = 5;
+            this.menuItem5.Index = 4;
             this.menuItem5.Text = "-";
+            // 
+            // menuItem6
+            // 
+            this.menuItem6.Index = 6;
+            this.menuItem6.Text = "-";
             // 
             // mnuTypeLib
             // 
@@ -646,16 +659,11 @@ namespace dv21_load
             this.dlgSaveXSD.RestoreDirectory = true;
             this.dlgSaveXSD.Title = "Save card definition";
             // 
-            // menuItem6
+            // dlgSaveSQL
             // 
-            this.menuItem6.Index = 6;
-            this.menuItem6.Text = "-";
-            // 
-            // mnuGenPG
-            // 
-            this.mnuGenPG.Index = 4;
-            this.mnuGenPG.Text = "PG script";
-            this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
+            this.dlgSaveSQL.DefaultExt = "sql";
+            this.dlgSaveSQL.Filter = "SQL files|*.sql|AllFiles|*.*";
+            this.dlgSaveSQL.RestoreDirectory = true;
             // 
             // Form2
             // 
@@ -1815,7 +1823,17 @@ namespace dv21_load
 
         private void mnuGenPG_Click(object sender, EventArgs e)
         {
-
+			string sql;
+            try
+            {
+                dlgSaveSQL.ShowDialog();
+                dv21.PGGen pg = new PGGen();
+                pg.cd = this.cd;
+				sql = pg.Generate();
+                System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+                
+            }
+            catch { }
         }
     }
 

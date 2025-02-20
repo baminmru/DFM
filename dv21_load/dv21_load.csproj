@@ -148,6 +148,7 @@
     <Compile Include="LStringEditor.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PGGen.cs" />
     <Compile Include="TypeLib.cs">
       <SubType>Form</SubType>
     </Compile>
