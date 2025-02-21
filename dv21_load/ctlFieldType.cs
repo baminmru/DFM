@@ -313,7 +313,7 @@ namespace dv21_ctl
             // 
             // chkNotNull
             // 
-            this.chkNotNull.Location = new System.Drawing.Point(96, 192);
+            this.chkNotNull.Location = new System.Drawing.Point(208, 191);
             this.chkNotNull.Name = "chkNotNull";
             this.chkNotNull.Size = new System.Drawing.Size(24, 16);
             this.chkNotNull.TabIndex = 10;
@@ -321,7 +321,7 @@ namespace dv21_ctl
             // 
             // chkReference
             // 
-            this.chkReference.Location = new System.Drawing.Point(215, 19);
+            this.chkReference.Location = new System.Drawing.Point(204, 20);
             this.chkReference.Name = "chkReference";
             this.chkReference.Size = new System.Drawing.Size(24, 16);
             this.chkReference.TabIndex = 15;
@@ -387,7 +387,7 @@ namespace dv21_ctl
             // 
             // chkLookup
             // 
-            this.chkLookup.Location = new System.Drawing.Point(137, 24);
+            this.chkLookup.Location = new System.Drawing.Point(207, 25);
             this.chkLookup.Name = "chkLookup";
             this.chkLookup.Size = new System.Drawing.Size(24, 16);
             this.chkLookup.TabIndex = 23;

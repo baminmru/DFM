@@ -30,6 +30,8 @@ namespace dv21_ctl
 		private bool inLoad ;
         public MyTreeNode LastNode;
         private CheckBox cbSingleTone;
+        private TextBox txtSchema;
+        private Label label6;
 
         public dv21.CardDefinition cd 
 		{
@@ -48,7 +50,8 @@ namespace dv21_ctl
 					txt1version.Text=mcd.Version.ToString() ;
 					txt1ID.Text = mcd.ID;
                     cbSingleTone.Checked = mcd.SingleTone;
-					cmb1Names.Items.Clear(); 
+                    txtSchema.Text = cd.Schema;
+                    cmb1Names.Items.Clear(); 
 					int i;
 					if (mcd.Name!=null)
 					{	
@@ -110,11 +113,13 @@ namespace dv21_ctl
             this.label1 = new System.Windows.Forms.Label();
             this.cmb1Names = new System.Windows.Forms.ListBox();
             this.cbSingleTone = new System.Windows.Forms.CheckBox();
+            this.txtSchema = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(16, 216);
+            this.label5.Location = new System.Drawing.Point(16, 262);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 7;
@@ -122,7 +127,7 @@ namespace dv21_ctl
             // 
             // cmd1Names
             // 
-            this.cmd1Names.Location = new System.Drawing.Point(248, 232);
+            this.cmd1Names.Location = new System.Drawing.Point(248, 278);
             this.cmd1Names.Name = "cmd1Names";
             this.cmd1Names.Size = new System.Drawing.Size(40, 24);
             this.cmd1Names.TabIndex = 9;
@@ -131,7 +136,7 @@ namespace dv21_ctl
             // 
             // cmd1NewID
             // 
-            this.cmd1NewID.Location = new System.Drawing.Point(248, 128);
+            this.cmd1NewID.Location = new System.Drawing.Point(248, 186);
             this.cmd1NewID.Name = "cmd1NewID";
             this.cmd1NewID.Size = new System.Drawing.Size(40, 24);
             this.cmd1NewID.TabIndex = 6;
@@ -140,7 +145,7 @@ namespace dv21_ctl
             // 
             // txt1ID
             // 
-            this.txt1ID.Location = new System.Drawing.Point(16, 128);
+            this.txt1ID.Location = new System.Drawing.Point(16, 186);
             this.txt1ID.Name = "txt1ID";
             this.txt1ID.Size = new System.Drawing.Size(224, 20);
             this.txt1ID.TabIndex = 5;
@@ -164,7 +169,7 @@ namespace dv21_ctl
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(16, 112);
+            this.label4.Location = new System.Drawing.Point(16, 170);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 4;
@@ -198,7 +203,7 @@ namespace dv21_ctl
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
-            this.cmb1Names.Location = new System.Drawing.Point(16, 232);
+            this.cmb1Names.Location = new System.Drawing.Point(16, 278);
             this.cmb1Names.Name = "cmb1Names";
             this.cmb1Names.Size = new System.Drawing.Size(224, 95);
             this.cmb1Names.TabIndex = 8;
@@ -206,7 +211,7 @@ namespace dv21_ctl
             // cbSingleTone
             // 
             this.cbSingleTone.AutoSize = true;
-            this.cbSingleTone.Location = new System.Drawing.Point(19, 173);
+            this.cbSingleTone.Location = new System.Drawing.Point(16, 227);
             this.cbSingleTone.Name = "cbSingleTone";
             this.cbSingleTone.Size = new System.Drawing.Size(139, 17);
             this.cbSingleTone.TabIndex = 12;
@@ -214,8 +219,26 @@ namespace dv21_ctl
             this.cbSingleTone.UseVisualStyleBackColor = true;
             this.cbSingleTone.CheckedChanged += new System.EventHandler(this.cbSingleTone_CheckedChanged);
             // 
+            // txtSchema
+            // 
+            this.txtSchema.Location = new System.Drawing.Point(13, 136);
+            this.txtSchema.Name = "txtSchema";
+            this.txtSchema.Size = new System.Drawing.Size(272, 20);
+            this.txtSchema.TabIndex = 14;
+            this.txtSchema.TextChanged += new System.EventHandler(this.txtScheme_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(13, 120);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(96, 16);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Ñץולא";
+            // 
             // ctlCardDefinition
             // 
+            this.Controls.Add(this.txtSchema);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cbSingleTone);
             this.Controls.Add(this.cmb1Names);
             this.Controls.Add(this.label5);
@@ -229,7 +252,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ctlCardDefinition";
-            this.Size = new System.Drawing.Size(304, 358);
+            this.Size = new System.Drawing.Size(304, 392);
             this.Load += new System.EventHandler(this.ctlCardDefinition_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -305,6 +328,14 @@ namespace dv21_ctl
                 mcd.SingleTone = cbSingleTone.Checked;
             }
 
+        }
+
+        private void txtScheme_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                cd.Schema = txtSchema.Text;
+            }
         }
     }
 }

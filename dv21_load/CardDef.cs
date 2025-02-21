@@ -42,6 +42,8 @@ namespace dv21 {
         
         private string aliasField;
         
+        private string schemaField;
+        
         private int versionField;
         
         private bool singleToneField;
@@ -141,6 +143,17 @@ namespace dv21 {
             }
             set {
                 this.aliasField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Schema {
+            get {
+                return this.schemaField;
+            }
+            set {
+                this.schemaField = value;
             }
         }
         

@@ -273,7 +273,60 @@ namespace dv21_util
 			}
 			return arr2;
 		}
-	}
+
+        public static CardDefinition GetReferencedType(CardDefinition cd, string RefType)
+        {
+
+            if (cd.ID == RefType)
+                return cd;
+
+            dv21.DefFile df = null;
+            CardDefinition refCD;
+            try
+            {
+                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
+            }
+            catch
+            {
+            }
+            int i;
+            for (i = 0; i < df.Paths.Length; i++)
+            {
+                refCD = null;
+                try
+                {
+                    refCD = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (refCD != null)
+                {
+                    if (refCD.ID == RefType)
+                        return refCD;
+                }
+            }
+            return null;
+        }
+
+
+        public static SectionType GetReferencedSection(SectionType[] Sections, string RefSection)
+        {
+            SectionType st;
+            for (int i = 0; i < Sections.Length; i++)
+            {
+                st = Sections[i];
+                if (st.ID == RefSection)
+                    return st;
+                else
+                {
+                    st = GetReferencedSection(st.Section, RefSection);
+                    if (st != null) return st;
+                }
+            }
+
+            return null;
+        }
+
+    }
 
 	public class MyTreeNode:  TreeNode 
 	{
@@ -316,8 +369,8 @@ namespace dv21_util
 		public MyTreeNode(string s, int ImageIndex, int SelIndex):base(s,ImageIndex,SelIndex)
 		{}
 
+      
 
-		
-	}
+    }
 
 }

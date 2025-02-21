@@ -1,7 +1,9 @@
-﻿using dv21_xsd;
+﻿using dv21_util;
+using dv21_xsd;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -13,6 +15,10 @@ namespace dv21
     {
 
         private StringBuilder sb;
+        private StringBuilder fk;
+        private StringBuilder enums;
+        private StringBuilder result;
+
         private dv21.CardDefinition mcd;
         public dv21.CardDefinition cd
         {
@@ -30,6 +36,11 @@ namespace dv21
         {
             mcd = null;
             sb = new StringBuilder();
+            fk = new StringBuilder();
+            enums = new StringBuilder();
+            result = new StringBuilder();
+
+
         }
 
 
@@ -82,104 +93,111 @@ namespace dv21
 
             sb.AppendLine(" -- start " + s.Alias.ToLower());
 
-            cc.AppendLine("COMMENT ON TABLE " + CurrentSchema + "." + s.Alias.ToLower() + " IS '" + s.Name[0].Value + "';");
+            cc.AppendLine("COMMENT ON TABLE " + CurrentSchema  + s.Alias.ToLower() + " IS '" + s.Name[0].Value + "';");
 
-            sb.AppendLine("CREATE TABLE IF NOT EXISTS  " + CurrentSchema + "." + s.Alias.ToLower() + "(");
+            sb.AppendLine("CREATE TABLE IF NOT EXISTS  " + CurrentSchema  + s.Alias.ToLower() + "(");
             sb.AppendLine("\t\tid integer PRIMARY KEY");
 
-            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + "." + s.Alias.ToLower() + ".id IS '" + s.Name[0].Value + " первичный ключ';");
+            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema  + s.Alias.ToLower() + ".id IS '" + s.Name[0].Value + " первичный ключ';");
 
 
             if (s_parent != null)
             {
-                sb.AppendLine("\t\t," + s_parent.Alias.ToLower()  + "id integer not null");
-                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + "." + s.Alias.ToLower() + "."+ s_parent.Alias.ToLower()  + "id IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
+                sb.AppendLine("\t\t," + s_parent.Alias.ToLower()  + "id integer not null references " + CurrentSchema + s_parent.Alias.ToLower() + "(id) on delete cascade");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema  + s.Alias.ToLower() + "."+ s_parent.Alias.ToLower()  + "id IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
             }
 
-            //try
-            //{
             int i;
-                for (i = 0; i < s.Field.Length; i++)
+            for (i = 0; i < s.Field.Length; i++)
+            {
+                string pgtype = MapBaseType(s.Field[i].Type.ToString());
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
+
+
+                if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
                 {
-                    string pgtype = MapBaseType(s.Field[i].Type.ToString());
-                    cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + "."  +s.Alias.ToLower() + "."+ s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
+                    enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
 
-                if (!s.Field[i].MaxSpecified && ((s.Field[i].Enum == null) || (s.Field[i].Enum.Length == 0)))
+                    int f;
+                    for (f = 0; f < s.Field[i].Enum.Length; f++)
                     {
-                       
+                        if (f > 0) enums.Append(",");
+                        enums.AppendLine("'" + s.Field[i].Enum[f].Name +"'");
+                    }
+                    enums.AppendLine(");");
+
+
+                    if (s.Field[i].NotNull)
+                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum not null");
+                    else
+                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum");
+
+                }
+                else if (s.Field[i].ReferenceSpecified)
+                {
+                    CardDefinition refType= null;
+                    SectionType refSection = null;
+                    string refSchema = "";
+
+                    refType = MyUtils.GetReferencedType(cd, s.Field[i].RefType);
+                    if (refType != null)
+                        refSection = MyUtils.GetReferencedSection(refType.Sections, s.Field[i].RefSection);
+
+                    if (refSection != null)
+                    {
+                        refSchema = refType.Schema.ToLower() + ".";
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype +" not null");
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null references " + refSchema + refSection.Alias.ToLower() +"( id )");
                         else
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " references " + refSchema + refSection.Alias.ToLower() + "( id )");
                     }
                     else
                     {
-                    if (s.Field[i].MaxSpecified)
-                    {
+                        // не удалось разрезолвить - значит просто поле
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ") not null");
-                        else
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ")");
-                    }
-                    else
-                    {
-                        if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null");
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
                         else
                             sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
-
                     }
-                        /*
-                        if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
-                        {
-                            a = XSDT.NewAttribute(s.Field[i].Alias.ToLower(), XmlSchemaUse.Required, s.Field[i].Name[0].Value);
-                            XmlSchemaSimpleType EnumType = new XmlSchemaSimpleType();
-                            XmlSchemaSimpleTypeRestriction restriction = new XmlSchemaSimpleTypeRestriction();
-                            restriction.BaseTypeName = MapBaseType(s.Field[i].Type.ToString());
 
-                            int f;
-                            for (f = 0; f < s.Field[i].Enum.Length; f++)
-                            {
-                                restriction.Facets.Add(XSDT.NewEnum(s.Field[i].Enum[f].Name, s.Field[i].Enum[f].Name));
-                            }
-                            EnumType.Content = restriction;
-                            a.SchemaType = EnumType;
-                        }
-                        else //s.Field[i].MaxSpecified
-                        {
-                            a = XSDT.NewAttribute(s.Field[i].Alias.ToLower(), XmlSchemaUse.Required, s.Field[i].Name[0].Value);
-                            XmlSchemaSimpleType SizeType = new XmlSchemaSimpleType();
-                            XmlSchemaSimpleTypeRestriction restriction = new XmlSchemaSimpleTypeRestriction();
-                            restriction.BaseTypeName = MapBaseType(s.Field[i].Type.ToString());
-                            restriction.Facets.Add(XSDT.NewMaxLength(s.Field[i].Max, ""));
-                            SizeType.Content = restriction;
-                            a.SchemaType = SizeType;
-                        }
-                        */
-                    }
+                } else if (s.Field[i].MaxSpecified)
+                {
+                    if (s.Field[i].NotNull)
+                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ") not null");
+                    else
+                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ")");
+                }
+                else
+                {
+                    if (s.Field[i].NotNull)
+                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
+                    else
+                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
+                }
+            }
                     
-                }
+                
 
-                if (s.Type == dv21.SectionTypeType.tree)
-                {
-                    sb.AppendLine("\t\t," + s.Alias.ToLower() + "_parent int ");
-                }
+            if (s.Type == dv21.SectionTypeType.tree)
+            {
+                sb.AppendLine("\t\t," + s.Alias.ToLower() + "_parent int null references  " + CurrentSchema + s.Alias.ToLower() +"( id )" );
+            }
 
 
 
-                if (s.AddHistory)
-                {
-                    sb.AppendLine("\t\t,effective_date_start date");
-                    sb.AppendLine("\t\t,effective_date_end date");
-                }
+            if (s.AddHistory)
+            {
+                sb.AppendLine("\t\t,effective_date_start date");
+                sb.AppendLine("\t\t,effective_date_end date");
+            }
 
-                if (s.AddWhoInfo)
-                {
-                    sb.AppendLine("\t\t,created_at date");
-                    sb.AppendLine("\t\t,created_by varchar(64)");
-                    sb.AppendLine("\t\t,updated_at date");
-                    sb.AppendLine("\t\t,updated_by varchar(64)");
-                }
+            if (s.AddWhoInfo)
+            {
+                sb.AppendLine("\t\t,created_at date");
+                sb.AppendLine("\t\t,created_by varchar(64)");
+                sb.AppendLine("\t\t,updated_at date");
+                sb.AppendLine("\t\t,updated_by varchar(64)");
+            }
 
 
                 sb.AppendLine(");"); // end of create table
@@ -217,9 +235,19 @@ namespace dv21
         {
 
             int i;
-            CurrentSchema = cd.Alias.ToLower().ToLower();
+            if (cd.Schema == "")
+            {
+                CurrentSchema = "";
+            }
+            else
+            {
+                CurrentSchema = cd.Schema.ToLower();
+                result.AppendLine("CREATE SCHEMA IF NOT EXISTS " + CurrentSchema + ";");
+                CurrentSchema = CurrentSchema + ".";
 
-            sb.AppendLine("CREATE SCHEMA IF NOT EXISTS " + CurrentSchema +";");
+            }
+
+               
 
 
             for (i = 0; i < cd.Sections.Length; i++)
@@ -227,9 +255,21 @@ namespace dv21
                 MakeSectionType(cd.Sections[i], null);
             }
 
-            return sb.ToString();
+            result.AppendLine(enums.ToString());
+            result.AppendLine(sb.ToString());
+            result.AppendLine(fk.ToString());
+
+            return   result.ToString();
         }
 
 
+
+       
+
+        
+
+
     }
+
+
 }

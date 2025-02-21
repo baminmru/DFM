@@ -148,8 +148,8 @@ namespace dv21_load
             this.mnuconst_CS = new System.Windows.Forms.MenuItem();
             this.mnuConst_VB = new System.Windows.Forms.MenuItem();
             this.mnuConst_CPP = new System.Windows.Forms.MenuItem();
-            this.mnuGenPG = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
+            this.mnuGenPG = new System.Windows.Forms.MenuItem();
             this.menuItem6 = new System.Windows.Forms.MenuItem();
             this.mnuTypeLib = new System.Windows.Forms.MenuItem();
             this.tvStruct = new System.Windows.Forms.TreeView();
@@ -316,16 +316,16 @@ namespace dv21_load
             this.mnuConst_CPP.Text = "C++ constants";
             this.mnuConst_CPP.Click += new System.EventHandler(this.mnuConst_CPP_Click);
             // 
+            // menuItem5
+            // 
+            this.menuItem5.Index = 4;
+            this.menuItem5.Text = "-";
+            // 
             // mnuGenPG
             // 
             this.mnuGenPG.Index = 5;
             this.mnuGenPG.Text = "PG script";
             this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
-            // 
-            // menuItem5
-            // 
-            this.menuItem5.Index = 4;
-            this.menuItem5.Text = "-";
             // 
             // menuItem6
             // 
@@ -348,7 +348,7 @@ namespace dv21_load
             this.tvStruct.Location = new System.Drawing.Point(0, 0);
             this.tvStruct.Name = "tvStruct";
             this.tvStruct.SelectedImageIndex = 0;
-            this.tvStruct.Size = new System.Drawing.Size(224, 449);
+            this.tvStruct.Size = new System.Drawing.Size(224, 540);
             this.tvStruct.TabIndex = 3;
             this.tvStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvStruct_AfterSelect);
             this.tvStruct.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvStruct_MouseUp);
@@ -359,7 +359,7 @@ namespace dv21_load
             this.splitter1.MinExtra = 300;
             this.splitter1.MinSize = 150;
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(8, 449);
+            this.splitter1.Size = new System.Drawing.Size(8, 540);
             this.splitter1.TabIndex = 4;
             this.splitter1.TabStop = false;
             this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitter1_SplitterMoved);
@@ -379,7 +379,7 @@ namespace dv21_load
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(232, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(464, 449);
+            this.panel1.Size = new System.Drawing.Size(498, 540);
             this.panel1.TabIndex = 5;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -668,12 +668,12 @@ namespace dv21_load
             // Form2
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(696, 449);
+            this.ClientSize = new System.Drawing.Size(730, 540);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.tvStruct);
             this.Menu = this.mainMenu1;
-            this.MinimumSize = new System.Drawing.Size(480, 400);
+            this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "Form2";
             this.Text = "Card Schema Editor";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.Form2_Closing);
@@ -762,15 +762,17 @@ namespace dv21_load
 
 			n = new MyTreeNode("Общая информация",0,0);	
 			tvStruct.Nodes.Add(n);
+			if (cd == null) return;
 			n.BoundObject =cd;		
 
 			n = new MyTreeNode("Разделы",1,1);	
 			tvStruct.Nodes.Add(n);
 			
-			n.BoundObject =cd.Sections;		
-			n.NodeContextMenu =mnuSections;
-			LoadSection(cd.Sections,n); 
-
+			if(cd.Sections != null){
+				n.BoundObject = cd.Sections;
+				n.NodeContextMenu = mnuSections;
+				LoadSection(cd.Sections, n);
+			}
 
 			n = new MyTreeNode("Элементы просмотра",2,2);	
 			tvStruct.Nodes.Add(n);
