@@ -1,0 +1,27 @@
+{
+  "testTentApp": {
+    "requestContent": {
+      "home": {
+        "title": "Request Contents",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Request Content",
+        "createOrEditLabel": "Создать или отредактировать Request Content",
+        "notFound": "Request Contents не найдено"
+      },
+      "created": "Новый Request Content создан с идентификатором {{ param }}",
+      "updated": "Request Content обновлен с идентификатором {{ param }}",
+      "deleted": "Request Content удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Request Content {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Content"
+      },
+      "id": "ID",
+      "requestInfoId": "Request Info Id",
+      "paramCode": "Param Code",
+      "paramValue": "Param Value",
+      "requestInfoId": "Request Info Id"
+    }
+  }
+}

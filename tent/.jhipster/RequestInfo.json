@@ -1,0 +1,60 @@
+{
+  "annotations": {
+    "changelogDate": "20250221142524"
+  },
+  "applications": ["testTent"],
+  "fields": [
+    {
+      "fieldName": "requestType",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "contract",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "requestDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "effectiveDateStart",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "effectiveDateEnd",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    }
+  ],
+  "name": "RequestInfo",
+  "relationships": [
+    {
+      "otherEntityName": "requestType",
+      "relationshipName": "requestType",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

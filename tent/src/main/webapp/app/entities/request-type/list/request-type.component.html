@@ -1,0 +1,120 @@
+<div>
+  <h2 id="page-heading" data-cy="RequestTypeHeading">
+    <span jhiTranslate="testTentApp.requestType.home.title">Request Types</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="testTentApp.requestType.home.refreshListLabel">Обновить список</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-request-type"
+        [routerLink]="['/request-type/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="testTentApp.requestType.home.createLabel">Создать новый Request Type</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (requestTypes?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="testTentApp.requestType.home.notFound">Request Types не найдено</span>
+    </div>
+  }
+
+  @if (requestTypes && requestTypes.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="code">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestType.code">Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestType.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestInfo.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestType.requestInfo">Request Info</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestConfig.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestType.requestConfig">Request Config</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (requestType of requestTypes; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/request-type', requestType.id, 'view']">{{ requestType.id }}</a>
+              </td>
+              <td>{{ requestType.code }}</td>
+              <td>{{ requestType.name }}</td>
+              <td>
+                @if (requestType.requestInfo) {
+                  <div>
+                    <a [routerLink]="['/request-info', requestType.requestInfo.id, 'view']">{{ requestType.requestInfo.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (requestType.requestConfig) {
+                  <div>
+                    <a [routerLink]="['/request-config', requestType.requestConfig.id, 'view']">{{ requestType.requestConfig.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/request-type', requestType.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                  </a>
+
+                  <a [routerLink]="['/request-type', requestType.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(requestType)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

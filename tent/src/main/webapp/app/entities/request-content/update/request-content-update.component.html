@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-request-content-heading"
+        data-cy="RequestContentCreateUpdateHeading"
+        jhiTranslate="testTentApp.requestContent.home.createOrEditLabel"
+      >
+        Создать или отредактировать Request Content
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestContent.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestInfoId" jhiTranslate="testTentApp.requestContent.requestInfoId"
+            >Request Info Id</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="requestInfoId"
+            id="field_requestInfoId"
+            data-cy="requestInfoId"
+            formControlName="requestInfoId"
+          />
+          @if (editForm.get('requestInfoId')!.invalid && (editForm.get('requestInfoId')!.dirty || editForm.get('requestInfoId')!.touched)) {
+            <div>
+              @if (editForm.get('requestInfoId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('requestInfoId')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Это поле должно быть число.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paramCode" jhiTranslate="testTentApp.requestContent.paramCode">Param Code</label>
+          <input type="text" class="form-control" name="paramCode" id="field_paramCode" data-cy="paramCode" formControlName="paramCode" />
+          @if (editForm.get('paramCode')!.invalid && (editForm.get('paramCode')!.dirty || editForm.get('paramCode')!.touched)) {
+            <div>
+              @if (editForm.get('paramCode')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
+              }
+              @if (editForm.get('paramCode')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Это поле не может быть длинее, чем 64 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paramValue" jhiTranslate="testTentApp.requestContent.paramValue">Param Value</label>
+          <input
+            type="text"
+            class="form-control"
+            name="paramValue"
+            id="field_paramValue"
+            data-cy="paramValue"
+            formControlName="paramValue"
+          />
+          @if (editForm.get('paramValue')!.invalid && (editForm.get('paramValue')!.dirty || editForm.get('paramValue')!.touched)) {
+            <div>
+              @if (editForm.get('paramValue')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '255' }"
+                  >Это поле не может быть длинее, чем 255 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

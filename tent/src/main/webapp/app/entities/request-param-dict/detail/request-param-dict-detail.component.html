@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (requestParamDict()) {
+      <div>
+        <h2 data-cy="requestParamDictDetailsHeading">
+          <span jhiTranslate="testTentApp.requestParamDict.detail.title">Request Param Dict</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestParamDict.code">Code</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestParamDict.name">Name</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestParamDict.paramtype">Paramtype</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.paramtype }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestParamDict.valueArray">Value Array</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.valueArray }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestParamDict.referenceTo">Reference To</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.referenceTo }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestParamDict.requestContentConfig">Request Content Config</span></dt>
+          <dd>
+            @if (requestParamDict()!.requestContentConfig) {
+              <div>
+                <a [routerLink]="['/request-content-config', requestParamDict()!.requestContentConfig?.id, 'view']">{{
+                  requestParamDict()!.requestContentConfig?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/request-param-dict', requestParamDict()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

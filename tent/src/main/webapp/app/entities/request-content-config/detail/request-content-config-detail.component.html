@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (requestContentConfig()) {
+      <div>
+        <h2 data-cy="requestContentConfigDetailsHeading">
+          <span jhiTranslate="testTentApp.requestContentConfig.detail.title">Request Content Config</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestContentConfig.requestConfigId">Request Config Id</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.requestConfigId }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.parameter }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestContentConfig.isMandatory">Is Mandatory</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.isMandatory }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/request-content-config', requestContentConfig()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

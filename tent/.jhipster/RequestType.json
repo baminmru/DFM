@@ -1,0 +1,23 @@
+{
+  "annotations": {
+    "changelogDate": "20250221142523"
+  },
+  "applications": ["testTent"],
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "255"
+    }
+  ],
+  "name": "RequestType",
+  "relationships": [],
+  "searchEngine": "no"
+}

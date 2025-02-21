@@ -1,0 +1,29 @@
+{
+  "testTentApp": {
+    "requestParamDict": {
+      "home": {
+        "title": "Request Param Dicts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Request Param Dict",
+        "createOrEditLabel": "Create or edit a Request Param Dict",
+        "notFound": "No Request Param Dicts found"
+      },
+      "created": "A new Request Param Dict is created with identifier {{ param }}",
+      "updated": "A Request Param Dict is updated with identifier {{ param }}",
+      "deleted": "A Request Param Dict is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request Param Dict {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Param Dict"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "paramtype": "Paramtype",
+      "valueArray": "Value Array",
+      "referenceTo": "Reference To",
+      "requestContentConfig": "Request Content Config"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+<div>
+  <h2 id="page-heading" data-cy="RequestConfigHeading">
+    <span jhiTranslate="testTentApp.requestConfig.home.title">Request Configs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="testTentApp.requestConfig.home.refreshListLabel">Обновить список</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-request-config"
+        [routerLink]="['/request-config/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="testTentApp.requestConfig.home.createLabel">Создать новый Request Config</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (requestConfigs?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="testTentApp.requestConfig.home.notFound">Request Configs не найдено</span>
+    </div>
+  }
+
+  @if (requestConfigs && requestConfigs.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestType">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestConfig.requestType">Request Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestContentConfig.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestConfig.requestContentConfig">Request Content Config</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (requestConfig of requestConfigs; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/request-config', requestConfig.id, 'view']">{{ requestConfig.id }}</a>
+              </td>
+              <td>{{ requestConfig.requestType }}</td>
+              <td>
+                @if (requestConfig.requestContentConfig) {
+                  <div>
+                    <a [routerLink]="['/request-content-config', requestConfig.requestContentConfig.id, 'view']">{{
+                      requestConfig.requestContentConfig.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/request-config', requestConfig.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                  </a>
+
+                  <a [routerLink]="['/request-config', requestConfig.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(requestConfig)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

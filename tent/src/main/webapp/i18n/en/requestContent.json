@@ -1,0 +1,27 @@
+{
+  "testTentApp": {
+    "requestContent": {
+      "home": {
+        "title": "Request Contents",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Request Content",
+        "createOrEditLabel": "Create or edit a Request Content",
+        "notFound": "No Request Contents found"
+      },
+      "created": "A new Request Content is created with identifier {{ param }}",
+      "updated": "A Request Content is updated with identifier {{ param }}",
+      "deleted": "A Request Content is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request Content {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Content"
+      },
+      "id": "ID",
+      "requestInfoId": "Request Info Id",
+      "paramCode": "Param Code",
+      "paramValue": "Param Value",
+      "requestInfoId": "Request Info Id"
+    }
+  }
+}

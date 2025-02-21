@@ -1,0 +1,27 @@
+{
+  "testTentApp": {
+    "requestType": {
+      "home": {
+        "title": "Request Types",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Request Type",
+        "createOrEditLabel": "Создать или отредактировать Request Type",
+        "notFound": "Request Types не найдено"
+      },
+      "created": "Новый Request Type создан с идентификатором {{ param }}",
+      "updated": "Request Type обновлен с идентификатором {{ param }}",
+      "deleted": "Request Type удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Request Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Type"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "requestInfo": "Request Info",
+      "requestConfig": "Request Config"
+    }
+  }
+}

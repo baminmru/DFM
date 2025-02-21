@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (requestContent()) {
+      <div>
+        <h2 data-cy="requestContentDetailsHeading"><span jhiTranslate="testTentApp.requestContent.detail.title">Request Content</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ requestContent()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span></dt>
+          <dd>
+            <span>{{ requestContent()!.requestInfoId }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestContent.paramCode">Param Code</span></dt>
+          <dd>
+            <span>{{ requestContent()!.paramCode }}</span>
+          </dd>
+          <dt><span jhiTranslate="testTentApp.requestContent.paramValue">Param Value</span></dt>
+          <dd>
+            <span>{{ requestContent()!.paramValue }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+        </button>
+
+        <button type="button" [routerLink]="['/request-content', requestContent()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

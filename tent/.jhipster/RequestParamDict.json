@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20250221142528"
+  },
+  "applications": ["testTent"],
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "40"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "paramtype",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "valueArray",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "referenceTo",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    }
+  ],
+  "name": "RequestParamDict",
+  "relationships": [],
+  "searchEngine": "no"
+}

@@ -1,0 +1,137 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-request-param-dict-heading"
+        data-cy="RequestParamDictCreateUpdateHeading"
+        jhiTranslate="testTentApp.requestParamDict.home.createOrEditLabel"
+      >
+        Создать или отредактировать Request Param Dict
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestParamDict.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_code" jhiTranslate="testTentApp.requestParamDict.code">Code</label>
+          <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
+          @if (editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)) {
+            <div>
+              @if (editForm.get('code')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '40' }"
+                  >Это поле не может быть длинее, чем 40 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="testTentApp.requestParamDict.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
+              }
+              @if (editForm.get('name')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '255' }"
+                  >Это поле не может быть длинее, чем 255 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paramtype" jhiTranslate="testTentApp.requestParamDict.paramtype">Paramtype</label>
+          <input type="text" class="form-control" name="paramtype" id="field_paramtype" data-cy="paramtype" formControlName="paramtype" />
+          @if (editForm.get('paramtype')!.invalid && (editForm.get('paramtype')!.dirty || editForm.get('paramtype')!.touched)) {
+            <div>
+              @if (editForm.get('paramtype')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Это поле не может быть длинее, чем 64 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valueArray" jhiTranslate="testTentApp.requestParamDict.valueArray">Value Array</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="valueArray"
+            id="field_valueArray"
+            data-cy="valueArray"
+            formControlName="valueArray"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_referenceTo" jhiTranslate="testTentApp.requestParamDict.referenceTo">Reference To</label>
+          <input
+            type="text"
+            class="form-control"
+            name="referenceTo"
+            id="field_referenceTo"
+            data-cy="referenceTo"
+            formControlName="referenceTo"
+          />
+          @if (editForm.get('referenceTo')!.invalid && (editForm.get('referenceTo')!.dirty || editForm.get('referenceTo')!.touched)) {
+            <div>
+              @if (editForm.get('referenceTo')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Это поле не может быть длинее, чем 64 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestContentConfig" jhiTranslate="testTentApp.requestParamDict.requestContentConfig"
+            >Request Content Config</label
+          >
+          <select
+            class="form-control"
+            id="field_requestContentConfig"
+            data-cy="requestContentConfig"
+            name="requestContentConfig"
+            formControlName="requestContentConfig"
+            [compareWith]="compareRequestContentConfig"
+          >
+            <option [ngValue]="null"></option>
+            @for (requestContentConfigOption of requestContentConfigsSharedCollection; track $index) {
+              <option [ngValue]="requestContentConfigOption">{{ requestContentConfigOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

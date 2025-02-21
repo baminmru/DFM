@@ -1,0 +1,26 @@
+{
+  "testTentApp": {
+    "requestConfig": {
+      "home": {
+        "title": "Request Configs",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Request Config",
+        "createOrEditLabel": "Создать или отредактировать Request Config",
+        "notFound": "Request Configs не найдено"
+      },
+      "created": "Новый Request Config создан с идентификатором {{ param }}",
+      "updated": "Request Config обновлен с идентификатором {{ param }}",
+      "deleted": "Request Config удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Request Config {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Config"
+      },
+      "id": "ID",
+      "requestType": "Request Type",
+      "requestType": "Request Type",
+      "requestContentConfig": "Request Content Config"
+    }
+  }
+}

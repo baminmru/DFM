@@ -1,0 +1,23 @@
+{
+  "annotations": {
+    "changelogDate": "20250221142526"
+  },
+  "applications": ["testTent"],
+  "fields": [
+    {
+      "fieldName": "requestType",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "RequestConfig",
+  "relationships": [
+    {
+      "otherEntityName": "requestType",
+      "relationshipName": "requestType",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

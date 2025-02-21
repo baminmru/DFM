@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20250221142525"
+  },
+  "applications": ["testTent"],
+  "fields": [
+    {
+      "fieldName": "requestInfoId",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "paramCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "paramValue",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    }
+  ],
+  "name": "RequestContent",
+  "relationships": [
+    {
+      "otherEntityName": "requestInfo",
+      "relationshipName": "requestInfoId",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

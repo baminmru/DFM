@@ -1,0 +1,163 @@
+<div>
+  <h2 id="page-heading" data-cy="RequestInfoHeading">
+    <span jhiTranslate="testTentApp.requestInfo.home.title">Request Infos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="testTentApp.requestInfo.home.refreshListLabel">Обновить список</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-request-info"
+        [routerLink]="['/request-info/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="testTentApp.requestInfo.home.createLabel">Создать новый Request Info</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (requestInfos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="testTentApp.requestInfo.home.notFound">Request Infos не найдено</span>
+    </div>
+  }
+
+  @if (requestInfos && requestInfos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestType">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.requestType">Request Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contract">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.contract">Contract</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestDate">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.requestDate">Request Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="effectiveDateStart">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.effectiveDateStart">Effective Date Start</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="effectiveDateEnd">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.effectiveDateEnd">Effective Date End</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedAt">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.updatedAt">Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedBy">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.updatedBy">Updated By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestContent.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestInfo.requestContent">Request Content</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (requestInfo of requestInfos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/request-info', requestInfo.id, 'view']">{{ requestInfo.id }}</a>
+              </td>
+              <td>{{ requestInfo.requestType }}</td>
+              <td>{{ requestInfo.contract }}</td>
+              <td>{{ requestInfo.requestDate | formatMediumDate }}</td>
+              <td>{{ requestInfo.effectiveDateStart | formatMediumDate }}</td>
+              <td>{{ requestInfo.effectiveDateEnd | formatMediumDate }}</td>
+              <td>{{ requestInfo.createdAt | formatMediumDate }}</td>
+              <td>{{ requestInfo.createdBy }}</td>
+              <td>{{ requestInfo.updatedAt | formatMediumDate }}</td>
+              <td>{{ requestInfo.updatedBy }}</td>
+              <td>
+                @if (requestInfo.requestContent) {
+                  <div>
+                    <a [routerLink]="['/request-content', requestInfo.requestContent.id, 'view']">{{ requestInfo.requestContent.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/request-info', requestInfo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                  </a>
+
+                  <a [routerLink]="['/request-info', requestInfo.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(requestInfo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

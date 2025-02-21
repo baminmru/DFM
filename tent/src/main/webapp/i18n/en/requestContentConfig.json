@@ -1,0 +1,28 @@
+{
+  "testTentApp": {
+    "requestContentConfig": {
+      "home": {
+        "title": "Request Content Configs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Request Content Config",
+        "createOrEditLabel": "Create or edit a Request Content Config",
+        "notFound": "No Request Content Configs found"
+      },
+      "created": "A new Request Content Config is created with identifier {{ param }}",
+      "updated": "A Request Content Config is updated with identifier {{ param }}",
+      "deleted": "A Request Content Config is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request Content Config {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Content Config"
+      },
+      "id": "ID",
+      "requestConfigId": "Request Config Id",
+      "parameter": "Parameter",
+      "isMandatory": "Is Mandatory",
+      "requestConfigId": "Request Config Id",
+      "parameter": "Parameter"
+    }
+  }
+}

@@ -1,0 +1,217 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-request-info-heading"
+        data-cy="RequestInfoCreateUpdateHeading"
+        jhiTranslate="testTentApp.requestInfo.home.createOrEditLabel"
+      >
+        Создать или отредактировать Request Info
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestInfo.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestType" jhiTranslate="testTentApp.requestInfo.requestType">Request Type</label>
+          <input
+            type="number"
+            class="form-control"
+            name="requestType"
+            id="field_requestType"
+            data-cy="requestType"
+            formControlName="requestType"
+          />
+          @if (editForm.get('requestType')!.invalid && (editForm.get('requestType')!.dirty || editForm.get('requestType')!.touched)) {
+            <div>
+              @if (editForm.get('requestType')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('requestType')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Это поле должно быть число.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contract" jhiTranslate="testTentApp.requestInfo.contract">Contract</label>
+          <input type="number" class="form-control" name="contract" id="field_contract" data-cy="contract" formControlName="contract" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestDate" jhiTranslate="testTentApp.requestInfo.requestDate">Request Date</label>
+          <div class="input-group">
+            <input
+              id="field_requestDate"
+              data-cy="requestDate"
+              type="text"
+              class="form-control"
+              name="requestDate"
+              ngbDatepicker
+              #requestDateDp="ngbDatepicker"
+              formControlName="requestDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="requestDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (editForm.get('requestDate')!.invalid && (editForm.get('requestDate')!.dirty || editForm.get('requestDate')!.touched)) {
+            <div>
+              @if (editForm.get('requestDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveDateStart" jhiTranslate="testTentApp.requestInfo.effectiveDateStart"
+            >Effective Date Start</label
+          >
+          <div class="input-group">
+            <input
+              id="field_effectiveDateStart"
+              data-cy="effectiveDateStart"
+              type="text"
+              class="form-control"
+              name="effectiveDateStart"
+              ngbDatepicker
+              #effectiveDateStartDp="ngbDatepicker"
+              formControlName="effectiveDateStart"
+            />
+            <button type="button" class="btn btn-secondary" (click)="effectiveDateStartDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveDateEnd" jhiTranslate="testTentApp.requestInfo.effectiveDateEnd"
+            >Effective Date End</label
+          >
+          <div class="input-group">
+            <input
+              id="field_effectiveDateEnd"
+              data-cy="effectiveDateEnd"
+              type="text"
+              class="form-control"
+              name="effectiveDateEnd"
+              ngbDatepicker
+              #effectiveDateEndDp="ngbDatepicker"
+              formControlName="effectiveDateEnd"
+            />
+            <button type="button" class="btn btn-secondary" (click)="effectiveDateEndDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="testTentApp.requestInfo.createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="text"
+              class="form-control"
+              name="createdAt"
+              ngbDatepicker
+              #createdAtDp="ngbDatepicker"
+              formControlName="createdAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="testTentApp.requestInfo.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+          @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
+            <div>
+              @if (editForm.get('createdBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Это поле не может быть длинее, чем 64 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="testTentApp.requestInfo.updatedAt">Updated At</label>
+          <div class="input-group">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="text"
+              class="form-control"
+              name="updatedAt"
+              ngbDatepicker
+              #updatedAtDp="ngbDatepicker"
+              formControlName="updatedAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="updatedAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedBy" jhiTranslate="testTentApp.requestInfo.updatedBy">Updated By</label>
+          <input type="text" class="form-control" name="updatedBy" id="field_updatedBy" data-cy="updatedBy" formControlName="updatedBy" />
+          @if (editForm.get('updatedBy')!.invalid && (editForm.get('updatedBy')!.dirty || editForm.get('updatedBy')!.touched)) {
+            <div>
+              @if (editForm.get('updatedBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Это поле не может быть длинее, чем 64 символов.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestContent" jhiTranslate="testTentApp.requestInfo.requestContent">Request Content</label>
+          <select
+            class="form-control"
+            id="field_requestContent"
+            data-cy="requestContent"
+            name="requestContent"
+            formControlName="requestContent"
+            [compareWith]="compareRequestContent"
+          >
+            <option [ngValue]="null"></option>
+            @for (requestContentOption of requestContentsSharedCollection; track $index) {
+              <option [ngValue]="requestContentOption">{{ requestContentOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

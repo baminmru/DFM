@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-request-content-config-heading"
+        data-cy="RequestContentConfigCreateUpdateHeading"
+        jhiTranslate="testTentApp.requestContentConfig.home.createOrEditLabel"
+      >
+        Создать или отредактировать Request Content Config
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestContentConfig.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestConfigId" jhiTranslate="testTentApp.requestContentConfig.requestConfigId"
+            >Request Config Id</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="requestConfigId"
+            id="field_requestConfigId"
+            data-cy="requestConfigId"
+            formControlName="requestConfigId"
+          />
+          @if (
+            editForm.get('requestConfigId')!.invalid && (editForm.get('requestConfigId')!.dirty || editForm.get('requestConfigId')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('requestConfigId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('requestConfigId')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Это поле должно быть число.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_parameter" jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</label>
+          <input type="number" class="form-control" name="parameter" id="field_parameter" data-cy="parameter" formControlName="parameter" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isMandatory" jhiTranslate="testTentApp.requestContentConfig.isMandatory">Is Mandatory</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isMandatory"
+            id="field_isMandatory"
+            data-cy="isMandatory"
+            formControlName="isMandatory"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
