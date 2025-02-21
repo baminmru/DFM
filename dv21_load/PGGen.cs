@@ -108,74 +108,76 @@ namespace dv21
             }
 
             int i;
-            for (i = 0; i < s.Field.Length; i++)
-            {
-                string pgtype = MapBaseType(s.Field[i].Type.ToString());
-                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
-
-
-                if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
+            if (s.Field != null) {
+                for (i = 0; i < s.Field.Length; i++)
                 {
-                    enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
+                    string pgtype = MapBaseType(s.Field[i].Type.ToString());
+                    cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
 
-                    int f;
-                    for (f = 0; f < s.Field[i].Enum.Length; f++)
+
+                    if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
                     {
-                        if (f > 0) enums.Append(",");
-                        enums.AppendLine("'" + s.Field[i].Enum[f].Name +"'");
-                    }
-                    enums.AppendLine(");");
+                        enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
+
+                        int f;
+                        for (f = 0; f < s.Field[i].Enum.Length; f++)
+                        {
+                            if (f > 0) enums.Append(",");
+                            enums.AppendLine("'" + s.Field[i].Enum[f].Name + "'");
+                        }
+                        enums.AppendLine(");");
 
 
-                    if (s.Field[i].NotNull)
-                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum not null");
-                    else
-                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum");
-
-                }
-                else if (s.Field[i].ReferenceSpecified)
-                {
-                    CardDefinition refType= null;
-                    SectionType refSection = null;
-                    string refSchema = "";
-
-                    refType = MyUtils.GetReferencedType(cd, s.Field[i].RefType);
-                    if (refType != null)
-                        refSection = MyUtils.GetReferencedSection(refType.Sections, s.Field[i].RefSection);
-
-                    if (refSection != null)
-                    {
-                        refSchema = refType.Schema.ToLower() + ".";
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null references " + refSchema + refSection.Alias.ToLower() +"( id )");
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum not null");
                         else
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " references " + refSchema + refSection.Alias.ToLower() + "( id )");
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum");
+
+                    }
+                    else if (s.Field[i].ReferenceSpecified)
+                    {
+                        CardDefinition refType = null;
+                        SectionType refSection = null;
+                        string refSchema = "";
+
+                        refType = MyUtils.GetReferencedType(cd, s.Field[i].RefType);
+                        if (refType != null)
+                            refSection = MyUtils.GetReferencedSection(refType.Sections, s.Field[i].RefSection);
+
+                        if (refSection != null)
+                        {
+                            refSchema = refType.Schema.ToLower() + ".";
+                            if (s.Field[i].NotNull)
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null references " + refSchema + refSection.Alias.ToLower() + "( id )");
+                            else
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " references " + refSchema + refSection.Alias.ToLower() + "( id )");
+                        }
+                        else
+                        {
+                            // не удалось разрезолвить - значит просто поле
+                            if (s.Field[i].NotNull)
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
+                            else
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
+                        }
+
+                    } else if (s.Field[i].MaxSpecified)
+                    {
+                        if (s.Field[i].NotNull)
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ") not null");
+                        else
+                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ")");
                     }
                     else
                     {
-                        // не удалось разрезолвить - значит просто поле
                         if (s.Field[i].NotNull)
                             sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
                         else
                             sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
                     }
+                }
 
-                } else if (s.Field[i].MaxSpecified)
-                {
-                    if (s.Field[i].NotNull)
-                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ") not null");
-                    else
-                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ")");
-                }
-                else
-                {
-                    if (s.Field[i].NotNull)
-                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
-                    else
-                        sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
-                }
             }
-                    
                 
 
             if (s.Type == dv21.SectionTypeType.tree)

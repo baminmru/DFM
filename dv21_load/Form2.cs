@@ -348,7 +348,7 @@ namespace dv21_load
             this.tvStruct.Location = new System.Drawing.Point(0, 0);
             this.tvStruct.Name = "tvStruct";
             this.tvStruct.SelectedImageIndex = 0;
-            this.tvStruct.Size = new System.Drawing.Size(224, 540);
+            this.tvStruct.Size = new System.Drawing.Size(224, 561);
             this.tvStruct.TabIndex = 3;
             this.tvStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvStruct_AfterSelect);
             this.tvStruct.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvStruct_MouseUp);
@@ -359,7 +359,7 @@ namespace dv21_load
             this.splitter1.MinExtra = 300;
             this.splitter1.MinSize = 150;
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(8, 540);
+            this.splitter1.Size = new System.Drawing.Size(8, 561);
             this.splitter1.TabIndex = 4;
             this.splitter1.TabStop = false;
             this.splitter1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitter1_SplitterMoved);
@@ -379,7 +379,7 @@ namespace dv21_load
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(232, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(498, 540);
+            this.panel1.Size = new System.Drawing.Size(498, 561);
             this.panel1.TabIndex = 5;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -604,6 +604,7 @@ namespace dv21_load
             // 
             this.mnuAction.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuActionDel});
+            this.mnuAction.Popup += new System.EventHandler(this.mnuAction_Popup);
             // 
             // mnuActionDel
             // 
@@ -668,7 +669,7 @@ namespace dv21_load
             // Form2
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(730, 540);
+            this.ClientSize = new System.Drawing.Size(730, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.tvStruct);
@@ -933,7 +934,12 @@ namespace dv21_load
 			cd = new dv21.CardDefinition();
 			cd.Name = new LocalizedStringsLocalizedString[1];
 			cd.Name[0] = new LocalizedStringsLocalizedString();
- 			ReloadTree(cd);
+			cd.Sections = new SectionType[1] ;
+			cd.Sections[0] = new SectionType();
+			cd.Sections[0].Name = new LocalizedStringsLocalizedString[1];
+			cd.Sections[0].Name[0] = new LocalizedStringsLocalizedString();
+
+            ReloadTree(cd);
 		}
 
 		private void mnuLoadData_Click(object sender, System.EventArgs e)
@@ -1836,6 +1842,11 @@ namespace dv21_load
                 
             }
             catch { }
+        }
+
+        private void mnuAction_Popup(object sender, EventArgs e)
+        {
+
         }
     }
 

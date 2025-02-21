@@ -311,6 +311,7 @@ namespace dv21_util
         public static SectionType GetReferencedSection(SectionType[] Sections, string RefSection)
         {
             SectionType st;
+			if (Sections == null) return null;
             for (int i = 0; i < Sections.Length; i++)
             {
                 st = Sections[i];
