@@ -7,7 +7,7 @@ application {
 	buildTool 	maven
 	databaseType 	sql
 	prodDatabaseType   postgresql
-	devDatabaseType 	postgresql
+	devDatabaseType 	h2Disk
 	clientFramework 	angularX
 	serviceDiscoveryType eureka
 	languages [ru,en]
