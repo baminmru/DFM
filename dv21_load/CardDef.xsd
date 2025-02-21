@@ -76,8 +76,10 @@
 		<xs:attribute name="Max" type="xs:int" use="optional"/>
 		<xs:attribute name="NotNull" type="xs:boolean" use="optional"/>
 		<xs:attribute name="Reference" type="xs:boolean" use="optional"/>
+    <xs:attribute name="Lookup" type="xs:boolean" use="optional"/>
 		<xs:attribute name="RefType" type="xs:string" use="optional"/>
 		<xs:attribute name="RefSection" type="xs:string" use="optional"/>
+    <xs:attribute name="LookupExpression" type="xs:string" use="optional"/>
 	</xs:complexType>
 	<xs:complexType name="SectionType">
 		<xs:sequence>

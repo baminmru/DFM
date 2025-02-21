@@ -385,9 +385,15 @@ namespace dv21 {
         
         private bool referenceFieldSpecified;
         
+        private bool lookupField;
+        
+        private bool lookupFieldSpecified;
+        
         private string refTypeField;
         
         private string refSectionField;
+        
+        private string lookupExpressionField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("LocalizedString", IsNullable=false)]
@@ -512,6 +518,28 @@ namespace dv21 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool Lookup {
+            get {
+                return this.lookupField;
+            }
+            set {
+                this.lookupField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LookupSpecified {
+            get {
+                return this.lookupFieldSpecified;
+            }
+            set {
+                this.lookupFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string RefType {
             get {
                 return this.refTypeField;
@@ -529,6 +557,17 @@ namespace dv21 {
             }
             set {
                 this.refSectionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string LookupExpression {
+            get {
+                return this.lookupExpressionField;
+            }
+            set {
+                this.lookupExpressionField = value;
             }
         }
     }

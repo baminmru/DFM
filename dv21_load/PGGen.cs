@@ -93,11 +93,12 @@ namespace dv21
             if (s_parent != null)
             {
                 sb.AppendLine("\t\t," + s_parent.Alias.ToLower()  + "id integer not null");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + "." + s.Alias.ToLower() + "."+ s_parent.Alias.ToLower()  + "id IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
             }
 
             //try
             //{
-                int i;
+            int i;
                 for (i = 0; i < s.Field.Length; i++)
                 {
                     string pgtype = MapBaseType(s.Field[i].Type.ToString());
@@ -183,8 +184,11 @@ namespace dv21
 
                 sb.AppendLine(");"); // end of create table
 
+                sb.AppendLine(" -- comments for " + s.Alias.ToLower());
+                sb.AppendLine(cc.ToString());
+                sb.AppendLine(" -- end " + s.Alias.ToLower());
 
-                if (s.Section != null && s.Section.Length > 0 )
+            if (s.Section != null && s.Section.Length > 0 )
                 {
 
                     for (i = 0; i < s.Section.Length; i++)
@@ -198,9 +202,8 @@ namespace dv21
             //{
             //}
 
-            sb.AppendLine(" -- comments for " +s.Alias.ToLower());
-            sb.AppendLine(cc.ToString());
-            sb.AppendLine(" -- end " + s.Alias.ToLower());
+            
+            
             sb.AppendLine("");
 
 
