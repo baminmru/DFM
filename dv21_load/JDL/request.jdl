@@ -1,0 +1,108 @@
+application {
+  config {
+    baseName ChangeRequest
+    applicationType monolitic
+	authenticationType jwt
+    serverPort 8080
+	buildTool 	maven
+	databaseType 	sql
+	prodDatabaseType   postgresql
+	devDatabaseType 	postgresql
+	clientFramework 	angularX
+	serviceDiscoveryType eureka
+	languages [ru,en]
+	packageName com.bami.change_request
+  }
+  entities * 
+}
+
+ // RequestType
+ /* Справочник типов заявок */
+entity  RequestType{
+/*Code - 'Код' */
+		Code String maxlength(64) required
+/*Name - 'Название' */
+		Name String maxlength(255) required
+}
+
+ // RequestInfo
+ /* Основная информация */
+entity  RequestInfo{
+/*RequestType - 'Тип заявки' */
+		RequestType Integer required
+/*Contract - 'Контракт' */
+		Contract Integer
+/*RequestDate - 'Дата заявки' */
+		RequestDate LocalDate required 
+		EffectiveDateStart LocalDate
+		EffectiveDateEnd LocalDate
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+ // RequestContent
+ /* Содержание заявки */
+entity  RequestContent{
+/* RequestInfoid - ' ссылка на родительскую таблицу Основная информация' */
+		RequestInfoId Integer required 
+/*ParamCode - 'Код параметра' */
+		ParamCode String maxlength(64) required
+/*ParamValue - 'Значение параметра' */
+		ParamValue String maxlength(255)
+}
+
+
+ // RequestConfig
+ /* Конфигуратор заявки */
+entity  RequestConfig{
+/*RequestType - 'Тип заявки' */
+		RequestType Integer required
+}
+ // RequestContentConfig
+ /* Описание параметров заявки */
+entity  RequestContentConfig{
+/* RequestConfigid - ' ссылка на родительскую таблицу Конфигуратор заявки' */
+		RequestConfigId Integer required 
+/*Parameter - 'Параметр' */
+		Parameter Integer
+/*IsMandatory - 'Обязательный' */
+		IsMandatory Boolean
+}
+
+
+ // RequestParamDict
+ /* Список возможных параметров */
+entity  RequestParamDict{
+/*Code - 'Код' */
+		Code String maxlength(40)
+/*Name - 'Название' */
+		Name String maxlength(255) required
+/*Paramtype - 'Тип параметра' */
+		Paramtype String maxlength(64)
+/*ValueArray - 'Допускает массив значений' */
+		ValueArray Boolean
+/*ReferenceTo - 'Описание ссылки' */
+		ReferenceTo String maxlength(64)
+}
+
+
+relationship OneToMany {
+RequestInfo { RequestType} to RequestType
+}
+relationship OneToMany {
+RequestInfo { Contract} to DogInfo
+}
+relationship OneToMany {
+RequestContent { RequestInfoId} to RequestInfo
+}
+relationship OneToMany {
+RequestConfig { RequestType} to RequestType
+}
+relationship OneToMany {
+RequestContentConfig { RequestConfigId} to RequestConfig
+}
+relationship OneToMany {
+RequestContentConfig { Parameter} to RequestParamDict
+}
+

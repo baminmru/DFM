@@ -81,6 +81,9 @@ namespace dv21
                 case "float":
                     return "numeric(18,8)";
 
+                case "double":
+                    return "numeric(18,8)";
+
             }
             return "integer";
         

@@ -145,6 +145,7 @@
     <Compile Include="frmSectionView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="JDLGen.cs" />
     <Compile Include="LStringEditor.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -10,6 +10,10 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using dv21;
 using dv21_load;
+using System.Globalization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace dv21_util 
 {
@@ -325,6 +329,36 @@ namespace dv21_util
             }
 
             return null;
+        }
+
+        public static string C1(string title)
+        {
+
+            //return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(title.Replace("_",""));
+
+            StringBuilder result = new StringBuilder(title.Length);
+            bool makeUpper = true;
+            foreach (var c in title)
+            {
+				if (makeUpper)
+				{
+					result.Append(Char.ToUpper(c));
+					makeUpper = false;
+				}
+				else
+				{
+					if (c == '_')
+					{
+						makeUpper = true;
+					}
+					else
+					{
+						result.Append(c);
+					}
+				}
+            }
+			return result.ToString();
+
         }
 
     }

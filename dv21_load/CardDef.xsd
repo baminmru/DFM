@@ -70,6 +70,7 @@
 					<xs:enumeration value="unistring"/>
 					<xs:enumeration value="fileid"/>
 					<xs:enumeration value="float"/>
+          <xs:enumeration value="double"/>
 					<xs:enumeration value="refid"/>
 				</xs:restriction>
 			</xs:simpleType>
