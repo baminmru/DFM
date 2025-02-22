@@ -98,12 +98,12 @@ namespace dv21
 
             if (s_parent != null)
             {
-                sb.AppendLine("/* " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
-                sb.AppendLine("\t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required ");
+               // sb.AppendLine("/* " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
+               // sb.AppendLine("\t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required ");
 
 
                 fk.AppendLine("relationship OneToMany {");
-                fk.AppendLine(MyUtils.C1(s.Alias) + " { " + MyUtils.C1(s_parent.Alias) + "Id} to " + MyUtils.C1(s_parent.Alias));
+                fk.AppendLine(MyUtils.C1(s_parent.Alias) + " to " + MyUtils.C1(s.Alias)+ "{ " + MyUtils.C1(s_parent.Alias) + "Id} " );
                 fk.AppendLine("}");
 
 
@@ -152,13 +152,13 @@ namespace dv21
                         {
                             refSchema = refType.Schema.ToLower() + ".";
 
-                            if (s.Field[i].NotNull)
-                                sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required");
-                            else
-                                sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype );
+                            //if (s.Field[i].NotNull)
+                            //    sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required");
+                            //else
+                            //    sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype );
 
                             fk.AppendLine("relationship OneToMany {");
-                            fk.AppendLine(MyUtils.C1(s.Alias) +" { " +  MyUtils.C1(s.Field[i].Alias) +"} to " + MyUtils.C1(refSection.Alias));
+                            fk.AppendLine(MyUtils.C1(refSection.Alias) + " to " + MyUtils.C1(s.Alias) +" { " +  MyUtils.C1(s.Field[i].Alias) +"} "  );
                             fk.AppendLine("}");
                         }
                         else
@@ -192,7 +192,11 @@ namespace dv21
 
             if (s.Type == dv21.SectionTypeType.tree)
             {
-                sb.AppendLine("\t\t" + MyUtils.C1(s.Alias) + "_parent Integer");
+                // sb.AppendLine("\t\t" + MyUtils.C1(s.Alias) + "_parent Integer");
+
+                fk.AppendLine("relationship OneToMany {");
+                fk.AppendLine(MyUtils.C1(s.Alias) + " to " + MyUtils.C1(s.Alias) + " { " + MyUtils.C1(s.Alias) + "Parent } ");
+                fk.AppendLine("}");
             }
 
 

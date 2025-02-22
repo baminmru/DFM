@@ -1,17 +1,17 @@
 application {
   config {
-    baseName ChangeRequest
-    applicationType monolitic
-	authenticationType jwt
-    serverPort 8080
-	buildTool 	maven
-	databaseType 	sql
-	prodDatabaseType   postgresql
-	devDatabaseType 	h2Disk
-	clientFramework 	angularX
-	serviceDiscoveryType eureka
-	languages [ru,en]
-	packageName com.bami.change_request
+     baseName ChangeRequest
+     applicationType monolitic
+	    authenticationType jwt
+     serverPort 8080
+	    buildTool 	maven
+	    databaseType 	sql
+	    prodDatabaseType   postgresql
+	    devDatabaseType 	postgresql
+	    clientFramework 	angularX
+	    serviceDiscoveryType eureka
+	    languages [ru,en]
+	    packageName com.bami.tent.change_request
   }
   entities * 
 }
@@ -29,7 +29,6 @@ entity  RequestType{
  /* Основная информация */
 entity  RequestInfo{
 /*RequestType - 'Тип заявки' */
-		RequestType Integer required
 /*Contract - 'Контракт' */
 		Contract Integer
 /*RequestDate - 'Дата заявки' */
@@ -44,8 +43,6 @@ entity  RequestInfo{
  // RequestContent
  /* Содержание заявки */
 entity  RequestContent{
-/* RequestInfoid - ' ссылка на родительскую таблицу Основная информация' */
-		RequestInfoId Integer required 
 /*ParamCode - 'Код параметра' */
 		ParamCode String maxlength(64) required
 /*ParamValue - 'Значение параметра' */
@@ -57,15 +54,11 @@ entity  RequestContent{
  /* Конфигуратор заявки */
 entity  RequestConfig{
 /*RequestType - 'Тип заявки' */
-		RequestType Integer required
 }
  // RequestContentConfig
  /* Описание параметров заявки */
 entity  RequestContentConfig{
-/* RequestConfigid - ' ссылка на родительскую таблицу Конфигуратор заявки' */
-		RequestConfigId Integer required 
 /*Parameter - 'Параметр' */
-		Parameter Integer
 /*IsMandatory - 'Обязательный' */
 		IsMandatory Boolean
 }
@@ -88,21 +81,18 @@ entity  RequestParamDict{
 
 
 relationship OneToMany {
-RequestInfo { RequestType} to RequestType
+RequestType to RequestInfo { RequestType} 
 }
 relationship OneToMany {
-RequestInfo { Contract} to DogInfo
+RequestInfo to RequestContent{ RequestInfoId} 
 }
 relationship OneToMany {
-RequestContent { RequestInfoId} to RequestInfo
+RequestType to RequestConfig { RequestType} 
 }
 relationship OneToMany {
-RequestConfig { RequestType} to RequestType
+RequestConfig to RequestContentConfig{ RequestConfigId} 
 }
 relationship OneToMany {
-RequestContentConfig { RequestConfigId} to RequestConfig
-}
-relationship OneToMany {
-RequestContentConfig { Parameter} to RequestParamDict
+RequestParamDict to RequestContentConfig { Parameter} 
 }
 
