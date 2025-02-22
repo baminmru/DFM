@@ -6,7 +6,7 @@
         data-cy="RequestConfigCreateUpdateHeading"
         jhiTranslate="testTentApp.requestConfig.home.createOrEditLabel"
       >
-        Создать или отредактировать Request Config
+        Create or edit a Request Config
       </h2>
 
       <div>
@@ -21,44 +21,17 @@
 
         <div class="mb-3">
           <label class="form-label" for="field_requestType" jhiTranslate="testTentApp.requestConfig.requestType">Request Type</label>
-          <input
-            type="number"
-            class="form-control"
-            name="requestType"
-            id="field_requestType"
-            data-cy="requestType"
-            formControlName="requestType"
-          />
-          @if (editForm.get('requestType')!.invalid && (editForm.get('requestType')!.dirty || editForm.get('requestType')!.touched)) {
-            <div>
-              @if (editForm.get('requestType')?.errors?.required) {
-                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
-              }
-              <small
-                class="form-text text-danger"
-                [hidden]="!editForm.get('requestType')?.errors?.number"
-                jhiTranslate="entity.validation.number"
-                >Это поле должно быть число.</small
-              >
-            </div>
-          }
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_requestContentConfig" jhiTranslate="testTentApp.requestConfig.requestContentConfig"
-            >Request Content Config</label
-          >
           <select
             class="form-control"
-            id="field_requestContentConfig"
-            data-cy="requestContentConfig"
-            name="requestContentConfig"
-            formControlName="requestContentConfig"
-            [compareWith]="compareRequestContentConfig"
+            id="field_requestType"
+            data-cy="requestType"
+            name="requestType"
+            formControlName="requestType"
+            [compareWith]="compareRequestType"
           >
             <option [ngValue]="null"></option>
-            @for (requestContentConfigOption of requestContentConfigsSharedCollection; track $index) {
-              <option [ngValue]="requestContentConfigOption">{{ requestContentConfigOption.id }}</option>
+            @for (requestTypeOption of requestTypesSharedCollection; track $index) {
+              <option [ngValue]="requestTypeOption">{{ requestTypeOption.id }}</option>
             }
           </select>
         </div>
@@ -66,7 +39,7 @@
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -76,7 +49,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

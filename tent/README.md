@@ -2,8 +2,6 @@
 
 This application was generated using JHipster 8.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.6.0](https://www.jhipster.tech/documentation-archive/v8.6.0).
 
-This application is configured for Service Discovery and Configuration with the JHipster-Registry. On launch, it will refuse to start if it is not able to connect to the JHipster-Registry at [http://localhost:8761](http://localhost:8761). For more information, read our documentation on [Service Discovery and Configuration with the JHipster-Registry][].
-
 ## Project Structure
 
 Node is required for generation and recommended for development. `package.json` is always generated for a better development experience with prettier, commit hooks, scripts and so on.
@@ -244,7 +242,6 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [JHipster Homepage and latest documentation]: https://www.jhipster.tech
 [JHipster 8.6.0 archive]: https://www.jhipster.tech/documentation-archive/v8.6.0
 [Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v8.6.0/development/
-[Service Discovery and Configuration with the JHipster-Registry]: https://www.jhipster.tech/documentation-archive/v8.6.0/microservices-architecture/#jhipster-registry
 [Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v8.6.0/docker-compose
 [Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v8.6.0/production/
 [Running tests page]: https://www.jhipster.tech/documentation-archive/v8.6.0/running-tests/

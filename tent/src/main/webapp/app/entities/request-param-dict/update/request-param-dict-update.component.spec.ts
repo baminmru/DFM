@@ -4,8 +4,6 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject, from } from 'rxjs';
 
-import { IRequestContentConfig } from 'app/entities/request-content-config/request-content-config.model';
-import { RequestContentConfigService } from 'app/entities/request-content-config/service/request-content-config.service';
 import { RequestParamDictService } from '../service/request-param-dict.service';
 import { IRequestParamDict } from '../request-param-dict.model';
 import { RequestParamDictFormService } from './request-param-dict-form.service';
@@ -18,7 +16,6 @@ describe('RequestParamDict Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let requestParamDictFormService: RequestParamDictFormService;
   let requestParamDictService: RequestParamDictService;
-  let requestContentConfigService: RequestContentConfigService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,43 +38,17 @@ describe('RequestParamDict Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     requestParamDictFormService = TestBed.inject(RequestParamDictFormService);
     requestParamDictService = TestBed.inject(RequestParamDictService);
-    requestContentConfigService = TestBed.inject(RequestContentConfigService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call RequestContentConfig query and add missing value', () => {
-      const requestParamDict: IRequestParamDict = { id: 456 };
-      const requestContentConfig: IRequestContentConfig = { id: 2558 };
-      requestParamDict.requestContentConfig = requestContentConfig;
-
-      const requestContentConfigCollection: IRequestContentConfig[] = [{ id: 29758 }];
-      jest.spyOn(requestContentConfigService, 'query').mockReturnValue(of(new HttpResponse({ body: requestContentConfigCollection })));
-      const additionalRequestContentConfigs = [requestContentConfig];
-      const expectedCollection: IRequestContentConfig[] = [...additionalRequestContentConfigs, ...requestContentConfigCollection];
-      jest.spyOn(requestContentConfigService, 'addRequestContentConfigToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ requestParamDict });
-      comp.ngOnInit();
-
-      expect(requestContentConfigService.query).toHaveBeenCalled();
-      expect(requestContentConfigService.addRequestContentConfigToCollectionIfMissing).toHaveBeenCalledWith(
-        requestContentConfigCollection,
-        ...additionalRequestContentConfigs.map(expect.objectContaining),
-      );
-      expect(comp.requestContentConfigsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const requestParamDict: IRequestParamDict = { id: 456 };
-      const requestContentConfig: IRequestContentConfig = { id: 28088 };
-      requestParamDict.requestContentConfig = requestContentConfig;
 
       activatedRoute.data = of({ requestParamDict });
       comp.ngOnInit();
 
-      expect(comp.requestContentConfigsSharedCollection).toContain(requestContentConfig);
       expect(comp.requestParamDict).toEqual(requestParamDict);
     });
   });
@@ -147,18 +118,6 @@ describe('RequestParamDict Management Update Component', () => {
       expect(requestParamDictService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Compare relationships', () => {
-    describe('compareRequestContentConfig', () => {
-      it('Should forward to requestContentConfigService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(requestContentConfigService, 'compareRequestContentConfig');
-        comp.compareRequestContentConfig(entity, entity2);
-        expect(requestContentConfigService.compareRequestContentConfig).toHaveBeenCalledWith(entity, entity2);
-      });
     });
   });
 });

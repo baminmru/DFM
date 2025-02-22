@@ -1,13 +1,13 @@
-<h3 id="requestMetrics" jhiTranslate="metrics.jvm.http.title">HTTP запросы (событий в секунду)</h3>
+<h3 id="requestMetrics" jhiTranslate="metrics.jvm.http.title">HTTP requests (time in millisecond)</h3>
 
 @if (!updating() && requestMetrics()) {
   <table class="table table-striped" aria-describedby="requestMetrics">
     <thead>
       <tr>
-        <th scope="col" jhiTranslate="metrics.jvm.http.table.code">Код</th>
-        <th scope="col" jhiTranslate="metrics.jvm.http.table.count">Количество</th>
-        <th scope="col" class="text-end" jhiTranslate="metrics.jvm.http.table.mean">Среднее</th>
-        <th scope="col" class="text-end" jhiTranslate="metrics.jvm.http.table.max">Максимум</th>
+        <th scope="col" jhiTranslate="metrics.jvm.http.table.code">Code</th>
+        <th scope="col" jhiTranslate="metrics.jvm.http.table.count">Count</th>
+        <th scope="col" class="text-end" jhiTranslate="metrics.jvm.http.table.mean">Mean</th>
+        <th scope="col" class="text-end" jhiTranslate="metrics.jvm.http.table.max">Max</th>
       </tr>
     </thead>
     <tbody>

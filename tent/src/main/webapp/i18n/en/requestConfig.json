@@ -18,9 +18,8 @@
         "title": "Request Config"
       },
       "id": "ID",
-      "requestType": "Request Type",
-      "requestType": "Request Type",
-      "requestContentConfig": "Request Content Config"
+      "requestContentConfig": "Request Content Config",
+      "requestType": "Request Type"
     }
   }
 }

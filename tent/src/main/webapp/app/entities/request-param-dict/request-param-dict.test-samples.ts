@@ -1,27 +1,27 @@
 import { IRequestParamDict, NewRequestParamDict } from './request-param-dict.model';
 
 export const sampleWithRequiredData: IRequestParamDict = {
-  id: 2506,
-  name: 'atop',
+  id: 18996,
+  name: 'indeed ick',
 };
 
 export const sampleWithPartialData: IRequestParamDict = {
-  id: 2919,
-  name: 'urgently',
-  paramtype: 'abdomen cloak transfigure',
+  id: 29140,
+  name: 'abdomen cloak transfigure',
+  valueArray: true,
+  referenceTo: 'lest',
 };
 
 export const sampleWithFullData: IRequestParamDict = {
-  id: 2221,
-  code: 'lest',
-  name: 'astride yieldingly',
-  paramtype: 'decision rake recognize',
+  id: 16717,
+  code: 'optimist',
+  name: 'ugh when',
   valueArray: true,
-  referenceTo: 'membership within',
+  referenceTo: 'matchmaker front',
 };
 
 export const sampleWithNewData: NewRequestParamDict = {
-  name: 'freely ha ew',
+  name: 'that drat',
   id: null,
 };
 

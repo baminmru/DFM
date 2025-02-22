@@ -4,6 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject, from } from 'rxjs';
 
+import { IRequestInfo } from 'app/entities/request-info/request-info.model';
+import { RequestInfoService } from 'app/entities/request-info/service/request-info.service';
 import { RequestContentService } from '../service/request-content.service';
 import { IRequestContent } from '../request-content.model';
 import { RequestContentFormService } from './request-content-form.service';
@@ -16,6 +18,7 @@ describe('RequestContent Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let requestContentFormService: RequestContentFormService;
   let requestContentService: RequestContentService;
+  let requestInfoService: RequestInfoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,17 +41,43 @@ describe('RequestContent Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     requestContentFormService = TestBed.inject(RequestContentFormService);
     requestContentService = TestBed.inject(RequestContentService);
+    requestInfoService = TestBed.inject(RequestInfoService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call RequestInfo query and add missing value', () => {
       const requestContent: IRequestContent = { id: 456 };
+      const requestInfoId: IRequestInfo = { id: 25263 };
+      requestContent.requestInfoId = requestInfoId;
+
+      const requestInfoCollection: IRequestInfo[] = [{ id: 3254 }];
+      jest.spyOn(requestInfoService, 'query').mockReturnValue(of(new HttpResponse({ body: requestInfoCollection })));
+      const additionalRequestInfos = [requestInfoId];
+      const expectedCollection: IRequestInfo[] = [...additionalRequestInfos, ...requestInfoCollection];
+      jest.spyOn(requestInfoService, 'addRequestInfoToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ requestContent });
       comp.ngOnInit();
 
+      expect(requestInfoService.query).toHaveBeenCalled();
+      expect(requestInfoService.addRequestInfoToCollectionIfMissing).toHaveBeenCalledWith(
+        requestInfoCollection,
+        ...additionalRequestInfos.map(expect.objectContaining),
+      );
+      expect(comp.requestInfosSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const requestContent: IRequestContent = { id: 456 };
+      const requestInfoId: IRequestInfo = { id: 16060 };
+      requestContent.requestInfoId = requestInfoId;
+
+      activatedRoute.data = of({ requestContent });
+      comp.ngOnInit();
+
+      expect(comp.requestInfosSharedCollection).toContain(requestInfoId);
       expect(comp.requestContent).toEqual(requestContent);
     });
   });
@@ -118,6 +147,18 @@ describe('RequestContent Management Update Component', () => {
       expect(requestContentService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareRequestInfo', () => {
+      it('Should forward to requestInfoService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(requestInfoService, 'compareRequestInfo');
+        comp.compareRequestInfo(entity, entity2);
+        expect(requestInfoService.compareRequestInfo).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

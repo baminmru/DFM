@@ -20,9 +20,9 @@ describe('RequestContent Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            requestInfoId: expect.any(Object),
             paramCode: expect.any(Object),
             paramValue: expect.any(Object),
+            requestInfoId: expect.any(Object),
           }),
         );
       });
@@ -33,9 +33,9 @@ describe('RequestContent Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            requestInfoId: expect.any(Object),
             paramCode: expect.any(Object),
             paramValue: expect.any(Object),
+            requestInfoId: expect.any(Object),
           }),
         );
       });

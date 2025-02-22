@@ -1,6 +1,6 @@
 {
   "annotations": {
-    "changelogDate": "20250221142523"
+    "changelogDate": "20250221173653"
   },
   "applications": ["testTent"],
   "fields": [
@@ -18,6 +18,21 @@
     }
   ],
   "name": "RequestType",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "requestInfo",
+      "otherEntityRelationshipName": "requestType",
+      "relationshipName": "requestInfo",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "requestConfig",
+      "otherEntityRelationshipName": "requestType",
+      "relationshipName": "requestConfig",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "searchEngine": "no"
 }

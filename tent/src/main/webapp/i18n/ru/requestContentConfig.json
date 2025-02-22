@@ -18,8 +18,6 @@
         "title": "Request Content Config"
       },
       "id": "ID",
-      "requestConfigId": "Request Config Id",
-      "parameter": "Parameter",
       "isMandatory": "Is Mandatory",
       "requestConfigId": "Request Config Id",
       "parameter": "Parameter"

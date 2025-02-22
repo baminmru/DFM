@@ -4,8 +4,12 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject, from } from 'rxjs';
 
-import { RequestContentConfigService } from '../service/request-content-config.service';
+import { IRequestConfig } from 'app/entities/request-config/request-config.model';
+import { RequestConfigService } from 'app/entities/request-config/service/request-config.service';
+import { IRequestParamDict } from 'app/entities/request-param-dict/request-param-dict.model';
+import { RequestParamDictService } from 'app/entities/request-param-dict/service/request-param-dict.service';
 import { IRequestContentConfig } from '../request-content-config.model';
+import { RequestContentConfigService } from '../service/request-content-config.service';
 import { RequestContentConfigFormService } from './request-content-config-form.service';
 
 import { RequestContentConfigUpdateComponent } from './request-content-config-update.component';
@@ -16,6 +20,8 @@ describe('RequestContentConfig Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let requestContentConfigFormService: RequestContentConfigFormService;
   let requestContentConfigService: RequestContentConfigService;
+  let requestConfigService: RequestConfigService;
+  let requestParamDictService: RequestParamDictService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,17 +44,69 @@ describe('RequestContentConfig Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     requestContentConfigFormService = TestBed.inject(RequestContentConfigFormService);
     requestContentConfigService = TestBed.inject(RequestContentConfigService);
+    requestConfigService = TestBed.inject(RequestConfigService);
+    requestParamDictService = TestBed.inject(RequestParamDictService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call RequestConfig query and add missing value', () => {
       const requestContentConfig: IRequestContentConfig = { id: 456 };
+      const requestConfigId: IRequestConfig = { id: 17454 };
+      requestContentConfig.requestConfigId = requestConfigId;
+
+      const requestConfigCollection: IRequestConfig[] = [{ id: 18075 }];
+      jest.spyOn(requestConfigService, 'query').mockReturnValue(of(new HttpResponse({ body: requestConfigCollection })));
+      const additionalRequestConfigs = [requestConfigId];
+      const expectedCollection: IRequestConfig[] = [...additionalRequestConfigs, ...requestConfigCollection];
+      jest.spyOn(requestConfigService, 'addRequestConfigToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ requestContentConfig });
       comp.ngOnInit();
 
+      expect(requestConfigService.query).toHaveBeenCalled();
+      expect(requestConfigService.addRequestConfigToCollectionIfMissing).toHaveBeenCalledWith(
+        requestConfigCollection,
+        ...additionalRequestConfigs.map(expect.objectContaining),
+      );
+      expect(comp.requestConfigsSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should call RequestParamDict query and add missing value', () => {
+      const requestContentConfig: IRequestContentConfig = { id: 456 };
+      const parameter: IRequestParamDict = { id: 6484 };
+      requestContentConfig.parameter = parameter;
+
+      const requestParamDictCollection: IRequestParamDict[] = [{ id: 2506 }];
+      jest.spyOn(requestParamDictService, 'query').mockReturnValue(of(new HttpResponse({ body: requestParamDictCollection })));
+      const additionalRequestParamDicts = [parameter];
+      const expectedCollection: IRequestParamDict[] = [...additionalRequestParamDicts, ...requestParamDictCollection];
+      jest.spyOn(requestParamDictService, 'addRequestParamDictToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ requestContentConfig });
+      comp.ngOnInit();
+
+      expect(requestParamDictService.query).toHaveBeenCalled();
+      expect(requestParamDictService.addRequestParamDictToCollectionIfMissing).toHaveBeenCalledWith(
+        requestParamDictCollection,
+        ...additionalRequestParamDicts.map(expect.objectContaining),
+      );
+      expect(comp.requestParamDictsSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const requestContentConfig: IRequestContentConfig = { id: 456 };
+      const requestConfigId: IRequestConfig = { id: 4662 };
+      requestContentConfig.requestConfigId = requestConfigId;
+      const parameter: IRequestParamDict = { id: 10706 };
+      requestContentConfig.parameter = parameter;
+
+      activatedRoute.data = of({ requestContentConfig });
+      comp.ngOnInit();
+
+      expect(comp.requestConfigsSharedCollection).toContain(requestConfigId);
+      expect(comp.requestParamDictsSharedCollection).toContain(parameter);
       expect(comp.requestContentConfig).toEqual(requestContentConfig);
     });
   });
@@ -118,6 +176,28 @@ describe('RequestContentConfig Management Update Component', () => {
       expect(requestContentConfigService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareRequestConfig', () => {
+      it('Should forward to requestConfigService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(requestConfigService, 'compareRequestConfig');
+        comp.compareRequestConfig(entity, entity2);
+        expect(requestConfigService.compareRequestConfig).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareRequestParamDict', () => {
+      it('Should forward to requestParamDictService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(requestParamDictService, 'compareRequestParamDict');
+        comp.compareRequestParamDict(entity, entity2);
+        expect(requestParamDictService.compareRequestParamDict).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

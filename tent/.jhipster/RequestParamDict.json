@@ -1,6 +1,6 @@
 {
   "annotations": {
-    "changelogDate": "20250221142528"
+    "changelogDate": "20250221174153"
   },
   "applications": ["testTent"],
   "fields": [
@@ -17,12 +17,6 @@
       "fieldValidateRulesMaxlength": "255"
     },
     {
-      "fieldName": "paramtype",
-      "fieldType": "String",
-      "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "64"
-    },
-    {
       "fieldName": "valueArray",
       "fieldType": "Boolean"
     },
@@ -34,6 +28,14 @@
     }
   ],
   "name": "RequestParamDict",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "requestContentConfig",
+      "otherEntityRelationshipName": "parameter",
+      "relationshipName": "requestContentConfig",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "searchEngine": "no"
 }

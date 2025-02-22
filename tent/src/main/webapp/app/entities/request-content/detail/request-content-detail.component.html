@@ -15,10 +15,6 @@
           <dd>
             <span>{{ requestContent()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span></dt>
-          <dd>
-            <span>{{ requestContent()!.requestInfoId }}</span>
-          </dd>
           <dt><span jhiTranslate="testTentApp.requestContent.paramCode">Param Code</span></dt>
           <dd>
             <span>{{ requestContent()!.paramCode }}</span>
@@ -27,14 +23,24 @@
           <dd>
             <span>{{ requestContent()!.paramValue }}</span>
           </dd>
+          <dt><span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span></dt>
+          <dd>
+            @if (requestContent()!.requestInfoId) {
+              <div>
+                <a [routerLink]="['/request-info', requestContent()!.requestInfoId?.id, 'view']">{{
+                  requestContent()!.requestInfoId?.id
+                }}</a>
+              </div>
+            }
+          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
         </button>
 
         <button type="button" [routerLink]="['/request-content', requestContent()!.id, 'edit']" class="btn btn-primary">
-          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
         </button>
       </div>
     }

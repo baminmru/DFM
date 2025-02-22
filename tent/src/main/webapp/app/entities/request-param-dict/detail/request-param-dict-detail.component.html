@@ -25,10 +25,6 @@
           <dd>
             <span>{{ requestParamDict()!.name }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestParamDict.paramtype">Paramtype</span></dt>
-          <dd>
-            <span>{{ requestParamDict()!.paramtype }}</span>
-          </dd>
           <dt><span jhiTranslate="testTentApp.requestParamDict.valueArray">Value Array</span></dt>
           <dd>
             <span>{{ requestParamDict()!.valueArray }}</span>
@@ -37,24 +33,14 @@
           <dd>
             <span>{{ requestParamDict()!.referenceTo }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestParamDict.requestContentConfig">Request Content Config</span></dt>
-          <dd>
-            @if (requestParamDict()!.requestContentConfig) {
-              <div>
-                <a [routerLink]="['/request-content-config', requestParamDict()!.requestContentConfig?.id, 'view']">{{
-                  requestParamDict()!.requestContentConfig?.id
-                }}</a>
-              </div>
-            }
-          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
         </button>
 
         <button type="button" [routerLink]="['/request-param-dict', requestParamDict()!.id, 'edit']" class="btn btn-primary">
-          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
         </button>
       </div>
     }

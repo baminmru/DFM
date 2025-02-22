@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" jhiTranslate="metrics.jvm.threads.dump.title">Дамп потоков</h4>
+  <h4 class="modal-title" jhiTranslate="metrics.jvm.threads.dump.title">Threads dump</h4>
 
   <button type="button" class="btn-close" (click)="dismiss()">&nbsp;</button>
 </div>
@@ -66,8 +66,8 @@
         &nbsp;{{ thread.threadName }} (ID {{ thread.threadId }})
 
         <a (click)="thread.showThreadDump = !thread.showThreadDump" href="javascript:void(0);">
-          <span [hidden]="thread.showThreadDump" jhiTranslate="metrics.jvm.threads.dump.show">Показать</span>
-          <span [hidden]="!thread.showThreadDump" jhiTranslate="metrics.jvm.threads.dump.hide">Скрыть</span>
+          <span [hidden]="thread.showThreadDump" jhiTranslate="metrics.jvm.threads.dump.show">Show Stacktrace</span>
+          <span [hidden]="!thread.showThreadDump" jhiTranslate="metrics.jvm.threads.dump.hide">Hide Stacktrace</span>
         </a>
       </h6>
 
@@ -93,11 +93,11 @@
         </caption>
         <thead>
           <tr>
-            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.blockedtime">Заблокированные Время</th>
-            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.blockedcount">Заблокированные Количество</th>
-            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.waitedtime">Ожидающие Время</th>
-            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.waitedcount">Ожидающие Количество</th>
-            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.lockname">Название блокировки</th>
+            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.blockedtime">Blocked Time</th>
+            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.blockedcount">Blocked Count</th>
+            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.waitedtime">Waited Time</th>
+            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.waitedcount">Waited Count</th>
+            <th scope="col" jhiTranslate="metrics.jvm.threads.dump.lockname">Lock name</th>
           </tr>
         </thead>
         <tbody>

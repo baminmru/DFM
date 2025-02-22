@@ -1,27 +1,24 @@
 import { IRequestContent, NewRequestContent } from './request-content.model';
 
 export const sampleWithRequiredData: IRequestContent = {
-  id: 14452,
-  requestInfoId: 19724,
-  paramCode: 'whether',
+  id: 23969,
+  paramCode: 'and',
 };
 
 export const sampleWithPartialData: IRequestContent = {
-  id: 32329,
-  requestInfoId: 25629,
-  paramCode: 'outrageous unlike hmph',
+  id: 25241,
+  paramCode: 'well-to-do',
+  paramValue: 'open than',
 };
 
 export const sampleWithFullData: IRequestContent = {
-  id: 9012,
-  requestInfoId: 736,
-  paramCode: 'for unwilling tender',
-  paramValue: 'during eek accurate',
+  id: 9883,
+  paramCode: 'stow',
+  paramValue: 'replication trustworthy',
 };
 
 export const sampleWithNewData: NewRequestContent = {
-  requestInfoId: 1872,
-  paramCode: 'wing eek',
+  paramCode: 'guilty onto',
   id: null,
 };
 

@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestInfo.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.requestInfo.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-info/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestInfo.home.createLabel">Создать новый Request Info</span>
+        <span jhiTranslate="testTentApp.requestInfo.home.createLabel">Create a new Request Info</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestInfos?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestInfo.home.notFound">Request Infos не найдено</span>
+      <span jhiTranslate="testTentApp.requestInfo.home.notFound">No Request Infos found</span>
     </div>
   }
 
@@ -38,13 +38,6 @@
             <th scope="col" jhiSortBy="id">
               <div class="d-flex">
                 <span jhiTranslate="global.field.id">ID</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="requestType">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.requestType">Request Type</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
@@ -105,9 +98,9 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="requestContent.id">
+            <th scope="col" jhiSortBy="requestType.id">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.requestContent">Request Content</span>
+                <span jhiTranslate="testTentApp.requestInfo.requestType">Request Type</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -120,7 +113,6 @@
               <td>
                 <a [routerLink]="['/request-info', requestInfo.id, 'view']">{{ requestInfo.id }}</a>
               </td>
-              <td>{{ requestInfo.requestType }}</td>
               <td>{{ requestInfo.contract }}</td>
               <td>{{ requestInfo.requestDate | formatMediumDate }}</td>
               <td>{{ requestInfo.effectiveDateStart | formatMediumDate }}</td>
@@ -130,9 +122,9 @@
               <td>{{ requestInfo.updatedAt | formatMediumDate }}</td>
               <td>{{ requestInfo.updatedBy }}</td>
               <td>
-                @if (requestInfo.requestContent) {
+                @if (requestInfo.requestType) {
                   <div>
-                    <a [routerLink]="['/request-content', requestInfo.requestContent.id, 'view']">{{ requestInfo.requestContent.id }}</a>
+                    <a [routerLink]="['/request-type', requestInfo.requestType.id, 'view']">{{ requestInfo.requestType.id }}</a>
                   </div>
                 }
               </td>
@@ -140,17 +132,17 @@
                 <div class="btn-group">
                   <a [routerLink]="['/request-info', requestInfo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <a [routerLink]="['/request-info', requestInfo.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                     <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                   </a>
 
                   <button type="submit" (click)="delete(requestInfo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

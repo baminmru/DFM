@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IRequestContent } from 'app/entities/request-content/request-content.model';
-import { RequestContentService } from 'app/entities/request-content/service/request-content.service';
+import { IRequestType } from 'app/entities/request-type/request-type.model';
+import { RequestTypeService } from 'app/entities/request-type/service/request-type.service';
 import { IRequestInfo } from '../request-info.model';
 import { RequestInfoService } from '../service/request-info.service';
 import { RequestInfoFormService, RequestInfoFormGroup } from './request-info-form.service';
@@ -23,18 +23,17 @@ export class RequestInfoUpdateComponent implements OnInit {
   isSaving = false;
   requestInfo: IRequestInfo | null = null;
 
-  requestContentsSharedCollection: IRequestContent[] = [];
+  requestTypesSharedCollection: IRequestType[] = [];
 
   protected requestInfoService = inject(RequestInfoService);
   protected requestInfoFormService = inject(RequestInfoFormService);
-  protected requestContentService = inject(RequestContentService);
+  protected requestTypeService = inject(RequestTypeService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: RequestInfoFormGroup = this.requestInfoFormService.createRequestInfoFormGroup();
 
-  compareRequestContent = (o1: IRequestContent | null, o2: IRequestContent | null): boolean =>
-    this.requestContentService.compareRequestContent(o1, o2);
+  compareRequestType = (o1: IRequestType | null, o2: IRequestType | null): boolean => this.requestTypeService.compareRequestType(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ requestInfo }) => {
@@ -84,24 +83,21 @@ export class RequestInfoUpdateComponent implements OnInit {
     this.requestInfo = requestInfo;
     this.requestInfoFormService.resetForm(this.editForm, requestInfo);
 
-    this.requestContentsSharedCollection = this.requestContentService.addRequestContentToCollectionIfMissing<IRequestContent>(
-      this.requestContentsSharedCollection,
-      requestInfo.requestContent,
+    this.requestTypesSharedCollection = this.requestTypeService.addRequestTypeToCollectionIfMissing<IRequestType>(
+      this.requestTypesSharedCollection,
+      requestInfo.requestType,
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.requestContentService
+    this.requestTypeService
       .query()
-      .pipe(map((res: HttpResponse<IRequestContent[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IRequestType[]>) => res.body ?? []))
       .pipe(
-        map((requestContents: IRequestContent[]) =>
-          this.requestContentService.addRequestContentToCollectionIfMissing<IRequestContent>(
-            requestContents,
-            this.requestInfo?.requestContent,
-          ),
+        map((requestTypes: IRequestType[]) =>
+          this.requestTypeService.addRequestTypeToCollectionIfMissing<IRequestType>(requestTypes, this.requestInfo?.requestType),
         ),
       )
-      .subscribe((requestContents: IRequestContent[]) => (this.requestContentsSharedCollection = requestContents));
+      .subscribe((requestTypes: IRequestType[]) => (this.requestTypesSharedCollection = requestTypes));
   }
 }

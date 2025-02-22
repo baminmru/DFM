@@ -1,9 +1,8 @@
-import { IRequestContentConfig } from 'app/entities/request-content-config/request-content-config.model';
+import { IRequestType } from 'app/entities/request-type/request-type.model';
 
 export interface IRequestConfig {
   id: number;
-  requestType?: number | null;
-  requestContentConfig?: IRequestContentConfig | null;
+  requestType?: IRequestType | null;
 }
 
 export type NewRequestConfig = Omit<IRequestConfig, 'id'> & { id: null };

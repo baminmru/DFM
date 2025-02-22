@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestConfig.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.requestConfig.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-config/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestConfig.home.createLabel">Создать новый Request Config</span>
+        <span jhiTranslate="testTentApp.requestConfig.home.createLabel">Create a new Request Config</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestConfigs?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestConfig.home.notFound">Request Configs не найдено</span>
+      <span jhiTranslate="testTentApp.requestConfig.home.notFound">No Request Configs found</span>
     </div>
   }
 
@@ -42,16 +42,9 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="requestType">
+            <th scope="col" jhiSortBy="requestType.id">
               <div class="d-flex">
                 <span jhiTranslate="testTentApp.requestConfig.requestType">Request Type</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="requestContentConfig.id">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestConfig.requestContentConfig">Request Content Config</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -64,13 +57,10 @@
               <td>
                 <a [routerLink]="['/request-config', requestConfig.id, 'view']">{{ requestConfig.id }}</a>
               </td>
-              <td>{{ requestConfig.requestType }}</td>
               <td>
-                @if (requestConfig.requestContentConfig) {
+                @if (requestConfig.requestType) {
                   <div>
-                    <a [routerLink]="['/request-content-config', requestConfig.requestContentConfig.id, 'view']">{{
-                      requestConfig.requestContentConfig.id
-                    }}</a>
+                    <a [routerLink]="['/request-type', requestConfig.requestType.id, 'view']">{{ requestConfig.requestType.id }}</a>
                   </div>
                 }
               </td>
@@ -78,17 +68,17 @@
                 <div class="btn-group">
                   <a [routerLink]="['/request-config', requestConfig.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <a [routerLink]="['/request-config', requestConfig.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                     <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                   </a>
 
                   <button type="submit" (click)="delete(requestConfig)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

@@ -2,17 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IRequestInfo } from 'app/entities/request-info/request-info.model';
-import { RequestInfoService } from 'app/entities/request-info/service/request-info.service';
-import { IRequestConfig } from 'app/entities/request-config/request-config.model';
-import { RequestConfigService } from 'app/entities/request-config/service/request-config.service';
-import { RequestTypeService } from '../service/request-type.service';
 import { IRequestType } from '../request-type.model';
+import { RequestTypeService } from '../service/request-type.service';
 import { RequestTypeFormService, RequestTypeFormGroup } from './request-type-form.service';
 
 @Component({
@@ -25,22 +21,12 @@ export class RequestTypeUpdateComponent implements OnInit {
   isSaving = false;
   requestType: IRequestType | null = null;
 
-  requestInfosSharedCollection: IRequestInfo[] = [];
-  requestConfigsSharedCollection: IRequestConfig[] = [];
-
   protected requestTypeService = inject(RequestTypeService);
   protected requestTypeFormService = inject(RequestTypeFormService);
-  protected requestInfoService = inject(RequestInfoService);
-  protected requestConfigService = inject(RequestConfigService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: RequestTypeFormGroup = this.requestTypeFormService.createRequestTypeFormGroup();
-
-  compareRequestInfo = (o1: IRequestInfo | null, o2: IRequestInfo | null): boolean => this.requestInfoService.compareRequestInfo(o1, o2);
-
-  compareRequestConfig = (o1: IRequestConfig | null, o2: IRequestConfig | null): boolean =>
-    this.requestConfigService.compareRequestConfig(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ requestType }) => {
@@ -48,8 +34,6 @@ export class RequestTypeUpdateComponent implements OnInit {
       if (requestType) {
         this.updateForm(requestType);
       }
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -89,36 +73,5 @@ export class RequestTypeUpdateComponent implements OnInit {
   protected updateForm(requestType: IRequestType): void {
     this.requestType = requestType;
     this.requestTypeFormService.resetForm(this.editForm, requestType);
-
-    this.requestInfosSharedCollection = this.requestInfoService.addRequestInfoToCollectionIfMissing<IRequestInfo>(
-      this.requestInfosSharedCollection,
-      requestType.requestInfo,
-    );
-    this.requestConfigsSharedCollection = this.requestConfigService.addRequestConfigToCollectionIfMissing<IRequestConfig>(
-      this.requestConfigsSharedCollection,
-      requestType.requestConfig,
-    );
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.requestInfoService
-      .query()
-      .pipe(map((res: HttpResponse<IRequestInfo[]>) => res.body ?? []))
-      .pipe(
-        map((requestInfos: IRequestInfo[]) =>
-          this.requestInfoService.addRequestInfoToCollectionIfMissing<IRequestInfo>(requestInfos, this.requestType?.requestInfo),
-        ),
-      )
-      .subscribe((requestInfos: IRequestInfo[]) => (this.requestInfosSharedCollection = requestInfos));
-
-    this.requestConfigService
-      .query()
-      .pipe(map((res: HttpResponse<IRequestConfig[]>) => res.body ?? []))
-      .pipe(
-        map((requestConfigs: IRequestConfig[]) =>
-          this.requestConfigService.addRequestConfigToCollectionIfMissing<IRequestConfig>(requestConfigs, this.requestType?.requestConfig),
-        ),
-      )
-      .subscribe((requestConfigs: IRequestConfig[]) => (this.requestConfigsSharedCollection = requestConfigs));
   }
 }

@@ -1,9 +1,8 @@
 import dayjs from 'dayjs/esm';
-import { IRequestContent } from 'app/entities/request-content/request-content.model';
+import { IRequestType } from 'app/entities/request-type/request-type.model';
 
 export interface IRequestInfo {
   id: number;
-  requestType?: number | null;
   contract?: number | null;
   requestDate?: dayjs.Dayjs | null;
   effectiveDateStart?: dayjs.Dayjs | null;
@@ -12,7 +11,7 @@ export interface IRequestInfo {
   createdBy?: string | null;
   updatedAt?: dayjs.Dayjs | null;
   updatedBy?: string | null;
-  requestContent?: IRequestContent | null;
+  requestType?: IRequestType | null;
 }
 
 export type NewRequestInfo = Omit<IRequestInfo, 'id'> & { id: null };

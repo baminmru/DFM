@@ -1,14 +1,9 @@
 {
   "annotations": {
-    "changelogDate": "20250221142525"
+    "changelogDate": "20250221173853"
   },
   "applications": ["testTent"],
   "fields": [
-    {
-      "fieldName": "requestInfoId",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
     {
       "fieldName": "paramCode",
       "fieldType": "String",
@@ -27,8 +22,8 @@
     {
       "otherEntityName": "requestInfo",
       "relationshipName": "requestInfoId",
-      "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no"

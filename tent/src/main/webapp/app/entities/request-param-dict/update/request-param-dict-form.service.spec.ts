@@ -22,10 +22,8 @@ describe('RequestParamDict Form Service', () => {
             id: expect.any(Object),
             code: expect.any(Object),
             name: expect.any(Object),
-            paramtype: expect.any(Object),
             valueArray: expect.any(Object),
             referenceTo: expect.any(Object),
-            requestContentConfig: expect.any(Object),
           }),
         );
       });
@@ -38,10 +36,8 @@ describe('RequestParamDict Form Service', () => {
             id: expect.any(Object),
             code: expect.any(Object),
             name: expect.any(Object),
-            paramtype: expect.any(Object),
             valueArray: expect.any(Object),
             referenceTo: expect.any(Object),
-            requestContentConfig: expect.any(Object),
           }),
         );
       });

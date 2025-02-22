@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestContent.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.requestContent.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-content/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestContent.home.createLabel">Создать новый Request Content</span>
+        <span jhiTranslate="testTentApp.requestContent.home.createLabel">Create a new Request Content</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestContents?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestContent.home.notFound">Request Contents не найдено</span>
+      <span jhiTranslate="testTentApp.requestContent.home.notFound">No Request Contents found</span>
     </div>
   }
 
@@ -38,13 +38,6 @@
             <th scope="col" jhiSortBy="id">
               <div class="d-flex">
                 <span jhiTranslate="global.field.id">ID</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="requestInfoId">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
@@ -63,6 +56,12 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="requestInfoId.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -72,9 +71,15 @@
               <td>
                 <a [routerLink]="['/request-content', requestContent.id, 'view']">{{ requestContent.id }}</a>
               </td>
-              <td>{{ requestContent.requestInfoId }}</td>
               <td>{{ requestContent.paramCode }}</td>
               <td>{{ requestContent.paramValue }}</td>
+              <td>
+                @if (requestContent.requestInfoId) {
+                  <div>
+                    <a [routerLink]="['/request-info', requestContent.requestInfoId.id, 'view']">{{ requestContent.requestInfoId.id }}</a>
+                  </div>
+                }
+              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a
@@ -83,7 +88,7 @@
                     data-cy="entityDetailsButton"
                   >
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <a
@@ -92,12 +97,12 @@
                     data-cy="entityEditButton"
                   >
                     <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                   </a>
 
                   <button type="submit" (click)="delete(requestContent)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

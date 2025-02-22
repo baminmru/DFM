@@ -7,15 +7,12 @@ application {
 	buildTool 	maven
 	databaseType 	sql
 	prodDatabaseType   postgresql
-	devDatabaseType 	postgresql
+	devDatabaseType h2Disk
 	clientFramework 	angularX
-	serviceDiscoveryType eureka
 	languages [ru,en]
-	packageName com.bami.ef.tent
+	packageName com.bami.tent.request
   }
   entities * 
-  
-
 }
 
 
@@ -31,8 +28,6 @@ entity  RequestType{
  // start request_info
  /* Основная информация */
 entity  RequestInfo{
-/*RequestType - 'Тип заявки' */
-		RequestType Integer required
 /*Contract - 'Контракт' */
 		Contract Integer
 /*RequestDate - 'Дата заявки' */
@@ -47,8 +42,7 @@ entity  RequestInfo{
  // start request_content
  /* Содержание заявки */
 entity  RequestContent{
-/* RequestInfoid - ' ссылка на родительскую таблицу Основная информация' */
-		RequestInfoId Integer required 
+
 /*ParamCode - 'Код параметра' */
 		ParamCode String maxlength(64) required
 /*ParamValue - 'Значение параметра' */
@@ -59,16 +53,10 @@ entity  RequestContent{
  // start request_config
  /* Конфигуратор заявки */
 entity  RequestConfig{
-/*RequestType - 'Тип заявки' */
-		RequestType Integer required
 }
  // start request_content_config
  /* Описание параметров заявки */
 entity  RequestContentConfig{
-/* RequestConfigid - ' ссылка на родительскую таблицу Конфигуратор заявки' */
-		RequestConfigId Integer required 
-/*Parameter - 'Параметр' */
-		Parameter Integer
 /*IsMandatory - 'Обязательный' */
 		IsMandatory Boolean
 }
@@ -81,8 +69,6 @@ entity  RequestParamDict{
 		Code String maxlength(40)
 /*Name - 'Название' */
 		Name String maxlength(255) required
-/*Paramtype - 'Тип параметра' */
-		Paramtype String maxlength(64)
 /*ValueArray - 'Допускает массив значений' */
 		ValueArray Boolean
 /*ReferenceTo - 'Описание ссылки' */
@@ -91,18 +77,19 @@ entity  RequestParamDict{
 
 
 relationship OneToMany {
-RequestInfo { RequestType} to RequestType
+RequestType to RequestInfo { RequestType} 
 }
 relationship OneToMany {
- RequestContent{ RequestInfoId} to  RequestInfo
+ RequestInfo to RequestContent{ RequestInfoId}  
 }
 relationship OneToMany {
- RequestConfig { RequestType} to  RequestType
+ RequestType to RequestConfig { RequestType} 
 }
 relationship OneToMany {
-RequestContentConfig { RequestConfigId} to RequestConfig
+RequestConfig to RequestContentConfig { RequestConfigId} 
 }
 relationship OneToMany {
-RequestContentConfig { Parameter} to RequestParamDict
+RequestParamDict to RequestContentConfig { Parameter} 
 }
 
+	

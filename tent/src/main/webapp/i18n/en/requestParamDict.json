@@ -20,7 +20,6 @@
       "id": "ID",
       "code": "Code",
       "name": "Name",
-      "paramtype": "Paramtype",
       "valueArray": "Value Array",
       "referenceTo": "Reference To",
       "requestContentConfig": "Request Content Config"

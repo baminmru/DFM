@@ -17,26 +17,20 @@
           </dd>
           <dt><span jhiTranslate="testTentApp.requestConfig.requestType">Request Type</span></dt>
           <dd>
-            <span>{{ requestConfig()!.requestType }}</span>
-          </dd>
-          <dt><span jhiTranslate="testTentApp.requestConfig.requestContentConfig">Request Content Config</span></dt>
-          <dd>
-            @if (requestConfig()!.requestContentConfig) {
+            @if (requestConfig()!.requestType) {
               <div>
-                <a [routerLink]="['/request-content-config', requestConfig()!.requestContentConfig?.id, 'view']">{{
-                  requestConfig()!.requestContentConfig?.id
-                }}</a>
+                <a [routerLink]="['/request-type', requestConfig()!.requestType?.id, 'view']">{{ requestConfig()!.requestType?.id }}</a>
               </div>
             }
           </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
         </button>
 
         <button type="button" [routerLink]="['/request-config', requestConfig()!.id, 'edit']" class="btn btn-primary">
-          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
         </button>
       </div>
     }

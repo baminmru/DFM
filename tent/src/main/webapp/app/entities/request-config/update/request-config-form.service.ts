@@ -19,7 +19,6 @@ type RequestConfigFormDefaults = Pick<NewRequestConfig, 'id'>;
 type RequestConfigFormGroupContent = {
   id: FormControl<IRequestConfig['id'] | NewRequestConfig['id']>;
   requestType: FormControl<IRequestConfig['requestType']>;
-  requestContentConfig: FormControl<IRequestConfig['requestContentConfig']>;
 };
 
 export type RequestConfigFormGroup = FormGroup<RequestConfigFormGroupContent>;
@@ -39,10 +38,7 @@ export class RequestConfigFormService {
           validators: [Validators.required],
         },
       ),
-      requestType: new FormControl(requestConfigRawValue.requestType, {
-        validators: [Validators.required],
-      }),
-      requestContentConfig: new FormControl(requestConfigRawValue.requestContentConfig),
+      requestType: new FormControl(requestConfigRawValue.requestType),
     });
   }
 

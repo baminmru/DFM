@@ -1,25 +1,19 @@
 import { IRequestContentConfig, NewRequestContentConfig } from './request-content-config.model';
 
 export const sampleWithRequiredData: IRequestContentConfig = {
-  id: 170,
-  requestConfigId: 24037,
+  id: 20080,
 };
 
 export const sampleWithPartialData: IRequestContentConfig = {
-  id: 25891,
-  requestConfigId: 24889,
-  isMandatory: true,
+  id: 26647,
 };
 
 export const sampleWithFullData: IRequestContentConfig = {
-  id: 25263,
-  requestConfigId: 12834,
-  parameter: 6203,
-  isMandatory: false,
+  id: 29644,
+  isMandatory: true,
 };
 
 export const sampleWithNewData: NewRequestContentConfig = {
-  requestConfigId: 11617,
   id: null,
 };
 

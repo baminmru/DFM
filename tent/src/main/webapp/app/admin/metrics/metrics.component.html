@@ -1,13 +1,13 @@
 <div>
   <h2>
-    <span id="metrics-page-heading" data-cy="metricsPageHeading" jhiTranslate="metrics.title">Метрики приложения</span>
+    <span id="metrics-page-heading" data-cy="metricsPageHeading" jhiTranslate="metrics.title">Application Metrics</span>
 
     <button class="btn btn-primary float-end" (click)="refresh()">
-      <fa-icon icon="sync"></fa-icon> <span jhiTranslate="metrics.refresh.button">Обновить</span>
+      <fa-icon icon="sync"></fa-icon> <span jhiTranslate="metrics.refresh.button">Refresh</span>
     </button>
   </h2>
 
-  <h3 jhiTranslate="metrics.jvm.title">JVM Метрики</h3>
+  <h3 jhiTranslate="metrics.jvm.title">JVM Metrics</h3>
 
   @if (metrics() && !updatingMetrics()) {
     <div class="row">
@@ -27,7 +27,7 @@
   }
 
   @if (updatingMetrics()) {
-    <div class="well well-lg" jhiTranslate="metrics.updating">Обновление...</div>
+    <div class="well well-lg" jhiTranslate="metrics.updating">Updating...</div>
   }
 
   @if (metrics() && metricsKeyExists('http.server.requests')) {

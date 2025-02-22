@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestType.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.requestType.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-type/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestType.home.createLabel">Создать новый Request Type</span>
+        <span jhiTranslate="testTentApp.requestType.home.createLabel">Create a new Request Type</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestTypes?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestType.home.notFound">Request Types не найдено</span>
+      <span jhiTranslate="testTentApp.requestType.home.notFound">No Request Types found</span>
     </div>
   }
 
@@ -56,18 +56,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="requestInfo.id">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestType.requestInfo">Request Info</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="requestConfig.id">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestType.requestConfig">Request Config</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -79,35 +67,21 @@
               </td>
               <td>{{ requestType.code }}</td>
               <td>{{ requestType.name }}</td>
-              <td>
-                @if (requestType.requestInfo) {
-                  <div>
-                    <a [routerLink]="['/request-info', requestType.requestInfo.id, 'view']">{{ requestType.requestInfo.id }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (requestType.requestConfig) {
-                  <div>
-                    <a [routerLink]="['/request-config', requestType.requestConfig.id, 'view']">{{ requestType.requestConfig.id }}</a>
-                  </div>
-                }
-              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/request-type', requestType.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <a [routerLink]="['/request-type', requestType.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                     <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                   </a>
 
                   <button type="submit" (click)="delete(requestType)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

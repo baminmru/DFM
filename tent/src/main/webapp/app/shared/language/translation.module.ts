@@ -24,9 +24,9 @@ export class TranslationModule {
   private readonly stateStorageService = inject(StateStorageService);
 
   constructor() {
-    this.translateService.setDefaultLang('ru');
+    this.translateService.setDefaultLang('en');
     // if user have changed language and navigates away from the application and back to the application then use previously choosed language
-    const langKey = this.stateStorageService.getLocale() ?? 'ru';
+    const langKey = this.stateStorageService.getLocale() ?? 'en';
     this.translateService.use(langKey);
   }
 }

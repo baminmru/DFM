@@ -18,7 +18,6 @@
         "title": "Request Info"
       },
       "id": "ID",
-      "requestType": "Request Type",
       "contract": "Contract",
       "requestDate": "Request Date",
       "effectiveDateStart": "Effective Date Start",
@@ -27,8 +26,8 @@
       "createdBy": "Created By",
       "updatedAt": "Updated At",
       "updatedBy": "Updated By",
-      "requestType": "Request Type",
-      "requestContent": "Request Content"
+      "requestContent": "Request Content",
+      "requestType": "Request Type"
     }
   }
 }

@@ -20,10 +20,8 @@ type RequestParamDictFormGroupContent = {
   id: FormControl<IRequestParamDict['id'] | NewRequestParamDict['id']>;
   code: FormControl<IRequestParamDict['code']>;
   name: FormControl<IRequestParamDict['name']>;
-  paramtype: FormControl<IRequestParamDict['paramtype']>;
   valueArray: FormControl<IRequestParamDict['valueArray']>;
   referenceTo: FormControl<IRequestParamDict['referenceTo']>;
-  requestContentConfig: FormControl<IRequestParamDict['requestContentConfig']>;
 };
 
 export type RequestParamDictFormGroup = FormGroup<RequestParamDictFormGroupContent>;
@@ -49,14 +47,10 @@ export class RequestParamDictFormService {
       name: new FormControl(requestParamDictRawValue.name, {
         validators: [Validators.required, Validators.maxLength(255)],
       }),
-      paramtype: new FormControl(requestParamDictRawValue.paramtype, {
-        validators: [Validators.maxLength(64)],
-      }),
       valueArray: new FormControl(requestParamDictRawValue.valueArray),
       referenceTo: new FormControl(requestParamDictRawValue.referenceTo, {
         validators: [Validators.maxLength(64)],
       }),
-      requestContentConfig: new FormControl(requestParamDictRawValue.requestContentConfig),
     });
   }
 

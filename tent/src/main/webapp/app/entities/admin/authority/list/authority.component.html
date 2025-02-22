@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.adminAuthority.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.adminAuthority.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/authority/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.adminAuthority.home.createLabel">Создать новый Authority</span>
+        <span jhiTranslate="testTentApp.adminAuthority.home.createLabel">Create a new Authority</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (authorities?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.adminAuthority.home.notFound">Authorities не найдено</span>
+      <span jhiTranslate="testTentApp.adminAuthority.home.notFound">No Authorities found</span>
     </div>
   }
 
@@ -55,12 +55,12 @@
                 <div class="btn-group">
                   <a [routerLink]="['/authority', authority.name, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <button type="submit" (click)="delete(authority)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

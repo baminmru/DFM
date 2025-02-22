@@ -20,9 +20,9 @@ describe('RequestContentConfig Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            isMandatory: expect.any(Object),
             requestConfigId: expect.any(Object),
             parameter: expect.any(Object),
-            isMandatory: expect.any(Object),
           }),
         );
       });
@@ -33,9 +33,9 @@ describe('RequestContentConfig Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            isMandatory: expect.any(Object),
             requestConfigId: expect.any(Object),
             parameter: expect.any(Object),
-            isMandatory: expect.any(Object),
           }),
         );
       });

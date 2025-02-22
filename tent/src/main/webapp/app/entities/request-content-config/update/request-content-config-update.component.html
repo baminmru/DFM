@@ -6,7 +6,7 @@
         data-cy="RequestContentConfigCreateUpdateHeading"
         jhiTranslate="testTentApp.requestContentConfig.home.createOrEditLabel"
       >
-        Создать или отредактировать Request Content Config
+        Create or edit a Request Content Config
       </h2>
 
       <div>
@@ -20,40 +20,6 @@
         }
 
         <div class="mb-3">
-          <label class="form-label" for="field_requestConfigId" jhiTranslate="testTentApp.requestContentConfig.requestConfigId"
-            >Request Config Id</label
-          >
-          <input
-            type="number"
-            class="form-control"
-            name="requestConfigId"
-            id="field_requestConfigId"
-            data-cy="requestConfigId"
-            formControlName="requestConfigId"
-          />
-          @if (
-            editForm.get('requestConfigId')!.invalid && (editForm.get('requestConfigId')!.dirty || editForm.get('requestConfigId')!.touched)
-          ) {
-            <div>
-              @if (editForm.get('requestConfigId')?.errors?.required) {
-                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Это поле обязательно к заполнению.</small>
-              }
-              <small
-                class="form-text text-danger"
-                [hidden]="!editForm.get('requestConfigId')?.errors?.number"
-                jhiTranslate="entity.validation.number"
-                >Это поле должно быть число.</small
-              >
-            </div>
-          }
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_parameter" jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</label>
-          <input type="number" class="form-control" name="parameter" id="field_parameter" data-cy="parameter" formControlName="parameter" />
-        </div>
-
-        <div class="mb-3">
           <label class="form-label" for="field_isMandatory" jhiTranslate="testTentApp.requestContentConfig.isMandatory">Is Mandatory</label>
           <input
             type="checkbox"
@@ -64,11 +30,47 @@
             formControlName="isMandatory"
           />
         </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestConfigId" jhiTranslate="testTentApp.requestContentConfig.requestConfigId"
+            >Request Config Id</label
+          >
+          <select
+            class="form-control"
+            id="field_requestConfigId"
+            data-cy="requestConfigId"
+            name="requestConfigId"
+            formControlName="requestConfigId"
+            [compareWith]="compareRequestConfig"
+          >
+            <option [ngValue]="null"></option>
+            @for (requestConfigOption of requestConfigsSharedCollection; track $index) {
+              <option [ngValue]="requestConfigOption">{{ requestConfigOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_parameter" jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</label>
+          <select
+            class="form-control"
+            id="field_parameter"
+            data-cy="parameter"
+            name="parameter"
+            formControlName="parameter"
+            [compareWith]="compareRequestParamDict"
+          >
+            <option [ngValue]="null"></option>
+            @for (requestParamDictOption of requestParamDictsSharedCollection; track $index) {
+              <option [ngValue]="requestParamDictOption">{{ requestParamDictOption.id }}</option>
+            }
+          </select>
+        </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -78,7 +80,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Сохранить</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

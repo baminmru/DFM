@@ -18,7 +18,6 @@
         "title": "Request Content"
       },
       "id": "ID",
-      "requestInfoId": "Request Info Id",
       "paramCode": "Param Code",
       "paramValue": "Param Value",
       "requestInfoId": "Request Info Id"

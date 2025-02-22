@@ -18,9 +18,9 @@ type RequestContentFormDefaults = Pick<NewRequestContent, 'id'>;
 
 type RequestContentFormGroupContent = {
   id: FormControl<IRequestContent['id'] | NewRequestContent['id']>;
-  requestInfoId: FormControl<IRequestContent['requestInfoId']>;
   paramCode: FormControl<IRequestContent['paramCode']>;
   paramValue: FormControl<IRequestContent['paramValue']>;
+  requestInfoId: FormControl<IRequestContent['requestInfoId']>;
 };
 
 export type RequestContentFormGroup = FormGroup<RequestContentFormGroupContent>;
@@ -40,15 +40,13 @@ export class RequestContentFormService {
           validators: [Validators.required],
         },
       ),
-      requestInfoId: new FormControl(requestContentRawValue.requestInfoId, {
-        validators: [Validators.required],
-      }),
       paramCode: new FormControl(requestContentRawValue.paramCode, {
         validators: [Validators.required, Validators.maxLength(64)],
       }),
       paramValue: new FormControl(requestContentRawValue.paramValue, {
         validators: [Validators.maxLength(255)],
       }),
+      requestInfoId: new FormControl(requestContentRawValue.requestInfoId),
     });
   }
 

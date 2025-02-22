@@ -23,30 +23,14 @@
           <dd>
             <span>{{ requestType()!.name }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestType.requestInfo">Request Info</span></dt>
-          <dd>
-            @if (requestType()!.requestInfo) {
-              <div>
-                <a [routerLink]="['/request-info', requestType()!.requestInfo?.id, 'view']">{{ requestType()!.requestInfo?.id }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span jhiTranslate="testTentApp.requestType.requestConfig">Request Config</span></dt>
-          <dd>
-            @if (requestType()!.requestConfig) {
-              <div>
-                <a [routerLink]="['/request-config', requestType()!.requestConfig?.id, 'view']">{{ requestType()!.requestConfig?.id }}</a>
-              </div>
-            }
-          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Назад</span>
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
         </button>
 
         <button type="button" [routerLink]="['/request-type', requestType()!.id, 'edit']" class="btn btn-primary">
-          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Изменить</span>
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
         </button>
       </div>
     }

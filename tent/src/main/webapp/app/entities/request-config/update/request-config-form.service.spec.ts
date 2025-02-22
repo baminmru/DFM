@@ -21,7 +21,6 @@ describe('RequestConfig Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             requestType: expect.any(Object),
-            requestContentConfig: expect.any(Object),
           }),
         );
       });
@@ -33,7 +32,6 @@ describe('RequestConfig Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             requestType: expect.any(Object),
-            requestContentConfig: expect.any(Object),
           }),
         );
       });

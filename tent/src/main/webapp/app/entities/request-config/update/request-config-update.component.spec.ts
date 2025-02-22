@@ -4,8 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject, from } from 'rxjs';
 
-import { IRequestContentConfig } from 'app/entities/request-content-config/request-content-config.model';
-import { RequestContentConfigService } from 'app/entities/request-content-config/service/request-content-config.service';
+import { IRequestType } from 'app/entities/request-type/request-type.model';
+import { RequestTypeService } from 'app/entities/request-type/service/request-type.service';
 import { RequestConfigService } from '../service/request-config.service';
 import { IRequestConfig } from '../request-config.model';
 import { RequestConfigFormService } from './request-config-form.service';
@@ -18,7 +18,7 @@ describe('RequestConfig Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let requestConfigFormService: RequestConfigFormService;
   let requestConfigService: RequestConfigService;
-  let requestContentConfigService: RequestContentConfigService;
+  let requestTypeService: RequestTypeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,43 +41,43 @@ describe('RequestConfig Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     requestConfigFormService = TestBed.inject(RequestConfigFormService);
     requestConfigService = TestBed.inject(RequestConfigService);
-    requestContentConfigService = TestBed.inject(RequestContentConfigService);
+    requestTypeService = TestBed.inject(RequestTypeService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call RequestContentConfig query and add missing value', () => {
+    it('Should call RequestType query and add missing value', () => {
       const requestConfig: IRequestConfig = { id: 456 };
-      const requestContentConfig: IRequestContentConfig = { id: 26647 };
-      requestConfig.requestContentConfig = requestContentConfig;
+      const requestType: IRequestType = { id: 31740 };
+      requestConfig.requestType = requestType;
 
-      const requestContentConfigCollection: IRequestContentConfig[] = [{ id: 29644 }];
-      jest.spyOn(requestContentConfigService, 'query').mockReturnValue(of(new HttpResponse({ body: requestContentConfigCollection })));
-      const additionalRequestContentConfigs = [requestContentConfig];
-      const expectedCollection: IRequestContentConfig[] = [...additionalRequestContentConfigs, ...requestContentConfigCollection];
-      jest.spyOn(requestContentConfigService, 'addRequestContentConfigToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const requestTypeCollection: IRequestType[] = [{ id: 31717 }];
+      jest.spyOn(requestTypeService, 'query').mockReturnValue(of(new HttpResponse({ body: requestTypeCollection })));
+      const additionalRequestTypes = [requestType];
+      const expectedCollection: IRequestType[] = [...additionalRequestTypes, ...requestTypeCollection];
+      jest.spyOn(requestTypeService, 'addRequestTypeToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ requestConfig });
       comp.ngOnInit();
 
-      expect(requestContentConfigService.query).toHaveBeenCalled();
-      expect(requestContentConfigService.addRequestContentConfigToCollectionIfMissing).toHaveBeenCalledWith(
-        requestContentConfigCollection,
-        ...additionalRequestContentConfigs.map(expect.objectContaining),
+      expect(requestTypeService.query).toHaveBeenCalled();
+      expect(requestTypeService.addRequestTypeToCollectionIfMissing).toHaveBeenCalledWith(
+        requestTypeCollection,
+        ...additionalRequestTypes.map(expect.objectContaining),
       );
-      expect(comp.requestContentConfigsSharedCollection).toEqual(expectedCollection);
+      expect(comp.requestTypesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const requestConfig: IRequestConfig = { id: 456 };
-      const requestContentConfig: IRequestContentConfig = { id: 721 };
-      requestConfig.requestContentConfig = requestContentConfig;
+      const requestType: IRequestType = { id: 25880 };
+      requestConfig.requestType = requestType;
 
       activatedRoute.data = of({ requestConfig });
       comp.ngOnInit();
 
-      expect(comp.requestContentConfigsSharedCollection).toContain(requestContentConfig);
+      expect(comp.requestTypesSharedCollection).toContain(requestType);
       expect(comp.requestConfig).toEqual(requestConfig);
     });
   });
@@ -151,13 +151,13 @@ describe('RequestConfig Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareRequestContentConfig', () => {
-      it('Should forward to requestContentConfigService', () => {
+    describe('compareRequestType', () => {
+      it('Should forward to requestTypeService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(requestContentConfigService, 'compareRequestContentConfig');
-        comp.compareRequestContentConfig(entity, entity2);
-        expect(requestContentConfigService.compareRequestContentConfig).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(requestTypeService, 'compareRequestType');
+        comp.compareRequestType(entity, entity2);
+        expect(requestTypeService.compareRequestType).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

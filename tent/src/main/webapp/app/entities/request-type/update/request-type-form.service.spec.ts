@@ -22,8 +22,6 @@ describe('RequestType Form Service', () => {
             id: expect.any(Object),
             code: expect.any(Object),
             name: expect.any(Object),
-            requestInfo: expect.any(Object),
-            requestConfig: expect.any(Object),
           }),
         );
       });
@@ -36,8 +34,6 @@ describe('RequestType Form Service', () => {
             id: expect.any(Object),
             code: expect.any(Object),
             name: expect.any(Object),
-            requestInfo: expect.any(Object),
-            requestConfig: expect.any(Object),
           }),
         );
       });

@@ -2,7 +2,7 @@
   <form name="deleteForm" (ngSubmit)="confirmDelete(requestContentConfig.id!)">
     <div class="modal-header">
       <h4 class="modal-title" data-cy="requestContentConfigDeleteDialogHeading" jhiTranslate="entity.delete.title">
-        Подтвердите операцию удаления
+        Confirm delete operation
       </h4>
     </div>
 
@@ -13,17 +13,17 @@
         jhiTranslate="testTentApp.requestContentConfig.delete.question"
         [translateValues]="{ id: requestContentConfig.id }"
       >
-        Вы уверены что хотите удалить Request Content Config {{ requestContentConfig.id }}?
+        Are you sure you want to delete Request Content Config {{ requestContentConfig.id }}?
       </p>
     </div>
 
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
-        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Отмена</span>
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
       </button>
 
       <button id="jhi-confirm-delete-requestContentConfig" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
-        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Удалить</span>
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
       </button>
     </div>
   </form>

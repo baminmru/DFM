@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestParamDict.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.requestParamDict.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-param-dict/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestParamDict.home.createLabel">Создать новый Request Param Dict</span>
+        <span jhiTranslate="testTentApp.requestParamDict.home.createLabel">Create a new Request Param Dict</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestParamDicts?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestParamDict.home.notFound">Request Param Dicts не найдено</span>
+      <span jhiTranslate="testTentApp.requestParamDict.home.notFound">No Request Param Dicts found</span>
     </div>
   }
 
@@ -56,13 +56,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="paramtype">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestParamDict.paramtype">Paramtype</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col" jhiSortBy="valueArray">
               <div class="d-flex">
                 <span jhiTranslate="testTentApp.requestParamDict.valueArray">Value Array</span>
@@ -77,12 +70,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="requestContentConfig.id">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestParamDict.requestContentConfig">Request Content Config</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -94,18 +81,8 @@
               </td>
               <td>{{ requestParamDict.code }}</td>
               <td>{{ requestParamDict.name }}</td>
-              <td>{{ requestParamDict.paramtype }}</td>
               <td>{{ requestParamDict.valueArray }}</td>
               <td>{{ requestParamDict.referenceTo }}</td>
-              <td>
-                @if (requestParamDict.requestContentConfig) {
-                  <div>
-                    <a [routerLink]="['/request-content-config', requestParamDict.requestContentConfig.id, 'view']">{{
-                      requestParamDict.requestContentConfig.id
-                    }}</a>
-                  </div>
-                }
-              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a
@@ -114,7 +91,7 @@
                     data-cy="entityDetailsButton"
                   >
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <a
@@ -123,12 +100,12 @@
                     data-cy="entityEditButton"
                   >
                     <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                   </a>
 
                   <button type="submit" (click)="delete(requestParamDict)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestContentConfig.home.refreshListLabel">Обновить список</span>
+        <span jhiTranslate="testTentApp.requestContentConfig.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-content-config/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestContentConfig.home.createLabel">Создать новый Request Content Config</span>
+        <span jhiTranslate="testTentApp.requestContentConfig.home.createLabel">Create a new Request Content Config</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestContentConfigs?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestContentConfig.home.notFound">Request Content Configs не найдено</span>
+      <span jhiTranslate="testTentApp.requestContentConfig.home.notFound">No Request Content Configs found</span>
     </div>
   }
 
@@ -42,24 +42,22 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="requestConfigId">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestContentConfig.requestConfigId">Request Config Id</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="parameter">
-              <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</span>
-
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col" jhiSortBy="isMandatory">
               <div class="d-flex">
                 <span jhiTranslate="testTentApp.requestContentConfig.isMandatory">Is Mandatory</span>
 
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestConfigId.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestContentConfig.requestConfigId">Request Config Id</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="parameter.id">
+              <div class="d-flex">
+                <span jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -72,9 +70,25 @@
               <td>
                 <a [routerLink]="['/request-content-config', requestContentConfig.id, 'view']">{{ requestContentConfig.id }}</a>
               </td>
-              <td>{{ requestContentConfig.requestConfigId }}</td>
-              <td>{{ requestContentConfig.parameter }}</td>
               <td>{{ requestContentConfig.isMandatory }}</td>
+              <td>
+                @if (requestContentConfig.requestConfigId) {
+                  <div>
+                    <a [routerLink]="['/request-config', requestContentConfig.requestConfigId.id, 'view']">{{
+                      requestContentConfig.requestConfigId.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (requestContentConfig.parameter) {
+                  <div>
+                    <a [routerLink]="['/request-param-dict', requestContentConfig.parameter.id, 'view']">{{
+                      requestContentConfig.parameter.id
+                    }}</a>
+                  </div>
+                }
+              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a
@@ -83,7 +97,7 @@
                     data-cy="entityDetailsButton"
                   >
                     <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Просмотр</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                   </a>
 
                   <a
@@ -92,12 +106,12 @@
                     data-cy="entityEditButton"
                   >
                     <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Изменить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                   </a>
 
                   <button type="submit" (click)="delete(requestContentConfig)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Удалить</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                   </button>
                 </div>
               </td>

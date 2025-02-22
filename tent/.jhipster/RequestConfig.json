@@ -1,22 +1,23 @@
 {
   "annotations": {
-    "changelogDate": "20250221142526"
+    "changelogDate": "20250221173953"
   },
   "applications": ["testTent"],
-  "fields": [
-    {
-      "fieldName": "requestType",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    }
-  ],
+  "fields": [],
   "name": "RequestConfig",
   "relationships": [
     {
-      "otherEntityName": "requestType",
-      "relationshipName": "requestType",
+      "otherEntityName": "requestContentConfig",
+      "otherEntityRelationshipName": "requestConfigId",
+      "relationshipName": "requestContentConfig",
       "relationshipSide": "left",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "requestType",
+      "relationshipName": "requestType",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no"

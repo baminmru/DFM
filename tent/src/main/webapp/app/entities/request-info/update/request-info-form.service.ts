@@ -18,7 +18,6 @@ type RequestInfoFormDefaults = Pick<NewRequestInfo, 'id'>;
 
 type RequestInfoFormGroupContent = {
   id: FormControl<IRequestInfo['id'] | NewRequestInfo['id']>;
-  requestType: FormControl<IRequestInfo['requestType']>;
   contract: FormControl<IRequestInfo['contract']>;
   requestDate: FormControl<IRequestInfo['requestDate']>;
   effectiveDateStart: FormControl<IRequestInfo['effectiveDateStart']>;
@@ -27,7 +26,7 @@ type RequestInfoFormGroupContent = {
   createdBy: FormControl<IRequestInfo['createdBy']>;
   updatedAt: FormControl<IRequestInfo['updatedAt']>;
   updatedBy: FormControl<IRequestInfo['updatedBy']>;
-  requestContent: FormControl<IRequestInfo['requestContent']>;
+  requestType: FormControl<IRequestInfo['requestType']>;
 };
 
 export type RequestInfoFormGroup = FormGroup<RequestInfoFormGroupContent>;
@@ -47,9 +46,6 @@ export class RequestInfoFormService {
           validators: [Validators.required],
         },
       ),
-      requestType: new FormControl(requestInfoRawValue.requestType, {
-        validators: [Validators.required],
-      }),
       contract: new FormControl(requestInfoRawValue.contract),
       requestDate: new FormControl(requestInfoRawValue.requestDate, {
         validators: [Validators.required],
@@ -64,7 +60,7 @@ export class RequestInfoFormService {
       updatedBy: new FormControl(requestInfoRawValue.updatedBy, {
         validators: [Validators.maxLength(64)],
       }),
-      requestContent: new FormControl(requestInfoRawValue.requestContent),
+      requestType: new FormControl(requestInfoRawValue.requestType),
     });
   }
 

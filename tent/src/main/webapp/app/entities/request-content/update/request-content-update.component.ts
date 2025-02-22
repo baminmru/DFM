@@ -2,11 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { IRequestInfo } from 'app/entities/request-info/request-info.model';
+import { RequestInfoService } from 'app/entities/request-info/service/request-info.service';
 import { IRequestContent } from '../request-content.model';
 import { RequestContentService } from '../service/request-content.service';
 import { RequestContentFormService, RequestContentFormGroup } from './request-content-form.service';
@@ -21,12 +23,17 @@ export class RequestContentUpdateComponent implements OnInit {
   isSaving = false;
   requestContent: IRequestContent | null = null;
 
+  requestInfosSharedCollection: IRequestInfo[] = [];
+
   protected requestContentService = inject(RequestContentService);
   protected requestContentFormService = inject(RequestContentFormService);
+  protected requestInfoService = inject(RequestInfoService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: RequestContentFormGroup = this.requestContentFormService.createRequestContentFormGroup();
+
+  compareRequestInfo = (o1: IRequestInfo | null, o2: IRequestInfo | null): boolean => this.requestInfoService.compareRequestInfo(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ requestContent }) => {
@@ -34,6 +41,8 @@ export class RequestContentUpdateComponent implements OnInit {
       if (requestContent) {
         this.updateForm(requestContent);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -73,5 +82,22 @@ export class RequestContentUpdateComponent implements OnInit {
   protected updateForm(requestContent: IRequestContent): void {
     this.requestContent = requestContent;
     this.requestContentFormService.resetForm(this.editForm, requestContent);
+
+    this.requestInfosSharedCollection = this.requestInfoService.addRequestInfoToCollectionIfMissing<IRequestInfo>(
+      this.requestInfosSharedCollection,
+      requestContent.requestInfoId,
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.requestInfoService
+      .query()
+      .pipe(map((res: HttpResponse<IRequestInfo[]>) => res.body ?? []))
+      .pipe(
+        map((requestInfos: IRequestInfo[]) =>
+          this.requestInfoService.addRequestInfoToCollectionIfMissing<IRequestInfo>(requestInfos, this.requestContent?.requestInfoId),
+        ),
+      )
+      .subscribe((requestInfos: IRequestInfo[]) => (this.requestInfosSharedCollection = requestInfos));
   }
 }

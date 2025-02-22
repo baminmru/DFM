@@ -1,14 +1,9 @@
 {
   "annotations": {
-    "changelogDate": "20250221142524"
+    "changelogDate": "20250221173753"
   },
   "applications": ["testTent"],
   "fields": [
-    {
-      "fieldName": "requestType",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
     {
       "fieldName": "contract",
       "fieldType": "Integer"
@@ -50,10 +45,17 @@
   "name": "RequestInfo",
   "relationships": [
     {
-      "otherEntityName": "requestType",
-      "relationshipName": "requestType",
+      "otherEntityName": "requestContent",
+      "otherEntityRelationshipName": "requestInfoId",
+      "relationshipName": "requestContent",
       "relationshipSide": "left",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "requestType",
+      "relationshipName": "requestType",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no"
