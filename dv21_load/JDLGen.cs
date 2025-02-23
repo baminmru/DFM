@@ -257,7 +257,7 @@ namespace dv21
             result.AppendLine("	    prodDatabaseType   postgresql");
             result.AppendLine("	    devDatabaseType 	h2Disk");
             result.AppendLine("	    clientFramework 	angularX");
-            result.AppendLine("	    serviceDiscoveryType eureka");
+            //result.AppendLine("	    serviceDiscoveryType eureka");
             result.AppendLine("	    languages [ru,en]");
             result.AppendLine("	    packageName com.bami." + cd.Schema.ToLower() + "." + cd.Alias.ToLower());
             result.AppendLine("  }");
