@@ -12,7 +12,7 @@ export const sampleWithPartialData: IRequestParamDict = {
   id: 2101,
   code: 'forenenst empty',
   name: 'our',
-  createdAt: dayjs('2025-02-20'),
+  createdAt: dayjs('2025-02-22'),
   createdBy: 'till',
 };
 
@@ -23,9 +23,9 @@ export const sampleWithFullData: IRequestParamDict = {
   paramtype: 'outflank old',
   valueArray: false,
   referenceTo: 'rosy',
-  createdAt: dayjs('2025-02-21'),
+  createdAt: dayjs('2025-02-23'),
   createdBy: 'timely',
-  updatedAt: dayjs('2025-02-20'),
+  updatedAt: dayjs('2025-02-23'),
   updatedBy: 'beautifully imagine',
 };
 

@@ -8,7 +8,7 @@
     <!--
         Added the constraints for entity RequestContentConfig.
     -->
-    <changeSet id="20250221174053-2" author="jhipster">
+    <changeSet id="20250223194502-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="request_config_id_id"
                                  baseTableName="request_content_config"

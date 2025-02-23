@@ -8,7 +8,7 @@
     <!--
         Added the constraints for entity RequestInfo.
     -->
-    <changeSet id="20250221173753-2" author="jhipster">
+    <changeSet id="20250223194202-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="request_type_id"
                                  baseTableName="request_info"

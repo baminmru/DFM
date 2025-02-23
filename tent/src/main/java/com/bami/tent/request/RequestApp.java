@@ -21,18 +21,18 @@ import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
-public class ChangeRequestApp {
+public class RequestApp {
 
-    private static final Logger log = LoggerFactory.getLogger(ChangeRequestApp.class);
+    private static final Logger log = LoggerFactory.getLogger(RequestApp.class);
 
     private final Environment env;
 
-    public ChangeRequestApp(Environment env) {
+    public RequestApp(Environment env) {
         this.env = env;
     }
 
     /**
-     * Initializes ChangeRequest.
+     * Initializes Request.
      * <p>
      * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
      * <p>
@@ -65,7 +65,7 @@ public class ChangeRequestApp {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ChangeRequestApp.class);
+        SpringApplication app = new SpringApplication(RequestApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);

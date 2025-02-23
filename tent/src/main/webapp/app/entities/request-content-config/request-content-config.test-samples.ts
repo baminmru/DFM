@@ -10,15 +10,15 @@ export const sampleWithPartialData: IRequestContentConfig = {
   id: 13434,
   isMandatory: false,
   createdBy: 'canonise from phooey',
-  updatedAt: dayjs('2025-02-20'),
+  updatedAt: dayjs('2025-02-22'),
 };
 
 export const sampleWithFullData: IRequestContentConfig = {
   id: 8789,
   isMandatory: false,
-  createdAt: dayjs('2025-02-21'),
+  createdAt: dayjs('2025-02-23'),
   createdBy: 'yum onto',
-  updatedAt: dayjs('2025-02-21'),
+  updatedAt: dayjs('2025-02-23'),
   updatedBy: 'near understated',
 };
 

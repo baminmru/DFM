@@ -20,22 +20,6 @@ logging:
     org.hibernate.SQL: DEBUG
     com.bami.tent.request: DEBUG
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    enabled: false # By default, the JHipster Registry is not used in the "dev" profile
-    service-url:
-      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
-
-management:
-  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-  tracing:
-    sampling:
-      probability: 1.0 # report 100% of traces
-
 spring:
   devtools:
     restart:
@@ -46,14 +30,6 @@ spring:
   jackson:
     serialization:
       indent-output: true
-  cloud:
-    config:
-      uri: http://admin:${jhipster.registry.password}@localhost:8761/config
-      # name of the config server's property source (file.yml) that we want to use
-      name: Request
-      profile: dev
-      label: main # toggle to switch to a different version of the configuration as stored in git
-      # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:h2:file:./target/h2db/db/Request;DB_CLOSE_DELAY=-1
@@ -93,8 +69,6 @@ jhipster:
     ehcache: # Ehcache configuration
       time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
       max-entries: 100 # Number of objects in each cache entry
-  registry:
-    password: admin
   # CORS is only enabled by default with the "dev" profile
   cors:
     # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
@@ -110,7 +84,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: NmRkNzI1YTkwZWRmODliMjRlYWJkNmVlMDA0MjBmMGQ5YzVhZDBmYzk4MDRhNjQ2OTU1YzhhYTU0MmQxM2FlOWFjMTUxNDU0YjY2YjlhZGJiMThmYzQ5OGIxYjU5NzZiNDg3ZWQ2YWUzZjUxMmNkNDFhOGQ2ZmI2MTk3YmFiZTI=
+        base64-secret: ZGE5ZmY3YzEyY2U4YzQ0ZjgzZTc4ZDRlOWM4Y2FiMzFmNTZjMDIwYzc3YjI5OTAyMzFmYTY2MDQ0NTJjMWU3OTRlMzY0Y2FiNTM4MzMwODYwNzlhOTExMTRiMmYwNGFiMzY1OWRlYzg0YzgwZWJjMWZiNDkyNzZhMDEzNjAxMmQ=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

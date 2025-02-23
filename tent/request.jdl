@@ -9,7 +9,6 @@ application {
 	    prodDatabaseType   postgresql
 	    devDatabaseType 	h2Disk
 	    clientFramework 	angularX
-	    serviceDiscoveryType eureka
 	    languages [ru,en]
 	    packageName com.bami.tent.request
   }

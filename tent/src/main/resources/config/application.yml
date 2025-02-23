@@ -24,30 +24,6 @@ springdoc:
   api-docs:
     enabled: false
 ---
-eureka:
-  client:
-    enabled: true
-    healthcheck:
-      enabled: true
-    fetch-registry: true
-    register-with-eureka: true
-    instance-info-replication-interval-seconds: 10
-    registry-fetch-interval-seconds: 10
-  instance:
-    appname: request
-    instanceId: request:${spring.application.instance-id:${random.value}}
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 10
-    status-page-url-path: ${management.endpoints.web.base-path}/info
-    health-check-url-path: ${management.endpoints.web.base-path}/health
-    metadata-map:
-      zone: primary # This is needed for the load balancer
-      profile: ${spring.profiles.active}
-      version: '@project.version@'
-      git-version: ${git.commit.id.describe:}
-      git-commit: ${git.commit.id.abbrev:}
-      git-branch: ${git.branch:}
-      context-path: ${server.servlet.context-path:}
 management:
   endpoints:
     web:
@@ -233,7 +209,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: NmRkNzI1YTkwZWRmODliMjRlYWJkNmVlMDA0MjBmMGQ5YzVhZDBmYzk4MDRhNjQ2OTU1YzhhYTU0MmQxM2FlOWFjMTUxNDU0YjY2YjlhZGJiMThmYzQ5OGIxYjU5NzZiNDg3ZWQ2YWUzZjUxMmNkNDFhOGQ2ZmI2MTk3YmFiZTI=  
+        base64-secret: ZGE5ZmY3YzEyY2U4YzQ0ZjgzZTc4ZDRlOWM4Y2FiMzFmNTZjMDIwYzc3YjI5OTAyMzFmYTY2MDQ0NTJjMWU3OTRlMzY0Y2FiNTM4MzMwODYwNzlhOTExMTRiMmYwNGFiMzY1OWRlYzg0YzgwZWJjMWZiNDkyNzZhMDEzNjAxMmQ=  
     content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
 # ===================================================================
 # Application specific properties

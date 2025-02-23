@@ -8,18 +8,18 @@ export const sampleWithRequiredData: IRequestConfig = {
 
 export const sampleWithPartialData: IRequestConfig = {
   id: 12397,
-  createdAt: dayjs('2025-02-20'),
-  updatedAt: dayjs('2025-02-21'),
+  createdAt: dayjs('2025-02-22'),
+  updatedAt: dayjs('2025-02-23'),
 };
 
 export const sampleWithFullData: IRequestConfig = {
   id: 842,
   version: 'fooey ick',
-  effectiveDateStart: dayjs('2025-02-21'),
-  effectiveDateEnd: dayjs('2025-02-21'),
-  createdAt: dayjs('2025-02-21'),
+  effectiveDateStart: dayjs('2025-02-23'),
+  effectiveDateEnd: dayjs('2025-02-23'),
+  createdAt: dayjs('2025-02-23'),
   createdBy: 'keyboard round',
-  updatedAt: dayjs('2025-02-21'),
+  updatedAt: dayjs('2025-02-23'),
   updatedBy: 'collard yahoo bathroom',
 };
 

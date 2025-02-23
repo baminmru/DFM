@@ -10,16 +10,16 @@ export const sampleWithRequiredData: IRequestContent = {
 export const sampleWithPartialData: IRequestContent = {
   id: 11191,
   paramCode: 'carelessly',
-  createdAt: dayjs('2025-02-21'),
+  createdAt: dayjs('2025-02-23'),
 };
 
 export const sampleWithFullData: IRequestContent = {
   id: 8602,
   paramCode: 'icky loyally of',
   paramValue: 'willing',
-  createdAt: dayjs('2025-02-21'),
+  createdAt: dayjs('2025-02-23'),
   createdBy: 'boohoo since',
-  updatedAt: dayjs('2025-02-21'),
+  updatedAt: dayjs('2025-02-23'),
   updatedBy: 'minor internationalise monthly',
 };
 
