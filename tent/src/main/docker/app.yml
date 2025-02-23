@@ -1,16 +1,16 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-name: changerequest
+name: request
 services:
   app:
-    image: changerequest
+    image: request
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
       - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/ChangeRequest
-      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/ChangeRequest
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/Request
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/Request
     ports:
       - 127.0.0.1:8080:8080
     healthcheck:

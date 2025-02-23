@@ -30,7 +30,7 @@ module.exports = async (config, options, targetOptions) => {
         },
       }),
       new WebpackNotifierPlugin({
-        title: 'Change Request',
+        title: 'Request',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),
       }),
     );

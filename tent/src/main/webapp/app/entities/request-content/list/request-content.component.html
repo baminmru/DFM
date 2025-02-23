@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="RequestContentHeading">
-    <span jhiTranslate="changeRequestApp.requestContent.home.title">Request Contents</span>
+    <span jhiTranslate="requestApp.requestContent.home.title">Request Contents</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="changeRequestApp.requestContent.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="requestApp.requestContent.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-content/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="changeRequestApp.requestContent.home.createLabel">Create a new Request Content</span>
+        <span jhiTranslate="requestApp.requestContent.home.createLabel">Create a new Request Content</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestContents?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="changeRequestApp.requestContent.home.notFound">No Request Contents found</span>
+      <span jhiTranslate="requestApp.requestContent.home.notFound">No Request Contents found</span>
     </div>
   }
 
@@ -44,49 +44,49 @@
             </th>
             <th scope="col" jhiSortBy="paramCode">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.paramCode">Param Code</span>
+                <span jhiTranslate="requestApp.requestContent.paramCode">Param Code</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="paramValue">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.paramValue">Param Value</span>
+                <span jhiTranslate="requestApp.requestContent.paramValue">Param Value</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdAt">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.createdAt">Created At</span>
+                <span jhiTranslate="requestApp.requestContent.createdAt">Created At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdBy">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.createdBy">Created By</span>
+                <span jhiTranslate="requestApp.requestContent.createdBy">Created By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedAt">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.updatedAt">Updated At</span>
+                <span jhiTranslate="requestApp.requestContent.updatedAt">Updated At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedBy">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.updatedBy">Updated By</span>
+                <span jhiTranslate="requestApp.requestContent.updatedBy">Updated By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="requestInfoId.id">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestContent.requestInfoId">Request Info Id</span>
+                <span jhiTranslate="requestApp.requestContent.requestInfoId">Request Info Id</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>

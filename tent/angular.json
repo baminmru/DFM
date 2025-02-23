@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "change-request": {
+    "request": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -76,15 +76,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "buildTarget": "change-request:build:development",
+            "buildTarget": "request:build:development",
             "port": 4200
           },
           "configurations": {
             "production": {
-              "buildTarget": "change-request:build:production"
+              "buildTarget": "request:build:production"
             },
             "development": {
-              "buildTarget": "change-request:build:development"
+              "buildTarget": "request:build:development"
             }
           },
           "defaultConfiguration": "development"

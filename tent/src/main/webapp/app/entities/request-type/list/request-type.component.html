@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="RequestTypeHeading">
-    <span jhiTranslate="changeRequestApp.requestType.home.title">Request Types</span>
+    <span jhiTranslate="requestApp.requestType.home.title">Request Types</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="changeRequestApp.requestType.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="requestApp.requestType.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-type/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="changeRequestApp.requestType.home.createLabel">Create a new Request Type</span>
+        <span jhiTranslate="requestApp.requestType.home.createLabel">Create a new Request Type</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestTypes?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="changeRequestApp.requestType.home.notFound">No Request Types found</span>
+      <span jhiTranslate="requestApp.requestType.home.notFound">No Request Types found</span>
     </div>
   }
 
@@ -44,42 +44,42 @@
             </th>
             <th scope="col" jhiSortBy="code">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestType.code">Code</span>
+                <span jhiTranslate="requestApp.requestType.code">Code</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="name">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestType.name">Name</span>
+                <span jhiTranslate="requestApp.requestType.name">Name</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdAt">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestType.createdAt">Created At</span>
+                <span jhiTranslate="requestApp.requestType.createdAt">Created At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdBy">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestType.createdBy">Created By</span>
+                <span jhiTranslate="requestApp.requestType.createdBy">Created By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedAt">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestType.updatedAt">Updated At</span>
+                <span jhiTranslate="requestApp.requestType.updatedAt">Updated At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedBy">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestType.updatedBy">Updated By</span>
+                <span jhiTranslate="requestApp.requestType.updatedBy">Updated By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>

@@ -3,30 +3,28 @@ import dayjs from 'dayjs/esm';
 import { IRequestContent, NewRequestContent } from './request-content.model';
 
 export const sampleWithRequiredData: IRequestContent = {
-  id: 24859,
-  paramCode: 'hybridization aw',
+  id: 30374,
+  paramCode: 'how',
 };
 
 export const sampleWithPartialData: IRequestContent = {
-  id: 8817,
-  paramCode: 'throne nippy',
-  paramValue: 'beyond spandex',
-  createdAt: dayjs('2025-02-20'),
-  updatedBy: 'babyish ah',
+  id: 11191,
+  paramCode: 'carelessly',
+  createdAt: dayjs('2025-02-21'),
 };
 
 export const sampleWithFullData: IRequestContent = {
-  id: 17847,
-  paramCode: 'vein gah consequently',
-  paramValue: 'bitterly string dimly',
+  id: 8602,
+  paramCode: 'icky loyally of',
+  paramValue: 'willing',
   createdAt: dayjs('2025-02-21'),
-  createdBy: 'which',
-  updatedAt: dayjs('2025-02-20'),
-  updatedBy: 'anenst even',
+  createdBy: 'boohoo since',
+  updatedAt: dayjs('2025-02-21'),
+  updatedBy: 'minor internationalise monthly',
 };
 
 export const sampleWithNewData: NewRequestContent = {
-  paramCode: 'broadly',
+  paramCode: 'nitrogen when diligently',
   id: null,
 };
 

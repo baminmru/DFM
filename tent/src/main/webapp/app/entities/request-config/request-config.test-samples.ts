@@ -3,25 +3,24 @@ import dayjs from 'dayjs/esm';
 import { IRequestConfig, NewRequestConfig } from './request-config.model';
 
 export const sampleWithRequiredData: IRequestConfig = {
-  id: 19488,
+  id: 12389,
 };
 
 export const sampleWithPartialData: IRequestConfig = {
-  id: 20674,
-  effectiveDateEnd: dayjs('2025-02-21'),
-  createdAt: dayjs('2025-02-21'),
-  createdBy: 'alphabetize',
+  id: 12397,
+  createdAt: dayjs('2025-02-20'),
+  updatedAt: dayjs('2025-02-21'),
 };
 
 export const sampleWithFullData: IRequestConfig = {
-  id: 24145,
-  version: 'till',
+  id: 842,
+  version: 'fooey ick',
   effectiveDateStart: dayjs('2025-02-21'),
-  effectiveDateEnd: dayjs('2025-02-20'),
+  effectiveDateEnd: dayjs('2025-02-21'),
   createdAt: dayjs('2025-02-21'),
-  createdBy: 'viciously saloon fussy',
+  createdBy: 'keyboard round',
   updatedAt: dayjs('2025-02-21'),
-  updatedBy: 'as exactly',
+  updatedBy: 'collard yahoo bathroom',
 };
 
 export const sampleWithNewData: NewRequestConfig = {

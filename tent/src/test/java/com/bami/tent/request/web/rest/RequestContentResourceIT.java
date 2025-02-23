@@ -321,7 +321,11 @@ class RequestContentResourceIT {
         RequestContent partialUpdatedRequestContent = new RequestContent();
         partialUpdatedRequestContent.setId(requestContent.getId());
 
-        partialUpdatedRequestContent.paramValue(UPDATED_PARAM_VALUE).createdBy(UPDATED_CREATED_BY);
+        partialUpdatedRequestContent
+            .paramCode(UPDATED_PARAM_CODE)
+            .paramValue(UPDATED_PARAM_VALUE)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY);
 
         restRequestContentMockMvc
             .perform(

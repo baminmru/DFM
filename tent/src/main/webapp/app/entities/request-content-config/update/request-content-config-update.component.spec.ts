@@ -53,10 +53,10 @@ describe('RequestContentConfig Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call RequestConfig query and add missing value', () => {
       const requestContentConfig: IRequestContentConfig = { id: 456 };
-      const requestConfigId: IRequestConfig = { id: 7803 };
+      const requestConfigId: IRequestConfig = { id: 6035 };
       requestContentConfig.requestConfigId = requestConfigId;
 
-      const requestConfigCollection: IRequestConfig[] = [{ id: 23735 }];
+      const requestConfigCollection: IRequestConfig[] = [{ id: 28802 }];
       jest.spyOn(requestConfigService, 'query').mockReturnValue(of(new HttpResponse({ body: requestConfigCollection })));
       const additionalRequestConfigs = [requestConfigId];
       const expectedCollection: IRequestConfig[] = [...additionalRequestConfigs, ...requestConfigCollection];
@@ -75,10 +75,10 @@ describe('RequestContentConfig Management Update Component', () => {
 
     it('Should call RequestParamDict query and add missing value', () => {
       const requestContentConfig: IRequestContentConfig = { id: 456 };
-      const parameter: IRequestParamDict = { id: 10363 };
+      const parameter: IRequestParamDict = { id: 21938 };
       requestContentConfig.parameter = parameter;
 
-      const requestParamDictCollection: IRequestParamDict[] = [{ id: 29866 }];
+      const requestParamDictCollection: IRequestParamDict[] = [{ id: 10650 }];
       jest.spyOn(requestParamDictService, 'query').mockReturnValue(of(new HttpResponse({ body: requestParamDictCollection })));
       const additionalRequestParamDicts = [parameter];
       const expectedCollection: IRequestParamDict[] = [...additionalRequestParamDicts, ...requestParamDictCollection];
@@ -97,9 +97,9 @@ describe('RequestContentConfig Management Update Component', () => {
 
     it('Should update editForm', () => {
       const requestContentConfig: IRequestContentConfig = { id: 456 };
-      const requestConfigId: IRequestConfig = { id: 3141 };
+      const requestConfigId: IRequestConfig = { id: 31201 };
       requestContentConfig.requestConfigId = requestConfigId;
-      const parameter: IRequestParamDict = { id: 20565 };
+      const parameter: IRequestParamDict = { id: 20334 };
       requestContentConfig.parameter = parameter;
 
       activatedRoute.data = of({ requestContentConfig });

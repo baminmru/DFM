@@ -321,7 +321,7 @@ class SourceSystemResourceIT {
         SourceSystem partialUpdatedSourceSystem = new SourceSystem();
         partialUpdatedSourceSystem.setId(sourceSystem.getId());
 
-        partialUpdatedSourceSystem.code(UPDATED_CODE).name(UPDATED_NAME).createdAt(UPDATED_CREATED_AT).updatedBy(UPDATED_UPDATED_BY);
+        partialUpdatedSourceSystem.code(UPDATED_CODE).createdAt(UPDATED_CREATED_AT).updatedBy(UPDATED_UPDATED_BY);
 
         restSourceSystemMockMvc
             .perform(

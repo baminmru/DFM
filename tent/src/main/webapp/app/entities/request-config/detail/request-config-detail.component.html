@@ -2,9 +2,7 @@
   <div class="col-8">
     @if (requestConfig()) {
       <div>
-        <h2 data-cy="requestConfigDetailsHeading">
-          <span jhiTranslate="changeRequestApp.requestConfig.detail.title">Request Config</span>
-        </h2>
+        <h2 data-cy="requestConfigDetailsHeading"><span jhiTranslate="requestApp.requestConfig.detail.title">Request Config</span></h2>
 
         <hr />
 
@@ -17,35 +15,35 @@
           <dd>
             <span>{{ requestConfig()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.version">Version</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.version">Version</span></dt>
           <dd>
             <span>{{ requestConfig()!.version }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.effectiveDateStart">Effective Date Start</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.effectiveDateStart">Effective Date Start</span></dt>
           <dd>
             <span>{{ requestConfig()!.effectiveDateStart | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.effectiveDateEnd">Effective Date End</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.effectiveDateEnd">Effective Date End</span></dt>
           <dd>
             <span>{{ requestConfig()!.effectiveDateEnd | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.createdAt">Created At</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.createdAt">Created At</span></dt>
           <dd>
             <span>{{ requestConfig()!.createdAt | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.createdBy">Created By</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.createdBy">Created By</span></dt>
           <dd>
             <span>{{ requestConfig()!.createdBy }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.updatedAt">Updated At</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.updatedAt">Updated At</span></dt>
           <dd>
             <span>{{ requestConfig()!.updatedAt | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.updatedBy">Updated By</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.updatedBy">Updated By</span></dt>
           <dd>
             <span>{{ requestConfig()!.updatedBy }}</span>
           </dd>
-          <dt><span jhiTranslate="changeRequestApp.requestConfig.requestType">Request Type</span></dt>
+          <dt><span jhiTranslate="requestApp.requestConfig.requestType">Request Type</span></dt>
           <dd>
             @if (requestConfig()!.requestType) {
               <div>

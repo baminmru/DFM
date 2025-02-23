@@ -378,7 +378,9 @@ class RequestInfoResourceIT {
         partialUpdatedRequestInfo.setId(requestInfo.getId());
 
         partialUpdatedRequestInfo
+            .contract(UPDATED_CONTRACT)
             .requestDate(UPDATED_REQUEST_DATE)
+            .codeAtSource(UPDATED_CODE_AT_SOURCE)
             .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
             .createdBy(UPDATED_CREATED_BY)
             .updatedBy(UPDATED_UPDATED_BY);

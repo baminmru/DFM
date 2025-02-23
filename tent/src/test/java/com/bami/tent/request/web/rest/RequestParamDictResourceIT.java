@@ -361,13 +361,7 @@ class RequestParamDictResourceIT {
         RequestParamDict partialUpdatedRequestParamDict = new RequestParamDict();
         partialUpdatedRequestParamDict.setId(requestParamDict.getId());
 
-        partialUpdatedRequestParamDict
-            .valueArray(UPDATED_VALUE_ARRAY)
-            .referenceTo(UPDATED_REFERENCE_TO)
-            .createdAt(UPDATED_CREATED_AT)
-            .createdBy(UPDATED_CREATED_BY)
-            .updatedAt(UPDATED_UPDATED_AT)
-            .updatedBy(UPDATED_UPDATED_BY);
+        partialUpdatedRequestParamDict.name(UPDATED_NAME).updatedBy(UPDATED_UPDATED_BY);
 
         restRequestParamDictMockMvc
             .perform(

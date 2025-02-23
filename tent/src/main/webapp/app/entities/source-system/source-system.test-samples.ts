@@ -3,28 +3,29 @@ import dayjs from 'dayjs/esm';
 import { ISourceSystem, NewSourceSystem } from './source-system.model';
 
 export const sampleWithRequiredData: ISourceSystem = {
-  id: 3424,
-  code: 'playfully pish comfortable',
+  id: 176,
+  code: 'since',
 };
 
 export const sampleWithPartialData: ISourceSystem = {
-  id: 23966,
-  code: 'bony frightened',
-  name: 'lysine sparse',
+  id: 32639,
+  code: 'considering',
+  createdBy: 'among',
+  updatedAt: dayjs('2025-02-23'),
 };
 
 export const sampleWithFullData: ISourceSystem = {
-  id: 31630,
-  code: 'bottle out',
-  name: 'failing',
+  id: 27252,
+  code: 'yahoo',
+  name: 'supervision guilty',
   createdAt: dayjs('2025-02-22'),
-  createdBy: 'wiggly',
+  createdBy: 'neuropathologist moot',
   updatedAt: dayjs('2025-02-23'),
-  updatedBy: 'mercury',
+  updatedBy: 'though yippee plus',
 };
 
 export const sampleWithNewData: NewSourceSystem = {
-  code: 'provided whoa',
+  code: 'at furiously railroad',
   id: null,
 };
 

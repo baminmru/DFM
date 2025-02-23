@@ -313,7 +313,11 @@ class RequestConfigResourceIT {
         RequestConfig partialUpdatedRequestConfig = new RequestConfig();
         partialUpdatedRequestConfig.setId(requestConfig.getId());
 
-        partialUpdatedRequestConfig.createdAt(UPDATED_CREATED_AT).createdBy(UPDATED_CREATED_BY).updatedBy(UPDATED_UPDATED_BY);
+        partialUpdatedRequestConfig
+            .version(UPDATED_VERSION)
+            .createdAt(UPDATED_CREATED_AT)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestConfigMockMvc
             .perform(

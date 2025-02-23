@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bami.tent.request</groupId>
-    <artifactId>change-request</artifactId>
+    <artifactId>request</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Change Request</name>
-    <description>Description for Change Request</description>
+    <name>Request</name>
+    <description>Description for Request</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -31,7 +31,7 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <start-class>com.bami.tent.request.ChangeRequestApp</start-class>
+        <start-class>com.bami.tent.request.RequestApp</start-class>
         <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx1G</argLine>
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
         <run.addResources>false</run.addResources>
@@ -47,6 +47,8 @@
         <jib-maven-plugin.image>eclipse-temurin:17-jre-focal</jib-maven-plugin.image>
         <jib-maven-plugin.version>3.4.3</jib-maven-plugin.version>
         <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
+        <liquibase-plugin.driver/>
+        <liquibase-plugin.hibernate-dialect/>
         <liquibase-plugin.password/>
         <liquibase-plugin.url/>
         <liquibase-plugin.username/>
@@ -276,10 +278,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
@@ -437,7 +435,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>changerequest:latest</image>
+                            <image>request:latest</image>
                         </to>
                         <container>
                             <entrypoint>
@@ -768,12 +766,12 @@
                     <configuration>
                         <changeLogFile>config/liquibase/master.xml</changeLogFile>
                         <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
-                        <driver>org.postgresql.Driver</driver>
+                        <driver>${liquibase-plugin.driver}</driver>
                         <url>${liquibase-plugin.url}</url>
                         <defaultSchemaName/>
                         <username>${liquibase-plugin.username}</username>
                         <password>${liquibase-plugin.password}</password>
-                        <referenceUrl>hibernate:spring:com.bami.tent.request.domain?dialect=org.hibernate.dialect.PostgreSQLDialect&amp;hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
+                        <referenceUrl>hibernate:spring:com.bami.tent.request.domain?dialect=${liquibase-plugin.hibernate-dialect}&amp;hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                         <verbose>true</verbose>
                         <logging>debug</logging>
                         <contexts>!test</contexts>
@@ -798,6 +796,11 @@
                             <groupId>org.springframework.boot</groupId>
                             <artifactId>spring-boot-starter-data-jpa</artifactId>
                             <version>${spring-boot.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                            <version>${h2.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -826,8 +829,10 @@
                 <!-- default Spring profiles -->
                 <spring.profiles.active>dev${profile.tls}${profile.no-liquibase}</spring.profiles.active>
                 <profile.test>testdev</profile.test>
-                <liquibase-plugin.url>jdbc:postgresql://localhost:5432/ChangeRequest</liquibase-plugin.url>
-                <liquibase-plugin.username>ChangeRequest</liquibase-plugin.username>
+                <liquibase-plugin.hibernate-dialect>org.hibernate.dialect.H2Dialect</liquibase-plugin.hibernate-dialect>
+                <liquibase-plugin.driver>org.h2.Driver</liquibase-plugin.driver>
+                <liquibase-plugin.url>jdbc:h2:file:${project.build.directory}/h2db/db/Request</liquibase-plugin.url>
+                <liquibase-plugin.username>Request</liquibase-plugin.username>
                 <liquibase-plugin.password/>
             </properties>
             <dependencies>
@@ -836,7 +841,24 @@
                     <artifactId>spring-boot-devtools</artifactId>
                     <optional>true</optional>
                 </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <testExcludes>
+                                <testExclude>com/bami/tent/request/config/PostgreSqlTestContainer.java</testExclude>
+                            </testExcludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <!-- This is automatically activated when working in Eclipse -->
@@ -934,8 +956,10 @@
                 <!-- default Spring profiles -->
                 <spring.profiles.active>prod${profile.api-docs}${profile.tls}${profile.e2e}${profile.no-liquibase}</spring.profiles.active>
                 <profile.test>testprod</profile.test>
-                <liquibase-plugin.url>jdbc:postgresql://localhost:5432/ChangeRequest</liquibase-plugin.url>
-                <liquibase-plugin.username>ChangeRequest</liquibase-plugin.username>
+                <liquibase-plugin.hibernate-dialect>org.hibernate.dialect.PostgreSQLDialect</liquibase-plugin.hibernate-dialect>
+                <liquibase-plugin.driver>org.postgresql.Driver</liquibase-plugin.driver>
+                <liquibase-plugin.url>jdbc:postgresql://localhost:5432/Request</liquibase-plugin.url>
+                <liquibase-plugin.username>Request</liquibase-plugin.username>
                 <liquibase-plugin.password/>
             </properties>
             <build>
@@ -1011,6 +1035,12 @@
                     </plugin>
                 </plugins>
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>tls</id>

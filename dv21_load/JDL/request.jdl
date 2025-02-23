@@ -1,17 +1,17 @@
 application {
   config {
-     baseName ChangeRequest
+     baseName Request
      applicationType monolitic
 	    authenticationType jwt
      serverPort 8080
 	    buildTool 	maven
 	    databaseType 	sql
 	    prodDatabaseType   postgresql
-	    devDatabaseType 	postgresql
+	    devDatabaseType 	h2Disk
 	    clientFramework 	angularX
 	    serviceDiscoveryType eureka
 	    languages [ru,en]
-	    packageName com.bami.tent.change_request
+	    packageName com.bami.tent.request
   }
   entities * 
 }
@@ -35,7 +35,7 @@ entity  RequestInfo{
 /*RequestType - 'Тип заявки' */
 /*		RequestType Integer required */
 /*Contract - 'Контракт' */
-		Contract Integer required 
+/*		Contract Integer required */
 /*RequestDate - 'Дата заявки' */
 		RequestDate LocalDate required 
 /*RequestSource - 'Источник заявки' */
@@ -131,11 +131,9 @@ entity  SourceSystem{
 relationship OneToMany {
 RequestType to RequestInfo { RequestType} 
 }
-/*
 relationship OneToMany {
 DogInfo to RequestInfo { Contract} 
 }
-*/
 relationship OneToMany {
 SourceSystem to RequestInfo { RequestSource} 
 }

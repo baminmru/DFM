@@ -4,7 +4,7 @@
       <h2
         id="jhi-request-content-heading"
         data-cy="RequestContentCreateUpdateHeading"
-        jhiTranslate="changeRequestApp.requestContent.home.createOrEditLabel"
+        jhiTranslate="requestApp.requestContent.home.createOrEditLabel"
       >
         Create or edit a Request Content
       </h2>
@@ -14,13 +14,13 @@
 
         @if (editForm.controls.id.value !== null) {
           <div class="mb-3">
-            <label class="form-label" for="field_id" jhiTranslate="changeRequestApp.requestContent.id">ID</label>
+            <label class="form-label" for="field_id" jhiTranslate="requestApp.requestContent.id">ID</label>
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
         }
 
         <div class="mb-3">
-          <label class="form-label" for="field_paramCode" jhiTranslate="changeRequestApp.requestContent.paramCode">Param Code</label>
+          <label class="form-label" for="field_paramCode" jhiTranslate="requestApp.requestContent.paramCode">Param Code</label>
           <input type="text" class="form-control" name="paramCode" id="field_paramCode" data-cy="paramCode" formControlName="paramCode" />
           @if (editForm.get('paramCode')!.invalid && (editForm.get('paramCode')!.dirty || editForm.get('paramCode')!.touched)) {
             <div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_paramValue" jhiTranslate="changeRequestApp.requestContent.paramValue">Param Value</label>
+          <label class="form-label" for="field_paramValue" jhiTranslate="requestApp.requestContent.paramValue">Param Value</label>
           <input
             type="text"
             class="form-control"
@@ -58,7 +58,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_createdAt" jhiTranslate="changeRequestApp.requestContent.createdAt">Created At</label>
+          <label class="form-label" for="field_createdAt" jhiTranslate="requestApp.requestContent.createdAt">Created At</label>
           <div class="input-group">
             <input
               id="field_createdAt"
@@ -75,7 +75,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_createdBy" jhiTranslate="changeRequestApp.requestContent.createdBy">Created By</label>
+          <label class="form-label" for="field_createdBy" jhiTranslate="requestApp.requestContent.createdBy">Created By</label>
           <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
           @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
             <div>
@@ -89,7 +89,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_updatedAt" jhiTranslate="changeRequestApp.requestContent.updatedAt">Updated At</label>
+          <label class="form-label" for="field_updatedAt" jhiTranslate="requestApp.requestContent.updatedAt">Updated At</label>
           <div class="input-group">
             <input
               id="field_updatedAt"
@@ -106,7 +106,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_updatedBy" jhiTranslate="changeRequestApp.requestContent.updatedBy">Updated By</label>
+          <label class="form-label" for="field_updatedBy" jhiTranslate="requestApp.requestContent.updatedBy">Updated By</label>
           <input type="text" class="form-control" name="updatedBy" id="field_updatedBy" data-cy="updatedBy" formControlName="updatedBy" />
           @if (editForm.get('updatedBy')!.invalid && (editForm.get('updatedBy')!.dirty || editForm.get('updatedBy')!.touched)) {
             <div>
@@ -120,9 +120,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_requestInfoId" jhiTranslate="changeRequestApp.requestContent.requestInfoId"
-            >Request Info Id</label
-          >
+          <label class="form-label" for="field_requestInfoId" jhiTranslate="requestApp.requestContent.requestInfoId">Request Info Id</label>
           <select
             class="form-control"
             id="field_requestInfoId"

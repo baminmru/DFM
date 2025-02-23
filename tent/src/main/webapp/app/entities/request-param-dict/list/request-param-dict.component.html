@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="RequestParamDictHeading">
-    <span jhiTranslate="changeRequestApp.requestParamDict.home.title">Request Param Dicts</span>
+    <span jhiTranslate="requestApp.requestParamDict.home.title">Request Param Dicts</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="changeRequestApp.requestParamDict.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="requestApp.requestParamDict.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-param-dict/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="changeRequestApp.requestParamDict.home.createLabel">Create a new Request Param Dict</span>
+        <span jhiTranslate="requestApp.requestParamDict.home.createLabel">Create a new Request Param Dict</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestParamDicts?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="changeRequestApp.requestParamDict.home.notFound">No Request Param Dicts found</span>
+      <span jhiTranslate="requestApp.requestParamDict.home.notFound">No Request Param Dicts found</span>
     </div>
   }
 
@@ -44,63 +44,63 @@
             </th>
             <th scope="col" jhiSortBy="code">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.code">Code</span>
+                <span jhiTranslate="requestApp.requestParamDict.code">Code</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="name">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.name">Name</span>
+                <span jhiTranslate="requestApp.requestParamDict.name">Name</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="paramtype">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.paramtype">Paramtype</span>
+                <span jhiTranslate="requestApp.requestParamDict.paramtype">Paramtype</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="valueArray">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.valueArray">Value Array</span>
+                <span jhiTranslate="requestApp.requestParamDict.valueArray">Value Array</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="referenceTo">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.referenceTo">Reference To</span>
+                <span jhiTranslate="requestApp.requestParamDict.referenceTo">Reference To</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdAt">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.createdAt">Created At</span>
+                <span jhiTranslate="requestApp.requestParamDict.createdAt">Created At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdBy">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.createdBy">Created By</span>
+                <span jhiTranslate="requestApp.requestParamDict.createdBy">Created By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedAt">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.updatedAt">Updated At</span>
+                <span jhiTranslate="requestApp.requestParamDict.updatedAt">Updated At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedBy">
               <div class="d-flex">
-                <span jhiTranslate="changeRequestApp.requestParamDict.updatedBy">Updated By</span>
+                <span jhiTranslate="requestApp.requestParamDict.updatedBy">Updated By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>

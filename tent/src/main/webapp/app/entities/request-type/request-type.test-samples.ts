@@ -3,32 +3,32 @@ import dayjs from 'dayjs/esm';
 import { IRequestType, NewRequestType } from './request-type.model';
 
 export const sampleWithRequiredData: IRequestType = {
-  id: 25977,
-  code: 'golden',
-  name: 'gigantic',
+  id: 30248,
+  code: 'hmph stair',
+  name: 'upwardly',
 };
 
 export const sampleWithPartialData: IRequestType = {
-  id: 21087,
-  code: 'geez although surcharge',
-  name: 'hallway step-mother harness',
-  createdBy: 'supposing how',
-  updatedBy: 'fairly',
+  id: 15099,
+  code: 'paperwork pace a',
+  name: 'phew ultimately meh',
+  updatedAt: dayjs('2025-02-21'),
+  updatedBy: 'duh light',
 };
 
 export const sampleWithFullData: IRequestType = {
-  id: 20844,
-  code: 'selfishly softly',
-  name: 'when colorless',
+  id: 2261,
+  code: 'solemnly manoeuvre',
+  name: 'meh gosh',
   createdAt: dayjs('2025-02-21'),
-  createdBy: 'apropos',
+  createdBy: 'what given',
   updatedAt: dayjs('2025-02-21'),
-  updatedBy: 'fooey yahoo praises',
+  updatedBy: 'lest liner reorganise',
 };
 
 export const sampleWithNewData: NewRequestType = {
-  code: 'epauliere',
-  name: 'arbitrate uh-huh indeed',
+  code: 'pig versus',
+  name: 'failing oof',
   id: null,
 };
 

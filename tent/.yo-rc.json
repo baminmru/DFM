@@ -2,12 +2,12 @@
   "generator-jhipster": {
     "applicationType": "monolitic",
     "authenticationType": "jwt",
-    "baseName": "ChangeRequest",
+    "baseName": "Request",
     "buildTool": "maven",
     "clientFramework": "angular",
     "creationTimestamp": 1740336947815,
     "databaseType": "sql",
-    "devDatabaseType": "postgresql",
+    "devDatabaseType": "h2Disk",
     "devServerPort": 4200,
     "entities": [
       "RequestType",

@@ -1,5 +1,5 @@
 {
-  "changeRequestApp": {
+  "requestApp": {
     "requestConfig": {
       "home": {
         "title": "Request Configs",

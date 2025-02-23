@@ -302,7 +302,7 @@ class RequestContentConfigResourceIT {
         RequestContentConfig partialUpdatedRequestContentConfig = new RequestContentConfig();
         partialUpdatedRequestContentConfig.setId(requestContentConfig.getId());
 
-        partialUpdatedRequestContentConfig.createdBy(UPDATED_CREATED_BY).updatedBy(UPDATED_UPDATED_BY);
+        partialUpdatedRequestContentConfig.isMandatory(UPDATED_IS_MANDATORY).createdAt(UPDATED_CREATED_AT).createdBy(UPDATED_CREATED_BY);
 
         restRequestContentConfigMockMvc
             .perform(

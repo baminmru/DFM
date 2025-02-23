@@ -49,10 +49,10 @@ describe('RequestConfig Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call RequestType query and add missing value', () => {
       const requestConfig: IRequestConfig = { id: 456 };
-      const requestType: IRequestType = { id: 11602 };
+      const requestType: IRequestType = { id: 13743 };
       requestConfig.requestType = requestType;
 
-      const requestTypeCollection: IRequestType[] = [{ id: 17123 }];
+      const requestTypeCollection: IRequestType[] = [{ id: 22897 }];
       jest.spyOn(requestTypeService, 'query').mockReturnValue(of(new HttpResponse({ body: requestTypeCollection })));
       const additionalRequestTypes = [requestType];
       const expectedCollection: IRequestType[] = [...additionalRequestTypes, ...requestTypeCollection];
@@ -71,7 +71,7 @@ describe('RequestConfig Management Update Component', () => {
 
     it('Should update editForm', () => {
       const requestConfig: IRequestConfig = { id: 456 };
-      const requestType: IRequestType = { id: 1219 };
+      const requestType: IRequestType = { id: 2262 };
       requestConfig.requestType = requestType;
 
       activatedRoute.data = of({ requestConfig });

@@ -49,10 +49,10 @@ describe('RequestContent Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call RequestInfo query and add missing value', () => {
       const requestContent: IRequestContent = { id: 456 };
-      const requestInfoId: IRequestInfo = { id: 27614 };
+      const requestInfoId: IRequestInfo = { id: 6752 };
       requestContent.requestInfoId = requestInfoId;
 
-      const requestInfoCollection: IRequestInfo[] = [{ id: 12179 }];
+      const requestInfoCollection: IRequestInfo[] = [{ id: 29407 }];
       jest.spyOn(requestInfoService, 'query').mockReturnValue(of(new HttpResponse({ body: requestInfoCollection })));
       const additionalRequestInfos = [requestInfoId];
       const expectedCollection: IRequestInfo[] = [...additionalRequestInfos, ...requestInfoCollection];
@@ -71,7 +71,7 @@ describe('RequestContent Management Update Component', () => {
 
     it('Should update editForm', () => {
       const requestContent: IRequestContent = { id: 456 };
-      const requestInfoId: IRequestInfo = { id: 27567 };
+      const requestInfoId: IRequestInfo = { id: 14511 };
       requestContent.requestInfoId = requestInfoId;
 
       activatedRoute.data = of({ requestContent });

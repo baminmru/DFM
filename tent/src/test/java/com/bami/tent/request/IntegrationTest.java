@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = { ChangeRequestApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
+@SpringBootTest(classes = { RequestApp.class, JacksonConfiguration.class, AsyncSyncConfiguration.class })
 @EmbeddedSQL
 public @interface IntegrationTest {
 }

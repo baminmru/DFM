@@ -1,11 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2
-        id="jhi-authority-heading"
-        data-cy="AuthorityCreateUpdateHeading"
-        jhiTranslate="changeRequestApp.adminAuthority.home.createOrEditLabel"
-      >
+      <h2 id="jhi-authority-heading" data-cy="AuthorityCreateUpdateHeading" jhiTranslate="requestApp.adminAuthority.home.createOrEditLabel">
         Create or edit a Authority
       </h2>
 
@@ -13,7 +9,7 @@
         <jhi-alert-error></jhi-alert-error>
 
         <div class="mb-3">
-          <label class="form-label" for="field_name" jhiTranslate="changeRequestApp.adminAuthority.name">Name</label>
+          <label class="form-label" for="field_name" jhiTranslate="requestApp.adminAuthority.name">Name</label>
           <input
             type="text"
             class="form-control"

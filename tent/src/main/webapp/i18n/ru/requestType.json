@@ -1,5 +1,5 @@
 {
-  "changeRequestApp": {
+  "requestApp": {
     "requestType": {
       "home": {
         "title": "Request Types",

@@ -337,7 +337,7 @@ class RequestTypeResourceIT {
         RequestType partialUpdatedRequestType = new RequestType();
         partialUpdatedRequestType.setId(requestType.getId());
 
-        partialUpdatedRequestType.code(UPDATED_CODE).updatedBy(UPDATED_UPDATED_BY);
+        partialUpdatedRequestType.name(UPDATED_NAME).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
 
         restRequestTypeMockMvc
             .perform(

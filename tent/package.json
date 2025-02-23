@@ -1,8 +1,8 @@
 {
-  "name": "change-request",
+  "name": "request",
   "version": "0.0.1-SNAPSHOT",
   "private": true,
-  "description": "Description for Change Request",
+  "description": "Description for Request",
   "license": "UNLICENSED",
   "scripts": {
     "app:start": "./mvnw",

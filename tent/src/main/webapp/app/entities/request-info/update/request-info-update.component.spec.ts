@@ -53,10 +53,10 @@ describe('RequestInfo Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call RequestType query and add missing value', () => {
       const requestInfo: IRequestInfo = { id: 456 };
-      const requestType: IRequestType = { id: 30403 };
+      const requestType: IRequestType = { id: 2296 };
       requestInfo.requestType = requestType;
 
-      const requestTypeCollection: IRequestType[] = [{ id: 9350 }];
+      const requestTypeCollection: IRequestType[] = [{ id: 21647 }];
       jest.spyOn(requestTypeService, 'query').mockReturnValue(of(new HttpResponse({ body: requestTypeCollection })));
       const additionalRequestTypes = [requestType];
       const expectedCollection: IRequestType[] = [...additionalRequestTypes, ...requestTypeCollection];
@@ -75,10 +75,10 @@ describe('RequestInfo Management Update Component', () => {
 
     it('Should call SourceSystem query and add missing value', () => {
       const requestInfo: IRequestInfo = { id: 456 };
-      const requestSource: ISourceSystem = { id: 3562 };
+      const requestSource: ISourceSystem = { id: 16380 };
       requestInfo.requestSource = requestSource;
 
-      const sourceSystemCollection: ISourceSystem[] = [{ id: 3249 }];
+      const sourceSystemCollection: ISourceSystem[] = [{ id: 30474 }];
       jest.spyOn(sourceSystemService, 'query').mockReturnValue(of(new HttpResponse({ body: sourceSystemCollection })));
       const additionalSourceSystems = [requestSource];
       const expectedCollection: ISourceSystem[] = [...additionalSourceSystems, ...sourceSystemCollection];
@@ -97,9 +97,9 @@ describe('RequestInfo Management Update Component', () => {
 
     it('Should update editForm', () => {
       const requestInfo: IRequestInfo = { id: 456 };
-      const requestType: IRequestType = { id: 29672 };
+      const requestType: IRequestType = { id: 1779 };
       requestInfo.requestType = requestType;
-      const requestSource: ISourceSystem = { id: 8070 };
+      const requestSource: ISourceSystem = { id: 31292 };
       requestInfo.requestSource = requestSource;
 
       activatedRoute.data = of({ requestInfo });

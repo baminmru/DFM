@@ -3,36 +3,35 @@ import dayjs from 'dayjs/esm';
 import { IRequestParamDict, NewRequestParamDict } from './request-param-dict.model';
 
 export const sampleWithRequiredData: IRequestParamDict = {
-  id: 14647,
-  code: 'however',
-  name: 'cross apricot',
+  id: 32370,
+  code: 'unlike than',
+  name: 'in drain drown',
 };
 
 export const sampleWithPartialData: IRequestParamDict = {
-  id: 26044,
-  code: 'kayak although before',
-  name: 'beach',
-  paramtype: 'elastic',
-  createdAt: dayjs('2025-02-21'),
-  createdBy: 'about vicious hm',
+  id: 2101,
+  code: 'forenenst empty',
+  name: 'our',
+  createdAt: dayjs('2025-02-20'),
+  createdBy: 'till',
 };
 
 export const sampleWithFullData: IRequestParamDict = {
-  id: 10581,
-  code: 'exhausted to voluminous',
-  name: 'except',
-  paramtype: 'off',
+  id: 16915,
+  code: 'headline',
+  name: 'create concerning tack',
+  paramtype: 'outflank old',
   valueArray: false,
-  referenceTo: 'after',
+  referenceTo: 'rosy',
   createdAt: dayjs('2025-02-21'),
-  createdBy: 'bunch down',
-  updatedAt: dayjs('2025-02-21'),
-  updatedBy: 'why woot gorgeous',
+  createdBy: 'timely',
+  updatedAt: dayjs('2025-02-20'),
+  updatedBy: 'beautifully imagine',
 };
 
 export const sampleWithNewData: NewRequestParamDict = {
-  code: 'blowgun',
-  name: 'rout unfit influence',
+  code: 'why because afterwards',
+  name: 'inferior hub periodic',
   id: null,
 };
 

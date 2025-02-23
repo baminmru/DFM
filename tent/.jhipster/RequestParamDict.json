@@ -2,7 +2,7 @@
   "annotations": {
     "changelogDate": "20250221174153"
   },
-  "applications": ["ChangeRequest"],
+  "applications": ["Request"],
   "fields": [
     {
       "fieldName": "code",
