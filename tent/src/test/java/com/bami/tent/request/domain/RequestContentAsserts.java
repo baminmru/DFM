@@ -48,7 +48,11 @@ public class RequestContentAsserts {
         assertThat(expected)
             .as("Verify RequestContent relevant properties")
             .satisfies(e -> assertThat(e.getParamCode()).as("check paramCode").isEqualTo(actual.getParamCode()))
-            .satisfies(e -> assertThat(e.getParamValue()).as("check paramValue").isEqualTo(actual.getParamValue()));
+            .satisfies(e -> assertThat(e.getParamValue()).as("check paramValue").isEqualTo(actual.getParamValue()))
+            .satisfies(e -> assertThat(e.getCreatedAt()).as("check createdAt").isEqualTo(actual.getCreatedAt()))
+            .satisfies(e -> assertThat(e.getCreatedBy()).as("check createdBy").isEqualTo(actual.getCreatedBy()))
+            .satisfies(e -> assertThat(e.getUpdatedAt()).as("check updatedAt").isEqualTo(actual.getUpdatedAt()))
+            .satisfies(e -> assertThat(e.getUpdatedBy()).as("check updatedBy").isEqualTo(actual.getUpdatedBy()));
     }
 
     /**

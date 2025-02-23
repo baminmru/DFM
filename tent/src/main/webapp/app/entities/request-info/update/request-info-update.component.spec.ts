@@ -6,8 +6,10 @@ import { of, Subject, from } from 'rxjs';
 
 import { IRequestType } from 'app/entities/request-type/request-type.model';
 import { RequestTypeService } from 'app/entities/request-type/service/request-type.service';
-import { RequestInfoService } from '../service/request-info.service';
+import { ISourceSystem } from 'app/entities/source-system/source-system.model';
+import { SourceSystemService } from 'app/entities/source-system/service/source-system.service';
 import { IRequestInfo } from '../request-info.model';
+import { RequestInfoService } from '../service/request-info.service';
 import { RequestInfoFormService } from './request-info-form.service';
 
 import { RequestInfoUpdateComponent } from './request-info-update.component';
@@ -19,6 +21,7 @@ describe('RequestInfo Management Update Component', () => {
   let requestInfoFormService: RequestInfoFormService;
   let requestInfoService: RequestInfoService;
   let requestTypeService: RequestTypeService;
+  let sourceSystemService: SourceSystemService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,6 +45,7 @@ describe('RequestInfo Management Update Component', () => {
     requestInfoFormService = TestBed.inject(RequestInfoFormService);
     requestInfoService = TestBed.inject(RequestInfoService);
     requestTypeService = TestBed.inject(RequestTypeService);
+    sourceSystemService = TestBed.inject(SourceSystemService);
 
     comp = fixture.componentInstance;
   });
@@ -49,10 +53,10 @@ describe('RequestInfo Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call RequestType query and add missing value', () => {
       const requestInfo: IRequestInfo = { id: 456 };
-      const requestType: IRequestType = { id: 8425 };
+      const requestType: IRequestType = { id: 30403 };
       requestInfo.requestType = requestType;
 
-      const requestTypeCollection: IRequestType[] = [{ id: 28912 }];
+      const requestTypeCollection: IRequestType[] = [{ id: 9350 }];
       jest.spyOn(requestTypeService, 'query').mockReturnValue(of(new HttpResponse({ body: requestTypeCollection })));
       const additionalRequestTypes = [requestType];
       const expectedCollection: IRequestType[] = [...additionalRequestTypes, ...requestTypeCollection];
@@ -69,15 +73,40 @@ describe('RequestInfo Management Update Component', () => {
       expect(comp.requestTypesSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call SourceSystem query and add missing value', () => {
+      const requestInfo: IRequestInfo = { id: 456 };
+      const requestSource: ISourceSystem = { id: 3562 };
+      requestInfo.requestSource = requestSource;
+
+      const sourceSystemCollection: ISourceSystem[] = [{ id: 3249 }];
+      jest.spyOn(sourceSystemService, 'query').mockReturnValue(of(new HttpResponse({ body: sourceSystemCollection })));
+      const additionalSourceSystems = [requestSource];
+      const expectedCollection: ISourceSystem[] = [...additionalSourceSystems, ...sourceSystemCollection];
+      jest.spyOn(sourceSystemService, 'addSourceSystemToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ requestInfo });
+      comp.ngOnInit();
+
+      expect(sourceSystemService.query).toHaveBeenCalled();
+      expect(sourceSystemService.addSourceSystemToCollectionIfMissing).toHaveBeenCalledWith(
+        sourceSystemCollection,
+        ...additionalSourceSystems.map(expect.objectContaining),
+      );
+      expect(comp.sourceSystemsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const requestInfo: IRequestInfo = { id: 456 };
-      const requestType: IRequestType = { id: 2494 };
+      const requestType: IRequestType = { id: 29672 };
       requestInfo.requestType = requestType;
+      const requestSource: ISourceSystem = { id: 8070 };
+      requestInfo.requestSource = requestSource;
 
       activatedRoute.data = of({ requestInfo });
       comp.ngOnInit();
 
       expect(comp.requestTypesSharedCollection).toContain(requestType);
+      expect(comp.sourceSystemsSharedCollection).toContain(requestSource);
       expect(comp.requestInfo).toEqual(requestInfo);
     });
   });
@@ -158,6 +187,16 @@ describe('RequestInfo Management Update Component', () => {
         jest.spyOn(requestTypeService, 'compareRequestType');
         comp.compareRequestType(entity, entity2);
         expect(requestTypeService.compareRequestType).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareSourceSystem', () => {
+      it('Should forward to sourceSystemService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(sourceSystemService, 'compareSourceSystem');
+        comp.compareSourceSystem(entity, entity2);
+        expect(sourceSystemService.compareSourceSystem).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

@@ -61,6 +61,8 @@ public class CacheConfiguration {
             createCache(cm, com.bami.tent.request.domain.RequestContentConfig.class.getName());
             createCache(cm, com.bami.tent.request.domain.RequestParamDict.class.getName());
             createCache(cm, com.bami.tent.request.domain.RequestParamDict.class.getName() + ".requestContentConfigs");
+            createCache(cm, com.bami.tent.request.domain.SourceSystem.class.getName());
+            createCache(cm, com.bami.tent.request.domain.SourceSystem.class.getName() + ".requestInfos");
             // jhipster-needle-ehcache-add-entry
         };
     }

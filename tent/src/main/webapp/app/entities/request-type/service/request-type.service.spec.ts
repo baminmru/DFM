@@ -2,13 +2,16 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { IRequestType } from '../request-type.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../request-type.test-samples';
 
-import { RequestTypeService } from './request-type.service';
+import { RequestTypeService, RestRequestType } from './request-type.service';
 
-const requireRestSample: IRequestType = {
+const requireRestSample: RestRequestType = {
   ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.format(DATE_FORMAT),
+  updatedAt: sampleWithRequiredData.updatedAt?.format(DATE_FORMAT),
 };
 
 describe('RequestType Service', () => {

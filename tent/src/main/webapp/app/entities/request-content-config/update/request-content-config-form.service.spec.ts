@@ -21,6 +21,10 @@ describe('RequestContentConfig Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             isMandatory: expect.any(Object),
+            createdAt: expect.any(Object),
+            createdBy: expect.any(Object),
+            updatedAt: expect.any(Object),
+            updatedBy: expect.any(Object),
             requestConfigId: expect.any(Object),
             parameter: expect.any(Object),
           }),
@@ -34,6 +38,10 @@ describe('RequestContentConfig Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             isMandatory: expect.any(Object),
+            createdAt: expect.any(Object),
+            createdBy: expect.any(Object),
+            updatedAt: expect.any(Object),
+            updatedBy: expect.any(Object),
             requestConfigId: expect.any(Object),
             parameter: expect.any(Object),
           }),

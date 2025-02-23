@@ -31,4 +31,9 @@ export const EntityNavbarItems: NavbarItem[] = [
     route: '/request-param-dict',
     translationKey: 'global.menu.entities.requestParamDict',
   },
+  {
+    name: 'SourceSystem',
+    route: '/source-system',
+    translationKey: 'global.menu.entities.sourceSystem',
+  },
 ];

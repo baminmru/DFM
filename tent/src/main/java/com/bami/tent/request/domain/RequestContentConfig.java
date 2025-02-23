@@ -2,7 +2,9 @@ package com.bami.tent.request.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -25,6 +27,20 @@ public class RequestContentConfig implements Serializable {
 
     @Column(name = "is_mandatory")
     private Boolean isMandatory;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Size(max = 64)
+    @Column(name = "created_by", length = 64)
+    private String createdBy;
+
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
+    @Size(max = 64)
+    @Column(name = "updated_by", length = 64)
+    private String updatedBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "requestContentConfigs", "requestType" }, allowSetters = true)
@@ -60,6 +76,58 @@ public class RequestContentConfig implements Serializable {
 
     public void setIsMandatory(Boolean isMandatory) {
         this.isMandatory = isMandatory;
+    }
+
+    public LocalDate getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public RequestContentConfig createdAt(LocalDate createdAt) {
+        this.setCreatedAt(createdAt);
+        return this;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public RequestContentConfig createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public RequestContentConfig updatedAt(LocalDate updatedAt) {
+        this.setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public RequestContentConfig updatedBy(String updatedBy) {
+        this.setUpdatedBy(updatedBy);
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public RequestConfig getRequestConfigId() {
@@ -113,6 +181,10 @@ public class RequestContentConfig implements Serializable {
         return "RequestContentConfig{" +
             "id=" + getId() +
             ", isMandatory='" + getIsMandatory() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
             "}";
     }
 }

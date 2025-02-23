@@ -12,6 +12,8 @@ import com.bami.tent.request.domain.RequestContentConfig;
 import com.bami.tent.request.repository.RequestContentConfigRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +36,18 @@ class RequestContentConfigResourceIT {
 
     private static final Boolean DEFAULT_IS_MANDATORY = false;
     private static final Boolean UPDATED_IS_MANDATORY = true;
+
+    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/request-content-configs";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -64,7 +78,12 @@ class RequestContentConfigResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestContentConfig createEntity(EntityManager em) {
-        RequestContentConfig requestContentConfig = new RequestContentConfig().isMandatory(DEFAULT_IS_MANDATORY);
+        RequestContentConfig requestContentConfig = new RequestContentConfig()
+            .isMandatory(DEFAULT_IS_MANDATORY)
+            .createdAt(DEFAULT_CREATED_AT)
+            .createdBy(DEFAULT_CREATED_BY)
+            .updatedAt(DEFAULT_UPDATED_AT)
+            .updatedBy(DEFAULT_UPDATED_BY);
         return requestContentConfig;
     }
 
@@ -75,7 +94,12 @@ class RequestContentConfigResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestContentConfig createUpdatedEntity(EntityManager em) {
-        RequestContentConfig requestContentConfig = new RequestContentConfig().isMandatory(UPDATED_IS_MANDATORY);
+        RequestContentConfig requestContentConfig = new RequestContentConfig()
+            .isMandatory(UPDATED_IS_MANDATORY)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
         return requestContentConfig;
     }
 
@@ -146,7 +170,11 @@ class RequestContentConfigResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(requestContentConfig.getId().intValue())))
-            .andExpect(jsonPath("$.[*].isMandatory").value(hasItem(DEFAULT_IS_MANDATORY.booleanValue())));
+            .andExpect(jsonPath("$.[*].isMandatory").value(hasItem(DEFAULT_IS_MANDATORY.booleanValue())))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)));
     }
 
     @Test
@@ -161,7 +189,11 @@ class RequestContentConfigResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(requestContentConfig.getId().intValue()))
-            .andExpect(jsonPath("$.isMandatory").value(DEFAULT_IS_MANDATORY.booleanValue()));
+            .andExpect(jsonPath("$.isMandatory").value(DEFAULT_IS_MANDATORY.booleanValue()))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY));
     }
 
     @Test
@@ -185,7 +217,12 @@ class RequestContentConfigResourceIT {
             .orElseThrow();
         // Disconnect from session so that the updates on updatedRequestContentConfig are not directly saved in db
         em.detach(updatedRequestContentConfig);
-        updatedRequestContentConfig.isMandatory(UPDATED_IS_MANDATORY);
+        updatedRequestContentConfig
+            .isMandatory(UPDATED_IS_MANDATORY)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestContentConfigMockMvc
             .perform(
@@ -265,6 +302,8 @@ class RequestContentConfigResourceIT {
         RequestContentConfig partialUpdatedRequestContentConfig = new RequestContentConfig();
         partialUpdatedRequestContentConfig.setId(requestContentConfig.getId());
 
+        partialUpdatedRequestContentConfig.createdBy(UPDATED_CREATED_BY).updatedBy(UPDATED_UPDATED_BY);
+
         restRequestContentConfigMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedRequestContentConfig.getId())
@@ -294,7 +333,12 @@ class RequestContentConfigResourceIT {
         RequestContentConfig partialUpdatedRequestContentConfig = new RequestContentConfig();
         partialUpdatedRequestContentConfig.setId(requestContentConfig.getId());
 
-        partialUpdatedRequestContentConfig.isMandatory(UPDATED_IS_MANDATORY);
+        partialUpdatedRequestContentConfig
+            .isMandatory(UPDATED_IS_MANDATORY)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestContentConfigMockMvc
             .perform(

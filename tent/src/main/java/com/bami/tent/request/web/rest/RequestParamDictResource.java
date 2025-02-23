@@ -130,11 +130,26 @@ public class RequestParamDictResource {
                 if (requestParamDict.getName() != null) {
                     existingRequestParamDict.setName(requestParamDict.getName());
                 }
+                if (requestParamDict.getParamtype() != null) {
+                    existingRequestParamDict.setParamtype(requestParamDict.getParamtype());
+                }
                 if (requestParamDict.getValueArray() != null) {
                     existingRequestParamDict.setValueArray(requestParamDict.getValueArray());
                 }
                 if (requestParamDict.getReferenceTo() != null) {
                     existingRequestParamDict.setReferenceTo(requestParamDict.getReferenceTo());
+                }
+                if (requestParamDict.getCreatedAt() != null) {
+                    existingRequestParamDict.setCreatedAt(requestParamDict.getCreatedAt());
+                }
+                if (requestParamDict.getCreatedBy() != null) {
+                    existingRequestParamDict.setCreatedBy(requestParamDict.getCreatedBy());
+                }
+                if (requestParamDict.getUpdatedAt() != null) {
+                    existingRequestParamDict.setUpdatedAt(requestParamDict.getUpdatedAt());
+                }
+                if (requestParamDict.getUpdatedBy() != null) {
+                    existingRequestParamDict.setUpdatedBy(requestParamDict.getUpdatedBy());
                 }
 
                 return existingRequestParamDict;

@@ -2,11 +2,31 @@
   "annotations": {
     "changelogDate": "20250221174053"
   },
-  "applications": ["testTent"],
+  "applications": ["ChangeRequest"],
   "fields": [
     {
       "fieldName": "isMandatory",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
     }
   ],
   "name": "RequestContentConfig",

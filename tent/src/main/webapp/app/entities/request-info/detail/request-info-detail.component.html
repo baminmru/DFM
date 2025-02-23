@@ -2,7 +2,7 @@
   <div class="col-8">
     @if (requestInfo()) {
       <div>
-        <h2 data-cy="requestInfoDetailsHeading"><span jhiTranslate="testTentApp.requestInfo.detail.title">Request Info</span></h2>
+        <h2 data-cy="requestInfoDetailsHeading"><span jhiTranslate="changeRequestApp.requestInfo.detail.title">Request Info</span></h2>
 
         <hr />
 
@@ -15,43 +15,55 @@
           <dd>
             <span>{{ requestInfo()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.contract">Contract</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.contract">Contract</span></dt>
           <dd>
             <span>{{ requestInfo()!.contract }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.requestDate">Request Date</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.requestDate">Request Date</span></dt>
           <dd>
             <span>{{ requestInfo()!.requestDate | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.effectiveDateStart">Effective Date Start</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.codeAtSource">Code At Source</span></dt>
+          <dd>
+            <span>{{ requestInfo()!.codeAtSource }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.effectiveDateStart">Effective Date Start</span></dt>
           <dd>
             <span>{{ requestInfo()!.effectiveDateStart | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.effectiveDateEnd">Effective Date End</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.effectiveDateEnd">Effective Date End</span></dt>
           <dd>
             <span>{{ requestInfo()!.effectiveDateEnd | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.createdAt">Created At</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.createdAt">Created At</span></dt>
           <dd>
             <span>{{ requestInfo()!.createdAt | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.createdBy">Created By</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.createdBy">Created By</span></dt>
           <dd>
             <span>{{ requestInfo()!.createdBy }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.updatedAt">Updated At</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.updatedAt">Updated At</span></dt>
           <dd>
             <span>{{ requestInfo()!.updatedAt | formatMediumDate }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.updatedBy">Updated By</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.updatedBy">Updated By</span></dt>
           <dd>
             <span>{{ requestInfo()!.updatedBy }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestInfo.requestType">Request Type</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.requestType">Request Type</span></dt>
           <dd>
             @if (requestInfo()!.requestType) {
               <div>
                 <a [routerLink]="['/request-type', requestInfo()!.requestType?.id, 'view']">{{ requestInfo()!.requestType?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestInfo.requestSource">Request Source</span></dt>
+          <dd>
+            @if (requestInfo()!.requestSource) {
+              <div>
+                <a [routerLink]="['/source-system', requestInfo()!.requestSource?.id, 'view']">{{ requestInfo()!.requestSource?.id }}</a>
               </div>
             }
           </dd>

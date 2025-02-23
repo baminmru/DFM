@@ -3,7 +3,7 @@
     @if (requestParamDict()) {
       <div>
         <h2 data-cy="requestParamDictDetailsHeading">
-          <span jhiTranslate="testTentApp.requestParamDict.detail.title">Request Param Dict</span>
+          <span jhiTranslate="changeRequestApp.requestParamDict.detail.title">Request Param Dict</span>
         </h2>
 
         <hr />
@@ -17,21 +17,41 @@
           <dd>
             <span>{{ requestParamDict()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestParamDict.code">Code</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.code">Code</span></dt>
           <dd>
             <span>{{ requestParamDict()!.code }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestParamDict.name">Name</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.name">Name</span></dt>
           <dd>
             <span>{{ requestParamDict()!.name }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestParamDict.valueArray">Value Array</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.paramtype">Paramtype</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.paramtype }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.valueArray">Value Array</span></dt>
           <dd>
             <span>{{ requestParamDict()!.valueArray }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestParamDict.referenceTo">Reference To</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.referenceTo">Reference To</span></dt>
           <dd>
             <span>{{ requestParamDict()!.referenceTo }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.updatedAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestParamDict.updatedBy">Updated By</span></dt>
+          <dd>
+            <span>{{ requestParamDict()!.updatedBy }}</span>
           </dd>
         </dl>
 

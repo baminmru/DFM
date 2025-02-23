@@ -49,8 +49,13 @@ public class RequestParamDictAsserts {
             .as("Verify RequestParamDict relevant properties")
             .satisfies(e -> assertThat(e.getCode()).as("check code").isEqualTo(actual.getCode()))
             .satisfies(e -> assertThat(e.getName()).as("check name").isEqualTo(actual.getName()))
+            .satisfies(e -> assertThat(e.getParamtype()).as("check paramtype").isEqualTo(actual.getParamtype()))
             .satisfies(e -> assertThat(e.getValueArray()).as("check valueArray").isEqualTo(actual.getValueArray()))
-            .satisfies(e -> assertThat(e.getReferenceTo()).as("check referenceTo").isEqualTo(actual.getReferenceTo()));
+            .satisfies(e -> assertThat(e.getReferenceTo()).as("check referenceTo").isEqualTo(actual.getReferenceTo()))
+            .satisfies(e -> assertThat(e.getCreatedAt()).as("check createdAt").isEqualTo(actual.getCreatedAt()))
+            .satisfies(e -> assertThat(e.getCreatedBy()).as("check createdBy").isEqualTo(actual.getCreatedBy()))
+            .satisfies(e -> assertThat(e.getUpdatedAt()).as("check updatedAt").isEqualTo(actual.getUpdatedAt()))
+            .satisfies(e -> assertThat(e.getUpdatedBy()).as("check updatedBy").isEqualTo(actual.getUpdatedBy()));
     }
 
     /**

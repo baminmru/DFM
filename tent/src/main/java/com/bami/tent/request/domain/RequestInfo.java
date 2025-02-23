@@ -27,12 +27,18 @@ public class RequestInfo implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "contract")
+    @NotNull
+    @Column(name = "contract", nullable = false)
     private Integer contract;
 
     @NotNull
     @Column(name = "request_date", nullable = false)
     private LocalDate requestDate;
+
+    @NotNull
+    @Size(max = 40)
+    @Column(name = "code_at_source", length = 40, nullable = false)
+    private String codeAtSource;
 
     @Column(name = "effective_date_start")
     private LocalDate effectiveDateStart;
@@ -62,6 +68,10 @@ public class RequestInfo implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "requestInfos", "requestConfigs" }, allowSetters = true)
     private RequestType requestType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "requestInfos" }, allowSetters = true)
+    private SourceSystem requestSource;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -102,6 +112,19 @@ public class RequestInfo implements Serializable {
 
     public void setRequestDate(LocalDate requestDate) {
         this.requestDate = requestDate;
+    }
+
+    public String getCodeAtSource() {
+        return this.codeAtSource;
+    }
+
+    public RequestInfo codeAtSource(String codeAtSource) {
+        this.setCodeAtSource(codeAtSource);
+        return this;
+    }
+
+    public void setCodeAtSource(String codeAtSource) {
+        this.codeAtSource = codeAtSource;
     }
 
     public LocalDate getEffectiveDateStart() {
@@ -226,6 +249,19 @@ public class RequestInfo implements Serializable {
         return this;
     }
 
+    public SourceSystem getRequestSource() {
+        return this.requestSource;
+    }
+
+    public void setRequestSource(SourceSystem sourceSystem) {
+        this.requestSource = sourceSystem;
+    }
+
+    public RequestInfo requestSource(SourceSystem sourceSystem) {
+        this.setRequestSource(sourceSystem);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -252,6 +288,7 @@ public class RequestInfo implements Serializable {
             "id=" + getId() +
             ", contract=" + getContract() +
             ", requestDate='" + getRequestDate() + "'" +
+            ", codeAtSource='" + getCodeAtSource() + "'" +
             ", effectiveDateStart='" + getEffectiveDateStart() + "'" +
             ", effectiveDateEnd='" + getEffectiveDateEnd() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +

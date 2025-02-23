@@ -1,0 +1,30 @@
+{
+  "changeRequestApp": {
+    "sourceSystem": {
+      "home": {
+        "title": "Source Systems",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Source System",
+        "createOrEditLabel": "Создать или отредактировать Source System",
+        "notFound": "Source Systems не найдено"
+      },
+      "created": "Новый Source System создан с идентификатором {{ param }}",
+      "updated": "Source System обновлен с идентификатором {{ param }}",
+      "deleted": "Source System удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Source System {{ id }}?"
+      },
+      "detail": {
+        "title": "Source System"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "createdAt": "Created At",
+      "createdBy": "Created By",
+      "updatedAt": "Updated At",
+      "updatedBy": "Updated By",
+      "requestInfo": "Request Info"
+    }
+  }
+}

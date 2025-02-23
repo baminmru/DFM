@@ -1,5 +1,5 @@
 {
-  "testTentApp": {
+  "changeRequestApp": {
     "requestInfo": {
       "home": {
         "title": "Request Infos",
@@ -20,6 +20,7 @@
       "id": "ID",
       "contract": "Contract",
       "requestDate": "Request Date",
+      "codeAtSource": "Code At Source",
       "effectiveDateStart": "Effective Date Start",
       "effectiveDateEnd": "Effective Date End",
       "createdAt": "Created At",
@@ -27,7 +28,8 @@
       "updatedAt": "Updated At",
       "updatedBy": "Updated By",
       "requestContent": "Request Content",
-      "requestType": "Request Type"
+      "requestType": "Request Type",
+      "requestSource": "Request Source"
     }
   }
 }

@@ -2,23 +2,33 @@
   "generator-jhipster": {
     "applicationType": "monolitic",
     "authenticationType": "jwt",
-    "baseName": "testTent",
+    "baseName": "ChangeRequest",
     "buildTool": "maven",
     "clientFramework": "angular",
+    "creationTimestamp": 1740336947815,
     "databaseType": "sql",
-    "devDatabaseType": "h2Disk",
+    "devDatabaseType": "postgresql",
     "devServerPort": 4200,
-    "entities": ["RequestType", "RequestInfo", "RequestContent", "RequestConfig", "RequestContentConfig", "RequestParamDict"],
+    "entities": [
+      "RequestType",
+      "RequestInfo",
+      "RequestContent",
+      "RequestConfig",
+      "RequestContentConfig",
+      "RequestParamDict",
+      "SourceSystem"
+    ],
     "jhipsterVersion": "8.6.0",
     "jwtSecretKey": "NmRkNzI1YTkwZWRmODliMjRlYWJkNmVlMDA0MjBmMGQ5YzVhZDBmYzk4MDRhNjQ2OTU1YzhhYTU0MmQxM2FlOWFjMTUxNDU0YjY2YjlhZGJiMThmYzQ5OGIxYjU5NzZiNDg3ZWQ2YWUzZjUxMmNkNDFhOGQ2ZmI2MTk3YmFiZTI=",
     "languages": ["en", "ru"],
-    "lastLiquibaseTimestamp": 1740159713000,
+    "lastLiquibaseTimestamp": 1740336952000,
     "monorepository": true,
     "nativeLanguage": "en",
     "packageFolder": "com/bami/tent/request",
     "packageName": "com.bami.tent.request",
     "prodDatabaseType": "postgresql",
     "serverPort": "8080",
+    "serviceDiscoveryType": "eureka",
     "skipCommitHook": true
   }
 }

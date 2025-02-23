@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="RequestConfigHeading">
-    <span jhiTranslate="testTentApp.requestConfig.home.title">Request Configs</span>
+    <span jhiTranslate="changeRequestApp.requestConfig.home.title">Request Configs</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestConfig.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="changeRequestApp.requestConfig.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-config/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestConfig.home.createLabel">Create a new Request Config</span>
+        <span jhiTranslate="changeRequestApp.requestConfig.home.createLabel">Create a new Request Config</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestConfigs?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestConfig.home.notFound">No Request Configs found</span>
+      <span jhiTranslate="changeRequestApp.requestConfig.home.notFound">No Request Configs found</span>
     </div>
   }
 
@@ -42,9 +42,58 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="version">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.version">Version</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="effectiveDateStart">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.effectiveDateStart">Effective Date Start</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="effectiveDateEnd">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.effectiveDateEnd">Effective Date End</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedAt">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.updatedAt">Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedBy">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestConfig.updatedBy">Updated By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="requestType.id">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestConfig.requestType">Request Type</span>
+                <span jhiTranslate="changeRequestApp.requestConfig.requestType">Request Type</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -57,6 +106,13 @@
               <td>
                 <a [routerLink]="['/request-config', requestConfig.id, 'view']">{{ requestConfig.id }}</a>
               </td>
+              <td>{{ requestConfig.version }}</td>
+              <td>{{ requestConfig.effectiveDateStart | formatMediumDate }}</td>
+              <td>{{ requestConfig.effectiveDateEnd | formatMediumDate }}</td>
+              <td>{{ requestConfig.createdAt | formatMediumDate }}</td>
+              <td>{{ requestConfig.createdBy }}</td>
+              <td>{{ requestConfig.updatedAt | formatMediumDate }}</td>
+              <td>{{ requestConfig.updatedBy }}</td>
               <td>
                 @if (requestConfig.requestType) {
                   <div>

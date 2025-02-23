@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "TestTent",
+    "title": "ChangeRequest",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
       "home": "Home",
@@ -14,7 +14,8 @@
         "requestContent": "Request Content",
         "requestConfig": "Request Config",
         "requestContentConfig": "Request Content Config",
-        "requestParamDict": "Request Param Dict"
+        "requestParamDict": "Request Param Dict",
+        "sourceSystem": "Source System"
       },
       "account": {
         "main": "Account",

@@ -20,8 +20,13 @@ type RequestParamDictFormGroupContent = {
   id: FormControl<IRequestParamDict['id'] | NewRequestParamDict['id']>;
   code: FormControl<IRequestParamDict['code']>;
   name: FormControl<IRequestParamDict['name']>;
+  paramtype: FormControl<IRequestParamDict['paramtype']>;
   valueArray: FormControl<IRequestParamDict['valueArray']>;
   referenceTo: FormControl<IRequestParamDict['referenceTo']>;
+  createdAt: FormControl<IRequestParamDict['createdAt']>;
+  createdBy: FormControl<IRequestParamDict['createdBy']>;
+  updatedAt: FormControl<IRequestParamDict['updatedAt']>;
+  updatedBy: FormControl<IRequestParamDict['updatedBy']>;
 };
 
 export type RequestParamDictFormGroup = FormGroup<RequestParamDictFormGroupContent>;
@@ -42,13 +47,24 @@ export class RequestParamDictFormService {
         },
       ),
       code: new FormControl(requestParamDictRawValue.code, {
-        validators: [Validators.maxLength(40)],
+        validators: [Validators.required, Validators.maxLength(40)],
       }),
       name: new FormControl(requestParamDictRawValue.name, {
         validators: [Validators.required, Validators.maxLength(255)],
       }),
+      paramtype: new FormControl(requestParamDictRawValue.paramtype, {
+        validators: [Validators.maxLength(64)],
+      }),
       valueArray: new FormControl(requestParamDictRawValue.valueArray),
       referenceTo: new FormControl(requestParamDictRawValue.referenceTo, {
+        validators: [Validators.maxLength(64)],
+      }),
+      createdAt: new FormControl(requestParamDictRawValue.createdAt),
+      createdBy: new FormControl(requestParamDictRawValue.createdBy, {
+        validators: [Validators.maxLength(64)],
+      }),
+      updatedAt: new FormControl(requestParamDictRawValue.updatedAt),
+      updatedBy: new FormControl(requestParamDictRawValue.updatedBy, {
         validators: [Validators.maxLength(64)],
       }),
     });

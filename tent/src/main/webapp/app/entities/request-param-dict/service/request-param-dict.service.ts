@@ -1,13 +1,27 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+
+import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IRequestParamDict, NewRequestParamDict } from '../request-param-dict.model';
 
 export type PartialUpdateRequestParamDict = Partial<IRequestParamDict> & Pick<IRequestParamDict, 'id'>;
+
+type RestOf<T extends IRequestParamDict | NewRequestParamDict> = Omit<T, 'createdAt' | 'updatedAt'> & {
+  createdAt?: string | null;
+  updatedAt?: string | null;
+};
+
+export type RestRequestParamDict = RestOf<IRequestParamDict>;
+
+export type NewRestRequestParamDict = RestOf<NewRequestParamDict>;
+
+export type PartialUpdateRestRequestParamDict = RestOf<PartialUpdateRequestParamDict>;
 
 export type EntityResponseType = HttpResponse<IRequestParamDict>;
 export type EntityArrayResponseType = HttpResponse<IRequestParamDict[]>;
@@ -20,32 +34,41 @@ export class RequestParamDictService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/request-param-dicts');
 
   create(requestParamDict: NewRequestParamDict): Observable<EntityResponseType> {
-    return this.http.post<IRequestParamDict>(this.resourceUrl, requestParamDict, { observe: 'response' });
+    const copy = this.convertDateFromClient(requestParamDict);
+    return this.http
+      .post<RestRequestParamDict>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   update(requestParamDict: IRequestParamDict): Observable<EntityResponseType> {
-    return this.http.put<IRequestParamDict>(
-      `${this.resourceUrl}/${this.getRequestParamDictIdentifier(requestParamDict)}`,
-      requestParamDict,
-      { observe: 'response' },
-    );
+    const copy = this.convertDateFromClient(requestParamDict);
+    return this.http
+      .put<RestRequestParamDict>(`${this.resourceUrl}/${this.getRequestParamDictIdentifier(requestParamDict)}`, copy, {
+        observe: 'response',
+      })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   partialUpdate(requestParamDict: PartialUpdateRequestParamDict): Observable<EntityResponseType> {
-    return this.http.patch<IRequestParamDict>(
-      `${this.resourceUrl}/${this.getRequestParamDictIdentifier(requestParamDict)}`,
-      requestParamDict,
-      { observe: 'response' },
-    );
+    const copy = this.convertDateFromClient(requestParamDict);
+    return this.http
+      .patch<RestRequestParamDict>(`${this.resourceUrl}/${this.getRequestParamDictIdentifier(requestParamDict)}`, copy, {
+        observe: 'response',
+      })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IRequestParamDict>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http
+      .get<RestRequestParamDict>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IRequestParamDict[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http
+      .get<RestRequestParamDict[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
@@ -80,5 +103,35 @@ export class RequestParamDictService {
       return [...requestParamDictsToAdd, ...requestParamDictCollection];
     }
     return requestParamDictCollection;
+  }
+
+  protected convertDateFromClient<T extends IRequestParamDict | NewRequestParamDict | PartialUpdateRequestParamDict>(
+    requestParamDict: T,
+  ): RestOf<T> {
+    return {
+      ...requestParamDict,
+      createdAt: requestParamDict.createdAt?.format(DATE_FORMAT) ?? null,
+      updatedAt: requestParamDict.updatedAt?.format(DATE_FORMAT) ?? null,
+    };
+  }
+
+  protected convertDateFromServer(restRequestParamDict: RestRequestParamDict): IRequestParamDict {
+    return {
+      ...restRequestParamDict,
+      createdAt: restRequestParamDict.createdAt ? dayjs(restRequestParamDict.createdAt) : undefined,
+      updatedAt: restRequestParamDict.updatedAt ? dayjs(restRequestParamDict.updatedAt) : undefined,
+    };
+  }
+
+  protected convertResponseFromServer(res: HttpResponse<RestRequestParamDict>): HttpResponse<IRequestParamDict> {
+    return res.clone({
+      body: res.body ? this.convertDateFromServer(res.body) : null,
+    });
+  }
+
+  protected convertResponseArrayFromServer(res: HttpResponse<RestRequestParamDict[]>): HttpResponse<IRequestParamDict[]> {
+    return res.clone({
+      body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
+    });
   }
 }

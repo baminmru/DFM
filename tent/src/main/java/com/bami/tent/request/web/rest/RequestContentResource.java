@@ -130,6 +130,18 @@ public class RequestContentResource {
                 if (requestContent.getParamValue() != null) {
                     existingRequestContent.setParamValue(requestContent.getParamValue());
                 }
+                if (requestContent.getCreatedAt() != null) {
+                    existingRequestContent.setCreatedAt(requestContent.getCreatedAt());
+                }
+                if (requestContent.getCreatedBy() != null) {
+                    existingRequestContent.setCreatedBy(requestContent.getCreatedBy());
+                }
+                if (requestContent.getUpdatedAt() != null) {
+                    existingRequestContent.setUpdatedAt(requestContent.getUpdatedAt());
+                }
+                if (requestContent.getUpdatedBy() != null) {
+                    existingRequestContent.setUpdatedBy(requestContent.getUpdatedBy());
+                }
 
                 return existingRequestContent;
             })

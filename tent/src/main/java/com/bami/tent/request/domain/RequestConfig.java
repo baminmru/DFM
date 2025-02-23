@@ -2,7 +2,9 @@ package com.bami.tent.request.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
@@ -24,6 +26,30 @@ public class RequestConfig implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     @Column(name = "id")
     private Long id;
+
+    @Size(max = 40)
+    @Column(name = "version", length = 40)
+    private String version;
+
+    @Column(name = "effective_date_start")
+    private LocalDate effectiveDateStart;
+
+    @Column(name = "effective_date_end")
+    private LocalDate effectiveDateEnd;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Size(max = 64)
+    @Column(name = "created_by", length = 64)
+    private String createdBy;
+
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
+    @Size(max = 64)
+    @Column(name = "updated_by", length = 64)
+    private String updatedBy;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requestConfigId")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -47,6 +73,97 @@ public class RequestConfig implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getVersion() {
+        return this.version;
+    }
+
+    public RequestConfig version(String version) {
+        this.setVersion(version);
+        return this;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public LocalDate getEffectiveDateStart() {
+        return this.effectiveDateStart;
+    }
+
+    public RequestConfig effectiveDateStart(LocalDate effectiveDateStart) {
+        this.setEffectiveDateStart(effectiveDateStart);
+        return this;
+    }
+
+    public void setEffectiveDateStart(LocalDate effectiveDateStart) {
+        this.effectiveDateStart = effectiveDateStart;
+    }
+
+    public LocalDate getEffectiveDateEnd() {
+        return this.effectiveDateEnd;
+    }
+
+    public RequestConfig effectiveDateEnd(LocalDate effectiveDateEnd) {
+        this.setEffectiveDateEnd(effectiveDateEnd);
+        return this;
+    }
+
+    public void setEffectiveDateEnd(LocalDate effectiveDateEnd) {
+        this.effectiveDateEnd = effectiveDateEnd;
+    }
+
+    public LocalDate getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public RequestConfig createdAt(LocalDate createdAt) {
+        this.setCreatedAt(createdAt);
+        return this;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public RequestConfig createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public RequestConfig updatedAt(LocalDate updatedAt) {
+        this.setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public RequestConfig updatedBy(String updatedBy) {
+        this.setUpdatedBy(updatedBy);
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public Set<RequestContentConfig> getRequestContentConfigs() {
@@ -117,6 +234,13 @@ public class RequestConfig implements Serializable {
     public String toString() {
         return "RequestConfig{" +
             "id=" + getId() +
+            ", version='" + getVersion() + "'" +
+            ", effectiveDateStart='" + getEffectiveDateStart() + "'" +
+            ", effectiveDateEnd='" + getEffectiveDateEnd() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
             "}";
     }
 }

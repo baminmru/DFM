@@ -2,7 +2,7 @@
   <div class="col-8">
     @if (requestType()) {
       <div>
-        <h2 data-cy="requestTypeDetailsHeading"><span jhiTranslate="testTentApp.requestType.detail.title">Request Type</span></h2>
+        <h2 data-cy="requestTypeDetailsHeading"><span jhiTranslate="changeRequestApp.requestType.detail.title">Request Type</span></h2>
 
         <hr />
 
@@ -15,13 +15,29 @@
           <dd>
             <span>{{ requestType()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestType.code">Code</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestType.code">Code</span></dt>
           <dd>
             <span>{{ requestType()!.code }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestType.name">Name</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestType.name">Name</span></dt>
           <dd>
             <span>{{ requestType()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestType.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ requestType()!.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestType.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ requestType()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestType.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ requestType()!.updatedAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestType.updatedBy">Updated By</span></dt>
+          <dd>
+            <span>{{ requestType()!.updatedBy }}</span>
           </dd>
         </dl>
 

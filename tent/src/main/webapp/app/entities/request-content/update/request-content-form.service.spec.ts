@@ -22,6 +22,10 @@ describe('RequestContent Form Service', () => {
             id: expect.any(Object),
             paramCode: expect.any(Object),
             paramValue: expect.any(Object),
+            createdAt: expect.any(Object),
+            createdBy: expect.any(Object),
+            updatedAt: expect.any(Object),
+            updatedBy: expect.any(Object),
             requestInfoId: expect.any(Object),
           }),
         );
@@ -35,6 +39,10 @@ describe('RequestContent Form Service', () => {
             id: expect.any(Object),
             paramCode: expect.any(Object),
             paramValue: expect.any(Object),
+            createdAt: expect.any(Object),
+            createdBy: expect.any(Object),
+            updatedAt: expect.any(Object),
+            updatedBy: expect.any(Object),
             requestInfoId: expect.any(Object),
           }),
         );

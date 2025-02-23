@@ -4,7 +4,7 @@
       <h2
         id="jhi-request-info-heading"
         data-cy="RequestInfoCreateUpdateHeading"
-        jhiTranslate="testTentApp.requestInfo.home.createOrEditLabel"
+        jhiTranslate="changeRequestApp.requestInfo.home.createOrEditLabel"
       >
         Create or edit a Request Info
       </h2>
@@ -14,18 +14,31 @@
 
         @if (editForm.controls.id.value !== null) {
           <div class="mb-3">
-            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestInfo.id">ID</label>
+            <label class="form-label" for="field_id" jhiTranslate="changeRequestApp.requestInfo.id">ID</label>
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
         }
 
         <div class="mb-3">
-          <label class="form-label" for="field_contract" jhiTranslate="testTentApp.requestInfo.contract">Contract</label>
+          <label class="form-label" for="field_contract" jhiTranslate="changeRequestApp.requestInfo.contract">Contract</label>
           <input type="number" class="form-control" name="contract" id="field_contract" data-cy="contract" formControlName="contract" />
+          @if (editForm.get('contract')!.invalid && (editForm.get('contract')!.dirty || editForm.get('contract')!.touched)) {
+            <div>
+              @if (editForm.get('contract')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('contract')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_requestDate" jhiTranslate="testTentApp.requestInfo.requestDate">Request Date</label>
+          <label class="form-label" for="field_requestDate" jhiTranslate="changeRequestApp.requestInfo.requestDate">Request Date</label>
           <div class="input-group">
             <input
               id="field_requestDate"
@@ -51,7 +64,31 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_effectiveDateStart" jhiTranslate="testTentApp.requestInfo.effectiveDateStart"
+          <label class="form-label" for="field_codeAtSource" jhiTranslate="changeRequestApp.requestInfo.codeAtSource">Code At Source</label>
+          <input
+            type="text"
+            class="form-control"
+            name="codeAtSource"
+            id="field_codeAtSource"
+            data-cy="codeAtSource"
+            formControlName="codeAtSource"
+          />
+          @if (editForm.get('codeAtSource')!.invalid && (editForm.get('codeAtSource')!.dirty || editForm.get('codeAtSource')!.touched)) {
+            <div>
+              @if (editForm.get('codeAtSource')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              @if (editForm.get('codeAtSource')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '40' }"
+                  >This field cannot be longer than 40 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveDateStart" jhiTranslate="changeRequestApp.requestInfo.effectiveDateStart"
             >Effective Date Start</label
           >
           <div class="input-group">
@@ -72,7 +109,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_effectiveDateEnd" jhiTranslate="testTentApp.requestInfo.effectiveDateEnd"
+          <label class="form-label" for="field_effectiveDateEnd" jhiTranslate="changeRequestApp.requestInfo.effectiveDateEnd"
             >Effective Date End</label
           >
           <div class="input-group">
@@ -93,7 +130,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_createdAt" jhiTranslate="testTentApp.requestInfo.createdAt">Created At</label>
+          <label class="form-label" for="field_createdAt" jhiTranslate="changeRequestApp.requestInfo.createdAt">Created At</label>
           <div class="input-group">
             <input
               id="field_createdAt"
@@ -110,7 +147,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_createdBy" jhiTranslate="testTentApp.requestInfo.createdBy">Created By</label>
+          <label class="form-label" for="field_createdBy" jhiTranslate="changeRequestApp.requestInfo.createdBy">Created By</label>
           <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
           @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
             <div>
@@ -124,7 +161,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_updatedAt" jhiTranslate="testTentApp.requestInfo.updatedAt">Updated At</label>
+          <label class="form-label" for="field_updatedAt" jhiTranslate="changeRequestApp.requestInfo.updatedAt">Updated At</label>
           <div class="input-group">
             <input
               id="field_updatedAt"
@@ -141,7 +178,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_updatedBy" jhiTranslate="testTentApp.requestInfo.updatedBy">Updated By</label>
+          <label class="form-label" for="field_updatedBy" jhiTranslate="changeRequestApp.requestInfo.updatedBy">Updated By</label>
           <input type="text" class="form-control" name="updatedBy" id="field_updatedBy" data-cy="updatedBy" formControlName="updatedBy" />
           @if (editForm.get('updatedBy')!.invalid && (editForm.get('updatedBy')!.dirty || editForm.get('updatedBy')!.touched)) {
             <div>
@@ -155,7 +192,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_requestType" jhiTranslate="testTentApp.requestInfo.requestType">Request Type</label>
+          <label class="form-label" for="field_requestType" jhiTranslate="changeRequestApp.requestInfo.requestType">Request Type</label>
           <select
             class="form-control"
             id="field_requestType"
@@ -167,6 +204,25 @@
             <option [ngValue]="null"></option>
             @for (requestTypeOption of requestTypesSharedCollection; track $index) {
               <option [ngValue]="requestTypeOption">{{ requestTypeOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestSource" jhiTranslate="changeRequestApp.requestInfo.requestSource"
+            >Request Source</label
+          >
+          <select
+            class="form-control"
+            id="field_requestSource"
+            data-cy="requestSource"
+            name="requestSource"
+            formControlName="requestSource"
+            [compareWith]="compareSourceSystem"
+          >
+            <option [ngValue]="null"></option>
+            @for (sourceSystemOption of sourceSystemsSharedCollection; track $index) {
+              <option [ngValue]="sourceSystemOption">{{ sourceSystemOption.id }}</option>
             }
           </select>
         </div>

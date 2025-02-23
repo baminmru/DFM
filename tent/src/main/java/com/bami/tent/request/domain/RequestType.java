@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
@@ -36,9 +37,23 @@ public class RequestType implements Serializable {
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Size(max = 64)
+    @Column(name = "created_by", length = 64)
+    private String createdBy;
+
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
+    @Size(max = 64)
+    @Column(name = "updated_by", length = 64)
+    private String updatedBy;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requestType")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "requestContents", "requestType" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "requestContents", "requestType", "requestSource" }, allowSetters = true)
     private Set<RequestInfo> requestInfos = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "requestType")
@@ -85,6 +100,58 @@ public class RequestType implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public RequestType createdAt(LocalDate createdAt) {
+        this.setCreatedAt(createdAt);
+        return this;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public RequestType createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public RequestType updatedAt(LocalDate updatedAt) {
+        this.setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public RequestType updatedBy(String updatedBy) {
+        this.setUpdatedBy(updatedBy);
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public Set<RequestInfo> getRequestInfos() {
@@ -175,6 +242,10 @@ public class RequestType implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
             "}";
     }
 }

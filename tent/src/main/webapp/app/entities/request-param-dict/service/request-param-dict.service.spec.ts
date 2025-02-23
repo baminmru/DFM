@@ -2,13 +2,16 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { IRequestParamDict } from '../request-param-dict.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../request-param-dict.test-samples';
 
-import { RequestParamDictService } from './request-param-dict.service';
+import { RequestParamDictService, RestRequestParamDict } from './request-param-dict.service';
 
-const requireRestSample: IRequestParamDict = {
+const requireRestSample: RestRequestParamDict = {
   ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.format(DATE_FORMAT),
+  updatedAt: sampleWithRequiredData.updatedAt?.format(DATE_FORMAT),
 };
 
 describe('RequestParamDict Service', () => {

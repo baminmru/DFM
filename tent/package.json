@@ -1,8 +1,8 @@
 {
-  "name": "test-tent",
+  "name": "change-request",
   "version": "0.0.1-SNAPSHOT",
   "private": true,
-  "description": "Description for Test Tent",
+  "description": "Description for Change Request",
   "license": "UNLICENSED",
   "scripts": {
     "app:start": "./mvnw",
@@ -31,6 +31,8 @@
     "cleanup": "rimraf target/",
     "docker:db:down": "docker compose -f src/main/docker/postgresql.yml down -v",
     "docker:db:up": "docker compose -f src/main/docker/postgresql.yml up --wait",
+    "docker:jhipster-registry:down": "docker compose -f src/main/docker/jhipster-registry.yml down -v",
+    "docker:jhipster-registry:up": "docker compose -f src/main/docker/jhipster-registry.yml up --wait",
     "java:docker": "./mvnw -ntp verify -DskipTests -Pprod jib:dockerBuild",
     "java:docker:arm64": "npm run java:docker -- -Djib-maven-plugin.architecture=arm64",
     "java:docker:dev": "npm run java:docker -- -Pdev,webapp",

@@ -12,6 +12,8 @@ import com.bami.tent.request.domain.RequestParamDict;
 import com.bami.tent.request.repository.RequestParamDictRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
@@ -38,11 +40,26 @@ class RequestParamDictResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PARAMTYPE = "AAAAAAAAAA";
+    private static final String UPDATED_PARAMTYPE = "BBBBBBBBBB";
+
     private static final Boolean DEFAULT_VALUE_ARRAY = false;
     private static final Boolean UPDATED_VALUE_ARRAY = true;
 
     private static final String DEFAULT_REFERENCE_TO = "AAAAAAAAAA";
     private static final String UPDATED_REFERENCE_TO = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/request-param-dicts";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -76,8 +93,13 @@ class RequestParamDictResourceIT {
         RequestParamDict requestParamDict = new RequestParamDict()
             .code(DEFAULT_CODE)
             .name(DEFAULT_NAME)
+            .paramtype(DEFAULT_PARAMTYPE)
             .valueArray(DEFAULT_VALUE_ARRAY)
-            .referenceTo(DEFAULT_REFERENCE_TO);
+            .referenceTo(DEFAULT_REFERENCE_TO)
+            .createdAt(DEFAULT_CREATED_AT)
+            .createdBy(DEFAULT_CREATED_BY)
+            .updatedAt(DEFAULT_UPDATED_AT)
+            .updatedBy(DEFAULT_UPDATED_BY);
         return requestParamDict;
     }
 
@@ -91,8 +113,13 @@ class RequestParamDictResourceIT {
         RequestParamDict requestParamDict = new RequestParamDict()
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
+            .paramtype(UPDATED_PARAMTYPE)
             .valueArray(UPDATED_VALUE_ARRAY)
-            .referenceTo(UPDATED_REFERENCE_TO);
+            .referenceTo(UPDATED_REFERENCE_TO)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
         return requestParamDict;
     }
 
@@ -150,6 +177,22 @@ class RequestParamDictResourceIT {
 
     @Test
     @Transactional
+    void checkCodeIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        requestParamDict.setCode(null);
+
+        // Create the RequestParamDict, which fails.
+
+        restRequestParamDictMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(requestParamDict)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkNameIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
@@ -178,8 +221,13 @@ class RequestParamDictResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(requestParamDict.getId().intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].paramtype").value(hasItem(DEFAULT_PARAMTYPE)))
             .andExpect(jsonPath("$.[*].valueArray").value(hasItem(DEFAULT_VALUE_ARRAY.booleanValue())))
-            .andExpect(jsonPath("$.[*].referenceTo").value(hasItem(DEFAULT_REFERENCE_TO)));
+            .andExpect(jsonPath("$.[*].referenceTo").value(hasItem(DEFAULT_REFERENCE_TO)))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)));
     }
 
     @Test
@@ -196,8 +244,13 @@ class RequestParamDictResourceIT {
             .andExpect(jsonPath("$.id").value(requestParamDict.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.paramtype").value(DEFAULT_PARAMTYPE))
             .andExpect(jsonPath("$.valueArray").value(DEFAULT_VALUE_ARRAY.booleanValue()))
-            .andExpect(jsonPath("$.referenceTo").value(DEFAULT_REFERENCE_TO));
+            .andExpect(jsonPath("$.referenceTo").value(DEFAULT_REFERENCE_TO))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY));
     }
 
     @Test
@@ -219,7 +272,16 @@ class RequestParamDictResourceIT {
         RequestParamDict updatedRequestParamDict = requestParamDictRepository.findById(requestParamDict.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedRequestParamDict are not directly saved in db
         em.detach(updatedRequestParamDict);
-        updatedRequestParamDict.code(UPDATED_CODE).name(UPDATED_NAME).valueArray(UPDATED_VALUE_ARRAY).referenceTo(UPDATED_REFERENCE_TO);
+        updatedRequestParamDict
+            .code(UPDATED_CODE)
+            .name(UPDATED_NAME)
+            .paramtype(UPDATED_PARAMTYPE)
+            .valueArray(UPDATED_VALUE_ARRAY)
+            .referenceTo(UPDATED_REFERENCE_TO)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestParamDictMockMvc
             .perform(
@@ -299,7 +361,13 @@ class RequestParamDictResourceIT {
         RequestParamDict partialUpdatedRequestParamDict = new RequestParamDict();
         partialUpdatedRequestParamDict.setId(requestParamDict.getId());
 
-        partialUpdatedRequestParamDict.name(UPDATED_NAME).valueArray(UPDATED_VALUE_ARRAY).referenceTo(UPDATED_REFERENCE_TO);
+        partialUpdatedRequestParamDict
+            .valueArray(UPDATED_VALUE_ARRAY)
+            .referenceTo(UPDATED_REFERENCE_TO)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestParamDictMockMvc
             .perform(
@@ -333,8 +401,13 @@ class RequestParamDictResourceIT {
         partialUpdatedRequestParamDict
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
+            .paramtype(UPDATED_PARAMTYPE)
             .valueArray(UPDATED_VALUE_ARRAY)
-            .referenceTo(UPDATED_REFERENCE_TO);
+            .referenceTo(UPDATED_REFERENCE_TO)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestParamDictMockMvc
             .perform(

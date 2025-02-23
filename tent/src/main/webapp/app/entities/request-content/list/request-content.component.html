@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="RequestContentHeading">
-    <span jhiTranslate="testTentApp.requestContent.home.title">Request Contents</span>
+    <span jhiTranslate="changeRequestApp.requestContent.home.title">Request Contents</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestContent.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="changeRequestApp.requestContent.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-content/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestContent.home.createLabel">Create a new Request Content</span>
+        <span jhiTranslate="changeRequestApp.requestContent.home.createLabel">Create a new Request Content</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestContents?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestContent.home.notFound">No Request Contents found</span>
+      <span jhiTranslate="changeRequestApp.requestContent.home.notFound">No Request Contents found</span>
     </div>
   }
 
@@ -44,21 +44,49 @@
             </th>
             <th scope="col" jhiSortBy="paramCode">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestContent.paramCode">Param Code</span>
+                <span jhiTranslate="changeRequestApp.requestContent.paramCode">Param Code</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="paramValue">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestContent.paramValue">Param Value</span>
+                <span jhiTranslate="changeRequestApp.requestContent.paramValue">Param Value</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestContent.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestContent.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedAt">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestContent.updatedAt">Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedBy">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestContent.updatedBy">Updated By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="requestInfoId.id">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span>
+                <span jhiTranslate="changeRequestApp.requestContent.requestInfoId">Request Info Id</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -73,6 +101,10 @@
               </td>
               <td>{{ requestContent.paramCode }}</td>
               <td>{{ requestContent.paramValue }}</td>
+              <td>{{ requestContent.createdAt | formatMediumDate }}</td>
+              <td>{{ requestContent.createdBy }}</td>
+              <td>{{ requestContent.updatedAt | formatMediumDate }}</td>
+              <td>{{ requestContent.updatedBy }}</td>
               <td>
                 @if (requestContent.requestInfoId) {
                   <div>

@@ -3,6 +3,7 @@ package com.bami.tent.request.domain;
 import static com.bami.tent.request.domain.RequestContentTestSamples.*;
 import static com.bami.tent.request.domain.RequestInfoTestSamples.*;
 import static com.bami.tent.request.domain.RequestTypeTestSamples.*;
+import static com.bami.tent.request.domain.SourceSystemTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.bami.tent.request.web.rest.TestUtil;
@@ -58,5 +59,17 @@ class RequestInfoTest {
 
         requestInfo.requestType(null);
         assertThat(requestInfo.getRequestType()).isNull();
+    }
+
+    @Test
+    void requestSourceTest() {
+        RequestInfo requestInfo = getRequestInfoRandomSampleGenerator();
+        SourceSystem sourceSystemBack = getSourceSystemRandomSampleGenerator();
+
+        requestInfo.setRequestSource(sourceSystemBack);
+        assertThat(requestInfo.getRequestSource()).isEqualTo(sourceSystemBack);
+
+        requestInfo.requestSource(null);
+        assertThat(requestInfo.getRequestSource()).isNull();
     }
 }

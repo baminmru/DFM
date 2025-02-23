@@ -2,7 +2,7 @@
   "annotations": {
     "changelogDate": "20250221173853"
   },
-  "applications": ["testTent"],
+  "applications": ["ChangeRequest"],
   "fields": [
     {
       "fieldName": "paramCode",
@@ -15,6 +15,26 @@
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
     }
   ],
   "name": "RequestContent",

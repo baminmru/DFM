@@ -11,6 +11,10 @@
       "error": "Ошибка"
     },
     "indicator": {
+      "discoveryComposite": "Discovery Composite",
+      "refreshScope": "Область обновления микросервиса",
+      "clientConfigServer": "Сервер конфигурации микросервиса",
+      "hystrix": "Hystrix",
       "diskSpace": "Место на диске",
       "mail": "Эл. почта",
       "livenessState": "Живой",

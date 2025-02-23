@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "test-tent": {
+    "change-request": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -76,15 +76,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "buildTarget": "test-tent:build:development",
+            "buildTarget": "change-request:build:development",
             "port": 4200
           },
           "configurations": {
             "production": {
-              "buildTarget": "test-tent:build:production"
+              "buildTarget": "change-request:build:production"
             },
             "development": {
-              "buildTarget": "test-tent:build:development"
+              "buildTarget": "change-request:build:development"
             }
           },
           "defaultConfiguration": "development"

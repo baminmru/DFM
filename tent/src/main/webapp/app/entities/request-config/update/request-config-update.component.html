@@ -4,7 +4,7 @@
       <h2
         id="jhi-request-config-heading"
         data-cy="RequestConfigCreateUpdateHeading"
-        jhiTranslate="testTentApp.requestConfig.home.createOrEditLabel"
+        jhiTranslate="changeRequestApp.requestConfig.home.createOrEditLabel"
       >
         Create or edit a Request Config
       </h2>
@@ -14,13 +14,131 @@
 
         @if (editForm.controls.id.value !== null) {
           <div class="mb-3">
-            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestConfig.id">ID</label>
+            <label class="form-label" for="field_id" jhiTranslate="changeRequestApp.requestConfig.id">ID</label>
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
         }
 
         <div class="mb-3">
-          <label class="form-label" for="field_requestType" jhiTranslate="testTentApp.requestConfig.requestType">Request Type</label>
+          <label class="form-label" for="field_version" jhiTranslate="changeRequestApp.requestConfig.version">Version</label>
+          <input type="text" class="form-control" name="version" id="field_version" data-cy="version" formControlName="version" />
+          @if (editForm.get('version')!.invalid && (editForm.get('version')!.dirty || editForm.get('version')!.touched)) {
+            <div>
+              @if (editForm.get('version')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '40' }"
+                  >This field cannot be longer than 40 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveDateStart" jhiTranslate="changeRequestApp.requestConfig.effectiveDateStart"
+            >Effective Date Start</label
+          >
+          <div class="input-group">
+            <input
+              id="field_effectiveDateStart"
+              data-cy="effectiveDateStart"
+              type="text"
+              class="form-control"
+              name="effectiveDateStart"
+              ngbDatepicker
+              #effectiveDateStartDp="ngbDatepicker"
+              formControlName="effectiveDateStart"
+            />
+            <button type="button" class="btn btn-secondary" (click)="effectiveDateStartDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveDateEnd" jhiTranslate="changeRequestApp.requestConfig.effectiveDateEnd"
+            >Effective Date End</label
+          >
+          <div class="input-group">
+            <input
+              id="field_effectiveDateEnd"
+              data-cy="effectiveDateEnd"
+              type="text"
+              class="form-control"
+              name="effectiveDateEnd"
+              ngbDatepicker
+              #effectiveDateEndDp="ngbDatepicker"
+              formControlName="effectiveDateEnd"
+            />
+            <button type="button" class="btn btn-secondary" (click)="effectiveDateEndDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="changeRequestApp.requestConfig.createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="text"
+              class="form-control"
+              name="createdAt"
+              ngbDatepicker
+              #createdAtDp="ngbDatepicker"
+              formControlName="createdAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="changeRequestApp.requestConfig.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+          @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
+            <div>
+              @if (editForm.get('createdBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >This field cannot be longer than 64 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="changeRequestApp.requestConfig.updatedAt">Updated At</label>
+          <div class="input-group">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="text"
+              class="form-control"
+              name="updatedAt"
+              ngbDatepicker
+              #updatedAtDp="ngbDatepicker"
+              formControlName="updatedAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="updatedAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedBy" jhiTranslate="changeRequestApp.requestConfig.updatedBy">Updated By</label>
+          <input type="text" class="form-control" name="updatedBy" id="field_updatedBy" data-cy="updatedBy" formControlName="updatedBy" />
+          @if (editForm.get('updatedBy')!.invalid && (editForm.get('updatedBy')!.dirty || editForm.get('updatedBy')!.touched)) {
+            <div>
+              @if (editForm.get('updatedBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >This field cannot be longer than 64 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requestType" jhiTranslate="changeRequestApp.requestConfig.requestType">Request Type</label>
           <select
             class="form-control"
             id="field_requestType"

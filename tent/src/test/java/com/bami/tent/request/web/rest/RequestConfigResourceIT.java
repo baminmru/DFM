@@ -12,6 +12,8 @@ import com.bami.tent.request.domain.RequestConfig;
 import com.bami.tent.request.repository.RequestConfigRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
@@ -31,6 +33,27 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class RequestConfigResourceIT {
+
+    private static final String DEFAULT_VERSION = "AAAAAAAAAA";
+    private static final String UPDATED_VERSION = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_EFFECTIVE_DATE_START = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_EFFECTIVE_DATE_START = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_EFFECTIVE_DATE_END = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_EFFECTIVE_DATE_END = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/request-configs";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +84,14 @@ class RequestConfigResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestConfig createEntity(EntityManager em) {
-        RequestConfig requestConfig = new RequestConfig();
+        RequestConfig requestConfig = new RequestConfig()
+            .version(DEFAULT_VERSION)
+            .effectiveDateStart(DEFAULT_EFFECTIVE_DATE_START)
+            .effectiveDateEnd(DEFAULT_EFFECTIVE_DATE_END)
+            .createdAt(DEFAULT_CREATED_AT)
+            .createdBy(DEFAULT_CREATED_BY)
+            .updatedAt(DEFAULT_UPDATED_AT)
+            .updatedBy(DEFAULT_UPDATED_BY);
         return requestConfig;
     }
 
@@ -72,7 +102,14 @@ class RequestConfigResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestConfig createUpdatedEntity(EntityManager em) {
-        RequestConfig requestConfig = new RequestConfig();
+        RequestConfig requestConfig = new RequestConfig()
+            .version(UPDATED_VERSION)
+            .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
+            .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
         return requestConfig;
     }
 
@@ -139,7 +176,14 @@ class RequestConfigResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(requestConfig.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(requestConfig.getId().intValue())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
+            .andExpect(jsonPath("$.[*].effectiveDateStart").value(hasItem(DEFAULT_EFFECTIVE_DATE_START.toString())))
+            .andExpect(jsonPath("$.[*].effectiveDateEnd").value(hasItem(DEFAULT_EFFECTIVE_DATE_END.toString())))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)));
     }
 
     @Test
@@ -153,7 +197,14 @@ class RequestConfigResourceIT {
             .perform(get(ENTITY_API_URL_ID, requestConfig.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(requestConfig.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(requestConfig.getId().intValue()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
+            .andExpect(jsonPath("$.effectiveDateStart").value(DEFAULT_EFFECTIVE_DATE_START.toString()))
+            .andExpect(jsonPath("$.effectiveDateEnd").value(DEFAULT_EFFECTIVE_DATE_END.toString()))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY));
     }
 
     @Test
@@ -175,6 +226,14 @@ class RequestConfigResourceIT {
         RequestConfig updatedRequestConfig = requestConfigRepository.findById(requestConfig.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedRequestConfig are not directly saved in db
         em.detach(updatedRequestConfig);
+        updatedRequestConfig
+            .version(UPDATED_VERSION)
+            .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
+            .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestConfigMockMvc
             .perform(
@@ -254,6 +313,8 @@ class RequestConfigResourceIT {
         RequestConfig partialUpdatedRequestConfig = new RequestConfig();
         partialUpdatedRequestConfig.setId(requestConfig.getId());
 
+        partialUpdatedRequestConfig.createdAt(UPDATED_CREATED_AT).createdBy(UPDATED_CREATED_BY).updatedBy(UPDATED_UPDATED_BY);
+
         restRequestConfigMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedRequestConfig.getId())
@@ -282,6 +343,15 @@ class RequestConfigResourceIT {
         // Update the requestConfig using partial update
         RequestConfig partialUpdatedRequestConfig = new RequestConfig();
         partialUpdatedRequestConfig.setId(requestConfig.getId());
+
+        partialUpdatedRequestConfig
+            .version(UPDATED_VERSION)
+            .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
+            .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestConfigMockMvc
             .perform(

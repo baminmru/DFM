@@ -12,6 +12,8 @@ import com.bami.tent.request.domain.RequestType;
 import com.bami.tent.request.repository.RequestTypeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
@@ -37,6 +39,18 @@ class RequestTypeResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/request-types";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -67,7 +81,13 @@ class RequestTypeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestType createEntity(EntityManager em) {
-        RequestType requestType = new RequestType().code(DEFAULT_CODE).name(DEFAULT_NAME);
+        RequestType requestType = new RequestType()
+            .code(DEFAULT_CODE)
+            .name(DEFAULT_NAME)
+            .createdAt(DEFAULT_CREATED_AT)
+            .createdBy(DEFAULT_CREATED_BY)
+            .updatedAt(DEFAULT_UPDATED_AT)
+            .updatedBy(DEFAULT_UPDATED_BY);
         return requestType;
     }
 
@@ -78,7 +98,13 @@ class RequestTypeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestType createUpdatedEntity(EntityManager em) {
-        RequestType requestType = new RequestType().code(UPDATED_CODE).name(UPDATED_NAME);
+        RequestType requestType = new RequestType()
+            .code(UPDATED_CODE)
+            .name(UPDATED_NAME)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
         return requestType;
     }
 
@@ -179,7 +205,11 @@ class RequestTypeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(requestType.getId().intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)));
     }
 
     @Test
@@ -195,7 +225,11 @@ class RequestTypeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(requestType.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY));
     }
 
     @Test
@@ -217,7 +251,13 @@ class RequestTypeResourceIT {
         RequestType updatedRequestType = requestTypeRepository.findById(requestType.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedRequestType are not directly saved in db
         em.detach(updatedRequestType);
-        updatedRequestType.code(UPDATED_CODE).name(UPDATED_NAME);
+        updatedRequestType
+            .code(UPDATED_CODE)
+            .name(UPDATED_NAME)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestTypeMockMvc
             .perform(
@@ -297,7 +337,7 @@ class RequestTypeResourceIT {
         RequestType partialUpdatedRequestType = new RequestType();
         partialUpdatedRequestType.setId(requestType.getId());
 
-        partialUpdatedRequestType.code(UPDATED_CODE).name(UPDATED_NAME);
+        partialUpdatedRequestType.code(UPDATED_CODE).updatedBy(UPDATED_UPDATED_BY);
 
         restRequestTypeMockMvc
             .perform(
@@ -328,7 +368,13 @@ class RequestTypeResourceIT {
         RequestType partialUpdatedRequestType = new RequestType();
         partialUpdatedRequestType.setId(requestType.getId());
 
-        partialUpdatedRequestType.code(UPDATED_CODE).name(UPDATED_NAME);
+        partialUpdatedRequestType
+            .code(UPDATED_CODE)
+            .name(UPDATED_NAME)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestTypeMockMvc
             .perform(

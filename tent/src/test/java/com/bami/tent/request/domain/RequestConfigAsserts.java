@@ -44,7 +44,17 @@ public class RequestConfigAsserts {
      * @param expected the expected entity
      * @param actual the actual entity
      */
-    public static void assertRequestConfigUpdatableFieldsEquals(RequestConfig expected, RequestConfig actual) {}
+    public static void assertRequestConfigUpdatableFieldsEquals(RequestConfig expected, RequestConfig actual) {
+        assertThat(expected)
+            .as("Verify RequestConfig relevant properties")
+            .satisfies(e -> assertThat(e.getVersion()).as("check version").isEqualTo(actual.getVersion()))
+            .satisfies(e -> assertThat(e.getEffectiveDateStart()).as("check effectiveDateStart").isEqualTo(actual.getEffectiveDateStart()))
+            .satisfies(e -> assertThat(e.getEffectiveDateEnd()).as("check effectiveDateEnd").isEqualTo(actual.getEffectiveDateEnd()))
+            .satisfies(e -> assertThat(e.getCreatedAt()).as("check createdAt").isEqualTo(actual.getCreatedAt()))
+            .satisfies(e -> assertThat(e.getCreatedBy()).as("check createdBy").isEqualTo(actual.getCreatedBy()))
+            .satisfies(e -> assertThat(e.getUpdatedAt()).as("check updatedAt").isEqualTo(actual.getUpdatedAt()))
+            .satisfies(e -> assertThat(e.getUpdatedBy()).as("check updatedBy").isEqualTo(actual.getUpdatedBy()));
+    }
 
     /**
      * Asserts that the entity has all the updatable relationships set.

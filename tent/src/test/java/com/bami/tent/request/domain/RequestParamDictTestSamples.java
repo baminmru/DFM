@@ -10,11 +10,25 @@ public class RequestParamDictTestSamples {
     private static final AtomicLong longCount = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     public static RequestParamDict getRequestParamDictSample1() {
-        return new RequestParamDict().id(1L).code("code1").name("name1").referenceTo("referenceTo1");
+        return new RequestParamDict()
+            .id(1L)
+            .code("code1")
+            .name("name1")
+            .paramtype("paramtype1")
+            .referenceTo("referenceTo1")
+            .createdBy("createdBy1")
+            .updatedBy("updatedBy1");
     }
 
     public static RequestParamDict getRequestParamDictSample2() {
-        return new RequestParamDict().id(2L).code("code2").name("name2").referenceTo("referenceTo2");
+        return new RequestParamDict()
+            .id(2L)
+            .code("code2")
+            .name("name2")
+            .paramtype("paramtype2")
+            .referenceTo("referenceTo2")
+            .createdBy("createdBy2")
+            .updatedBy("updatedBy2");
     }
 
     public static RequestParamDict getRequestParamDictRandomSampleGenerator() {
@@ -22,6 +36,9 @@ public class RequestParamDictTestSamples {
             .id(longCount.incrementAndGet())
             .code(UUID.randomUUID().toString())
             .name(UUID.randomUUID().toString())
-            .referenceTo(UUID.randomUUID().toString());
+            .paramtype(UUID.randomUUID().toString())
+            .referenceTo(UUID.randomUUID().toString())
+            .createdBy(UUID.randomUUID().toString())
+            .updatedBy(UUID.randomUUID().toString());
     }
 }

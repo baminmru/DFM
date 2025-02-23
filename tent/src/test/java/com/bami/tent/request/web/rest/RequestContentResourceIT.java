@@ -12,6 +12,8 @@ import com.bami.tent.request.domain.RequestContent;
 import com.bami.tent.request.repository.RequestContentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
@@ -37,6 +39,18 @@ class RequestContentResourceIT {
 
     private static final String DEFAULT_PARAM_VALUE = "AAAAAAAAAA";
     private static final String UPDATED_PARAM_VALUE = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_AT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_AT = LocalDate.now(ZoneId.systemDefault());
+
+    private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/request-contents";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -67,7 +81,13 @@ class RequestContentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestContent createEntity(EntityManager em) {
-        RequestContent requestContent = new RequestContent().paramCode(DEFAULT_PARAM_CODE).paramValue(DEFAULT_PARAM_VALUE);
+        RequestContent requestContent = new RequestContent()
+            .paramCode(DEFAULT_PARAM_CODE)
+            .paramValue(DEFAULT_PARAM_VALUE)
+            .createdAt(DEFAULT_CREATED_AT)
+            .createdBy(DEFAULT_CREATED_BY)
+            .updatedAt(DEFAULT_UPDATED_AT)
+            .updatedBy(DEFAULT_UPDATED_BY);
         return requestContent;
     }
 
@@ -78,7 +98,13 @@ class RequestContentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static RequestContent createUpdatedEntity(EntityManager em) {
-        RequestContent requestContent = new RequestContent().paramCode(UPDATED_PARAM_CODE).paramValue(UPDATED_PARAM_VALUE);
+        RequestContent requestContent = new RequestContent()
+            .paramCode(UPDATED_PARAM_CODE)
+            .paramValue(UPDATED_PARAM_VALUE)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
         return requestContent;
     }
 
@@ -163,7 +189,11 @@ class RequestContentResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(requestContent.getId().intValue())))
             .andExpect(jsonPath("$.[*].paramCode").value(hasItem(DEFAULT_PARAM_CODE)))
-            .andExpect(jsonPath("$.[*].paramValue").value(hasItem(DEFAULT_PARAM_VALUE)));
+            .andExpect(jsonPath("$.[*].paramValue").value(hasItem(DEFAULT_PARAM_VALUE)))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)));
     }
 
     @Test
@@ -179,7 +209,11 @@ class RequestContentResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(requestContent.getId().intValue()))
             .andExpect(jsonPath("$.paramCode").value(DEFAULT_PARAM_CODE))
-            .andExpect(jsonPath("$.paramValue").value(DEFAULT_PARAM_VALUE));
+            .andExpect(jsonPath("$.paramValue").value(DEFAULT_PARAM_VALUE))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
+            .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY));
     }
 
     @Test
@@ -201,7 +235,13 @@ class RequestContentResourceIT {
         RequestContent updatedRequestContent = requestContentRepository.findById(requestContent.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedRequestContent are not directly saved in db
         em.detach(updatedRequestContent);
-        updatedRequestContent.paramCode(UPDATED_PARAM_CODE).paramValue(UPDATED_PARAM_VALUE);
+        updatedRequestContent
+            .paramCode(UPDATED_PARAM_CODE)
+            .paramValue(UPDATED_PARAM_VALUE)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestContentMockMvc
             .perform(
@@ -281,7 +321,7 @@ class RequestContentResourceIT {
         RequestContent partialUpdatedRequestContent = new RequestContent();
         partialUpdatedRequestContent.setId(requestContent.getId());
 
-        partialUpdatedRequestContent.paramCode(UPDATED_PARAM_CODE);
+        partialUpdatedRequestContent.paramValue(UPDATED_PARAM_VALUE).createdBy(UPDATED_CREATED_BY);
 
         restRequestContentMockMvc
             .perform(
@@ -312,7 +352,13 @@ class RequestContentResourceIT {
         RequestContent partialUpdatedRequestContent = new RequestContent();
         partialUpdatedRequestContent.setId(requestContent.getId());
 
-        partialUpdatedRequestContent.paramCode(UPDATED_PARAM_CODE).paramValue(UPDATED_PARAM_VALUE);
+        partialUpdatedRequestContent
+            .paramCode(UPDATED_PARAM_CODE)
+            .paramValue(UPDATED_PARAM_VALUE)
+            .createdAt(UPDATED_CREATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .updatedAt(UPDATED_UPDATED_AT)
+            .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestContentMockMvc
             .perform(

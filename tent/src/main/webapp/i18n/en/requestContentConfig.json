@@ -1,5 +1,5 @@
 {
-  "testTentApp": {
+  "changeRequestApp": {
     "requestContentConfig": {
       "home": {
         "title": "Request Content Configs",
@@ -19,6 +19,10 @@
       },
       "id": "ID",
       "isMandatory": "Is Mandatory",
+      "createdAt": "Created At",
+      "createdBy": "Created By",
+      "updatedAt": "Updated At",
+      "updatedBy": "Updated By",
       "requestConfigId": "Request Config Id",
       "parameter": "Parameter"
     }

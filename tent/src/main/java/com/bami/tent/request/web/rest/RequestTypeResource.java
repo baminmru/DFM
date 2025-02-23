@@ -129,6 +129,18 @@ public class RequestTypeResource {
                 if (requestType.getName() != null) {
                     existingRequestType.setName(requestType.getName());
                 }
+                if (requestType.getCreatedAt() != null) {
+                    existingRequestType.setCreatedAt(requestType.getCreatedAt());
+                }
+                if (requestType.getCreatedBy() != null) {
+                    existingRequestType.setCreatedBy(requestType.getCreatedBy());
+                }
+                if (requestType.getUpdatedAt() != null) {
+                    existingRequestType.setUpdatedAt(requestType.getUpdatedAt());
+                }
+                if (requestType.getUpdatedBy() != null) {
+                    existingRequestType.setUpdatedBy(requestType.getUpdatedBy());
+                }
 
                 return existingRequestType;
             })

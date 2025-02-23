@@ -20,6 +20,13 @@ describe('RequestConfig Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            version: expect.any(Object),
+            effectiveDateStart: expect.any(Object),
+            effectiveDateEnd: expect.any(Object),
+            createdAt: expect.any(Object),
+            createdBy: expect.any(Object),
+            updatedAt: expect.any(Object),
+            updatedBy: expect.any(Object),
             requestType: expect.any(Object),
           }),
         );
@@ -31,6 +38,13 @@ describe('RequestConfig Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            version: expect.any(Object),
+            effectiveDateStart: expect.any(Object),
+            effectiveDateEnd: expect.any(Object),
+            createdAt: expect.any(Object),
+            createdBy: expect.any(Object),
+            updatedAt: expect.any(Object),
+            updatedBy: expect.any(Object),
             requestType: expect.any(Object),
           }),
         );

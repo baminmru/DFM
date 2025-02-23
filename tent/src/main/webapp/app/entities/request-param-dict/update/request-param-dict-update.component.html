@@ -4,7 +4,7 @@
       <h2
         id="jhi-request-param-dict-heading"
         data-cy="RequestParamDictCreateUpdateHeading"
-        jhiTranslate="testTentApp.requestParamDict.home.createOrEditLabel"
+        jhiTranslate="changeRequestApp.requestParamDict.home.createOrEditLabel"
       >
         Create or edit a Request Param Dict
       </h2>
@@ -14,16 +14,19 @@
 
         @if (editForm.controls.id.value !== null) {
           <div class="mb-3">
-            <label class="form-label" for="field_id" jhiTranslate="testTentApp.requestParamDict.id">ID</label>
+            <label class="form-label" for="field_id" jhiTranslate="changeRequestApp.requestParamDict.id">ID</label>
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
         }
 
         <div class="mb-3">
-          <label class="form-label" for="field_code" jhiTranslate="testTentApp.requestParamDict.code">Code</label>
+          <label class="form-label" for="field_code" jhiTranslate="changeRequestApp.requestParamDict.code">Code</label>
           <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
           @if (editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)) {
             <div>
+              @if (editForm.get('code')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
               @if (editForm.get('code')?.errors?.maxlength) {
                 <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '40' }"
                   >This field cannot be longer than 40 characters.</small
@@ -34,7 +37,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_name" jhiTranslate="testTentApp.requestParamDict.name">Name</label>
+          <label class="form-label" for="field_name" jhiTranslate="changeRequestApp.requestParamDict.name">Name</label>
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
           @if (editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)) {
             <div>
@@ -51,7 +54,21 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_valueArray" jhiTranslate="testTentApp.requestParamDict.valueArray">Value Array</label>
+          <label class="form-label" for="field_paramtype" jhiTranslate="changeRequestApp.requestParamDict.paramtype">Paramtype</label>
+          <input type="text" class="form-control" name="paramtype" id="field_paramtype" data-cy="paramtype" formControlName="paramtype" />
+          @if (editForm.get('paramtype')!.invalid && (editForm.get('paramtype')!.dirty || editForm.get('paramtype')!.touched)) {
+            <div>
+              @if (editForm.get('paramtype')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >This field cannot be longer than 64 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valueArray" jhiTranslate="changeRequestApp.requestParamDict.valueArray">Value Array</label>
           <input
             type="checkbox"
             class="form-check"
@@ -63,7 +80,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_referenceTo" jhiTranslate="testTentApp.requestParamDict.referenceTo">Reference To</label>
+          <label class="form-label" for="field_referenceTo" jhiTranslate="changeRequestApp.requestParamDict.referenceTo"
+            >Reference To</label
+          >
           <input
             type="text"
             class="form-control"
@@ -75,6 +94,68 @@
           @if (editForm.get('referenceTo')!.invalid && (editForm.get('referenceTo')!.dirty || editForm.get('referenceTo')!.touched)) {
             <div>
               @if (editForm.get('referenceTo')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >This field cannot be longer than 64 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="changeRequestApp.requestParamDict.createdAt">Created At</label>
+          <div class="input-group">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="text"
+              class="form-control"
+              name="createdAt"
+              ngbDatepicker
+              #createdAtDp="ngbDatepicker"
+              formControlName="createdAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="createdAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="changeRequestApp.requestParamDict.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+          @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
+            <div>
+              @if (editForm.get('createdBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >This field cannot be longer than 64 characters.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="changeRequestApp.requestParamDict.updatedAt">Updated At</label>
+          <div class="input-group">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="text"
+              class="form-control"
+              name="updatedAt"
+              ngbDatepicker
+              #updatedAtDp="ngbDatepicker"
+              formControlName="updatedAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="updatedAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedBy" jhiTranslate="changeRequestApp.requestParamDict.updatedBy">Updated By</label>
+          <input type="text" class="form-control" name="updatedBy" id="field_updatedBy" data-cy="updatedBy" formControlName="updatedBy" />
+          @if (editForm.get('updatedBy')!.invalid && (editForm.get('updatedBy')!.dirty || editForm.get('updatedBy')!.touched)) {
+            <div>
+              @if (editForm.get('updatedBy')?.errors?.maxlength) {
                 <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
                   >This field cannot be longer than 64 characters.</small
                 >

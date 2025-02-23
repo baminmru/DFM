@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
@@ -26,8 +27,9 @@ public class RequestParamDict implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     @Size(max = 40)
-    @Column(name = "code", length = 40)
+    @Column(name = "code", length = 40, nullable = false)
     private String code;
 
     @NotNull
@@ -35,12 +37,30 @@ public class RequestParamDict implements Serializable {
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
+    @Size(max = 64)
+    @Column(name = "paramtype", length = 64)
+    private String paramtype;
+
     @Column(name = "value_array")
     private Boolean valueArray;
 
     @Size(max = 64)
     @Column(name = "reference_to", length = 64)
     private String referenceTo;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Size(max = 64)
+    @Column(name = "created_by", length = 64)
+    private String createdBy;
+
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
+    @Size(max = 64)
+    @Column(name = "updated_by", length = 64)
+    private String updatedBy;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parameter")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -88,6 +108,19 @@ public class RequestParamDict implements Serializable {
         this.name = name;
     }
 
+    public String getParamtype() {
+        return this.paramtype;
+    }
+
+    public RequestParamDict paramtype(String paramtype) {
+        this.setParamtype(paramtype);
+        return this;
+    }
+
+    public void setParamtype(String paramtype) {
+        this.paramtype = paramtype;
+    }
+
     public Boolean getValueArray() {
         return this.valueArray;
     }
@@ -112,6 +145,58 @@ public class RequestParamDict implements Serializable {
 
     public void setReferenceTo(String referenceTo) {
         this.referenceTo = referenceTo;
+    }
+
+    public LocalDate getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public RequestParamDict createdAt(LocalDate createdAt) {
+        this.setCreatedAt(createdAt);
+        return this;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public RequestParamDict createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public RequestParamDict updatedAt(LocalDate updatedAt) {
+        this.setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public RequestParamDict updatedBy(String updatedBy) {
+        this.setUpdatedBy(updatedBy);
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public Set<RequestContentConfig> getRequestContentConfigs() {
@@ -171,8 +256,13 @@ public class RequestParamDict implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", paramtype='" + getParamtype() + "'" +
             ", valueArray='" + getValueArray() + "'" +
             ", referenceTo='" + getReferenceTo() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
             "}";
     }
 }

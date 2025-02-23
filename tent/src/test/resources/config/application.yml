@@ -13,9 +13,19 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+eureka:
+  client:
+    enabled: false
+  instance:
+    appname: ChangeRequest
+    instanceId: ChangeRequest:${spring.application.instance-id:${random.value}}
+
 spring:
   application:
-    name: testTent
+    name: ChangeRequest
+  cloud:
+    config:
+      enabled: false
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: test
@@ -36,13 +46,13 @@ spring:
           authorities-claim-name: auth
   task:
     execution:
-      thread-name-prefix: test-tent-task-
+      thread-name-prefix: change-request-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: test-tent-scheduling-
+      thread-name-prefix: change-request-scheduling-
       pool:
         size: 20
   thymeleaf:
@@ -59,9 +69,9 @@ server:
 # ===================================================================
 jhipster:
   clientApp:
-    name: 'testTentApp'
+    name: 'changeRequestApp'
   mail:
-    from: testTent@localhost.com
+    from: ChangeRequest@localhost.com
     base-url: http://127.0.0.1:8080
   logging:
     # To test json console appender

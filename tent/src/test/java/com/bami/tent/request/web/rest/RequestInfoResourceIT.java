@@ -40,6 +40,9 @@ class RequestInfoResourceIT {
     private static final LocalDate DEFAULT_REQUEST_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_REQUEST_DATE = LocalDate.now(ZoneId.systemDefault());
 
+    private static final String DEFAULT_CODE_AT_SOURCE = "AAAAAAAAAA";
+    private static final String UPDATED_CODE_AT_SOURCE = "BBBBBBBBBB";
+
     private static final LocalDate DEFAULT_EFFECTIVE_DATE_START = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_EFFECTIVE_DATE_START = LocalDate.now(ZoneId.systemDefault());
 
@@ -90,6 +93,7 @@ class RequestInfoResourceIT {
         RequestInfo requestInfo = new RequestInfo()
             .contract(DEFAULT_CONTRACT)
             .requestDate(DEFAULT_REQUEST_DATE)
+            .codeAtSource(DEFAULT_CODE_AT_SOURCE)
             .effectiveDateStart(DEFAULT_EFFECTIVE_DATE_START)
             .effectiveDateEnd(DEFAULT_EFFECTIVE_DATE_END)
             .createdAt(DEFAULT_CREATED_AT)
@@ -109,6 +113,7 @@ class RequestInfoResourceIT {
         RequestInfo requestInfo = new RequestInfo()
             .contract(UPDATED_CONTRACT)
             .requestDate(UPDATED_REQUEST_DATE)
+            .codeAtSource(UPDATED_CODE_AT_SOURCE)
             .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
             .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
             .createdAt(UPDATED_CREATED_AT)
@@ -172,10 +177,42 @@ class RequestInfoResourceIT {
 
     @Test
     @Transactional
+    void checkContractIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        requestInfo.setContract(null);
+
+        // Create the RequestInfo, which fails.
+
+        restRequestInfoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(requestInfo)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkRequestDateIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
         requestInfo.setRequestDate(null);
+
+        // Create the RequestInfo, which fails.
+
+        restRequestInfoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(requestInfo)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkCodeAtSourceIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        requestInfo.setCodeAtSource(null);
 
         // Create the RequestInfo, which fails.
 
@@ -200,6 +237,7 @@ class RequestInfoResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(requestInfo.getId().intValue())))
             .andExpect(jsonPath("$.[*].contract").value(hasItem(DEFAULT_CONTRACT)))
             .andExpect(jsonPath("$.[*].requestDate").value(hasItem(DEFAULT_REQUEST_DATE.toString())))
+            .andExpect(jsonPath("$.[*].codeAtSource").value(hasItem(DEFAULT_CODE_AT_SOURCE)))
             .andExpect(jsonPath("$.[*].effectiveDateStart").value(hasItem(DEFAULT_EFFECTIVE_DATE_START.toString())))
             .andExpect(jsonPath("$.[*].effectiveDateEnd").value(hasItem(DEFAULT_EFFECTIVE_DATE_END.toString())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
@@ -222,6 +260,7 @@ class RequestInfoResourceIT {
             .andExpect(jsonPath("$.id").value(requestInfo.getId().intValue()))
             .andExpect(jsonPath("$.contract").value(DEFAULT_CONTRACT))
             .andExpect(jsonPath("$.requestDate").value(DEFAULT_REQUEST_DATE.toString()))
+            .andExpect(jsonPath("$.codeAtSource").value(DEFAULT_CODE_AT_SOURCE))
             .andExpect(jsonPath("$.effectiveDateStart").value(DEFAULT_EFFECTIVE_DATE_START.toString()))
             .andExpect(jsonPath("$.effectiveDateEnd").value(DEFAULT_EFFECTIVE_DATE_END.toString()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
@@ -252,6 +291,7 @@ class RequestInfoResourceIT {
         updatedRequestInfo
             .contract(UPDATED_CONTRACT)
             .requestDate(UPDATED_REQUEST_DATE)
+            .codeAtSource(UPDATED_CODE_AT_SOURCE)
             .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
             .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
             .createdAt(UPDATED_CREATED_AT)
@@ -338,10 +378,9 @@ class RequestInfoResourceIT {
         partialUpdatedRequestInfo.setId(requestInfo.getId());
 
         partialUpdatedRequestInfo
-            .contract(UPDATED_CONTRACT)
-            .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
+            .requestDate(UPDATED_REQUEST_DATE)
             .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
-            .updatedAt(UPDATED_UPDATED_AT)
+            .createdBy(UPDATED_CREATED_BY)
             .updatedBy(UPDATED_UPDATED_BY);
 
         restRequestInfoMockMvc
@@ -376,6 +415,7 @@ class RequestInfoResourceIT {
         partialUpdatedRequestInfo
             .contract(UPDATED_CONTRACT)
             .requestDate(UPDATED_REQUEST_DATE)
+            .codeAtSource(UPDATED_CODE_AT_SOURCE)
             .effectiveDateStart(UPDATED_EFFECTIVE_DATE_START)
             .effectiveDateEnd(UPDATED_EFFECTIVE_DATE_END)
             .createdAt(UPDATED_CREATED_AT)

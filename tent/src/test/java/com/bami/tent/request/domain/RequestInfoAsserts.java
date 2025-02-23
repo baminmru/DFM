@@ -49,6 +49,7 @@ public class RequestInfoAsserts {
             .as("Verify RequestInfo relevant properties")
             .satisfies(e -> assertThat(e.getContract()).as("check contract").isEqualTo(actual.getContract()))
             .satisfies(e -> assertThat(e.getRequestDate()).as("check requestDate").isEqualTo(actual.getRequestDate()))
+            .satisfies(e -> assertThat(e.getCodeAtSource()).as("check codeAtSource").isEqualTo(actual.getCodeAtSource()))
             .satisfies(e -> assertThat(e.getEffectiveDateStart()).as("check effectiveDateStart").isEqualTo(actual.getEffectiveDateStart()))
             .satisfies(e -> assertThat(e.getEffectiveDateEnd()).as("check effectiveDateEnd").isEqualTo(actual.getEffectiveDateEnd()))
             .satisfies(e -> assertThat(e.getCreatedAt()).as("check createdAt").isEqualTo(actual.getCreatedAt()))
@@ -66,6 +67,7 @@ public class RequestInfoAsserts {
     public static void assertRequestInfoUpdatableRelationshipsEquals(RequestInfo expected, RequestInfo actual) {
         assertThat(expected)
             .as("Verify RequestInfo relationships")
-            .satisfies(e -> assertThat(e.getRequestType()).as("check requestType").isEqualTo(actual.getRequestType()));
+            .satisfies(e -> assertThat(e.getRequestType()).as("check requestType").isEqualTo(actual.getRequestType()))
+            .satisfies(e -> assertThat(e.getRequestSource()).as("check requestSource").isEqualTo(actual.getRequestSource()));
     }
 }

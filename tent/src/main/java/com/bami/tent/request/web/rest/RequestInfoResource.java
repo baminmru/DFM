@@ -129,6 +129,9 @@ public class RequestInfoResource {
                 if (requestInfo.getRequestDate() != null) {
                     existingRequestInfo.setRequestDate(requestInfo.getRequestDate());
                 }
+                if (requestInfo.getCodeAtSource() != null) {
+                    existingRequestInfo.setCodeAtSource(requestInfo.getCodeAtSource());
+                }
                 if (requestInfo.getEffectiveDateStart() != null) {
                     existingRequestInfo.setEffectiveDateStart(requestInfo.getEffectiveDateStart());
                 }

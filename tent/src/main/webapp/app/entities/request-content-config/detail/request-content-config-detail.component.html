@@ -3,7 +3,7 @@
     @if (requestContentConfig()) {
       <div>
         <h2 data-cy="requestContentConfigDetailsHeading">
-          <span jhiTranslate="testTentApp.requestContentConfig.detail.title">Request Content Config</span>
+          <span jhiTranslate="changeRequestApp.requestContentConfig.detail.title">Request Content Config</span>
         </h2>
 
         <hr />
@@ -17,11 +17,27 @@
           <dd>
             <span>{{ requestContentConfig()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContentConfig.isMandatory">Is Mandatory</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.isMandatory">Is Mandatory</span></dt>
           <dd>
             <span>{{ requestContentConfig()!.isMandatory }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContentConfig.requestConfigId">Request Config Id</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.updatedAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.updatedBy">Updated By</span></dt>
+          <dd>
+            <span>{{ requestContentConfig()!.updatedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.requestConfigId">Request Config Id</span></dt>
           <dd>
             @if (requestContentConfig()!.requestConfigId) {
               <div>
@@ -31,7 +47,7 @@
               </div>
             }
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContentConfig.parameter">Parameter</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestContentConfig.parameter">Parameter</span></dt>
           <dd>
             @if (requestContentConfig()!.parameter) {
               <div>

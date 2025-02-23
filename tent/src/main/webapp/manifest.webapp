@@ -1,6 +1,6 @@
 {
-  "name": "TestTent",
-  "short_name": "TestTent",
+  "name": "ChangeRequest",
+  "short_name": "ChangeRequest",
   "icons": [
     {
       "src": "./content/images/jhipster_family_member_3_head-192.png",

@@ -2,13 +2,18 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { IRequestConfig } from '../request-config.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../request-config.test-samples';
 
-import { RequestConfigService } from './request-config.service';
+import { RequestConfigService, RestRequestConfig } from './request-config.service';
 
-const requireRestSample: IRequestConfig = {
+const requireRestSample: RestRequestConfig = {
   ...sampleWithRequiredData,
+  effectiveDateStart: sampleWithRequiredData.effectiveDateStart?.format(DATE_FORMAT),
+  effectiveDateEnd: sampleWithRequiredData.effectiveDateEnd?.format(DATE_FORMAT),
+  createdAt: sampleWithRequiredData.createdAt?.format(DATE_FORMAT),
+  updatedAt: sampleWithRequiredData.updatedAt?.format(DATE_FORMAT),
 };
 
 describe('RequestConfig Service', () => {

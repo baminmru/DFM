@@ -69,6 +69,8 @@ entity  RequestParamDict{
 		Code String maxlength(40)
 /*Name - 'Название' */
 		Name String maxlength(255) required
+/*Paramtype - 'Тип параметра' */
+		Paramtype String maxlength(64)
 /*ValueArray - 'Допускает массив значений' */
 		ValueArray Boolean
 /*ReferenceTo - 'Описание ссылки' */

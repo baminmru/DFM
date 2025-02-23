@@ -2,13 +2,16 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { IRequestContent } from '../request-content.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../request-content.test-samples';
 
-import { RequestContentService } from './request-content.service';
+import { RequestContentService, RestRequestContent } from './request-content.service';
 
-const requireRestSample: IRequestContent = {
+const requireRestSample: RestRequestContent = {
   ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.format(DATE_FORMAT),
+  updatedAt: sampleWithRequiredData.updatedAt?.format(DATE_FORMAT),
 };
 
 describe('RequestContent Service', () => {

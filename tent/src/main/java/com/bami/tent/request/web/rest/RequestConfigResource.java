@@ -3,6 +3,8 @@ package com.bami.tent.request.web.rest;
 import com.bami.tent.request.domain.RequestConfig;
 import com.bami.tent.request.repository.RequestConfigRepository;
 import com.bami.tent.request.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,7 +48,7 @@ public class RequestConfigResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<RequestConfig> createRequestConfig(@RequestBody RequestConfig requestConfig) throws URISyntaxException {
+    public ResponseEntity<RequestConfig> createRequestConfig(@Valid @RequestBody RequestConfig requestConfig) throws URISyntaxException {
         log.debug("REST request to save RequestConfig : {}", requestConfig);
         if (requestConfig.getId() != null) {
             throw new BadRequestAlertException("A new requestConfig cannot already have an ID", ENTITY_NAME, "idexists");
@@ -70,7 +72,7 @@ public class RequestConfigResource {
     @PutMapping("/{id}")
     public ResponseEntity<RequestConfig> updateRequestConfig(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody RequestConfig requestConfig
+        @Valid @RequestBody RequestConfig requestConfig
     ) throws URISyntaxException {
         log.debug("REST request to update RequestConfig : {}, {}", id, requestConfig);
         if (requestConfig.getId() == null) {
@@ -104,7 +106,7 @@ public class RequestConfigResource {
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<RequestConfig> partialUpdateRequestConfig(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody RequestConfig requestConfig
+        @NotNull @RequestBody RequestConfig requestConfig
     ) throws URISyntaxException {
         log.debug("REST request to partial update RequestConfig partially : {}, {}", id, requestConfig);
         if (requestConfig.getId() == null) {
@@ -118,7 +120,34 @@ public class RequestConfigResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<RequestConfig> result = requestConfigRepository.findById(requestConfig.getId()).map(requestConfigRepository::save);
+        Optional<RequestConfig> result = requestConfigRepository
+            .findById(requestConfig.getId())
+            .map(existingRequestConfig -> {
+                if (requestConfig.getVersion() != null) {
+                    existingRequestConfig.setVersion(requestConfig.getVersion());
+                }
+                if (requestConfig.getEffectiveDateStart() != null) {
+                    existingRequestConfig.setEffectiveDateStart(requestConfig.getEffectiveDateStart());
+                }
+                if (requestConfig.getEffectiveDateEnd() != null) {
+                    existingRequestConfig.setEffectiveDateEnd(requestConfig.getEffectiveDateEnd());
+                }
+                if (requestConfig.getCreatedAt() != null) {
+                    existingRequestConfig.setCreatedAt(requestConfig.getCreatedAt());
+                }
+                if (requestConfig.getCreatedBy() != null) {
+                    existingRequestConfig.setCreatedBy(requestConfig.getCreatedBy());
+                }
+                if (requestConfig.getUpdatedAt() != null) {
+                    existingRequestConfig.setUpdatedAt(requestConfig.getUpdatedAt());
+                }
+                if (requestConfig.getUpdatedBy() != null) {
+                    existingRequestConfig.setUpdatedBy(requestConfig.getUpdatedBy());
+                }
+
+                return existingRequestConfig;
+            })
+            .map(requestConfigRepository::save);
 
         return ResponseUtil.wrapOrNotFound(
             result,

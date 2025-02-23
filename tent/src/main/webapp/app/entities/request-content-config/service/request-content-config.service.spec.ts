@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
+import { DATE_FORMAT } from 'app/config/input.constants';
 import { IRequestContentConfig } from '../request-content-config.model';
 import {
   sampleWithRequiredData,
@@ -10,10 +11,12 @@ import {
   sampleWithFullData,
 } from '../request-content-config.test-samples';
 
-import { RequestContentConfigService } from './request-content-config.service';
+import { RequestContentConfigService, RestRequestContentConfig } from './request-content-config.service';
 
-const requireRestSample: IRequestContentConfig = {
+const requireRestSample: RestRequestContentConfig = {
   ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.format(DATE_FORMAT),
+  updatedAt: sampleWithRequiredData.updatedAt?.format(DATE_FORMAT),
 };
 
 describe('RequestContentConfig Service', () => {

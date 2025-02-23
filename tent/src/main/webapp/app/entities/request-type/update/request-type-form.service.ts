@@ -20,6 +20,10 @@ type RequestTypeFormGroupContent = {
   id: FormControl<IRequestType['id'] | NewRequestType['id']>;
   code: FormControl<IRequestType['code']>;
   name: FormControl<IRequestType['name']>;
+  createdAt: FormControl<IRequestType['createdAt']>;
+  createdBy: FormControl<IRequestType['createdBy']>;
+  updatedAt: FormControl<IRequestType['updatedAt']>;
+  updatedBy: FormControl<IRequestType['updatedBy']>;
 };
 
 export type RequestTypeFormGroup = FormGroup<RequestTypeFormGroupContent>;
@@ -44,6 +48,14 @@ export class RequestTypeFormService {
       }),
       name: new FormControl(requestTypeRawValue.name, {
         validators: [Validators.required, Validators.maxLength(255)],
+      }),
+      createdAt: new FormControl(requestTypeRawValue.createdAt),
+      createdBy: new FormControl(requestTypeRawValue.createdBy, {
+        validators: [Validators.maxLength(64)],
+      }),
+      updatedAt: new FormControl(requestTypeRawValue.updatedAt),
+      updatedBy: new FormControl(requestTypeRawValue.updatedBy, {
+        validators: [Validators.maxLength(64)],
       }),
     });
   }

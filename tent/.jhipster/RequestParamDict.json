@@ -2,12 +2,12 @@
   "annotations": {
     "changelogDate": "20250221174153"
   },
-  "applications": ["testTent"],
+  "applications": ["ChangeRequest"],
   "fields": [
     {
       "fieldName": "code",
       "fieldType": "String",
-      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRules": ["maxlength", "required"],
       "fieldValidateRulesMaxlength": "40"
     },
     {
@@ -17,11 +17,37 @@
       "fieldValidateRulesMaxlength": "255"
     },
     {
+      "fieldName": "paramtype",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
       "fieldName": "valueArray",
       "fieldType": "Boolean"
     },
     {
       "fieldName": "referenceTo",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedBy",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "64"

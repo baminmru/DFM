@@ -15,9 +15,12 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="contract" type="integer">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="request_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="code_at_source" type="varchar(40)">
                 <constraints nullable="false" />
             </column>
             <column name="effective_date_start" type="date">
@@ -39,6 +42,9 @@
                 <constraints nullable="true" />
             </column>
             <column name="request_type_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="request_source_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -64,6 +70,7 @@
             <column name="id" type="numeric"/>
             <column name="contract" type="numeric"/>
             <column name="request_date" type="date"/>
+            <column name="code_at_source" type="string"/>
             <column name="effective_date_start" type="date"/>
             <column name="effective_date_end" type="date"/>
             <column name="created_at" type="date"/>

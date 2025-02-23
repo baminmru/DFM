@@ -2,8 +2,43 @@
   "annotations": {
     "changelogDate": "20250221173953"
   },
-  "applications": ["testTent"],
-  "fields": [],
+  "applications": ["ChangeRequest"],
+  "fields": [
+    {
+      "fieldName": "version",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "40"
+    },
+    {
+      "fieldName": "effectiveDateStart",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "effectiveDateEnd",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "64"
+    }
+  ],
   "name": "RequestConfig",
   "relationships": [
     {

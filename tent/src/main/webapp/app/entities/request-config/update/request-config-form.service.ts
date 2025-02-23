@@ -18,6 +18,13 @@ type RequestConfigFormDefaults = Pick<NewRequestConfig, 'id'>;
 
 type RequestConfigFormGroupContent = {
   id: FormControl<IRequestConfig['id'] | NewRequestConfig['id']>;
+  version: FormControl<IRequestConfig['version']>;
+  effectiveDateStart: FormControl<IRequestConfig['effectiveDateStart']>;
+  effectiveDateEnd: FormControl<IRequestConfig['effectiveDateEnd']>;
+  createdAt: FormControl<IRequestConfig['createdAt']>;
+  createdBy: FormControl<IRequestConfig['createdBy']>;
+  updatedAt: FormControl<IRequestConfig['updatedAt']>;
+  updatedBy: FormControl<IRequestConfig['updatedBy']>;
   requestType: FormControl<IRequestConfig['requestType']>;
 };
 
@@ -38,6 +45,19 @@ export class RequestConfigFormService {
           validators: [Validators.required],
         },
       ),
+      version: new FormControl(requestConfigRawValue.version, {
+        validators: [Validators.maxLength(40)],
+      }),
+      effectiveDateStart: new FormControl(requestConfigRawValue.effectiveDateStart),
+      effectiveDateEnd: new FormControl(requestConfigRawValue.effectiveDateEnd),
+      createdAt: new FormControl(requestConfigRawValue.createdAt),
+      createdBy: new FormControl(requestConfigRawValue.createdBy, {
+        validators: [Validators.maxLength(64)],
+      }),
+      updatedAt: new FormControl(requestConfigRawValue.updatedAt),
+      updatedBy: new FormControl(requestConfigRawValue.updatedBy, {
+        validators: [Validators.maxLength(64)],
+      }),
       requestType: new FormControl(requestConfigRawValue.requestType),
     });
   }

@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="RequestInfoHeading">
-    <span jhiTranslate="testTentApp.requestInfo.home.title">Request Infos</span>
+    <span jhiTranslate="changeRequestApp.requestInfo.home.title">Request Infos</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
-        <span jhiTranslate="testTentApp.requestInfo.home.refreshListLabel">Refresh list</span>
+        <span jhiTranslate="changeRequestApp.requestInfo.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/request-info/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="testTentApp.requestInfo.home.createLabel">Create a new Request Info</span>
+        <span jhiTranslate="changeRequestApp.requestInfo.home.createLabel">Create a new Request Info</span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
 
   @if (requestInfos?.length === 0) {
     <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="testTentApp.requestInfo.home.notFound">No Request Infos found</span>
+      <span jhiTranslate="changeRequestApp.requestInfo.home.notFound">No Request Infos found</span>
     </div>
   }
 
@@ -44,63 +44,76 @@
             </th>
             <th scope="col" jhiSortBy="contract">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.contract">Contract</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.contract">Contract</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="requestDate">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.requestDate">Request Date</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.requestDate">Request Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="codeAtSource">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestInfo.codeAtSource">Code At Source</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="effectiveDateStart">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.effectiveDateStart">Effective Date Start</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.effectiveDateStart">Effective Date Start</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="effectiveDateEnd">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.effectiveDateEnd">Effective Date End</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.effectiveDateEnd">Effective Date End</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdAt">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.createdAt">Created At</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.createdAt">Created At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="createdBy">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.createdBy">Created By</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.createdBy">Created By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedAt">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.updatedAt">Updated At</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.updatedAt">Updated At</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="updatedBy">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.updatedBy">Updated By</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.updatedBy">Updated By</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
             <th scope="col" jhiSortBy="requestType.id">
               <div class="d-flex">
-                <span jhiTranslate="testTentApp.requestInfo.requestType">Request Type</span>
+                <span jhiTranslate="changeRequestApp.requestInfo.requestType">Request Type</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="requestSource.id">
+              <div class="d-flex">
+                <span jhiTranslate="changeRequestApp.requestInfo.requestSource">Request Source</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -115,6 +128,7 @@
               </td>
               <td>{{ requestInfo.contract }}</td>
               <td>{{ requestInfo.requestDate | formatMediumDate }}</td>
+              <td>{{ requestInfo.codeAtSource }}</td>
               <td>{{ requestInfo.effectiveDateStart | formatMediumDate }}</td>
               <td>{{ requestInfo.effectiveDateEnd | formatMediumDate }}</td>
               <td>{{ requestInfo.createdAt | formatMediumDate }}</td>
@@ -125,6 +139,13 @@
                 @if (requestInfo.requestType) {
                   <div>
                     <a [routerLink]="['/request-type', requestInfo.requestType.id, 'view']">{{ requestInfo.requestType.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (requestInfo.requestSource) {
+                  <div>
+                    <a [routerLink]="['/source-system', requestInfo.requestSource.id, 'view']">{{ requestInfo.requestSource.id }}</a>
                   </div>
                 }
               </td>

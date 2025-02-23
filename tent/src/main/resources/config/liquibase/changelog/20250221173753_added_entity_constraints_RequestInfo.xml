@@ -16,5 +16,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="request_type"
                                  />
+
+        <addForeignKeyConstraint baseColumnNames="request_source_id"
+                                 baseTableName="request_info"
+                                 constraintName="fk_request_info__request_source_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="source_system"
+                                 />
     </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,30 @@
+{
+  "changeRequestApp": {
+    "sourceSystem": {
+      "home": {
+        "title": "Source Systems",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Source System",
+        "createOrEditLabel": "Create or edit a Source System",
+        "notFound": "No Source Systems found"
+      },
+      "created": "A new Source System is created with identifier {{ param }}",
+      "updated": "A Source System is updated with identifier {{ param }}",
+      "deleted": "A Source System is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Source System {{ id }}?"
+      },
+      "detail": {
+        "title": "Source System"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "createdAt": "Created At",
+      "createdBy": "Created By",
+      "updatedAt": "Updated At",
+      "updatedBy": "Updated By",
+      "requestInfo": "Request Info"
+    }
+  }
+}

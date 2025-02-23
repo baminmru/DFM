@@ -2,7 +2,9 @@
   <div class="col-8">
     @if (requestContent()) {
       <div>
-        <h2 data-cy="requestContentDetailsHeading"><span jhiTranslate="testTentApp.requestContent.detail.title">Request Content</span></h2>
+        <h2 data-cy="requestContentDetailsHeading">
+          <span jhiTranslate="changeRequestApp.requestContent.detail.title">Request Content</span>
+        </h2>
 
         <hr />
 
@@ -15,15 +17,31 @@
           <dd>
             <span>{{ requestContent()!.id }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContent.paramCode">Param Code</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.paramCode">Param Code</span></dt>
           <dd>
             <span>{{ requestContent()!.paramCode }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContent.paramValue">Param Value</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.paramValue">Param Value</span></dt>
           <dd>
             <span>{{ requestContent()!.paramValue }}</span>
           </dd>
-          <dt><span jhiTranslate="testTentApp.requestContent.requestInfoId">Request Info Id</span></dt>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ requestContent()!.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ requestContent()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ requestContent()!.updatedAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.updatedBy">Updated By</span></dt>
+          <dd>
+            <span>{{ requestContent()!.updatedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="changeRequestApp.requestContent.requestInfoId">Request Info Id</span></dt>
           <dd>
             @if (requestContent()!.requestInfoId) {
               <div>

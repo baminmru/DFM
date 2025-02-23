@@ -19,6 +19,10 @@ type RequestContentConfigFormDefaults = Pick<NewRequestContentConfig, 'id' | 'is
 type RequestContentConfigFormGroupContent = {
   id: FormControl<IRequestContentConfig['id'] | NewRequestContentConfig['id']>;
   isMandatory: FormControl<IRequestContentConfig['isMandatory']>;
+  createdAt: FormControl<IRequestContentConfig['createdAt']>;
+  createdBy: FormControl<IRequestContentConfig['createdBy']>;
+  updatedAt: FormControl<IRequestContentConfig['updatedAt']>;
+  updatedBy: FormControl<IRequestContentConfig['updatedBy']>;
   requestConfigId: FormControl<IRequestContentConfig['requestConfigId']>;
   parameter: FormControl<IRequestContentConfig['parameter']>;
 };
@@ -43,6 +47,14 @@ export class RequestContentConfigFormService {
         },
       ),
       isMandatory: new FormControl(requestContentConfigRawValue.isMandatory),
+      createdAt: new FormControl(requestContentConfigRawValue.createdAt),
+      createdBy: new FormControl(requestContentConfigRawValue.createdBy, {
+        validators: [Validators.maxLength(64)],
+      }),
+      updatedAt: new FormControl(requestContentConfigRawValue.updatedAt),
+      updatedBy: new FormControl(requestContentConfigRawValue.updatedBy, {
+        validators: [Validators.maxLength(64)],
+      }),
       requestConfigId: new FormControl(requestContentConfigRawValue.requestConfigId),
       parameter: new FormControl(requestContentConfigRawValue.parameter),
     });

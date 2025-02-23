@@ -9,8 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IRequestType } from 'app/entities/request-type/request-type.model';
 import { RequestTypeService } from 'app/entities/request-type/service/request-type.service';
-import { IRequestInfo } from '../request-info.model';
+import { ISourceSystem } from 'app/entities/source-system/source-system.model';
+import { SourceSystemService } from 'app/entities/source-system/service/source-system.service';
 import { RequestInfoService } from '../service/request-info.service';
+import { IRequestInfo } from '../request-info.model';
 import { RequestInfoFormService, RequestInfoFormGroup } from './request-info-form.service';
 
 @Component({
@@ -24,16 +26,21 @@ export class RequestInfoUpdateComponent implements OnInit {
   requestInfo: IRequestInfo | null = null;
 
   requestTypesSharedCollection: IRequestType[] = [];
+  sourceSystemsSharedCollection: ISourceSystem[] = [];
 
   protected requestInfoService = inject(RequestInfoService);
   protected requestInfoFormService = inject(RequestInfoFormService);
   protected requestTypeService = inject(RequestTypeService);
+  protected sourceSystemService = inject(SourceSystemService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: RequestInfoFormGroup = this.requestInfoFormService.createRequestInfoFormGroup();
 
   compareRequestType = (o1: IRequestType | null, o2: IRequestType | null): boolean => this.requestTypeService.compareRequestType(o1, o2);
+
+  compareSourceSystem = (o1: ISourceSystem | null, o2: ISourceSystem | null): boolean =>
+    this.sourceSystemService.compareSourceSystem(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ requestInfo }) => {
@@ -87,6 +94,10 @@ export class RequestInfoUpdateComponent implements OnInit {
       this.requestTypesSharedCollection,
       requestInfo.requestType,
     );
+    this.sourceSystemsSharedCollection = this.sourceSystemService.addSourceSystemToCollectionIfMissing<ISourceSystem>(
+      this.sourceSystemsSharedCollection,
+      requestInfo.requestSource,
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -99,5 +110,15 @@ export class RequestInfoUpdateComponent implements OnInit {
         ),
       )
       .subscribe((requestTypes: IRequestType[]) => (this.requestTypesSharedCollection = requestTypes));
+
+    this.sourceSystemService
+      .query()
+      .pipe(map((res: HttpResponse<ISourceSystem[]>) => res.body ?? []))
+      .pipe(
+        map((sourceSystems: ISourceSystem[]) =>
+          this.sourceSystemService.addSourceSystemToCollectionIfMissing<ISourceSystem>(sourceSystems, this.requestInfo?.requestSource),
+        ),
+      )
+      .subscribe((sourceSystems: ISourceSystem[]) => (this.sourceSystemsSharedCollection = sourceSystems));
   }
 }

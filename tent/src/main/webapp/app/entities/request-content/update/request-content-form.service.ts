@@ -20,6 +20,10 @@ type RequestContentFormGroupContent = {
   id: FormControl<IRequestContent['id'] | NewRequestContent['id']>;
   paramCode: FormControl<IRequestContent['paramCode']>;
   paramValue: FormControl<IRequestContent['paramValue']>;
+  createdAt: FormControl<IRequestContent['createdAt']>;
+  createdBy: FormControl<IRequestContent['createdBy']>;
+  updatedAt: FormControl<IRequestContent['updatedAt']>;
+  updatedBy: FormControl<IRequestContent['updatedBy']>;
   requestInfoId: FormControl<IRequestContent['requestInfoId']>;
 };
 
@@ -45,6 +49,14 @@ export class RequestContentFormService {
       }),
       paramValue: new FormControl(requestContentRawValue.paramValue, {
         validators: [Validators.maxLength(255)],
+      }),
+      createdAt: new FormControl(requestContentRawValue.createdAt),
+      createdBy: new FormControl(requestContentRawValue.createdBy, {
+        validators: [Validators.maxLength(64)],
+      }),
+      updatedAt: new FormControl(requestContentRawValue.updatedAt),
+      updatedBy: new FormControl(requestContentRawValue.updatedBy, {
+        validators: [Validators.maxLength(64)],
       }),
       requestInfoId: new FormControl(requestContentRawValue.requestInfoId),
     });

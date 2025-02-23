@@ -2,16 +2,23 @@
   "annotations": {
     "changelogDate": "20250221173753"
   },
-  "applications": ["testTent"],
+  "applications": ["ChangeRequest"],
   "fields": [
     {
       "fieldName": "contract",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "requestDate",
       "fieldType": "LocalDate",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "codeAtSource",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "40"
     },
     {
       "fieldName": "effectiveDateStart",
@@ -54,6 +61,12 @@
     {
       "otherEntityName": "requestType",
       "relationshipName": "requestType",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "sourceSystem",
+      "relationshipName": "requestSource",
       "relationshipSide": "right",
       "relationshipType": "many-to-one"
     }

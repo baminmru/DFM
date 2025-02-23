@@ -3,6 +3,8 @@ package com.bami.tent.request.web.rest;
 import com.bami.tent.request.domain.RequestContentConfig;
 import com.bami.tent.request.repository.RequestContentConfigRepository;
 import com.bami.tent.request.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,7 +48,7 @@ public class RequestContentConfigResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<RequestContentConfig> createRequestContentConfig(@RequestBody RequestContentConfig requestContentConfig)
+    public ResponseEntity<RequestContentConfig> createRequestContentConfig(@Valid @RequestBody RequestContentConfig requestContentConfig)
         throws URISyntaxException {
         log.debug("REST request to save RequestContentConfig : {}", requestContentConfig);
         if (requestContentConfig.getId() != null) {
@@ -71,7 +73,7 @@ public class RequestContentConfigResource {
     @PutMapping("/{id}")
     public ResponseEntity<RequestContentConfig> updateRequestContentConfig(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody RequestContentConfig requestContentConfig
+        @Valid @RequestBody RequestContentConfig requestContentConfig
     ) throws URISyntaxException {
         log.debug("REST request to update RequestContentConfig : {}, {}", id, requestContentConfig);
         if (requestContentConfig.getId() == null) {
@@ -105,7 +107,7 @@ public class RequestContentConfigResource {
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<RequestContentConfig> partialUpdateRequestContentConfig(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody RequestContentConfig requestContentConfig
+        @NotNull @RequestBody RequestContentConfig requestContentConfig
     ) throws URISyntaxException {
         log.debug("REST request to partial update RequestContentConfig partially : {}, {}", id, requestContentConfig);
         if (requestContentConfig.getId() == null) {
@@ -124,6 +126,18 @@ public class RequestContentConfigResource {
             .map(existingRequestContentConfig -> {
                 if (requestContentConfig.getIsMandatory() != null) {
                     existingRequestContentConfig.setIsMandatory(requestContentConfig.getIsMandatory());
+                }
+                if (requestContentConfig.getCreatedAt() != null) {
+                    existingRequestContentConfig.setCreatedAt(requestContentConfig.getCreatedAt());
+                }
+                if (requestContentConfig.getCreatedBy() != null) {
+                    existingRequestContentConfig.setCreatedBy(requestContentConfig.getCreatedBy());
+                }
+                if (requestContentConfig.getUpdatedAt() != null) {
+                    existingRequestContentConfig.setUpdatedAt(requestContentConfig.getUpdatedAt());
+                }
+                if (requestContentConfig.getUpdatedBy() != null) {
+                    existingRequestContentConfig.setUpdatedBy(requestContentConfig.getUpdatedBy());
                 }
 
                 return existingRequestContentConfig;

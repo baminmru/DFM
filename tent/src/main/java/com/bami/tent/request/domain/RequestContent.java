@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,8 +34,22 @@ public class RequestContent implements Serializable {
     @Column(name = "param_value", length = 255)
     private String paramValue;
 
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Size(max = 64)
+    @Column(name = "created_by", length = 64)
+    private String createdBy;
+
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
+    @Size(max = 64)
+    @Column(name = "updated_by", length = 64)
+    private String updatedBy;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "requestContents", "requestType" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "requestContents", "requestType", "requestSource" }, allowSetters = true)
     private RequestInfo requestInfoId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -78,6 +93,58 @@ public class RequestContent implements Serializable {
         this.paramValue = paramValue;
     }
 
+    public LocalDate getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public RequestContent createdAt(LocalDate createdAt) {
+        this.setCreatedAt(createdAt);
+        return this;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public RequestContent createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public RequestContent updatedAt(LocalDate updatedAt) {
+        this.setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return this.updatedBy;
+    }
+
+    public RequestContent updatedBy(String updatedBy) {
+        this.setUpdatedBy(updatedBy);
+        return this;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     public RequestInfo getRequestInfoId() {
         return this.requestInfoId;
     }
@@ -117,6 +184,10 @@ public class RequestContent implements Serializable {
             "id=" + getId() +
             ", paramCode='" + getParamCode() + "'" +
             ", paramValue='" + getParamValue() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
             "}";
     }
 }

@@ -1,5 +1,5 @@
 {
-  "testTentApp": {
+  "changeRequestApp": {
     "requestContent": {
       "home": {
         "title": "Request Contents",
@@ -20,6 +20,10 @@
       "id": "ID",
       "paramCode": "Param Code",
       "paramValue": "Param Value",
+      "createdAt": "Created At",
+      "createdBy": "Created By",
+      "updatedAt": "Updated At",
+      "updatedBy": "Updated By",
       "requestInfoId": "Request Info Id"
     }
   }

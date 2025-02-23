@@ -20,6 +20,7 @@ type RequestInfoFormGroupContent = {
   id: FormControl<IRequestInfo['id'] | NewRequestInfo['id']>;
   contract: FormControl<IRequestInfo['contract']>;
   requestDate: FormControl<IRequestInfo['requestDate']>;
+  codeAtSource: FormControl<IRequestInfo['codeAtSource']>;
   effectiveDateStart: FormControl<IRequestInfo['effectiveDateStart']>;
   effectiveDateEnd: FormControl<IRequestInfo['effectiveDateEnd']>;
   createdAt: FormControl<IRequestInfo['createdAt']>;
@@ -27,6 +28,7 @@ type RequestInfoFormGroupContent = {
   updatedAt: FormControl<IRequestInfo['updatedAt']>;
   updatedBy: FormControl<IRequestInfo['updatedBy']>;
   requestType: FormControl<IRequestInfo['requestType']>;
+  requestSource: FormControl<IRequestInfo['requestSource']>;
 };
 
 export type RequestInfoFormGroup = FormGroup<RequestInfoFormGroupContent>;
@@ -46,9 +48,14 @@ export class RequestInfoFormService {
           validators: [Validators.required],
         },
       ),
-      contract: new FormControl(requestInfoRawValue.contract),
+      contract: new FormControl(requestInfoRawValue.contract, {
+        validators: [Validators.required],
+      }),
       requestDate: new FormControl(requestInfoRawValue.requestDate, {
         validators: [Validators.required],
+      }),
+      codeAtSource: new FormControl(requestInfoRawValue.codeAtSource, {
+        validators: [Validators.required, Validators.maxLength(40)],
       }),
       effectiveDateStart: new FormControl(requestInfoRawValue.effectiveDateStart),
       effectiveDateEnd: new FormControl(requestInfoRawValue.effectiveDateEnd),
@@ -61,6 +68,7 @@ export class RequestInfoFormService {
         validators: [Validators.maxLength(64)],
       }),
       requestType: new FormControl(requestInfoRawValue.requestType),
+      requestSource: new FormControl(requestInfoRawValue.requestSource),
     });
   }
 

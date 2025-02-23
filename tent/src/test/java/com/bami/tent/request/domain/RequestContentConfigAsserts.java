@@ -47,7 +47,11 @@ public class RequestContentConfigAsserts {
     public static void assertRequestContentConfigUpdatableFieldsEquals(RequestContentConfig expected, RequestContentConfig actual) {
         assertThat(expected)
             .as("Verify RequestContentConfig relevant properties")
-            .satisfies(e -> assertThat(e.getIsMandatory()).as("check isMandatory").isEqualTo(actual.getIsMandatory()));
+            .satisfies(e -> assertThat(e.getIsMandatory()).as("check isMandatory").isEqualTo(actual.getIsMandatory()))
+            .satisfies(e -> assertThat(e.getCreatedAt()).as("check createdAt").isEqualTo(actual.getCreatedAt()))
+            .satisfies(e -> assertThat(e.getCreatedBy()).as("check createdBy").isEqualTo(actual.getCreatedBy()))
+            .satisfies(e -> assertThat(e.getUpdatedAt()).as("check updatedAt").isEqualTo(actual.getUpdatedAt()))
+            .satisfies(e -> assertThat(e.getUpdatedBy()).as("check updatedBy").isEqualTo(actual.getUpdatedBy()));
     }
 
     /**
