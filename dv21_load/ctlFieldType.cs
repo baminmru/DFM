@@ -47,6 +47,8 @@ namespace dv21_ctl
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private Label label10;
+        private CheckBox chkIsBrief;
+        private Label label13;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
@@ -89,9 +91,10 @@ namespace dv21_ctl
 						txtMax.Text = "";
 
 					chkNotNull.Checked =mField.NotNull;
+                    chkNotNull.Checked = mField.IsBrief;
 
 
-					cmbType.Text = mField.Type.ToString();
+                    cmbType.Text = mField.Type.ToString();
 
                     chkLookup.Checked = mField.Lookup;
                     txtLookup.Text = mField.LookupExpression;
@@ -176,6 +179,8 @@ namespace dv21_ctl
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.chkIsBrief = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -224,14 +229,14 @@ namespace dv21_ctl
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
-            this.cmb1Names.Location = new System.Drawing.Point(10, 475);
+            this.cmb1Names.Location = new System.Drawing.Point(8, 530);
             this.cmb1Names.Name = "cmb1Names";
             this.cmb1Names.Size = new System.Drawing.Size(224, 95);
             this.cmb1Names.TabIndex = 12;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(3, 459);
+            this.label5.Location = new System.Drawing.Point(9, 511);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 11;
@@ -239,7 +244,7 @@ namespace dv21_ctl
             // 
             // cmd1Names
             // 
-            this.cmd1Names.Location = new System.Drawing.Point(240, 475);
+            this.cmd1Names.Location = new System.Drawing.Point(238, 530);
             this.cmd1Names.Name = "cmd1Names";
             this.cmd1Names.Size = new System.Drawing.Size(40, 24);
             this.cmd1Names.TabIndex = 13;
@@ -265,7 +270,7 @@ namespace dv21_ctl
             // 
             // txt1Alias
             // 
-            this.txt1Alias.Location = new System.Drawing.Point(8, 56);
+            this.txt1Alias.Location = new System.Drawing.Point(6, 41);
             this.txt1Alias.Name = "txt1Alias";
             this.txt1Alias.Size = new System.Drawing.Size(272, 20);
             this.txt1Alias.TabIndex = 1;
@@ -415,7 +420,7 @@ namespace dv21_ctl
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.chkLookup);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Location = new System.Drawing.Point(3, 359);
+            this.groupBox1.Location = new System.Drawing.Point(6, 397);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(287, 97);
             this.groupBox1.TabIndex = 26;
@@ -432,9 +437,9 @@ namespace dv21_ctl
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.chkReference);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(6, 214);
+            this.groupBox2.Location = new System.Drawing.Point(6, 252);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(293, 139);
+            this.groupBox2.Size = new System.Drawing.Size(287, 139);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ссылочное поле";
@@ -447,8 +452,26 @@ namespace dv21_ctl
             this.label10.TabIndex = 22;
             this.label10.Text = "Раздел, куда ссылаемся (ID)";
             // 
+            // chkIsBrief
+            // 
+            this.chkIsBrief.Location = new System.Drawing.Point(209, 220);
+            this.chkIsBrief.Name = "chkIsBrief";
+            this.chkIsBrief.Size = new System.Drawing.Size(24, 16);
+            this.chkIsBrief.TabIndex = 29;
+            this.chkIsBrief.CheckedChanged += new System.EventHandler(this.chkIsBrief_CheckedChanged);
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(9, 221);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(96, 16);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "Краткое отображение";
+            // 
             // ctlFieldType
             // 
+            this.Controls.Add(this.chkIsBrief);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chkNotNull);
             this.Controls.Add(this.label7);
@@ -467,7 +490,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "ctlFieldType";
-            this.Size = new System.Drawing.Size(296, 583);
+            this.Size = new System.Drawing.Size(296, 664);
             this.Load += new System.EventHandler(this.ctlFieldType_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -649,6 +672,19 @@ namespace dv21_ctl
                 {
                     
                 }
+                UpdateNode();
+            }
+        }
+
+        private void chkIsBrief_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                try
+                {
+                    mField.IsBrief = chkNotNull.Checked;
+                }
+                catch { }
                 UpdateNode();
             }
         }

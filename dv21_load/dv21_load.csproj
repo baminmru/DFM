@@ -139,6 +139,7 @@
     <Compile Include="deffile.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FieldList.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -77,6 +77,7 @@
 		</xs:attribute>
 		<xs:attribute name="Max" type="xs:int" use="optional"/>
 		<xs:attribute name="NotNull" type="xs:boolean" use="optional"/>
+    <xs:attribute name="IsBrief" type="xs:boolean" use="optional"/>
 		<xs:attribute name="Reference" type="xs:boolean" use="optional"/>
     <xs:attribute name="Lookup" type="xs:boolean" use="optional"/>
 		<xs:attribute name="RefType" type="xs:string" use="optional"/>

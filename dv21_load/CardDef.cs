@@ -394,6 +394,10 @@ namespace dv21 {
         
         private bool notNullFieldSpecified;
         
+        private bool isBriefField;
+        
+        private bool isBriefFieldSpecified;
+        
         private bool referenceField;
         
         private bool referenceFieldSpecified;
@@ -504,6 +508,28 @@ namespace dv21 {
             }
             set {
                 this.notNullFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool IsBrief {
+            get {
+                return this.isBriefField;
+            }
+            set {
+                this.isBriefField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IsBriefSpecified {
+            get {
+                return this.isBriefFieldSpecified;
+            }
+            set {
+                this.isBriefFieldSpecified = value;
             }
         }
         
@@ -658,6 +684,9 @@ namespace dv21 {
         
         /// <remarks/>
         @float,
+        
+        /// <remarks/>
+        @double,
         
         /// <remarks/>
         refid,

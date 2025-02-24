@@ -89,6 +89,8 @@ namespace dv21_load
         private SaveFileDialog dlgSaveSQL;
         private MenuItem mnuFieldList;
         private MenuItem mnuJDLGn;
+        private SaveFileDialog dlgSaveJDL;
+        private SaveFileDialog dlgSaveCSV;
         private string LastOpenFile;
 
 		
@@ -151,6 +153,8 @@ namespace dv21_load
             this.mnuConst_CPP = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.mnuGenPG = new System.Windows.Forms.MenuItem();
+            this.mnuJDLGn = new System.Windows.Forms.MenuItem();
+            this.mnuFieldList = new System.Windows.Forms.MenuItem();
             this.mnuTypeLib = new System.Windows.Forms.MenuItem();
             this.tvStruct = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
@@ -188,6 +192,7 @@ namespace dv21_load
             this.mnuColumnDel = new System.Windows.Forms.MenuItem();
             this.dlgSaveXSD = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveSQL = new System.Windows.Forms.SaveFileDialog();
+            this.dlgSaveJDL = new System.Windows.Forms.SaveFileDialog();
             this.pnlColumn = new dv21_ctl.ctlviewColumn();
             this.pnlRestrict = new dv21_ctl.ctlRestrict();
             this.pnlModeType = new dv21_ctl.ctlModeType();
@@ -197,8 +202,7 @@ namespace dv21_load
             this.pnlFieldType = new dv21_ctl.ctlFieldType();
             this.pnlSectionType = new dv21_ctl.ctlSectionType();
             this.pnlCardDefinition = new dv21_ctl.ctlCardDefinition();
-            this.mnuFieldList = new System.Windows.Forms.MenuItem();
-            this.mnuJDLGn = new System.Windows.Forms.MenuItem();
+            this.dlgSaveCSV = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -329,6 +333,18 @@ namespace dv21_load
             this.mnuGenPG.Index = 5;
             this.mnuGenPG.Text = "PG script";
             this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
+            // 
+            // mnuJDLGn
+            // 
+            this.mnuJDLGn.Index = 6;
+            this.mnuJDLGn.Text = "JDL Generator";
+            this.mnuJDLGn.Click += new System.EventHandler(this.mnuJDLGn_Click);
+            // 
+            // mnuFieldList
+            // 
+            this.mnuFieldList.Index = 7;
+            this.mnuFieldList.Text = "Field List";
+            this.mnuFieldList.Click += new System.EventHandler(this.mnuFieldList_Click);
             // 
             // mnuTypeLib
             // 
@@ -579,6 +595,12 @@ namespace dv21_load
             this.dlgSaveSQL.DefaultExt = "sql";
             this.dlgSaveSQL.Filter = "SQL files|*.sql|AllFiles|*.*";
             this.dlgSaveSQL.RestoreDirectory = true;
+            this.dlgSaveSQL.FileOk += new System.ComponentModel.CancelEventHandler(this.dlgSaveSQL_FileOk);
+            // 
+            // dlgSaveJDL
+            // 
+            this.dlgSaveJDL.DefaultExt = "jdl";
+            this.dlgSaveJDL.Filter = "SQL files|*.sql|AllFiles|*.*";
             // 
             // pnlColumn
             // 
@@ -664,16 +686,10 @@ namespace dv21_load
             this.pnlCardDefinition.TabIndex = 0;
             this.pnlCardDefinition.Load += new System.EventHandler(this.pnlCardDefinition_Load);
             // 
-            // mnuFieldList
+            // dlgSaveCSV
             // 
-            this.mnuFieldList.Index = 7;
-            this.mnuFieldList.Text = "Field List";
-            // 
-            // mnuJDLGn
-            // 
-            this.mnuJDLGn.Index = 6;
-            this.mnuJDLGn.Text = "JDL Generator";
-            this.mnuJDLGn.Click += new System.EventHandler(this.mnuJDLGn_Click);
+            this.dlgSaveCSV.DefaultExt = "jdl";
+            this.dlgSaveCSV.Filter = "CSV files|*.csv|AllFiles|*.*";
             // 
             // Form2
             // 
@@ -1864,11 +1880,31 @@ namespace dv21_load
             string sql;
             try
             {
-                dlgSaveSQL.ShowDialog();
+                dlgSaveJDL.ShowDialog();
                 dv21.JDLGen pg = new JDLGen();
                 pg.cd = this.cd;
                 sql = pg.Generate();
-                System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+                System.IO.File.WriteAllText(dlgSaveJDL.FileName, sql);
+
+            }
+            catch { }
+        }
+
+        private void dlgSaveSQL_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void mnuFieldList_Click(object sender, EventArgs e)
+        {
+            string sql;
+            try
+            {
+                dlgSaveCSV.ShowDialog();
+                dv21.FieldList pg = new FieldList();
+                pg.cd = this.cd;
+                sql = pg.Generate();
+                System.IO.File.WriteAllText(dlgSaveCSV.FileName, sql);
 
             }
             catch { }
