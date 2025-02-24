@@ -22,7 +22,7 @@ COMMENT ON COLUMN tent.request_type.name IS 'Название';
 CREATE TABLE IF NOT EXISTS  tent.request_info(
 		id integer PRIMARY KEY
 		,request_type integer not null references tent.request_type( id )
-		,contract integer not null references tent.dog_info( id )
+		,contract integer not NULL -- references tent.dog_info( id )
 		,request_date date not null 
 		,request_source integer not null references tent.source_system( id )
 		,code_at_source varchar(40) not null
