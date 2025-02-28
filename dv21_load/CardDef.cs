@@ -675,11 +675,10 @@ namespace dv21 {
         
         /// <remarks/>
         @string,
-
+        
         /// <remarks/>
-        @text,
-
-
+        text,
+        
         /// <remarks/>
         unistring,
         

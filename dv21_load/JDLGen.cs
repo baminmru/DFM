@@ -1,9 +1,15 @@
-﻿using dv21;
-using dv21_util;
+﻿using dv21_util;
+using dv21_xsd;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Schema;
+
 
 namespace dv21
 {
@@ -67,11 +73,19 @@ namespace dv21
                 case "string":
                     return "String";
 
+                case "text":
+                    return "String";
+
+
                 case "unistring":
                     return "String";
 
                 case "fileid":
                     return "ImageBlob";
+
+                case "image":
+                    return "ImageBlob";
+
 
                 case "float":
                     return "Float";
@@ -79,8 +93,11 @@ namespace dv21
                 case "double":
                     return "Double";
 
+                case "refid":
+                    return "Integer";
+
             }
-            return "integer";
+            return "Integer";  /* " + dv21Type +" */
 
         }
 
@@ -121,21 +138,23 @@ namespace dv21
 
                     if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
                     {
-                        enums.AppendLine("enum " + MyUtils.C1(s.Field[i].Alias) + "_enum {");
+                        enums.AppendLine("enum " + MyUtils.C1(s.Field[i].Alias) + "Enum {");
 
                         int f;
                         for (f = 0; f < s.Field[i].Enum.Length; f++)
                         {
                         //    if (f > 0) enums.Append(",");
-                            enums.AppendLine( s.Field[i].Enum[f].Name );
+                            //enums.AppendLine( s.Field[i].Enum[f].Name );
+
+                            enums.AppendLine(MyUtils.C1(s.Field[i].Alias) + s.Field[i].Enum[f].Value.ToString() +" // " + s.Field[i].Enum[f].Name ); 
                         }
                         enums.AppendLine("}");
 
 
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "_enum required");
+                            sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "Enum required");
                         else
-                            sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "_enum");
+                            sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "Enum");
 
                     }
                     else if (s.Field[i].ReferenceSpecified)
@@ -157,8 +176,13 @@ namespace dv21
                             else
                                 sb.AppendLine("/*\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype +"*/");
 
+                            string BriefField = MyUtils.GetSectionBrief(refSection);
+
                             fk.AppendLine("relationship OneToMany {");
-                            fk.AppendLine(MyUtils.C1(refSection.Alias) + " to " + MyUtils.C1(s.Alias) +" { " +  MyUtils.C1(s.Field[i].Alias) +"} "  );
+                            if(BriefField == "")
+                                fk.AppendLine(MyUtils.C1(refSection.Alias) + " to " + MyUtils.C1(s.Alias) + " { " + MyUtils.C1(s.Field[i].Alias) + "} ");
+                            else
+                                fk.AppendLine(MyUtils.C1(refSection.Alias) + " to " + MyUtils.C1(s.Alias) + " { " + MyUtils.C1(s.Field[i].Alias) +"(" + MyUtils.C1(BriefField) + ") } ");
                             fk.AppendLine("}");
                         }
                         else
@@ -194,6 +218,7 @@ namespace dv21
             {
                  sb.AppendLine("/*\t\t" + MyUtils.C1(s.Alias) + "_parent Integer */");
 
+              
                 fk.AppendLine("relationship OneToMany {");
                 fk.AppendLine(MyUtils.C1(s.Alias) + " to " + MyUtils.C1(s.Alias) + " { " + MyUtils.C1(s.Alias) + "Parent } ");
                 fk.AppendLine("}");
@@ -243,7 +268,7 @@ namespace dv21
         public string Generate()
         {
 
-            int i;
+            
 
 
             result.AppendLine("application {");
@@ -254,8 +279,8 @@ namespace dv21
             result.AppendLine("     serverPort 8080");
             result.AppendLine("	    buildTool 	maven");
             result.AppendLine("	    databaseType 	sql");
-            result.AppendLine("	    prodDatabaseType   postgresql");
-            result.AppendLine("	    devDatabaseType 	h2Disk");
+            result.AppendLine("	    prodDatabaseType   postgresql");        
+            result.AppendLine("	    devDatabaseType 	postgresql");
             result.AppendLine("	    clientFramework 	angularX");
             //result.AppendLine("	    serviceDiscoveryType eureka");
             result.AppendLine("	    languages [ru,en]");
@@ -267,12 +292,7 @@ namespace dv21
 
 
 
-
-            for (i = 0; i < cd.Sections.Length; i++)
-            {
-                MakeSectionType(cd.Sections[i], null);
-            }
-
+            GenerateOne();
             result.AppendLine(enums.ToString());
             result.AppendLine(sb.ToString());
             result.AppendLine(fk.ToString());
@@ -281,11 +301,74 @@ namespace dv21
         }
 
 
+        public void GenerateOne()
+        {
+
+            int i;
+
+            for (i = 0; i < cd.Sections.Length; i++)
+            {
+                MakeSectionType(cd.Sections[i], null);
+            }
+            
+        }
 
 
 
+        public string GenerateAll()
+        {
+
+            result.AppendLine("application {");
+            result.AppendLine("  config {");
+            result.AppendLine("     baseName FullApp" );
+            result.AppendLine("     applicationType monolitic");
+            result.AppendLine("	    authenticationType jwt");
+            result.AppendLine("     serverPort 8080");
+            result.AppendLine("	    buildTool 	maven");
+            result.AppendLine("	    databaseType 	sql");
+            result.AppendLine("	    prodDatabaseType   postgresql");
+            result.AppendLine("	    devDatabaseType 	postgresql");
+            result.AppendLine("	    clientFramework 	angularX");
+            //result.AppendLine("	    serviceDiscoveryType eureka");
+            result.AppendLine("	    languages [ru,en]");
+            result.AppendLine("	    packageName com.bami.full.app");
+            result.AppendLine("  }");
+            result.AppendLine("  entities * ");
+            result.AppendLine("}");
 
 
+
+            dv21.DefFile df = null;
+            CardDefinition refCD;
+            try
+            {
+                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
+            }
+            catch
+            {
+            }
+            int i;
+            for (i = 0; i < df.Paths.Length; i++)
+            {
+                refCD = null;
+                try
+                {
+                    refCD = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (refCD != null)
+                {
+                    cd = refCD;
+                    GenerateOne();
+
+                }
+            }
+            result.AppendLine(enums.ToString());
+            result.AppendLine(sb.ToString());
+            result.AppendLine(fk.ToString());
+
+            return result.ToString();
+        }
 
 
 

@@ -92,6 +92,7 @@ namespace dv21_load
         private SaveFileDialog dlgSaveJDL;
         private SaveFileDialog dlgSaveCSV;
         private MenuItem menuItem6;
+        private MenuItem mnuJDLGenAll;
         private string LastOpenFile;
 
 		
@@ -154,6 +155,7 @@ namespace dv21_load
             this.mnuConst_CPP = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.mnuGenPG = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
             this.mnuJDLGn = new System.Windows.Forms.MenuItem();
             this.mnuFieldList = new System.Windows.Forms.MenuItem();
             this.mnuTypeLib = new System.Windows.Forms.MenuItem();
@@ -204,7 +206,7 @@ namespace dv21_load
             this.dlgSaveSQL = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveJDL = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveCSV = new System.Windows.Forms.SaveFileDialog();
-            this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.mnuJDLGenAll = new System.Windows.Forms.MenuItem();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -298,6 +300,7 @@ namespace dv21_load
             this.mnuGenPG,
             this.menuItem6,
             this.mnuJDLGn,
+            this.mnuJDLGenAll,
             this.mnuFieldList,
             this.mnuTypeLib});
             this.menuItem3.Text = "Tools";
@@ -337,6 +340,12 @@ namespace dv21_load
             this.mnuGenPG.Text = "PG script";
             this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
             // 
+            // menuItem6
+            // 
+            this.menuItem6.Index = 6;
+            this.menuItem6.Text = "PG script all library";
+            this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
+            // 
             // mnuJDLGn
             // 
             this.mnuJDLGn.Index = 7;
@@ -345,13 +354,13 @@ namespace dv21_load
             // 
             // mnuFieldList
             // 
-            this.mnuFieldList.Index = 8;
+            this.mnuFieldList.Index = 9;
             this.mnuFieldList.Text = "Field List";
             this.mnuFieldList.Click += new System.EventHandler(this.mnuFieldList_Click);
             // 
             // mnuTypeLib
             // 
-            this.mnuTypeLib.Index = 9;
+            this.mnuTypeLib.Index = 10;
             this.mnuTypeLib.Text = "Type library";
             this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
             // 
@@ -687,18 +696,18 @@ namespace dv21_load
             // dlgSaveJDL
             // 
             this.dlgSaveJDL.DefaultExt = "jdl";
-            this.dlgSaveJDL.Filter = "SQL files|*.sql|AllFiles|*.*";
+            this.dlgSaveJDL.Filter = "JDL files|*.jdl|AllFiles|*.*";
             // 
             // dlgSaveCSV
             // 
             this.dlgSaveCSV.DefaultExt = "jdl";
             this.dlgSaveCSV.Filter = "CSV files|*.csv|AllFiles|*.*";
             // 
-            // menuItem6
+            // mnuJDLGenAll
             // 
-            this.menuItem6.Index = 6;
-            this.menuItem6.Text = "PG script all library";
-            this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
+            this.mnuJDLGenAll.Index = 8;
+            this.mnuJDLGenAll.Text = "JDL generate all library";
+            this.mnuJDLGenAll.Click += new System.EventHandler(this.mnuJDLGenAll_Click);
             // 
             // Form2
             // 
@@ -1929,6 +1938,21 @@ namespace dv21_load
                 pg.cd = this.cd;
                 sql = pg.GenerateAll();
                 System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+
+            }
+            catch { }
+        }
+
+        private void mnuJDLGenAll_Click(object sender, EventArgs e)
+        {
+            string sql;
+            try
+            {
+                dlgSaveJDL.ShowDialog();
+                dv21.JDLGen pg = new JDLGen();
+                pg.cd = this.cd;
+                sql = pg.GenerateAll();
+                System.IO.File.WriteAllText(dlgSaveJDL.FileName, sql);
 
             }
             catch { }

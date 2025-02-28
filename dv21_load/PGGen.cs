@@ -82,6 +82,9 @@ namespace dv21
                 case "fileid":
                     return "bytea";
 
+                case "image":
+                    return "bytea";
+
                 case "float":
                     return "numeric(18,8)";
 

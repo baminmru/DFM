@@ -331,10 +331,32 @@ namespace dv21_util
             return null;
         }
 
+
+        public static string GetSectionBrief(SectionType St)
+        {
+            if (St == null) return "";
+            if (St.Field  == null) return "";
+
+            for (int i = 0; i < St.Field.Length; i++)
+            {
+                
+                if (St.Field[i].IsBrief)
+				{
+					return St.Field[i].Alias;
+
+                }
+                    
+            }
+
+            return "";
+        }
+
+
         public static string C1(string title)
         {
 
-            //return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(title.Replace("_",""));
+			//return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(title.Replace("_",""));
+			if (title == null) return "XXX";
 
             StringBuilder result = new StringBuilder(title.Length);
             bool makeUpper = true;

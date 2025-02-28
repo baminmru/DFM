@@ -601,9 +601,9 @@ namespace dv21_ctl
 			{
 				try
 				{
-					mField.Reference    =chkNotNull.Checked;
-					mField.ReferenceSpecified =true;
-				}
+					mField.Reference    = chkReference.Checked;
+					mField.ReferenceSpecified = chkReference.Checked;
+                }
 				catch{}
 				UpdateNode();
 			}
@@ -654,7 +654,8 @@ namespace dv21_ctl
             {
                 try
                 {
-                    mField.Reference = chkLookup.Checked;
+                    mField.Lookup = chkLookup.Checked;
+                    mField.LookupSpecified = chkLookup.Checked;
                 }
                 catch { }
                 UpdateNode();
@@ -684,7 +685,8 @@ namespace dv21_ctl
             {
                 try
                 {
-                    mField.IsBrief = chkNotNull.Checked;
+                    mField.IsBrief = chkIsBrief.Checked;
+                    mField.IsBriefSpecified = chkIsBrief.Checked;
                 }
                 catch { }
                 UpdateNode();
