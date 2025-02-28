@@ -210,6 +210,7 @@ namespace dv21_ctl
             "unistring",
             "fileid",
             "float",
+            "double",
             "refid",
             "image",
             "text"});

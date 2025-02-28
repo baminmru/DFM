@@ -73,6 +73,9 @@ namespace dv21
                 case "string":
                     return "varchar";
 
+                case "text":
+                    return "text";
+
                 case "unistring":
                     return "varchar";
 

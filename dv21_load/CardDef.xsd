@@ -67,6 +67,7 @@
 					<xs:enumeration value="uniqueid"/>
 					<xs:enumeration value="userid"/>
 					<xs:enumeration value="string"/>
+          <xs:enumeration value="text"/>
 					<xs:enumeration value="unistring"/>
 					<xs:enumeration value="fileid"/>
 					<xs:enumeration value="float"/>
