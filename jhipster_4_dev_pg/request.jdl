@@ -1,0 +1,148 @@
+application {
+  config {
+     baseName request
+     applicationType monolitic
+	 authenticationType jwt
+	 serverPort 8080
+	 buildTool 	maven
+	 databaseType 	sql
+	 prodDatabaseType   postgresql
+	 devDatabaseType    postgresql
+	 clientFramework 	angularX
+	 languages [ru,en]
+	 packageName com.bami.tent.request
+  }
+  entities * 
+}
+
+ // RequestType
+ /* Справочник типов заявок */
+entity  RequestType{
+/*Code - 'Код' */
+		Code String maxlength(64) required
+/*Name - 'Название' */
+		Name String maxlength(255) required
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+
+ // RequestInfo
+ /* Основная информация */
+entity  RequestInfo{
+/*RequestType - 'Тип заявки' */
+/*		RequestType Integer required */
+/*Contract - 'Контракт' */
+		Contract Integer required 
+/*RequestDate - 'Дата заявки' */
+		RequestDate LocalDate required 
+/*RequestSource - 'Источник заявки' */
+/*		RequestSource Integer required */
+/*CodeAtSource - 'Код в системе-источнике' */
+		CodeAtSource String maxlength(40) required
+		EffectiveDateStart LocalDate
+		EffectiveDateEnd LocalDate
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+ // RequestContent
+ /* Содержание заявки */
+entity  RequestContent{
+/* RequestInfoid - ' ссылка на родительскую таблицу Основная информация' */
+/*		RequestInfoId Integer required */
+/*ParamCode - 'Код параметра' */
+		ParamCode String maxlength(64) required
+/*ParamValue - 'Значение параметра' */
+		ParamValue String maxlength(255)
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+
+
+ // RequestConfig
+ /* Конфигуратор заявки */
+entity  RequestConfig{
+/*RequestType - 'Тип заявки' */
+/*		RequestType Integer required */
+/*Version - 'Версия  конфигурации' */
+		Version String maxlength(40)
+		EffectiveDateStart LocalDate
+		EffectiveDateEnd LocalDate
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+ // RequestContentConfig
+ /* Описание параметров заявки */
+entity  RequestContentConfig{
+/* RequestConfigid - ' ссылка на родительскую таблицу Конфигуратор заявки' */
+/*		RequestConfigId Integer required */
+/*Parameter - 'Параметр' */
+/*		Parameter integer*/
+/*IsMandatory - 'Обязательный' */
+		IsMandatory Boolean
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+
+
+ // RequestParamDict
+ /* Список возможных параметров */
+entity  RequestParamDict{
+/*Code - 'Код' */
+		Code String maxlength(40) required
+/*Name - 'Название' */
+		Name String maxlength(255) required
+/*Paramtype - 'Тип параметра' */
+		Paramtype String maxlength(64)
+/*ValueArray - 'Допускает массив значений' */
+		ValueArray Boolean	
+/*ReferenceTo - 'Описание ссылки' */
+		ReferenceTo String maxlength(64)
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+
+ // SourceSystem
+ /* Система источник */
+entity  SourceSystem{
+/*Code - 'Код' */
+		Code String maxlength(40) required
+/*Name - 'Название' */
+		Name String maxlength(255)
+		CreatedAt LocalDate
+		CreatedBy String maxlength(64)
+		UpdatedAt LocalDate
+		UpdatedBy  String maxlength(64)
+}
+
+
+relationship OneToMany {
+RequestType  to RequestInfo { RequestType (Code)} 
+}
+relationship OneToMany {
+SourceSystem  to RequestInfo { RequestSource (Code)} 
+}
+relationship OneToMany {
+RequestInfo to RequestContent{ RequestInfoId} 
+}
+relationship OneToMany {
+RequestType  to RequestConfig { RequestType (Code)} 
+}
+relationship OneToMany {
+RequestConfig to RequestContentConfig{ RequestConfigId} 
+}
+relationship OneToMany {
+RequestParamDict to RequestContentConfig { Parameter (Code)} 
+}
+
