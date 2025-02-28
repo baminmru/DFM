@@ -91,13 +91,14 @@ namespace dv21_ctl
 						txtMax.Text = "";
 
 					chkNotNull.Checked =mField.NotNull;
-                    chkNotNull.Checked = mField.IsBrief;
-
+                    chkIsBrief.Checked = mField.IsBrief;
 
                     cmbType.Text = mField.Type.ToString();
 
                     chkLookup.Checked = mField.Lookup;
                     txtLookup.Text = mField.LookupExpression;
+
+                    
 
 
                     chkReference.Checked = mField.Reference;
@@ -239,7 +240,7 @@ namespace dv21_ctl
             this.label5.Location = new System.Drawing.Point(9, 511);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 16);
-            this.label5.TabIndex = 11;
+            this.label5.TabIndex = 26;
             this.label5.Text = "Названия";
             // 
             // cmd1Names
@@ -247,7 +248,7 @@ namespace dv21_ctl
             this.cmd1Names.Location = new System.Drawing.Point(238, 530);
             this.cmd1Names.Name = "cmd1Names";
             this.cmd1Names.Size = new System.Drawing.Size(40, 24);
-            this.cmd1Names.TabIndex = 13;
+            this.cmd1Names.TabIndex = 28;
             this.cmd1Names.Text = "...";
             this.cmd1Names.Click += new System.EventHandler(this.cmd1Names_Click);
             // 
@@ -318,7 +319,7 @@ namespace dv21_ctl
             // 
             // chkNotNull
             // 
-            this.chkNotNull.Location = new System.Drawing.Point(208, 191);
+            this.chkNotNull.Location = new System.Drawing.Point(210, 198);
             this.chkNotNull.Name = "chkNotNull";
             this.chkNotNull.Size = new System.Drawing.Size(24, 16);
             this.chkNotNull.TabIndex = 10;
@@ -344,7 +345,7 @@ namespace dv21_ctl
             // 
             this.label9.Location = new System.Drawing.Point(7, 46);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(280, 24);
+            this.label9.Size = new System.Drawing.Size(272, 24);
             this.label9.TabIndex = 16;
             this.label9.Text = "Тип, куда ссылаемся (ID)";
             // 
@@ -361,7 +362,7 @@ namespace dv21_ctl
             this.txtRefSection.Location = new System.Drawing.Point(7, 110);
             this.txtRefSection.Name = "txtRefSection";
             this.txtRefSection.Size = new System.Drawing.Size(232, 20);
-            this.txtRefSection.TabIndex = 19;
+            this.txtRefSection.TabIndex = 20;
             this.txtRefSection.TextChanged += new System.EventHandler(this.txtRefSection_TextChanged);
             // 
             // cmdStructID
@@ -369,7 +370,7 @@ namespace dv21_ctl
             this.cmdStructID.Location = new System.Drawing.Point(247, 110);
             this.cmdStructID.Name = "cmdStructID";
             this.cmdStructID.Size = new System.Drawing.Size(32, 24);
-            this.cmdStructID.TabIndex = 20;
+            this.cmdStructID.TabIndex = 21;
             this.cmdStructID.Text = "...";
             this.cmdStructID.Click += new System.EventHandler(this.cmdStructID_Click);
             // 
@@ -378,7 +379,7 @@ namespace dv21_ctl
             this.cmdRefType.Location = new System.Drawing.Point(247, 62);
             this.cmdRefType.Name = "cmdRefType";
             this.cmdRefType.Size = new System.Drawing.Size(32, 24);
-            this.cmdRefType.TabIndex = 21;
+            this.cmdRefType.TabIndex = 18;
             this.cmdRefType.Text = "...";
             this.cmdRefType.Click += new System.EventHandler(this.cmdRefType_Click);
             // 
@@ -387,7 +388,7 @@ namespace dv21_ctl
             this.label11.Location = new System.Drawing.Point(13, 25);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(96, 16);
-            this.label11.TabIndex = 22;
+            this.label11.TabIndex = 23;
             this.label11.Text = "Lookup";
             // 
             // chkLookup
@@ -423,7 +424,7 @@ namespace dv21_ctl
             this.groupBox1.Location = new System.Drawing.Point(6, 397);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(287, 97);
-            this.groupBox1.TabIndex = 26;
+            this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Lookup";
             // 
@@ -440,7 +441,7 @@ namespace dv21_ctl
             this.groupBox2.Location = new System.Drawing.Point(6, 252);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(287, 139);
-            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ссылочное поле";
             // 
@@ -448,24 +449,24 @@ namespace dv21_ctl
             // 
             this.label10.Location = new System.Drawing.Point(7, 89);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(288, 16);
-            this.label10.TabIndex = 22;
+            this.label10.Size = new System.Drawing.Size(272, 16);
+            this.label10.TabIndex = 19;
             this.label10.Text = "Раздел, куда ссылаемся (ID)";
             // 
             // chkIsBrief
             // 
-            this.chkIsBrief.Location = new System.Drawing.Point(209, 220);
+            this.chkIsBrief.Location = new System.Drawing.Point(210, 220);
             this.chkIsBrief.Name = "chkIsBrief";
             this.chkIsBrief.Size = new System.Drawing.Size(24, 16);
-            this.chkIsBrief.TabIndex = 29;
+            this.chkIsBrief.TabIndex = 12;
             this.chkIsBrief.CheckedChanged += new System.EventHandler(this.chkIsBrief_CheckedChanged);
             // 
             // label13
             // 
             this.label13.Location = new System.Drawing.Point(9, 221);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(96, 16);
-            this.label13.TabIndex = 28;
+            this.label13.Size = new System.Drawing.Size(179, 15);
+            this.label13.TabIndex = 11;
             this.label13.Text = "Краткое отображение";
             // 
             // ctlFieldType
@@ -490,7 +491,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "ctlFieldType";
-            this.Size = new System.Drawing.Size(296, 664);
+            this.Size = new System.Drawing.Size(332, 664);
             this.Load += new System.EventHandler(this.ctlFieldType_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
