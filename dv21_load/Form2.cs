@@ -1848,8 +1848,9 @@ namespace dv21_load
 			{
 				df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
 			}
-			catch
+			catch( System.Exception ex)
 			{
+				MessageBox.Show("Open library error: " + ex.Message);
 			}
 
 			if (df==null)

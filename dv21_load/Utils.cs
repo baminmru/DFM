@@ -38,9 +38,7 @@ namespace dv21_util
 			{  
 				XmlSerializer serializer = 
 					new XmlSerializer(typeof(dv21.CardDefinition));
-                XmlWriterSettings settings = new XmlWriterSettings();
-                settings.Indent = true;
-
+          
                 // Create an XmlSerializerNamespaces object.
                 XmlSerializerNamespaces ns = 
 					new XmlSerializerNamespaces();
@@ -49,9 +47,10 @@ namespace dv21_util
 				StringWriter swriter = new StringWriter();
                 serializer.Serialize(swriter, cd, ns);
 				string sXML = swriter.ToString();
+                swriter.Close();
+                swriter=null;
 
-
-				if (sXML  != "")
+                if (sXML  != "")
 				{
 					if (File.Exists(filename))
 					{
@@ -59,25 +58,25 @@ namespace dv21_util
 						string fnBack = filename.Replace(".xml", "")
 							+"_" + d.ToString("yyddMMHHmmss") + ".bak";
 
-                        File.Copy(filename, fnBack);
+                        File.Copy(filename, fnBack, true);
 					}
-					File.WriteAllText(filename, sXML);
+                    Stream fs = new FileStream(filename, FileMode.Create);
+					System.Xml.XmlWriter writer =
+						new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
+					// Serialize using the XmlTextWriter.
+					serializer.Serialize(writer, cd, ns);
+					writer.Close();
+					writer = null;
 
 				}
-				else
+                else
 				{
-					MessageBox.Show("XML Save Error");
+					MessageBox.Show("XML backup Save Error");
 				}
 
 
             
-    //            Stream fs = new FileStream(filename, FileMode.Create);
-				//System.Xml.XmlWriter writer = 
-				//	new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
-				//// Serialize using the XmlTextWriter.
-				//serializer.Serialize(writer, cd, ns);
-				//writer.Close();
-				//writer=null;
+    //         
 			} 
 			catch ( System.Exception e)
 			{
@@ -94,16 +93,21 @@ namespace dv21_util
 			{  
 				XmlSerializer serializer = 
 					new XmlSerializer(typeof(dv21.DefFile));
-                XmlWriterSettings settings = new XmlWriterSettings();
-                settings.Indent = true;
-
+        
                 XmlSerializerNamespaces ns = 
 				new XmlSerializerNamespaces();
 
+				string sXML = "";
 
-                StringWriter swriter = new StringWriter();
-                serializer.Serialize(swriter, cd, ns);
-                string sXML = swriter.ToString();
+
+                using (var swriter = new StringWriter())
+				{
+					serializer.Serialize(swriter, cd, ns);
+					sXML = swriter.ToString();
+					swriter.Close();
+				}
+
+                
 
                 if (sXML != "")
                 {
@@ -113,24 +117,25 @@ namespace dv21_util
                         string fnBack = filename.Replace(".xml", "")
                             + "_" + d.ToString("yyddMMHHmmss") + ".bak";
 
-                        File.Copy(filename, fnBack);
+                        File.Copy(filename, fnBack, true);
                     }
-                    File.WriteAllText(filename, sXML);
+
+                    Stream fs = new FileStream(filename, FileMode.Create);
+                    System.Xml.XmlWriter writer =
+                        new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
+                    serializer.Serialize(writer, cd, ns);
+                    writer.Close();
+                    writer = null;
 
                 }
                 else
                 {
-                    MessageBox.Show("XML Save Error");
+                    MessageBox.Show("XML backup Save Error");
                 }
 
 
-                //Stream fs = new FileStream(filename, FileMode.Create);
-                //System.Xml.XmlWriter writer = 
-                //	new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
-                //serializer.Serialize(writer, cd, ns);
-                //writer.Close();
-                //writer=null;
-            }
+			
+			}
             catch (System.Exception e)
             {
                 MessageBox.Show("XML Save Error:" + e.Message);
