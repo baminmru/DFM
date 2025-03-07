@@ -213,7 +213,7 @@ namespace dv21_ctl
 			inLoad = false;
 		}
 
-		private void SaveChenges()
+		private void SaveChanges()
 		{
 			mRestrict.Type=(dv21.ModeTypeRestrictType)  cmbType.SelectedIndex;
 			mRestrict.AllowCreate=chkCreate.Checked;
@@ -234,42 +234,42 @@ namespace dv21_ctl
 
 		private void cmbType_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges(); 
+			if(!inLoad) SaveChanges(); 
 		}
 
 		private void txtID_TextChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		private void chkRun_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		private void chkCreate_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		private void chkUpdate_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		private void chkDelete_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		private void chkRead_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		private void chkWrite_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if(!inLoad) SaveChenges();
+			if(!inLoad) SaveChanges();
 		}
 
 		public dv21.ModeTypeRestrict  Restrict

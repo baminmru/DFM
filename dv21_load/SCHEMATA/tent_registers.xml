@@ -1,1 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="a5e37dde-fbc6-4c80-8106-1e1b2d441f12" Alias="tent_registers" Schema="tent" Version="1" SingleTone="false"><Name><LocalizedString Language="ru">Регистры</LocalizedString></Name><Sections><Section Alias="registers" AddHistory="false" AddWhoInfo="false" Type="coll" ID="66dad079-ee31-478d-bc5c-0e28ebfafe3e"><Name><LocalizedString Language="ru">Регистры</LocalizedString></Name><Field Alias="code" ID="8303ddf1-163c-489c-85b4-f2669120881c" Type="string" Max="40" NotNull="true"><Name><LocalizedString Language="ru">Код</LocalizedString></Name></Field><Field Alias="name" ID="8b98c512-0bb7-41e7-a1c2-405c56dfa602" Type="string" Max="255" NotNull="true"><Name><LocalizedString Language="ru">Название</LocalizedString></Name></Field><Field Alias="category" ID="d63d4a5e-df92-4e1a-9ae1-00a4f30a92f3" Type="string" Max="255"><Name><LocalizedString Language="ru">Примечание: категория </LocalizedString></Name></Field><Field Alias="usage" ID="6ffc3e9c-0796-4f41-baad-bfa619b230ac" Type="string" Max="255"><Name><LocalizedString Language="ru">Примечание: область использования</LocalizedString></Name></Field><Field Alias="used_at_balance" ID="9f86f064-6bb4-4149-a18d-99957c274c01" Type="bool"><Name><LocalizedString Language="ru">Учет в балансе</LocalizedString></Name></Field></Section></Sections></CardDefinition>
+<?xml version="1.0" encoding="utf-16"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="a5e37dde-fbc6-4c80-8106-1e1b2d441f12" Alias="tent_registers" Schema="tent" Version="1" SingleTone="false">
+  <Name>
+    <LocalizedString Language="ru">Регистры</LocalizedString>
+  </Name>
+  <Sections>
+    <Section Alias="registers" AddHistory="false" AddWhoInfo="false" Type="coll" ID="66dad079-ee31-478d-bc5c-0e28ebfafe3e">
+      <Name>
+        <LocalizedString Language="ru">Регистры</LocalizedString>
+      </Name>
+      <Field Alias="code" ID="8303ddf1-163c-489c-85b4-f2669120881c" Type="string" Max="40" NotNull="true" IsBrief="true">
+        <Name>
+          <LocalizedString Language="ru">Код</LocalizedString>
+        </Name>
+      </Field>
+      <Field Alias="name" ID="8b98c512-0bb7-41e7-a1c2-405c56dfa602" Type="string" Max="255" NotNull="true">
+        <Name>
+          <LocalizedString Language="ru">Название</LocalizedString>
+        </Name>
+      </Field>
+      <Field Alias="category" ID="d63d4a5e-df92-4e1a-9ae1-00a4f30a92f3" Type="string" Max="255">
+        <Name>
+          <LocalizedString Language="ru">Примечание: категория </LocalizedString>
+        </Name>
+      </Field>
+      <Field Alias="usage" ID="6ffc3e9c-0796-4f41-baad-bfa619b230ac" Type="string" Max="255">
+        <Name>
+          <LocalizedString Language="ru">Примечание: область использования</LocalizedString>
+        </Name>
+      </Field>
+      <Field Alias="used_at_balance" ID="9f86f064-6bb4-4149-a18d-99957c274c01" Type="bool">
+        <Name>
+          <LocalizedString Language="ru">Учет в балансе</LocalizedString>
+        </Name>
+      </Field>
+    </Section>
+  </Sections>
+</CardDefinition>

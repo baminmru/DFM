@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace dv21_util 
 {
@@ -37,26 +38,53 @@ namespace dv21_util
 			{  
 				XmlSerializer serializer = 
 					new XmlSerializer(typeof(dv21.CardDefinition));
-		
-				// Create an XmlSerializerNamespaces object.
-				XmlSerializerNamespaces ns = 
-					new XmlSerializerNamespaces();
-				// Add two namespaces with prefixes.
-				//ns.Add("inventory", "http://www.cpandl.com");
-				//ns.Add("money", "http://www.cohowinery.com");
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
 
-				// Create an XmlTextWriter using a FileStream.
-				Stream fs = new FileStream(filename, FileMode.Create);
-				System.Xml.XmlWriter writer = 
-					new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
-				// Serialize using the XmlTextWriter.
-				serializer.Serialize(writer, cd, ns);
-				writer.Close();
-				writer=null;
+                // Create an XmlSerializerNamespaces object.
+                XmlSerializerNamespaces ns = 
+					new XmlSerializerNamespaces();
+
+
+				StringWriter swriter = new StringWriter();
+                serializer.Serialize(swriter, cd, ns);
+				string sXML = swriter.ToString();
+
+
+				if (sXML  != "")
+				{
+					if (File.Exists(filename))
+					{
+						DateTime d = DateTime.Now;
+						string fnBack = filename.Replace(".xml", "")
+							+"_" + d.ToString("yyddMMHHmmss") + ".bak";
+
+                        File.Copy(filename, fnBack);
+					}
+					File.WriteAllText(filename, sXML);
+
+				}
+				else
+				{
+					MessageBox.Show("XML Save Error");
+				}
+
+
+            
+    //            Stream fs = new FileStream(filename, FileMode.Create);
+				//System.Xml.XmlWriter writer = 
+				//	new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
+				//// Serialize using the XmlTextWriter.
+				//serializer.Serialize(writer, cd, ns);
+				//writer.Close();
+				//writer=null;
 			} 
-			catch
+			catch ( System.Exception e)
 			{
-			}
+                MessageBox.Show("XML Save Error:" + e.Message);
+            }
+
+			
 		}
 
 
@@ -66,20 +94,48 @@ namespace dv21_util
 			{  
 				XmlSerializer serializer = 
 					new XmlSerializer(typeof(dv21.DefFile));
-		
-				XmlSerializerNamespaces ns = 
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+
+                XmlSerializerNamespaces ns = 
 				new XmlSerializerNamespaces();
-				Stream fs = new FileStream(filename, FileMode.Create);
-				System.Xml.XmlWriter writer = 
-					new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
-				serializer.Serialize(writer, cd, ns);
-				writer.Close();
-				writer=null;
-			} 
-			catch
-			{
-			}
-		}
+
+
+                StringWriter swriter = new StringWriter();
+                serializer.Serialize(swriter, cd, ns);
+                string sXML = swriter.ToString();
+
+                if (sXML != "")
+                {
+                    if (File.Exists(filename))
+                    {
+                        DateTime d = DateTime.Now;
+                        string fnBack = filename.Replace(".xml", "")
+                            + "_" + d.ToString("yyddMMHHmmss") + ".bak";
+
+                        File.Copy(filename, fnBack);
+                    }
+                    File.WriteAllText(filename, sXML);
+
+                }
+                else
+                {
+                    MessageBox.Show("XML Save Error");
+                }
+
+
+                //Stream fs = new FileStream(filename, FileMode.Create);
+                //System.Xml.XmlWriter writer = 
+                //	new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
+                //serializer.Serialize(writer, cd, ns);
+                //writer.Close();
+                //writer=null;
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show("XML Save Error:" + e.Message);
+            }
+        }
 
 /*
 		public static void SerializeObject(string filename, dv21_list.CardDefinition cd)
