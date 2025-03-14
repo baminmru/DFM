@@ -62,7 +62,7 @@ namespace dv21
                     return "UUID";
 
                 case "userid":
-                    return "varchar (64)";
+                    return "text";
 
                 case "string":
                     return "varchar";
@@ -79,6 +79,14 @@ namespace dv21
                 case "double":
                     return "numeric(18,8)";
 
+                case "text":
+                    return "text";
+
+                case "image":
+                    return "bytea";
+
+
+
             }
             return "integer";
 
@@ -89,7 +97,7 @@ namespace dv21
 
             StringBuilder cc = new StringBuilder();
 
-            fk.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "'");
+            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "'");
 
             int i;
             if (s.Field != null)
