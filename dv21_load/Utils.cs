@@ -80,7 +80,7 @@ namespace dv21_util
 			} 
 			catch ( System.Exception e)
 			{
-                MessageBox.Show("XML Save Error:" + e.Message);
+                MessageBox.Show("XML Save Error:" + e.InnerException.Message);
             }
 
 			

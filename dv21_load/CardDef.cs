@@ -677,9 +677,6 @@ namespace dv21 {
         @string,
         
         /// <remarks/>
-        text,
-        
-        /// <remarks/>
         unistring,
         
         /// <remarks/>
@@ -693,6 +690,12 @@ namespace dv21 {
         
         /// <remarks/>
         refid,
+        
+        /// <remarks/>
+        text,
+        
+        /// <remarks/>
+        image,
     }
     
     /// <remarks/>
