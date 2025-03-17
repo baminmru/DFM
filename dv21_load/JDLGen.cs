@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -16,6 +17,8 @@ namespace dv21
     public class JDLGen
     {
         private StringBuilder sb;
+        private StringBuilder i18n_en;
+        private StringBuilder i18n_ru;
         private StringBuilder fk;
         private StringBuilder enums;
         private StringBuilder result;
@@ -40,7 +43,8 @@ namespace dv21
             fk = new StringBuilder();
             enums = new StringBuilder();
             result = new StringBuilder();
-
+            i18n_ru = new StringBuilder();
+            i18n_en = new StringBuilder();
 
         }
 
@@ -81,7 +85,7 @@ namespace dv21
                     return "String";
 
                 case "fileid":
-                    return "ImageBlob";
+                    return "TextBlob";
 
                 case "image":
                     return "ImageBlob";
@@ -96,8 +100,9 @@ namespace dv21
                 case "refid":
                     return "Integer";
 
+
             }
-            return "Integer";  /* " + dv21Type +" */
+            return "Integer";  /*** " + dv21Type +" */
 
         }
 
@@ -107,23 +112,36 @@ namespace dv21
 
             sb.AppendLine(" // " + MyUtils.C1(s.Alias));
 
-            sb.AppendLine(" /* " + s.Name[0].Value + " */");
+            sb.AppendLine(" /** " + s.Name[0].Value + " */");
 
             sb.AppendLine("entity  " + MyUtils.C1(s.Alias) + "{");
+
             
+
+            foreach (var nn in s.Name)
+            {
+                if(nn.Language=="ru")
+                    i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "="+ nn.Value);
+                if (nn.Language == "en")
+                    i18n_en.AppendLine(MyUtils.C1(s.Alias) + "=" + nn.Value);
+            }
+
+            i18n_ru.AppendLine(MyUtils.C1(s.Alias) + ".Id" + "=поле - ключ");
 
 
             if (s_parent != null)
             {
-                sb.AppendLine("/* " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
-                sb.AppendLine("/*\t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required */");
+                sb.AppendLine("/** " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
+                sb.AppendLine("/** \t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required */");
+
+
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s_parent.Alias) + "Id=ссылка на родительскую таблицу");
+                
 
 
                 fk.AppendLine("relationship OneToMany {");
                 fk.AppendLine(MyUtils.C1(s_parent.Alias) + " to " + MyUtils.C1(s.Alias)+ "{ " + MyUtils.C1(s_parent.Alias) + "Id} " );
                 fk.AppendLine("}");
-
-
 
             }
 
@@ -133,7 +151,17 @@ namespace dv21
                 for (i = 0; i < s.Field.Length; i++)
                 {
                     string pgtype = MapBaseType(s.Field[i].Type.ToString());
-                    sb.AppendLine("/*" +  MyUtils.C1(s.Field[i].Alias) + " - '" + s.Field[i].Name[0].Value + "' */");
+                    sb.AppendLine("/**" +  MyUtils.C1(s.Field[i].Alias) + " - '" + s.Field[i].Name[0].Value + "' */");
+
+
+                    foreach (var nn in s.Field[i].Name)
+                    {
+                         if (nn.Language == "ru")
+                            i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s.Field[i].Alias) + "="  + nn.Value);
+                        if (nn.Language == "en")
+                            i18n_en.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s.Field[i].Alias) + "="  + nn.Value);
+                    }
+
 
 
                     if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
@@ -143,10 +171,8 @@ namespace dv21
                         int f;
                         for (f = 0; f < s.Field[i].Enum.Length; f++)
                         {
-                        //    if (f > 0) enums.Append(",");
-                            //enums.AppendLine( s.Field[i].Enum[f].Name );
-
-                            enums.AppendLine(MyUtils.C1(s.Field[i].Alias) + s.Field[i].Enum[f].Value.ToString() +" // " + s.Field[i].Enum[f].Name ); 
+                        
+                            enums.AppendLine(MyUtils.C1(s.Field[i].Alias) + s.Field[i].Enum[f].Value.ToString() +" (\"" + s.Field[i].Enum[f].Name +"\" )" ); 
                         }
                         enums.AppendLine("}");
 
@@ -154,7 +180,7 @@ namespace dv21
                         if (s.Field[i].NotNull)
                             sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "Enum required");
                         else
-                            sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "Enum");
+                            sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "Enum ");
 
                     }
                     else if (s.Field[i].ReferenceSpecified)
@@ -172,9 +198,9 @@ namespace dv21
                             refSchema = refType.Schema.ToLower() + ".";
 
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("/*\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required */");
+                                sb.AppendLine("/**\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required */");
                             else
-                                sb.AppendLine("/*\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype +"*/");
+                                sb.AppendLine("/**\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype +"*/");
 
                             string BriefField = MyUtils.GetSectionBrief(refSection);
 
@@ -193,6 +219,8 @@ namespace dv21
                             else
                                 sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + "");
                         }
+
+                        
 
                     }
                     else if (s.Field[i].MaxSpecified)
@@ -216,9 +244,9 @@ namespace dv21
 
             if (s.Type == dv21.SectionTypeType.tree)
             {
-                 sb.AppendLine("/*\t\t" + MyUtils.C1(s.Alias) + "_parent Integer */");
+                sb.AppendLine("/**\t\t" + MyUtils.C1(s.Alias) + "_parent Integer */");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s.Alias) + "_parent=родитель в деореве");
 
-              
                 fk.AppendLine("relationship OneToMany {");
                 fk.AppendLine(MyUtils.C1(s.Alias) + " to " + MyUtils.C1(s.Alias) + " { " + MyUtils.C1(s.Alias) + "Parent } ");
                 fk.AppendLine("}");
@@ -229,7 +257,10 @@ namespace dv21
             if (s.AddHistory)
             {
                 sb.AppendLine("\t\t"+ MyUtils.C1("Effective_date_start") +" LocalDate");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Effective_date_start") + "=Дата начала действия");
                 sb.AppendLine("\t\t"+ MyUtils.C1("Effective_date_end") +  " LocalDate");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Effective_date_end") + "=Дата завершения действия");
+
             }
 
             if (s.AddWhoInfo)
@@ -238,6 +269,12 @@ namespace dv21
                 sb.AppendLine("\t\t"+ MyUtils.C1("Created_by") + " String maxlength(64)");
                 sb.AppendLine("\t\t"+ MyUtils.C1("Updated_at") + " LocalDate");
                 sb.AppendLine("\t\t" + MyUtils.C1("Updated_by ") +" String maxlength(64)");
+
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Created_at") + "=Дата создания");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Created_by") + "=Кем создано");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Updated_at") + "=Дата изменения");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Updated_by") + "=Кем изменено");
+
             }
 
 
@@ -296,6 +333,25 @@ namespace dv21
             result.AppendLine(enums.ToString());
             result.AppendLine(sb.ToString());
             result.AppendLine(fk.ToString());
+
+            if (i18n_ru.ToString() != "")
+            {
+                result.AppendLine("");
+                result.AppendLine("/** локализация ru ");
+
+                result.AppendLine(i18n_ru.ToString());
+
+                result.AppendLine(" */ ");
+            }
+
+            if (i18n_en.ToString() != ""){
+                result.AppendLine("");
+                result.AppendLine("/** localization en ");
+
+                result.AppendLine(i18n_en.ToString());
+
+                result.AppendLine(" */ ");
+            }
 
             return result.ToString();
         }
@@ -366,6 +422,27 @@ namespace dv21
             result.AppendLine(enums.ToString());
             result.AppendLine(sb.ToString());
             result.AppendLine(fk.ToString());
+
+            if (i18n_ru.ToString() != "")
+            {
+                result.AppendLine("");
+                result.AppendLine("/** локализация ru ");
+
+                result.AppendLine(i18n_ru.ToString());
+
+                result.AppendLine(" */ ");
+            }
+
+            if (i18n_en.ToString() != "")
+            {
+                result.AppendLine("");
+                result.AppendLine("/** localization en ");
+
+                result.AppendLine(i18n_en.ToString());
+
+                result.AppendLine(" */ ");
+            }
+
 
             return result.ToString();
         }
