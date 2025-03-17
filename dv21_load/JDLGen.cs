@@ -487,7 +487,7 @@ namespace dv21
         public void Makei18n(dv21.SectionType s, String app, String path)
         {
             StringBuilder t = new StringBuilder();
-            t.AppendLine("{\"");
+            t.AppendLine("{");
             t.AppendLine("  \"%App%\": {");
             t.AppendLine("    \"%alias%\": {");
             t.AppendLine("      \"home\": {");
