@@ -3,6 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Schema;
+
+
 
 namespace dv21
 {
@@ -85,8 +90,6 @@ namespace dv21
                 case "image":
                     return "bytea";
 
-
-
             }
             return "integer";
 
@@ -110,15 +113,15 @@ namespace dv21
 
                     if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
                     {
-                        enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
+                        //enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
 
-                        int f;
-                        for (f = 0; f < s.Field[i].Enum.Length; f++)
-                        {
-                            if (f > 0) enums.Append(",");
-                            enums.AppendLine("'" + s.Field[i].Enum[f].Name + "'");
-                        }
-                        enums.AppendLine(");");
+                        //int f;
+                        //for (f = 0; f < s.Field[i].Enum.Length; f++)
+                        //{
+                        //    if (f > 0) enums.Append(",");
+                        //    enums.AppendLine("'" + s.Field[i].Enum[f].Name + "'");
+                        //}
+                        //enums.AppendLine(");");
 
 
                         if (s.Field[i].NotNull)
@@ -209,7 +212,8 @@ namespace dv21
 
         private string CurrentSchema;
 
-        public string Generate()
+
+        public void GenerateOne()
         {
 
             int i;
@@ -230,8 +234,32 @@ namespace dv21
                 MakeSectionType(cd.Sections[i], null);
             }
 
-            if (enums.ToString() != "")
-                result.AppendLine(enums.ToString());
+            
+
+
+        }
+
+
+
+        public string Generate()
+        {
+
+            int i;
+            if (cd.Schema == "")
+            {
+                CurrentSchema = "";
+            }
+            else
+            {
+                CurrentSchema = cd.Schema.ToLower();
+            }
+
+
+
+
+            GenerateOne();
+
+           
 
             if (sb.ToString() != "") { 
                 result.AppendLine("'Схема','Таблица','Поле','Тип','Ссылка на','Обязательность','Комментарий'");
@@ -251,7 +279,51 @@ namespace dv21
 
 
 
+        public string GenerateAll()
+        {
 
+            dv21.DefFile df = null;
+            CardDefinition refCD;
+            try
+            {
+                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
+            }
+            catch
+            {
+            }
+            int i;
+            for (i = 0; i < df.Paths.Length; i++)
+            {
+                refCD = null;
+                try
+                {
+                    refCD = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (refCD != null)
+                {
+                    cd = refCD;
+                    GenerateOne();
+
+                }
+            }
+
+
+            if (sb.ToString() != "")
+            {
+                result.AppendLine("'Схема','Таблица','Поле','Тип','Ссылка на','Обязательность','Комментарий'");
+                result.AppendLine(sb.ToString());
+            }
+
+            if (fk.ToString() != "")
+            {
+                result.AppendLine(fk.ToString());
+            }
+
+
+            return result.ToString().Replace("'", "\"");
+
+        }
 
 
 

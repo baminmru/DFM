@@ -444,6 +444,39 @@ namespace dv21_util
 
         }
 
+
+        public static string C2(string title)
+        {
+
+            
+            if (title == null) return "XXX";
+
+            StringBuilder result = new StringBuilder(title.Length);
+            bool makeUpper = false;
+            foreach (var c in title)
+            {
+                if (makeUpper)
+                {
+                    result.Append(Char.ToUpper(c));
+                    makeUpper = false;
+                }
+                else
+                {
+                    if (c == '_')
+                    {
+                        makeUpper = true;
+                    }
+                    else
+                    {
+                        result.Append(c);
+                    }
+                }
+            }
+            return result.ToString();
+
+        }
+
+
     }
 
 	public class MyTreeNode:  TreeNode 

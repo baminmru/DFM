@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Schema;
+using System.IO;
 
 
 namespace dv21
@@ -47,6 +48,9 @@ namespace dv21
             i18n_en = new StringBuilder();
 
         }
+
+
+        
 
 
         private string MapBaseType(string dv21Type)
@@ -447,8 +451,96 @@ namespace dv21
             return result.ToString();
         }
 
+        public void GenerateAlli18n(String app, string path) { 
+             dv21.DefFile df = null;
+            CardDefinition refCD;
+            try
+            {
+                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
+            }
+            catch
+            {
+            }
+            int i;
+            for (i = 0; i < df.Paths.Length; i++)
+            {
+                refCD = null;
+                try
+                {
+                    refCD = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (refCD != null)
+                {
+                    cd = refCD;
+                    int j;
+
+                    for (j = 0; j < cd.Sections.Length; j++)
+                    {
+                        Makei18n(cd.Sections[j], app, path);
+                    }
+
+                }
+            }
+            }
+
+        public void Makei18n(dv21.SectionType s, String app, String path)
+        {
+            StringBuilder t = new StringBuilder();
+            t.AppendLine("{\"");
+            t.AppendLine("  \"%App%\": {");
+            t.AppendLine("    \"%alias%\": {");
+            t.AppendLine("      \"home\": {");
+            t.AppendLine("        \"title\": \"%table%\",");
+            t.AppendLine("        \"refreshListLabel\": \"Обновить список\",");
+            t.AppendLine("        \"createLabel\": \"Создать новый %table%\",");
+            t.AppendLine("        \"createOrEditLabel\": \"Создать или отредактировать %table%\",");
+            t.AppendLine("        \"notFound\": \"%table% не найдено\"");
+            t.AppendLine("      },");
+            t.AppendLine("      \"created\": \"Новый %table% создан с идентификатором {{ param }}\",");
+            t.AppendLine("      \"updated\": \"%table% обновлен с идентификатором {{ param }}\",");
+            t.AppendLine("      \"deleted\": \"%table% удален с идентификатором {{ param }}\",");
+            t.AppendLine("      \"delete\": {");
+            t.AppendLine("        \"question\": \"Вы уверены что хотите удалить %table% {{ id }}?\"");
+            t.AppendLine("      },");
+            t.AppendLine("      \"detail\": {");
+            t.AppendLine("        \"title\": \"%table%\"");
+            t.AppendLine("      },");
+            t.AppendLine("      \"id\": \"ID\"");
+
+            int i;
+            if (s.Field != null)
+            {
+                for (i = 0; i < s.Field.Length; i++)
+                {
+                    t.AppendLine("      ,\"" + MyUtils.C2(s.Field[i].Alias ) + "\": \"" + s.Field[i].Name[0].Value + "\"");
+                }
+            }
+
+            t.AppendLine("    }");
+            t.AppendLine("  }");
+            t.AppendLine("}");
+
+            string sOut;
+            sOut = t.ToString();
+            sOut = sOut.Replace("%App%", app);
+            sOut = sOut.Replace("%alias%", MyUtils.C2(s.Alias));
+            sOut = sOut.Replace("%table%", s.Name[0].Value);
+
+            File.WriteAllText(path + "\\" + MyUtils.C2(s.Alias) + ".json",sOut);
 
 
+            if (s.Section != null && s.Section.Length > 0)
+            {
+
+                for (i = 0; i < s.Section.Length; i++)
+                {
+                    Makei18n(s.Section[i], app, path);
+
+                }
+            }
+
+        }
 
     }
 }
