@@ -26,7 +26,6 @@ namespace dv21_load
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem4;
 		private System.Windows.Forms.MenuItem mnuLoad;
-		private System.Windows.Forms.MenuItem mnuSave;
 		private System.Windows.Forms.MenuItem mnuExit;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.TreeView tvStruct;
@@ -96,6 +95,8 @@ namespace dv21_load
         private MenuItem mnuTypeLib;
         private MenuItem mnuJDL_i18n;
         private FolderBrowserDialog dlgFolder;
+        private MenuItem mnuSaveAs;
+        private MenuItem mnuSave;
         private string LastOpenFile;
 
 		
@@ -147,7 +148,6 @@ namespace dv21_load
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.mnuLoad = new System.Windows.Forms.MenuItem();
             this.mnuLoadData = new System.Windows.Forms.MenuItem();
-            this.mnuSave = new System.Windows.Forms.MenuItem();
             this.mnuRefreshTree = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.mnuExit = new System.Windows.Forms.MenuItem();
@@ -204,6 +204,8 @@ namespace dv21_load
             this.mnuTypeLib = new System.Windows.Forms.MenuItem();
             this.mnuJDL_i18n = new System.Windows.Forms.MenuItem();
             this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.mnuSave = new System.Windows.Forms.MenuItem();
+            this.mnuSaveAs = new System.Windows.Forms.MenuItem();
             this.pnlColumn = new dv21_ctl.ctlviewColumn();
             this.pnlRestrict = new dv21_ctl.ctlRestrict();
             this.pnlModeType = new dv21_ctl.ctlModeType();
@@ -248,6 +250,7 @@ namespace dv21_load
             this.mnuLoad,
             this.mnuLoadData,
             this.mnuSave,
+            this.mnuSaveAs,
             this.mnuRefreshTree,
             this.menuItem4,
             this.mnuExit});
@@ -271,26 +274,20 @@ namespace dv21_load
             this.mnuLoadData.Text = "Load Test Data";
             this.mnuLoadData.Click += new System.EventHandler(this.mnuLoadData_Click);
             // 
-            // mnuSave
-            // 
-            this.mnuSave.Index = 3;
-            this.mnuSave.Text = "Save";
-            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
-            // 
             // mnuRefreshTree
             // 
-            this.mnuRefreshTree.Index = 4;
+            this.mnuRefreshTree.Index = 5;
             this.mnuRefreshTree.Text = "Refresh tree";
             this.mnuRefreshTree.Click += new System.EventHandler(this.mnuRefreshTree_Click);
             // 
             // menuItem4
             // 
-            this.menuItem4.Index = 5;
+            this.menuItem4.Index = 6;
             this.menuItem4.Text = "-";
             // 
             // mnuExit
             // 
-            this.mnuExit.Index = 6;
+            this.mnuExit.Index = 7;
             this.mnuExit.Text = "Exit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
@@ -307,10 +304,10 @@ namespace dv21_load
             this.menuItem6,
             this.mnuJDLGn,
             this.mnuJDLGenAll,
+            this.mnuJDL_i18n,
             this.mnuFieldList,
             this.mnuFieldListAll,
-            this.mnuTypeLib,
-            this.mnuJDL_i18n});
+            this.mnuTypeLib});
             this.menuItem3.Text = "Tools";
             // 
             // mnuConvertToXSD
@@ -368,7 +365,7 @@ namespace dv21_load
             // 
             // mnuFieldList
             // 
-            this.mnuFieldList.Index = 9;
+            this.mnuFieldList.Index = 10;
             this.mnuFieldList.Text = "Field List";
             this.mnuFieldList.Click += new System.EventHandler(this.mnuFieldList_Click);
             // 
@@ -629,21 +626,33 @@ namespace dv21_load
             // 
             // mnuFieldListAll
             // 
-            this.mnuFieldListAll.Index = 10;
+            this.mnuFieldListAll.Index = 11;
             this.mnuFieldListAll.Text = "Field list all library";
             this.mnuFieldListAll.Click += new System.EventHandler(this.mnuFieldListAll_Click);
             // 
             // mnuTypeLib
             // 
-            this.mnuTypeLib.Index = 11;
+            this.mnuTypeLib.Index = 12;
             this.mnuTypeLib.Text = "Type library";
             this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
             // 
             // mnuJDL_i18n
             // 
-            this.mnuJDL_i18n.Index = 12;
+            this.mnuJDL_i18n.Index = 9;
             this.mnuJDL_i18n.Text = "JDL cli localize";
             this.mnuJDL_i18n.Click += new System.EventHandler(this.mnuJDL_i18n_Click);
+            // 
+            // mnuSave
+            // 
+            this.mnuSave.Index = 3;
+            this.mnuSave.Text = "Save";
+            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            // 
+            // mnuSaveAs
+            // 
+            this.mnuSaveAs.Index = 4;
+            this.mnuSaveAs.Text = "Save As";
+            this.mnuSaveAs.Click += new System.EventHandler(this.mnuSaveAs_Click);
             // 
             // pnlColumn
             // 
@@ -982,17 +991,41 @@ namespace dv21_load
 
 		private void mnuSave_Click(object sender, System.EventArgs e)
 		{
-			try
+
+			if (LastOpenFile != "")
 			{
+				try
+				{
+
+					MyUtils.SerializeObject(LastOpenFile, cd);
+				}
+				catch { }
+			}
+			else
+			{
+				mnuSaveAs_Click(sender, e);
+
+            }
+        }
+
+        private void mnuSaveAs_Click(object sender, System.EventArgs e)
+        {
+            try
+            {
                 dlgSave.FileName = LastOpenFile;
                 dlgSave.ShowDialog();
-                
-                MyUtils.SerializeObject(dlgSave.FileName ,cd);
-			}
-			catch{}
-		}
 
-		private void menuItem2_Click(object sender, System.EventArgs e)
+                MyUtils.SerializeObject(dlgSave.FileName, cd);
+				LastOpenFile = dlgSave.FileName;
+				this.Text = LastOpenFile;
+
+            }
+            catch { }
+        }
+
+
+
+        private void menuItem2_Click(object sender, System.EventArgs e)
 		{
 			cd = new dv21.CardDefinition();
 			cd.Name = new LocalizedStringsLocalizedString[1];

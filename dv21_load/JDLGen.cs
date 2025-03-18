@@ -23,6 +23,7 @@ namespace dv21
         private StringBuilder fk;
         private StringBuilder enums;
         private StringBuilder result;
+        private StringBuilder mnu;
 
         private dv21.CardDefinition mcd;
         public dv21.CardDefinition cd
@@ -451,7 +452,11 @@ namespace dv21
             return result.ToString();
         }
 
-        public void GenerateAlli18n(String app, string path) { 
+        
+        public void GenerateAlli18n(String app, string path) {
+
+            mnu = new StringBuilder();
+
              dv21.DefFile df = null;
             CardDefinition refCD;
             try
@@ -461,6 +466,7 @@ namespace dv21
             catch
             {
             }
+
             int i;
             for (i = 0; i < df.Paths.Length; i++)
             {
@@ -482,7 +488,9 @@ namespace dv21
 
                 }
             }
-            }
+
+            File.WriteAllText(path + "\\_global.json", mnu.ToString());
+        }
 
         public void Makei18n(dv21.SectionType s, String app, String path)
         {
@@ -528,6 +536,9 @@ namespace dv21
             sOut = sOut.Replace("%table%", s.Name[0].Value);
 
             File.WriteAllText(path + "\\" + MyUtils.C2(s.Alias) + ".json",sOut);
+
+
+            mnu.AppendLine("\"" + MyUtils.C2(s.Alias) + "\":\"" + s.Name[0].Value + "\",");
 
 
             if (s.Section != null && s.Section.Length > 0)
