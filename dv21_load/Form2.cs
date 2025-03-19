@@ -99,6 +99,7 @@ namespace dv21_load
         private MenuItem mnuSave;
         private MenuItem mnuCopy;
         private MenuItem menuItem7;
+        private MenuItem mnuReID;
         private string LastOpenFile;
 
 		
@@ -219,6 +220,7 @@ namespace dv21_load
             this.pnlFieldType = new dv21_ctl.ctlFieldType();
             this.pnlSectionType = new dv21_ctl.ctlSectionType();
             this.pnlCardDefinition = new dv21_ctl.ctlCardDefinition();
+            this.mnuReID = new System.Windows.Forms.MenuItem();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -300,6 +302,7 @@ namespace dv21_load
             this.menuItem3.Index = 1;
             this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuCopy,
+            this.mnuReID,
             this.menuItem7,
             this.mnuConvertToXSD,
             this.mnuconst_CS,
@@ -318,60 +321,60 @@ namespace dv21_load
             // 
             // mnuConvertToXSD
             // 
-            this.mnuConvertToXSD.Index = 2;
+            this.mnuConvertToXSD.Index = 3;
             this.mnuConvertToXSD.Text = "Convert to XSD";
             this.mnuConvertToXSD.Click += new System.EventHandler(this.mnuConvertToXSD_Click);
             // 
             // mnuconst_CS
             // 
-            this.mnuconst_CS.Index = 3;
+            this.mnuconst_CS.Index = 4;
             this.mnuconst_CS.Text = "C# constants";
             this.mnuconst_CS.Click += new System.EventHandler(this.mnuconst_CS_Click);
             // 
             // mnuConst_VB
             // 
-            this.mnuConst_VB.Index = 4;
+            this.mnuConst_VB.Index = 5;
             this.mnuConst_VB.Text = "VB constants";
             this.mnuConst_VB.Click += new System.EventHandler(this.mnuConst_VB_Click);
             // 
             // mnuConst_CPP
             // 
-            this.mnuConst_CPP.Index = 5;
+            this.mnuConst_CPP.Index = 6;
             this.mnuConst_CPP.Text = "C++ constants";
             this.mnuConst_CPP.Click += new System.EventHandler(this.mnuConst_CPP_Click);
             // 
             // menuItem5
             // 
-            this.menuItem5.Index = 6;
+            this.menuItem5.Index = 7;
             this.menuItem5.Text = "-";
             // 
             // mnuGenPG
             // 
-            this.mnuGenPG.Index = 7;
+            this.mnuGenPG.Index = 8;
             this.mnuGenPG.Text = "PG script";
             this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
             // 
             // menuItem6
             // 
-            this.menuItem6.Index = 8;
+            this.menuItem6.Index = 9;
             this.menuItem6.Text = "PG script all library";
             this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
             // 
             // mnuJDLGn
             // 
-            this.mnuJDLGn.Index = 9;
+            this.mnuJDLGn.Index = 10;
             this.mnuJDLGn.Text = "JDL Generator";
             this.mnuJDLGn.Click += new System.EventHandler(this.mnuJDLGn_Click);
             // 
             // mnuJDLGenAll
             // 
-            this.mnuJDLGenAll.Index = 10;
+            this.mnuJDLGenAll.Index = 11;
             this.mnuJDLGenAll.Text = "JDL generate all library";
             this.mnuJDLGenAll.Click += new System.EventHandler(this.mnuJDLGenAll_Click);
             // 
             // mnuFieldList
             // 
-            this.mnuFieldList.Index = 12;
+            this.mnuFieldList.Index = 13;
             this.mnuFieldList.Text = "Field List";
             this.mnuFieldList.Click += new System.EventHandler(this.mnuFieldList_Click);
             // 
@@ -633,19 +636,19 @@ namespace dv21_load
             // 
             // mnuFieldListAll
             // 
-            this.mnuFieldListAll.Index = 13;
+            this.mnuFieldListAll.Index = 14;
             this.mnuFieldListAll.Text = "Field list all library";
             this.mnuFieldListAll.Click += new System.EventHandler(this.mnuFieldListAll_Click);
             // 
             // mnuTypeLib
             // 
-            this.mnuTypeLib.Index = 14;
+            this.mnuTypeLib.Index = 15;
             this.mnuTypeLib.Text = "Type library";
             this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
             // 
             // mnuJDL_i18n
             // 
-            this.mnuJDL_i18n.Index = 11;
+            this.mnuJDL_i18n.Index = 12;
             this.mnuJDL_i18n.Text = "JDL cli localize";
             this.mnuJDL_i18n.Click += new System.EventHandler(this.mnuJDL_i18n_Click);
             // 
@@ -663,7 +666,7 @@ namespace dv21_load
             // 
             // menuItem7
             // 
-            this.menuItem7.Index = 1;
+            this.menuItem7.Index = 2;
             this.menuItem7.Text = "-";
             // 
             // mnuCopy
@@ -755,6 +758,12 @@ namespace dv21_load
             this.pnlCardDefinition.Size = new System.Drawing.Size(232, 312);
             this.pnlCardDefinition.TabIndex = 0;
             this.pnlCardDefinition.Load += new System.EventHandler(this.pnlCardDefinition_Load);
+            // 
+            // mnuReID
+            // 
+            this.mnuReID.Index = 1;
+            this.mnuReID.Text = "Renew ID";
+            this.mnuReID.Click += new System.EventHandler(this.mnuReID_Click);
             // 
             // Form2
             // 
@@ -2073,6 +2082,45 @@ namespace dv21_load
         {
 
         }
+
+        private void mnuReID_Click(object sender, EventArgs e)
+        {
+			if (cd != null)
+			{
+				cd.ID = Guid.NewGuid().ToString();
+				if(cd.Sections != null)
+					ReID(cd.Sections);
+				mnuSave_Click(sender, e);
+                ReloadTree(null);
+            }
+
+            
+        }
+
+		private void ReID(SectionType[] ss )
+		{
+            foreach (var s in ss)
+            {
+                s.ID = Guid.NewGuid().ToString();
+				if(s.Field != null)
+					ReID(s.Field);
+				if(s.Section != null)
+					ReID(s.Section);
+
+            }
+        }
+
+        private void ReID(FieldType[] ff)
+        {
+            foreach (var f in ff)
+            {
+                f.ID = Guid.NewGuid().ToString();
+            }
+        }
+
+
+
+
     }
 
 
