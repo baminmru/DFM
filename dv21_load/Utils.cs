@@ -29,10 +29,37 @@ namespace dv21_util
 		}
 
 
-		
+		public static MyTreeNode FindCDNode( MyTreeNode n)
+		{
+
+			MyTreeNode p = n;
+
+            while (p != null  && p.BoundObject.GetType().ToString() != "dv21.CardDefinition")
+			{
+				p = (MyTreeNode)p.Parent;
+			}
+
+			return p;
+        }
 
 
-		public static void SerializeObject(string filename, dv21.CardDefinition cd)
+
+        public static MyTreeNode FindSectionNode(MyTreeNode n)
+        {
+
+            MyTreeNode p = n;
+
+            while (p != null && p.BoundObject.GetType().ToString() != "dv21.SectionType")
+            {
+                p = (MyTreeNode)p.Parent;
+            }
+
+            return p;
+        }
+
+
+
+        public static void SerializeObject(string filename, dv21.CardDefinition cd)
 		{
 			try 
 			{  
@@ -483,8 +510,9 @@ namespace dv21_util
 	{
 		private Object mBoundObject;
 		private System.Windows.Forms.ContextMenu  mMenu;
+        private String mPath;
 
-		public System.Windows.Forms.ContextMenu NodeContextMenu               // Topic is a named parameter
+        public System.Windows.Forms.ContextMenu NodeContextMenu               // Topic is a named parameter
 		{
 			get 
 			{ 
@@ -497,7 +525,21 @@ namespace dv21_util
 			}
 		}
 
-		public object BoundObject               // Topic is a named parameter
+
+        public String Path               
+        {
+            get
+            {
+                return mPath;
+            }
+            set
+            {
+
+                mPath = value;
+            }
+        }
+
+        public object BoundObject               // Topic is a named parameter
 		{
 			get 
 			{ 

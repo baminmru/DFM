@@ -107,7 +107,7 @@ namespace dv21
 
 
             }
-            return "Integer";  /*** " + dv21Type +" */
+            return "Integer";  /*  " + dv21Type +" */
 
         }
 
@@ -117,7 +117,7 @@ namespace dv21
 
             sb.AppendLine(" // " + MyUtils.C1(s.Alias));
 
-            sb.AppendLine(" /** " + s.Name[0].Value + " */");
+            sb.AppendLine(" /* " + s.Name[0].Value + " */");
 
             sb.AppendLine("entity  " + MyUtils.C1(s.Alias) + "{");
 
@@ -136,8 +136,8 @@ namespace dv21
 
             if (s_parent != null)
             {
-                sb.AppendLine("/** " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
-                sb.AppendLine("/** \t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required */");
+                sb.AppendLine("/* " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
+                sb.AppendLine("/* \t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required */");
 
 
                 i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s_parent.Alias) + "Id=ссылка на родительскую таблицу");
@@ -156,7 +156,7 @@ namespace dv21
                 for (i = 0; i < s.Field.Length; i++)
                 {
                     string pgtype = MapBaseType(s.Field[i].Type.ToString());
-                    sb.AppendLine("/**" +  MyUtils.C1(s.Field[i].Alias) + " - '" + s.Field[i].Name[0].Value + "' */");
+                    sb.AppendLine("/* " +  MyUtils.C1(s.Field[i].Alias) + " - '" + s.Field[i].Name[0].Value + "' */");
 
 
                     foreach (var nn in s.Field[i].Name)
@@ -203,9 +203,9 @@ namespace dv21
                             refSchema = refType.Schema.ToLower() + ".";
 
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("/**\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required */");
+                                sb.AppendLine("/* \t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required */");
                             else
-                                sb.AppendLine("/**\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype +"*/");
+                                sb.AppendLine("/* \t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype +"*/");
 
                             string BriefField = MyUtils.GetSectionBrief(refSection);
 
@@ -249,7 +249,7 @@ namespace dv21
 
             if (s.Type == dv21.SectionTypeType.tree)
             {
-                sb.AppendLine("/**\t\t" + MyUtils.C1(s.Alias) + "_parent Integer */");
+                sb.AppendLine("/* \t\t" + MyUtils.C1(s.Alias) + "_parent Integer */");
                 i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s.Alias) + "_parent=родитель в деореве");
 
                 fk.AppendLine("relationship OneToMany {");
@@ -342,7 +342,7 @@ namespace dv21
             if (i18n_ru.ToString() != "")
             {
                 result.AppendLine("");
-                result.AppendLine("/** локализация ru ");
+                result.AppendLine("/* локализация ru ");
 
                 result.AppendLine(i18n_ru.ToString());
 
@@ -351,7 +351,7 @@ namespace dv21
 
             if (i18n_en.ToString() != ""){
                 result.AppendLine("");
-                result.AppendLine("/** localization en ");
+                result.AppendLine("/* localization en ");
 
                 result.AppendLine(i18n_en.ToString());
 
@@ -431,7 +431,7 @@ namespace dv21
             if (i18n_ru.ToString() != "")
             {
                 result.AppendLine("");
-                result.AppendLine("/** локализация ru ");
+                result.AppendLine("/* локализация ru ");
 
                 result.AppendLine(i18n_ru.ToString());
 
@@ -441,7 +441,7 @@ namespace dv21
             if (i18n_en.ToString() != "")
             {
                 result.AppendLine("");
-                result.AppendLine("/** localization en ");
+                result.AppendLine("/* localization en ");
 
                 result.AppendLine(i18n_en.ToString());
 

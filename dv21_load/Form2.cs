@@ -97,6 +97,8 @@ namespace dv21_load
         private FolderBrowserDialog dlgFolder;
         private MenuItem mnuSaveAs;
         private MenuItem mnuSave;
+        private MenuItem mnuCopy;
+        private MenuItem menuItem7;
         private string LastOpenFile;
 
 		
@@ -206,6 +208,8 @@ namespace dv21_load
             this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.mnuSave = new System.Windows.Forms.MenuItem();
             this.mnuSaveAs = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
+            this.mnuCopy = new System.Windows.Forms.MenuItem();
             this.pnlColumn = new dv21_ctl.ctlviewColumn();
             this.pnlRestrict = new dv21_ctl.ctlRestrict();
             this.pnlModeType = new dv21_ctl.ctlModeType();
@@ -295,6 +299,8 @@ namespace dv21_load
             // 
             this.menuItem3.Index = 1;
             this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuCopy,
+            this.menuItem7,
             this.mnuConvertToXSD,
             this.mnuconst_CS,
             this.mnuConst_VB,
@@ -312,60 +318,60 @@ namespace dv21_load
             // 
             // mnuConvertToXSD
             // 
-            this.mnuConvertToXSD.Index = 0;
+            this.mnuConvertToXSD.Index = 2;
             this.mnuConvertToXSD.Text = "Convert to XSD";
             this.mnuConvertToXSD.Click += new System.EventHandler(this.mnuConvertToXSD_Click);
             // 
             // mnuconst_CS
             // 
-            this.mnuconst_CS.Index = 1;
+            this.mnuconst_CS.Index = 3;
             this.mnuconst_CS.Text = "C# constants";
             this.mnuconst_CS.Click += new System.EventHandler(this.mnuconst_CS_Click);
             // 
             // mnuConst_VB
             // 
-            this.mnuConst_VB.Index = 2;
+            this.mnuConst_VB.Index = 4;
             this.mnuConst_VB.Text = "VB constants";
             this.mnuConst_VB.Click += new System.EventHandler(this.mnuConst_VB_Click);
             // 
             // mnuConst_CPP
             // 
-            this.mnuConst_CPP.Index = 3;
+            this.mnuConst_CPP.Index = 5;
             this.mnuConst_CPP.Text = "C++ constants";
             this.mnuConst_CPP.Click += new System.EventHandler(this.mnuConst_CPP_Click);
             // 
             // menuItem5
             // 
-            this.menuItem5.Index = 4;
+            this.menuItem5.Index = 6;
             this.menuItem5.Text = "-";
             // 
             // mnuGenPG
             // 
-            this.mnuGenPG.Index = 5;
+            this.mnuGenPG.Index = 7;
             this.mnuGenPG.Text = "PG script";
             this.mnuGenPG.Click += new System.EventHandler(this.mnuGenPG_Click);
             // 
             // menuItem6
             // 
-            this.menuItem6.Index = 6;
+            this.menuItem6.Index = 8;
             this.menuItem6.Text = "PG script all library";
             this.menuItem6.Click += new System.EventHandler(this.menuItem6_Click);
             // 
             // mnuJDLGn
             // 
-            this.mnuJDLGn.Index = 7;
+            this.mnuJDLGn.Index = 9;
             this.mnuJDLGn.Text = "JDL Generator";
             this.mnuJDLGn.Click += new System.EventHandler(this.mnuJDLGn_Click);
             // 
             // mnuJDLGenAll
             // 
-            this.mnuJDLGenAll.Index = 8;
+            this.mnuJDLGenAll.Index = 10;
             this.mnuJDLGenAll.Text = "JDL generate all library";
             this.mnuJDLGenAll.Click += new System.EventHandler(this.mnuJDLGenAll_Click);
             // 
             // mnuFieldList
             // 
-            this.mnuFieldList.Index = 10;
+            this.mnuFieldList.Index = 12;
             this.mnuFieldList.Text = "Field List";
             this.mnuFieldList.Click += new System.EventHandler(this.mnuFieldList_Click);
             // 
@@ -434,6 +440,7 @@ namespace dv21_load
             // 
             this.mnuSections.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuSecsAddSec});
+            this.mnuSections.Popup += new System.EventHandler(this.mnuSections_Popup);
             // 
             // mnuSecsAddSec
             // 
@@ -626,19 +633,19 @@ namespace dv21_load
             // 
             // mnuFieldListAll
             // 
-            this.mnuFieldListAll.Index = 11;
+            this.mnuFieldListAll.Index = 13;
             this.mnuFieldListAll.Text = "Field list all library";
             this.mnuFieldListAll.Click += new System.EventHandler(this.mnuFieldListAll_Click);
             // 
             // mnuTypeLib
             // 
-            this.mnuTypeLib.Index = 12;
+            this.mnuTypeLib.Index = 14;
             this.mnuTypeLib.Text = "Type library";
             this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
             // 
             // mnuJDL_i18n
             // 
-            this.mnuJDL_i18n.Index = 9;
+            this.mnuJDL_i18n.Index = 11;
             this.mnuJDL_i18n.Text = "JDL cli localize";
             this.mnuJDL_i18n.Click += new System.EventHandler(this.mnuJDL_i18n_Click);
             // 
@@ -653,6 +660,17 @@ namespace dv21_load
             this.mnuSaveAs.Index = 4;
             this.mnuSaveAs.Text = "Save As";
             this.mnuSaveAs.Click += new System.EventHandler(this.mnuSaveAs_Click);
+            // 
+            // menuItem7
+            // 
+            this.menuItem7.Index = 1;
+            this.menuItem7.Text = "-";
+            // 
+            // mnuCopy
+            // 
+            this.mnuCopy.Index = 0;
+            this.mnuCopy.Text = "Copy Section And Fields";
+            this.mnuCopy.Click += new System.EventHandler(this.mnuCopy_Click);
             // 
             // pnlColumn
             // 
@@ -2043,6 +2061,17 @@ namespace dv21_load
 
                 
             }
+        }
+
+        private void mnuCopy_Click(object sender, EventArgs e)
+        {
+			frmCopy fc = new frmCopy();
+			fc.ShowDialog();
+        }
+
+        private void mnuSections_Popup(object sender, EventArgs e)
+        {
+
         }
     }
 
