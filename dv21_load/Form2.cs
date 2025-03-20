@@ -100,6 +100,8 @@ namespace dv21_load
         private MenuItem mnuCopy;
         private MenuItem menuItem7;
         private MenuItem mnuReID;
+        private MenuItem mnuPrimeCli;
+        private MenuItem menuItem8;
         private string LastOpenFile;
 
 		
@@ -151,10 +153,15 @@ namespace dv21_load
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.mnuLoad = new System.Windows.Forms.MenuItem();
             this.mnuLoadData = new System.Windows.Forms.MenuItem();
+            this.mnuSave = new System.Windows.Forms.MenuItem();
+            this.mnuSaveAs = new System.Windows.Forms.MenuItem();
             this.mnuRefreshTree = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.mnuExit = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.mnuCopy = new System.Windows.Forms.MenuItem();
+            this.mnuReID = new System.Windows.Forms.MenuItem();
+            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.mnuConvertToXSD = new System.Windows.Forms.MenuItem();
             this.mnuconst_CS = new System.Windows.Forms.MenuItem();
             this.mnuConst_VB = new System.Windows.Forms.MenuItem();
@@ -164,10 +171,22 @@ namespace dv21_load
             this.menuItem6 = new System.Windows.Forms.MenuItem();
             this.mnuJDLGn = new System.Windows.Forms.MenuItem();
             this.mnuJDLGenAll = new System.Windows.Forms.MenuItem();
+            this.mnuJDL_i18n = new System.Windows.Forms.MenuItem();
             this.mnuFieldList = new System.Windows.Forms.MenuItem();
+            this.mnuFieldListAll = new System.Windows.Forms.MenuItem();
+            this.mnuTypeLib = new System.Windows.Forms.MenuItem();
             this.tvStruct = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlColumn = new dv21_ctl.ctlviewColumn();
+            this.pnlRestrict = new dv21_ctl.ctlRestrict();
+            this.pnlModeType = new dv21_ctl.ctlModeType();
+            this.pnlAction = new dv21_ctl.ctlAction();
+            this.pnlViewElement = new dv21_ctl.ctlViewElement();
+            this.pnlEnum = new dv21_ctl.ctlEnum();
+            this.pnlFieldType = new dv21_ctl.ctlFieldType();
+            this.pnlSectionType = new dv21_ctl.ctlSectionType();
+            this.pnlCardDefinition = new dv21_ctl.ctlCardDefinition();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
             this.mnuSections = new System.Windows.Forms.ContextMenu();
@@ -203,24 +222,9 @@ namespace dv21_load
             this.dlgSaveSQL = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveJDL = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveCSV = new System.Windows.Forms.SaveFileDialog();
-            this.mnuFieldListAll = new System.Windows.Forms.MenuItem();
-            this.mnuTypeLib = new System.Windows.Forms.MenuItem();
-            this.mnuJDL_i18n = new System.Windows.Forms.MenuItem();
             this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.mnuSave = new System.Windows.Forms.MenuItem();
-            this.mnuSaveAs = new System.Windows.Forms.MenuItem();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
-            this.mnuCopy = new System.Windows.Forms.MenuItem();
-            this.pnlColumn = new dv21_ctl.ctlviewColumn();
-            this.pnlRestrict = new dv21_ctl.ctlRestrict();
-            this.pnlModeType = new dv21_ctl.ctlModeType();
-            this.pnlAction = new dv21_ctl.ctlAction();
-            this.pnlViewElement = new dv21_ctl.ctlViewElement();
-            this.pnlEnum = new dv21_ctl.ctlEnum();
-            this.pnlFieldType = new dv21_ctl.ctlFieldType();
-            this.pnlSectionType = new dv21_ctl.ctlSectionType();
-            this.pnlCardDefinition = new dv21_ctl.ctlCardDefinition();
-            this.mnuReID = new System.Windows.Forms.MenuItem();
+            this.menuItem8 = new System.Windows.Forms.MenuItem();
+            this.mnuPrimeCli = new System.Windows.Forms.MenuItem();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -280,6 +284,18 @@ namespace dv21_load
             this.mnuLoadData.Text = "Load Test Data";
             this.mnuLoadData.Click += new System.EventHandler(this.mnuLoadData_Click);
             // 
+            // mnuSave
+            // 
+            this.mnuSave.Index = 3;
+            this.mnuSave.Text = "Save";
+            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            // 
+            // mnuSaveAs
+            // 
+            this.mnuSaveAs.Index = 4;
+            this.mnuSaveAs.Text = "Save As";
+            this.mnuSaveAs.Click += new System.EventHandler(this.mnuSaveAs_Click);
+            // 
             // mnuRefreshTree
             // 
             this.mnuRefreshTree.Index = 5;
@@ -316,8 +332,27 @@ namespace dv21_load
             this.mnuJDL_i18n,
             this.mnuFieldList,
             this.mnuFieldListAll,
+            this.mnuPrimeCli,
+            this.menuItem8,
             this.mnuTypeLib});
             this.menuItem3.Text = "Tools";
+            // 
+            // mnuCopy
+            // 
+            this.mnuCopy.Index = 0;
+            this.mnuCopy.Text = "Copy Section And Fields";
+            this.mnuCopy.Click += new System.EventHandler(this.mnuCopy_Click);
+            // 
+            // mnuReID
+            // 
+            this.mnuReID.Index = 1;
+            this.mnuReID.Text = "Renew ID";
+            this.mnuReID.Click += new System.EventHandler(this.mnuReID_Click);
+            // 
+            // menuItem7
+            // 
+            this.menuItem7.Index = 2;
+            this.menuItem7.Text = "-";
             // 
             // mnuConvertToXSD
             // 
@@ -372,11 +407,29 @@ namespace dv21_load
             this.mnuJDLGenAll.Text = "JDL generate all library";
             this.mnuJDLGenAll.Click += new System.EventHandler(this.mnuJDLGenAll_Click);
             // 
+            // mnuJDL_i18n
+            // 
+            this.mnuJDL_i18n.Index = 12;
+            this.mnuJDL_i18n.Text = "JDL cli localize";
+            this.mnuJDL_i18n.Click += new System.EventHandler(this.mnuJDL_i18n_Click);
+            // 
             // mnuFieldList
             // 
             this.mnuFieldList.Index = 13;
             this.mnuFieldList.Text = "Field List";
             this.mnuFieldList.Click += new System.EventHandler(this.mnuFieldList_Click);
+            // 
+            // mnuFieldListAll
+            // 
+            this.mnuFieldListAll.Index = 14;
+            this.mnuFieldListAll.Text = "Field list all library";
+            this.mnuFieldListAll.Click += new System.EventHandler(this.mnuFieldListAll_Click);
+            // 
+            // mnuTypeLib
+            // 
+            this.mnuTypeLib.Index = 17;
+            this.mnuTypeLib.Text = "Type library";
+            this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
             // 
             // tvStruct
             // 
@@ -422,6 +475,90 @@ namespace dv21_load
             this.panel1.Size = new System.Drawing.Size(498, 561);
             this.panel1.TabIndex = 5;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // pnlColumn
+            // 
+            this.pnlColumn.BackColor = System.Drawing.Color.Green;
+            this.pnlColumn.Column = null;
+            this.pnlColumn.Location = new System.Drawing.Point(248, 224);
+            this.pnlColumn.Name = "pnlColumn";
+            this.pnlColumn.Size = new System.Drawing.Size(216, 240);
+            this.pnlColumn.TabIndex = 8;
+            // 
+            // pnlRestrict
+            // 
+            this.pnlRestrict.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.pnlRestrict.Location = new System.Drawing.Point(224, 192);
+            this.pnlRestrict.Name = "pnlRestrict";
+            this.pnlRestrict.Restrict = null;
+            this.pnlRestrict.Size = new System.Drawing.Size(216, 216);
+            this.pnlRestrict.TabIndex = 6;
+            // 
+            // pnlModeType
+            // 
+            this.pnlModeType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.pnlModeType.Location = new System.Drawing.Point(192, 168);
+            this.pnlModeType.Mode = null;
+            this.pnlModeType.Name = "pnlModeType";
+            this.pnlModeType.Size = new System.Drawing.Size(344, 248);
+            this.pnlModeType.TabIndex = 5;
+            this.pnlModeType.Load += new System.EventHandler(this.pnlModeType_Load);
+            // 
+            // pnlAction
+            // 
+            this.pnlAction.Action = null;
+            this.pnlAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pnlAction.Location = new System.Drawing.Point(168, 144);
+            this.pnlAction.Name = "pnlAction";
+            this.pnlAction.Size = new System.Drawing.Size(208, 200);
+            this.pnlAction.TabIndex = 7;
+            // 
+            // pnlViewElement
+            // 
+            this.pnlViewElement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.pnlViewElement.Location = new System.Drawing.Point(128, 112);
+            this.pnlViewElement.Name = "pnlViewElement";
+            this.pnlViewElement.Size = new System.Drawing.Size(216, 248);
+            this.pnlViewElement.TabIndex = 4;
+            this.pnlViewElement.View = null;
+            // 
+            // pnlEnum
+            // 
+            this.pnlEnum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pnlEnum.Enum = null;
+            this.pnlEnum.Location = new System.Drawing.Point(96, 80);
+            this.pnlEnum.Name = "pnlEnum";
+            this.pnlEnum.Size = new System.Drawing.Size(232, 136);
+            this.pnlEnum.TabIndex = 3;
+            // 
+            // pnlFieldType
+            // 
+            this.pnlFieldType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pnlFieldType.Field = null;
+            this.pnlFieldType.Location = new System.Drawing.Point(56, 56);
+            this.pnlFieldType.Name = "pnlFieldType";
+            this.pnlFieldType.Size = new System.Drawing.Size(248, 392);
+            this.pnlFieldType.TabIndex = 2;
+            // 
+            // pnlSectionType
+            // 
+            this.pnlSectionType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.pnlSectionType.Location = new System.Drawing.Point(32, 32);
+            this.pnlSectionType.Name = "pnlSectionType";
+            this.pnlSectionType.Section = null;
+            this.pnlSectionType.Size = new System.Drawing.Size(240, 304);
+            this.pnlSectionType.TabIndex = 1;
+            this.pnlSectionType.Visible = false;
+            // 
+            // pnlCardDefinition
+            // 
+            this.pnlCardDefinition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pnlCardDefinition.cd = null;
+            this.pnlCardDefinition.Location = new System.Drawing.Point(8, 8);
+            this.pnlCardDefinition.Name = "pnlCardDefinition";
+            this.pnlCardDefinition.Size = new System.Drawing.Size(232, 312);
+            this.pnlCardDefinition.TabIndex = 0;
+            this.pnlCardDefinition.Load += new System.EventHandler(this.pnlCardDefinition_Load);
             // 
             // dlgOpen
             // 
@@ -634,136 +771,16 @@ namespace dv21_load
             this.dlgSaveCSV.DefaultExt = "jdl";
             this.dlgSaveCSV.Filter = "CSV files|*.csv|AllFiles|*.*";
             // 
-            // mnuFieldListAll
+            // menuItem8
             // 
-            this.mnuFieldListAll.Index = 14;
-            this.mnuFieldListAll.Text = "Field list all library";
-            this.mnuFieldListAll.Click += new System.EventHandler(this.mnuFieldListAll_Click);
+            this.menuItem8.Index = 16;
+            this.menuItem8.Text = "-";
             // 
-            // mnuTypeLib
+            // mnuPrimeCli
             // 
-            this.mnuTypeLib.Index = 15;
-            this.mnuTypeLib.Text = "Type library";
-            this.mnuTypeLib.Click += new System.EventHandler(this.mnuTypeLib_Click);
-            // 
-            // mnuJDL_i18n
-            // 
-            this.mnuJDL_i18n.Index = 12;
-            this.mnuJDL_i18n.Text = "JDL cli localize";
-            this.mnuJDL_i18n.Click += new System.EventHandler(this.mnuJDL_i18n_Click);
-            // 
-            // mnuSave
-            // 
-            this.mnuSave.Index = 3;
-            this.mnuSave.Text = "Save";
-            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
-            // 
-            // mnuSaveAs
-            // 
-            this.mnuSaveAs.Index = 4;
-            this.mnuSaveAs.Text = "Save As";
-            this.mnuSaveAs.Click += new System.EventHandler(this.mnuSaveAs_Click);
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Index = 2;
-            this.menuItem7.Text = "-";
-            // 
-            // mnuCopy
-            // 
-            this.mnuCopy.Index = 0;
-            this.mnuCopy.Text = "Copy Section And Fields";
-            this.mnuCopy.Click += new System.EventHandler(this.mnuCopy_Click);
-            // 
-            // pnlColumn
-            // 
-            this.pnlColumn.BackColor = System.Drawing.Color.Green;
-            this.pnlColumn.Column = null;
-            this.pnlColumn.Location = new System.Drawing.Point(248, 224);
-            this.pnlColumn.Name = "pnlColumn";
-            this.pnlColumn.Size = new System.Drawing.Size(216, 240);
-            this.pnlColumn.TabIndex = 8;
-            // 
-            // pnlRestrict
-            // 
-            this.pnlRestrict.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.pnlRestrict.Location = new System.Drawing.Point(224, 192);
-            this.pnlRestrict.Name = "pnlRestrict";
-            this.pnlRestrict.Restrict = null;
-            this.pnlRestrict.Size = new System.Drawing.Size(216, 216);
-            this.pnlRestrict.TabIndex = 6;
-            // 
-            // pnlModeType
-            // 
-            this.pnlModeType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.pnlModeType.Location = new System.Drawing.Point(192, 168);
-            this.pnlModeType.Mode = null;
-            this.pnlModeType.Name = "pnlModeType";
-            this.pnlModeType.Size = new System.Drawing.Size(344, 248);
-            this.pnlModeType.TabIndex = 5;
-            this.pnlModeType.Load += new System.EventHandler(this.pnlModeType_Load);
-            // 
-            // pnlAction
-            // 
-            this.pnlAction.Action = null;
-            this.pnlAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.pnlAction.Location = new System.Drawing.Point(168, 144);
-            this.pnlAction.Name = "pnlAction";
-            this.pnlAction.Size = new System.Drawing.Size(208, 200);
-            this.pnlAction.TabIndex = 7;
-            // 
-            // pnlViewElement
-            // 
-            this.pnlViewElement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.pnlViewElement.Location = new System.Drawing.Point(128, 112);
-            this.pnlViewElement.Name = "pnlViewElement";
-            this.pnlViewElement.Size = new System.Drawing.Size(216, 248);
-            this.pnlViewElement.TabIndex = 4;
-            this.pnlViewElement.View = null;
-            // 
-            // pnlEnum
-            // 
-            this.pnlEnum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.pnlEnum.Enum = null;
-            this.pnlEnum.Location = new System.Drawing.Point(96, 80);
-            this.pnlEnum.Name = "pnlEnum";
-            this.pnlEnum.Size = new System.Drawing.Size(232, 136);
-            this.pnlEnum.TabIndex = 3;
-            // 
-            // pnlFieldType
-            // 
-            this.pnlFieldType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.pnlFieldType.Field = null;
-            this.pnlFieldType.Location = new System.Drawing.Point(56, 56);
-            this.pnlFieldType.Name = "pnlFieldType";
-            this.pnlFieldType.Size = new System.Drawing.Size(248, 392);
-            this.pnlFieldType.TabIndex = 2;
-            // 
-            // pnlSectionType
-            // 
-            this.pnlSectionType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.pnlSectionType.Location = new System.Drawing.Point(32, 32);
-            this.pnlSectionType.Name = "pnlSectionType";
-            this.pnlSectionType.Section = null;
-            this.pnlSectionType.Size = new System.Drawing.Size(240, 304);
-            this.pnlSectionType.TabIndex = 1;
-            this.pnlSectionType.Visible = false;
-            // 
-            // pnlCardDefinition
-            // 
-            this.pnlCardDefinition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pnlCardDefinition.cd = null;
-            this.pnlCardDefinition.Location = new System.Drawing.Point(8, 8);
-            this.pnlCardDefinition.Name = "pnlCardDefinition";
-            this.pnlCardDefinition.Size = new System.Drawing.Size(232, 312);
-            this.pnlCardDefinition.TabIndex = 0;
-            this.pnlCardDefinition.Load += new System.EventHandler(this.pnlCardDefinition_Load);
-            // 
-            // mnuReID
-            // 
-            this.mnuReID.Index = 1;
-            this.mnuReID.Text = "Renew ID";
-            this.mnuReID.Click += new System.EventHandler(this.mnuReID_Click);
+            this.mnuPrimeCli.Index = 15;
+            this.mnuPrimeCli.Text = "Prime cli";
+            this.mnuPrimeCli.Click += new System.EventHandler(this.mnuPrimeCli_Click);
             // 
             // Form2
             // 
@@ -2118,9 +2135,11 @@ namespace dv21_load
             }
         }
 
-
-
-
+        private void mnuPrimeCli_Click(object sender, EventArgs e)
+        {
+			frmWebAPI_PrimeNG f = new frmWebAPI_PrimeNG();
+			f.ShowDialog();
+        }
     }
 
 

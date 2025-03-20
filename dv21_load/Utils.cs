@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace dv21_util 
 {
@@ -55,6 +56,120 @@ namespace dv21_util
             }
 
             return p;
+        }
+
+
+
+        public  static dv21.SectionType FindParentSection(dv21.SectionType ss, dv21.SectionType child)
+        {
+
+            dv21.SectionType p;
+            int i;
+            if (child.ID ==null) return null;
+            if (ss.Section == null) return null;
+            for (i = 0; i < ss.Section.Length; i++)
+            {
+                if (child.ID.Equals(ss.Section[i].ID))
+                {
+                    return ss;
+                }
+
+                p = FindParentSection(ss.Section[i], child);
+                if (p != null)
+                    return p;
+
+            }
+
+            return null;
+        
+        }
+
+
+        public static dv21.SectionType  FindParentSection(dv21.CardDefinition cd, dv21.SectionType child)
+        {
+
+            dv21.SectionType p;
+            int i;
+            if (child.ID == null) return null;
+            if (cd.Sections == null) return null;
+            for ( i=0; i < cd.Sections.Length; i++)
+            {
+                if (child.ID.Equals(cd.Sections[i].ID))
+                {
+                    return null;
+                }
+
+                p = FindParentSection(cd.Sections[i], child);
+                if (p != null)
+                    return p;
+
+            }
+            return null;
+
+        }
+
+
+        public static bool isRootSection(dv21.CardDefinition cd, dv21.SectionType child)
+        {
+
+            dv21.SectionType p;
+            int i;
+            if (child.ID == null) return false;
+            if (cd.Sections == null) return false;
+
+            for (i = 0; i < cd.Sections.Length; i++)
+            {
+                try
+                {
+                    if (child.ID.Equals(cd.Sections[i].ID))
+                    {
+                        return true;
+                    }
+                }
+                catch { 
+                
+                }
+
+                
+            }
+            return false;
+
+        }
+
+        public static dv21.SectionType ResolveReference(List<dv21.CardDefinition> cards, String ID) {
+
+            dv21.CardDefinition cd;
+            dv21.SectionType p;
+            for (int c=0; c<cards.Count; c++) {
+                cd = cards[c];
+                    
+                p = ResolveReference(cd.Sections, ID);
+                if (p != null)
+                    return p;
+
+            }
+            return null;
+        }
+
+
+        public static dv21.SectionType ResolveReference(dv21.SectionType[] ss, String ID)
+        {
+            dv21.SectionType p;
+            int i;
+            if (ss == null) return null;
+            for (i = 0; i < ss.Length; i++)
+            {
+                if (ID == ss[i].ID)
+                {
+                    return ss[i];
+                }
+
+                p = ResolveReference(ss[i].Section, ID);
+                if (p != null)
+                    return p;
+
+            }
+            return null;
         }
 
 
@@ -169,94 +284,135 @@ namespace dv21_util
             }
         }
 
-/*
-		public static void SerializeObject(string filename, dv21_list.CardDefinition cd)
-		{
-			try 
-			{  
-				XmlSerializer serializer = 
-					new XmlSerializer(typeof(dv21_list.CardDefinition));
-		
-				// Create an XmlSerializerNamespaces object.
-				XmlSerializerNamespaces ns = 
-					new XmlSerializerNamespaces();
-				// Add two namespaces with prefixes.
-				//ns.Add("inventory", "http://www.cpandl.com");
-				//ns.Add("money", "http://www.cohowinery.com");
-
-				// Create an XmlTextWriter using a FileStream.
-				Stream fs = new FileStream(filename, FileMode.Create);
-				System.Xml.XmlWriter writer = 
-					new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
-				// Serialize using the XmlTextWriter.
-				serializer.Serialize(writer, cd, ns);
-				writer.Close();
-				writer=null;
-			} 
-			catch
-			{
-			}
-		}
 
 
-		public static dv21_list.CardDefinition ArrayToList(dv21.CardDefinition FromObject)
-		{
-			dv21_list.CardDefinition ToObject;
-			Stream stm= new MemoryStream();
-			
+        public static void Tool_WriteFile(string s, string path, string fname, bool Capitalize = false)
+        {
+            string p = path;
+            if (!p.EndsWith("\\"))
+            {
+                p += "\\";
+            }
+            DirectoryInfo di = new DirectoryInfo(p);
 
-			try 
-			{  
-				XmlSerializer serializer1 = 
-					new XmlSerializer(typeof(dv21.CardDefinition));
-		
-				XmlSerializerNamespaces ns = 
-					new XmlSerializerNamespaces();
-				
-				System.Xml.XmlWriter writer = 
-					new System.Xml.XmlTextWriter(stm, new System.Text.UTF8Encoding());
-				serializer1.Serialize(writer, FromObject, ns);
-				stm.Position    =0;
-				XmlSerializer serializer2 = 
-					new XmlSerializer(typeof(dv21_list.CardDefinition));
-				ToObject=(dv21_list.CardDefinition) serializer2.Deserialize(stm);
-				stm.Close();
-				stm = null;
-			}
-			catch{ ToObject=null; }
-			return ToObject;
-		}
+            if (!di.Exists)
+            {
+                di.Create();
+            }
+            File.WriteAllText(p + fname, s, System.Text.Encoding.UTF8);
+           
+            
+        }
 
 
-		public static dv21.CardDefinition ListToArray(dv21_list.CardDefinition FromObject )
-		{
-			dv21.CardDefinition ToObject;
-			Stream stm= new MemoryStream();
-			
+        public static string DeCap(string s)
+        {
+            //if (!UseDeCap)
+            //{
+            //    return s;
+            //}
 
-			try 
-			{  
-				XmlSerializer serializer1 = 
-					new XmlSerializer(typeof(dv21_list.CardDefinition));
-		
-				XmlSerializerNamespaces ns = 
-					new XmlSerializerNamespaces();
-				
-				System.Xml.XmlWriter writer = 
-					new System.Xml.XmlTextWriter(stm, new System.Text.UTF8Encoding());
-				serializer1.Serialize(writer, FromObject, ns);
-				stm.Position    =0;
-				XmlSerializer serializer2 = 
-					new XmlSerializer(typeof(dv21.CardDefinition));
-				ToObject=(dv21.CardDefinition) serializer2.Deserialize(stm);
-				stm.Close();
-				stm = null;
-			}
-			catch{ToObject=null;}
-			return ToObject;
-		}
-*/
-		public static dv21.CardDefinition DeSerializeObject(string filename)
+            string sOut;
+            if (!string.IsNullOrEmpty(s))
+            {
+                sOut = char.ToLower(s[0]) + s.Substring(1);
+                return sOut;
+            }
+            else
+            {
+                return s;
+            }
+        }
+
+
+        /*
+                public static void SerializeObject(string filename, dv21_list.CardDefinition cd)
+                {
+                    try 
+                    {  
+                        XmlSerializer serializer = 
+                            new XmlSerializer(typeof(dv21_list.CardDefinition));
+
+                        // Create an XmlSerializerNamespaces object.
+                        XmlSerializerNamespaces ns = 
+                            new XmlSerializerNamespaces();
+                        // Add two namespaces with prefixes.
+                        //ns.Add("inventory", "http://www.cpandl.com");
+                        //ns.Add("money", "http://www.cohowinery.com");
+
+                        // Create an XmlTextWriter using a FileStream.
+                        Stream fs = new FileStream(filename, FileMode.Create);
+                        System.Xml.XmlWriter writer = 
+                            new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
+                        // Serialize using the XmlTextWriter.
+                        serializer.Serialize(writer, cd, ns);
+                        writer.Close();
+                        writer=null;
+                    } 
+                    catch
+                    {
+                    }
+                }
+
+
+                public static dv21_list.CardDefinition ArrayToList(dv21.CardDefinition FromObject)
+                {
+                    dv21_list.CardDefinition ToObject;
+                    Stream stm= new MemoryStream();
+
+
+                    try 
+                    {  
+                        XmlSerializer serializer1 = 
+                            new XmlSerializer(typeof(dv21.CardDefinition));
+
+                        XmlSerializerNamespaces ns = 
+                            new XmlSerializerNamespaces();
+
+                        System.Xml.XmlWriter writer = 
+                            new System.Xml.XmlTextWriter(stm, new System.Text.UTF8Encoding());
+                        serializer1.Serialize(writer, FromObject, ns);
+                        stm.Position    =0;
+                        XmlSerializer serializer2 = 
+                            new XmlSerializer(typeof(dv21_list.CardDefinition));
+                        ToObject=(dv21_list.CardDefinition) serializer2.Deserialize(stm);
+                        stm.Close();
+                        stm = null;
+                    }
+                    catch{ ToObject=null; }
+                    return ToObject;
+                }
+
+
+                public static dv21.CardDefinition ListToArray(dv21_list.CardDefinition FromObject )
+                {
+                    dv21.CardDefinition ToObject;
+                    Stream stm= new MemoryStream();
+
+
+                    try 
+                    {  
+                        XmlSerializer serializer1 = 
+                            new XmlSerializer(typeof(dv21_list.CardDefinition));
+
+                        XmlSerializerNamespaces ns = 
+                            new XmlSerializerNamespaces();
+
+                        System.Xml.XmlWriter writer = 
+                            new System.Xml.XmlTextWriter(stm, new System.Text.UTF8Encoding());
+                        serializer1.Serialize(writer, FromObject, ns);
+                        stm.Position    =0;
+                        XmlSerializer serializer2 = 
+                            new XmlSerializer(typeof(dv21.CardDefinition));
+                        ToObject=(dv21.CardDefinition) serializer2.Deserialize(stm);
+                        stm.Close();
+                        stm = null;
+                    }
+                    catch{ToObject=null;}
+                    return ToObject;
+                }
+        */
+        public static dv21.CardDefinition DeSerializeObject(string filename)
 		{
 			try 
 			{  
