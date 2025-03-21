@@ -270,15 +270,15 @@ namespace dv21
 
             if (s.AddWhoInfo)
             {
-                sb.AppendLine("\t\t"+ MyUtils.C1("Created_at") + " LocalDate");
+                sb.AppendLine("\t\t"+ MyUtils.C1("Created_ts") + " LocalDate");
                 sb.AppendLine("\t\t"+ MyUtils.C1("Created_by") + " String maxlength(64)");
-                sb.AppendLine("\t\t"+ MyUtils.C1("Updated_at") + " LocalDate");
-                sb.AppendLine("\t\t" + MyUtils.C1("Updated_by ") +" String maxlength(64)");
+                sb.AppendLine("\t\t"+ MyUtils.C1("Modified_ts") + " LocalDate");
+                sb.AppendLine("\t\t" + MyUtils.C1("Modified_by ") +" String maxlength(64)");
 
-                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Created_at") + "=Дата создания");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Created_ts") + "=Дата создания");
                 i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Created_by") + "=Кем создано");
-                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Updated_at") + "=Дата изменения");
-                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Updated_by") + "=Кем изменено");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Modified_ts") + "=Дата изменения");
+                i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1("Modified_by") + "=Кем изменено");
 
             }
 
