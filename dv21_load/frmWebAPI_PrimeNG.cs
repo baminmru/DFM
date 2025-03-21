@@ -30,30 +30,26 @@ namespace dv21
 
         private void button3_Click(object sender, EventArgs e)
         {
-            folderBrowserDialogProjectOutput.SelectedPath = textBoxOutPutFolder.Text;
-            folderBrowserDialogProjectOutput.ShowDialog();
-            textBoxOutPutFolder.Text = folderBrowserDialogProjectOutput.SelectedPath;
-            if (!textBoxOutPutFolder.Text.EndsWith(@"\"))
+            
+            if(textBoxOutPutFolder.Text !="")
+                folderBrowserDialogProjectOutput.SelectedPath = textBoxOutPutFolder.Text;
+            else
             {
-                textBoxOutPutFolder.Text += @"\";
+                FileInfo fi = new FileInfo(MyUtils.ProjectFile);
+                folderBrowserDialogProjectOutput.SelectedPath =   fi.Directory.FullName;
+            }
+                
+
+            if (folderBrowserDialogProjectOutput.ShowDialog() == DialogResult.OK)
+            {
+                textBoxOutPutFolder.Text = folderBrowserDialogProjectOutput.SelectedPath;
+                if (!textBoxOutPutFolder.Text.EndsWith(@"\"))
+                {
+                    textBoxOutPutFolder.Text += @"\";
+                }
             }
         }
 
-        private void cmdSelectAll_Click(object sender, EventArgs e)
-        {
-            //int i;
-            //var loopTo = chkObjType.Items.Length - 1;
-            //for (i = 0; i <= loopTo; i++)
-            //    chkObjType.SetItemChecked(i, true);
-        }
-
-        private void cmdClearAll_Click(object sender, EventArgs e)
-        {
-            //int i;
-            //var loopTo = chkObjType.Items.Length - 1;
-            //for (i = 0; i <= loopTo; i++)
-            //    chkObjType.SetItemChecked(i, false);
-        }
 
         private void cmdGen_Click(object sender, EventArgs e)
         {
@@ -63,6 +59,14 @@ namespace dv21
             String om;
 
             CardDefinition ot =null;
+
+            if(textBoxOutPutFolder.Text == "")
+            {
+                MessageBox.Show("Select output folder first");
+                return;
+            }
+
+
             for (i = 0; i < MyUtils.cards.Count; i++)
             {
               

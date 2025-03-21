@@ -71,7 +71,6 @@ namespace dv21
             this.textBoxOutPutFolder.Name = "textBoxOutPutFolder";
             this.textBoxOutPutFolder.Size = new System.Drawing.Size(288, 20);
             this.textBoxOutPutFolder.TabIndex = 70;
-            this.textBoxOutPutFolder.Text = "d:\\BP3\\OUT\\Console\\";
             // 
             // Label3
             // 
@@ -96,7 +95,7 @@ namespace dv21
             this.Controls.Add(this.textBoxOutPutFolder);
             this.Controls.Add(this.Label3);
             this.Name = "frmWebAPI_PrimeNG";
-            this.Text = "Web API + ANGULAR 6 + (AMEXIO 5)  generator";
+            this.Text = "Prime NG  generator";
             this.Load += new System.EventHandler(this.frmA4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

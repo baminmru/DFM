@@ -106,6 +106,7 @@ namespace dv21_load
         private MenuItem menuItem9;
         private MenuItem menuItem10;
         private MenuItem mnuProjectFile;
+        private MenuItem mnuNewProject;
         private string LastOpenFile;
 
 		
@@ -156,9 +157,6 @@ namespace dv21_load
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-            this.menuItem9 = new System.Windows.Forms.MenuItem();
-            this.menuItem10 = new System.Windows.Forms.MenuItem();
-            this.mnuProjectFile = new System.Windows.Forms.MenuItem();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.mnuLoad = new System.Windows.Forms.MenuItem();
@@ -168,6 +166,9 @@ namespace dv21_load
             this.mnuRefreshTree = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.mnuExit = new System.Windows.Forms.MenuItem();
+            this.menuItem9 = new System.Windows.Forms.MenuItem();
+            this.menuItem10 = new System.Windows.Forms.MenuItem();
+            this.mnuProjectFile = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.mnuCopy = new System.Windows.Forms.MenuItem();
             this.mnuReID = new System.Windows.Forms.MenuItem();
@@ -225,6 +226,7 @@ namespace dv21_load
             this.dlgSaveJDL = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveCSV = new System.Windows.Forms.SaveFileDialog();
             this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.mnuNewProject = new System.Windows.Forms.MenuItem();
             this.pnlColumn = new dv21_ctl.ctlviewColumn();
             this.pnlRestrict = new dv21_ctl.ctlRestrict();
             this.pnlModeType = new dv21_ctl.ctlModeType();
@@ -261,26 +263,6 @@ namespace dv21_load
             this.menuItem1,
             this.menuItem9,
             this.menuItem3});
-            // 
-            // menuItem9
-            // 
-            this.menuItem9.Index = 1;
-            this.menuItem9.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem10,
-            this.mnuProjectFile});
-            this.menuItem9.Text = "Project";
-            // 
-            // menuItem10
-            // 
-            this.menuItem10.Index = 0;
-            this.menuItem10.Text = "Edit project";
-            this.menuItem10.Click += new System.EventHandler(this.mnuTypeLib_Click);
-            // 
-            // mnuProjectFile
-            // 
-            this.mnuProjectFile.Index = 1;
-            this.mnuProjectFile.Text = "Project file";
-            this.mnuProjectFile.Click += new System.EventHandler(this.mnuProjectFile_Click);
             // 
             // menuItem1
             // 
@@ -342,6 +324,27 @@ namespace dv21_load
             this.mnuExit.Index = 7;
             this.mnuExit.Text = "Exit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            // 
+            // menuItem9
+            // 
+            this.menuItem9.Index = 1;
+            this.menuItem9.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuNewProject,
+            this.mnuProjectFile,
+            this.menuItem10});
+            this.menuItem9.Text = "Project";
+            // 
+            // menuItem10
+            // 
+            this.menuItem10.Index = 2;
+            this.menuItem10.Text = "Edit project";
+            this.menuItem10.Click += new System.EventHandler(this.mnuTypeLib_Click);
+            // 
+            // mnuProjectFile
+            // 
+            this.mnuProjectFile.Index = 1;
+            this.mnuProjectFile.Text = "Open project";
+            this.mnuProjectFile.Click += new System.EventHandler(this.mnuProjectFile_Click);
             // 
             // menuItem3
             // 
@@ -724,6 +727,12 @@ namespace dv21_load
             this.dlgSaveCSV.DefaultExt = "jdl";
             this.dlgSaveCSV.Filter = "CSV files|*.csv|AllFiles|*.*";
             // 
+            // mnuNewProject
+            // 
+            this.mnuNewProject.Index = 0;
+            this.mnuNewProject.Text = "New project";
+            this.mnuNewProject.Click += new System.EventHandler(this.mnuNewProject_Click);
+            // 
             // pnlColumn
             // 
             this.pnlColumn.BackColor = System.Drawing.Color.Green;
@@ -1048,11 +1057,14 @@ namespace dv21_load
 		{
 			try
 			{
-				dlgOpen.ShowDialog(); 
-				cd =MyUtils.DeSerializeObject(dlgOpen.FileName );
-				LastOpenFile = dlgOpen.FileName;
-                this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
-                ReloadTree(cd);
+				dlgOpen.Title = "Load card file";
+				if (dlgOpen.ShowDialog() == DialogResult.OK)
+				{
+					cd = MyUtils.DeSerializeObject(dlgOpen.FileName);
+					LastOpenFile = dlgOpen.FileName;
+					this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
+					ReloadTree(cd);
+				}
 			}
 			catch{}
 
@@ -1082,13 +1094,17 @@ namespace dv21_load
         {
             try
             {
+				dlgSave.Title = "Save card file";
                 dlgSave.FileName = LastOpenFile;
-                dlgSave.ShowDialog();
 
-                MyUtils.SerializeObject(dlgSave.FileName, cd);
-				LastOpenFile = dlgSave.FileName;
-                this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
-				MyUtils.LoadCards();
+				if (dlgSave.ShowDialog() == DialogResult.OK)
+				{
+
+					MyUtils.SerializeObject(dlgSave.FileName, cd);
+					LastOpenFile = dlgSave.FileName;
+					this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
+					MyUtils.LoadCards();
+				}
             }
             catch { }
         }
@@ -1787,22 +1803,24 @@ namespace dv21_load
 			System.Xml.Schema.XmlSchema schema;
 			try
 			{
-				dlgSaveXSD.ShowDialog();
-			
-				dv21_xsd.XSDGen xg= new XSDGen();
+				if (dlgSaveXSD.ShowDialog() == DialogResult.OK)
+				{
+
+					dv21_xsd.XSDGen xg = new XSDGen();
 
 
-				xg.cd = this.cd;
-				schema=xg.BuildSchema(); 
-				//schema.Compile(null);
-				
-				System.Xml.XmlNamespaceManager nsmgr = new System.Xml.XmlNamespaceManager(new System.Xml.NameTable());
-				nsmgr.AddNamespace("xs", dv21_xsd.XSDT.nsn);
-			
+					xg.cd = this.cd;
+					schema = xg.BuildSchema();
+					//schema.Compile(null);
 
-				System.IO.FileStream fs = new System.IO.FileStream(dlgSaveXSD.FileName, System.IO.FileMode.Create);
-			
-				schema.Write( fs, nsmgr);
+					System.Xml.XmlNamespaceManager nsmgr = new System.Xml.XmlNamespaceManager(new System.Xml.NameTable());
+					nsmgr.AddNamespace("xs", dv21_xsd.XSDT.nsn);
+
+
+					System.IO.FileStream fs = new System.IO.FileStream(dlgSaveXSD.FileName, System.IO.FileMode.Create);
+
+					schema.Write(fs, nsmgr);
+				}
 			}
 			catch{}
 
@@ -2001,11 +2019,13 @@ namespace dv21_load
 			string sql;
             try
             {
-                dlgSaveSQL.ShowDialog();
-                dv21.PGGen pg = new PGGen();
-                pg.cd = this.cd;
-				sql = pg.Generate();
-                System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+				if (dlgSaveSQL.ShowDialog() == DialogResult.OK)
+				{
+					dv21.PGGen pg = new PGGen();
+					pg.cd = this.cd;
+					sql = pg.Generate();
+					System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+				}
                 
             }
             catch { }
@@ -2022,11 +2042,13 @@ namespace dv21_load
             string sql;
             try
             {
-                dlgSaveJDL.ShowDialog();
-                dv21.JDLGen pg = new JDLGen();
-                pg.cd = this.cd;
-                sql = pg.Generate();
-                System.IO.File.WriteAllText(dlgSaveJDL.FileName, sql);
+				if (dlgSaveJDL.ShowDialog() == DialogResult.OK)
+				{
+					dv21.JDLGen pg = new JDLGen();
+					pg.cd = this.cd;
+					sql = pg.Generate();
+					System.IO.File.WriteAllText(dlgSaveJDL.FileName, sql);
+				}
 
             }
             catch { }
@@ -2042,11 +2064,13 @@ namespace dv21_load
             string sql;
             try
             {
-                dlgSaveCSV.ShowDialog();
-                dv21.FieldList pg = new FieldList();
-                pg.cd = this.cd;
-                sql = pg.Generate();
-                System.IO.File.WriteAllText(dlgSaveCSV.FileName, sql);
+				if (dlgSaveCSV.ShowDialog() == DialogResult.OK)
+				{
+					dv21.FieldList pg = new FieldList();
+					pg.cd = this.cd;
+					sql = pg.Generate();
+					System.IO.File.WriteAllText(dlgSaveCSV.FileName, sql);
+				}
 
             }
             catch { }
@@ -2057,11 +2081,13 @@ namespace dv21_load
             string sql;
             try
             {
-                dlgSaveSQL.ShowDialog();
-                dv21.PGGen pg = new PGGen();
-                pg.cd = this.cd;
-                sql = pg.GenerateAll();
-                System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+				if (dlgSaveSQL.ShowDialog() == DialogResult.OK)
+				{
+					dv21.PGGen pg = new PGGen();
+					pg.cd = this.cd;
+					sql = pg.GenerateAll();
+					System.IO.File.WriteAllText(dlgSaveSQL.FileName, sql);
+				}
 
             }
             catch { }
@@ -2072,11 +2098,14 @@ namespace dv21_load
             string sql;
             try
             {
-                dlgSaveJDL.ShowDialog();
-                dv21.JDLGen pg = new JDLGen();
-                pg.cd = this.cd;
-                sql = pg.GenerateAll();
-                System.IO.File.WriteAllText(dlgSaveJDL.FileName, sql);
+                
+				if (dlgSaveJDL.ShowDialog() == DialogResult.OK)
+				{
+					dv21.JDLGen pg = new JDLGen();
+					pg.cd = this.cd;
+					sql = pg.GenerateAll();
+					System.IO.File.WriteAllText(dlgSaveJDL.FileName, sql);
+				}
 
             }
             catch { }
@@ -2087,11 +2116,13 @@ namespace dv21_load
             string sql;
             try
             {
-                dlgSaveCSV.ShowDialog();
-                dv21.FieldList pg = new FieldList();
-                pg.cd = this.cd;
-                sql = pg.GenerateAll();
-                System.IO.File.WriteAllText(dlgSaveCSV.FileName, sql);
+				if (dlgSaveCSV.ShowDialog() == DialogResult.OK)
+				{
+					dv21.FieldList pg = new FieldList();
+					pg.cd = this.cd;
+					sql = pg.GenerateAll();
+					System.IO.File.WriteAllText(dlgSaveCSV.FileName, sql);
+				}
 
             }
             catch { }
@@ -2174,15 +2205,44 @@ namespace dv21_load
         {
             try
             {
-                dlgOpen.ShowDialog();
-                MyUtils.ProjectFile = dlgOpen.FileName;
-                this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
-                ReloadTree(cd);
+				dlgOpen.Title = "Open project";
+				if (dlgOpen.ShowDialog() == DialogResult.OK)
+				{
+					MyUtils.ProjectFile = dlgOpen.FileName;
+					this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
+					ReloadTree(cd);
+				}
             }
             catch { }
         }
 
-       
+        private void mnuNewProject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+				dlgSave.CheckFileExists = false;
+				dlgSave.Title = "New projectfile name";
+
+				if (dlgSave.ShowDialog() == DialogResult.OK)
+				{
+					dv21.DefFile df = new dv21.DefFile();
+					df.Paths = new dv21.DefFilePaths[1];
+
+					df.Paths[0] = new DefFilePaths();
+					df.Paths[0].Path = "c:\\";
+
+                    MyUtils.SerializeObject(dlgSave.FileName, df);
+
+                    MyUtils.ProjectFile = dlgSave.FileName;
+                    this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
+                    ReloadTree(cd);
+
+                }
+
+               
+            }
+            catch { }
+        }
     }
 
 
