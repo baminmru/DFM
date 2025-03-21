@@ -37,7 +37,7 @@ namespace dv21_load
             tvStructTo.Nodes.Clear();
 
             dv21.DefFile df;
-            df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
+            df = MyUtils.DeSerializeLib(MyUtils.ProjectFile);
             int i;
             for (i = 0; i < df.Paths.Length; i++)
             {
@@ -270,6 +270,7 @@ namespace dv21_load
                 if (OK)
                 {
                     ReloadTree();
+                    MyUtils.LoadCards();
                 }
 
 

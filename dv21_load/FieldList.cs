@@ -282,22 +282,16 @@ namespace dv21
         public string GenerateAll()
         {
 
-            dv21.DefFile df = null;
+            
             CardDefinition refCD;
-            try
-            {
-                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
-            }
-            catch
-            {
-            }
+            
             int i;
-            for (i = 0; i < df.Paths.Length; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
                 refCD = null;
                 try
                 {
-                    refCD = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                    refCD = MyUtils.cards[i];
                 }
                 catch { }
                 if (refCD != null)

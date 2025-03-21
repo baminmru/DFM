@@ -12,7 +12,7 @@ namespace dv21
     public partial class frmWebAPI_PrimeNG
     {
 
-        private List<dv21.CardDefinition> cards = new List<dv21.CardDefinition>();
+       
 
 
         private string idConst = "Id";
@@ -25,30 +25,7 @@ namespace dv21
         private void frmA4_Load(object sender, EventArgs e)
         {
 
-            dv21.DefFile df = null;
-            CardDefinition ot = null;
-            try
-            {
-                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
-            }
-            catch
-            {
-            }
-            int i;
-            for (i = 0; i < df.Paths.Length; i++)
-            {
-                ot = null;
-                try
-                {
-                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
-                }
-                catch { }
-                if (ot != null)
-                {
-                    cards.Add(ot);
-
-                }
-            }
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -86,10 +63,10 @@ namespace dv21
             String om;
 
             CardDefinition ot =null;
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
               
-                ot = cards[i];
+                ot = MyUtils.cards[i];
               
                 if (ot != null)
                 {
@@ -424,10 +401,10 @@ namespace dv21
             sb.AppendLine(" ");
 
          
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
 
-                ot = cards[i];
+                ot = MyUtils.cards[i];
                 sb.AppendLine(" ");
                 sb.AppendLine("import { " + ot.Alias + "Component } from './" + ot.Alias + "/" + ot.Alias + ".component'; // " + ot.Name[0].Value);
                 Make_AddPartCompServiceToAPP(sb, ot.Sections);
@@ -441,10 +418,10 @@ namespace dv21
 
 
             //CardDefinition ot = null;
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
 
-                ot = cards[i];
+                ot = MyUtils.cards[i];
                 sb.AppendLine(" ");
                 sb.AppendLine(" " + ot.Alias + "Component ,  // " + ot.Name[0].Value);
                 Make_AddCompToAPP(sb, ot.Sections);
@@ -565,9 +542,9 @@ namespace dv21
             sb.AppendLine("    providers: [HttpClient ");
 
             //CardDefinition ot = null;
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
-                ot = cards[i];
+                ot = MyUtils.cards[i];
                 Make_AddServiceToImportAPP(sb, ot.Sections);
             }
             sb.AppendLine("	,AppService ");
@@ -594,10 +571,10 @@ namespace dv21
 
 
             //CardDefinition ot = null;
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
 
-                ot = cards[i];
+                ot = MyUtils.cards[i];
                 sb.AppendLine("import { " + ot.Alias + "Component } from './" + ot.Alias + "/" + ot.Alias + ".component'; ");
 
             }
@@ -607,10 +584,10 @@ namespace dv21
             sb.AppendLine("	 ");
 
             //CardDefinition ot = null;
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
 
-                ot = cards[i];
+                ot = MyUtils.cards[i];
                 sb.AppendLine("	{path: '" + ot.Alias + "', component:  " + ot.Alias + "Component}, ");
 
             }
@@ -639,10 +616,10 @@ namespace dv21
 
             isFirst = true;
             //CardDefinition ot = null;
-            for (i = 0; i < cards.Count; i++)
+            for (i = 0; i < MyUtils.cards.Count; i++)
             {
 
-                ot = cards[i];
+                ot = MyUtils.cards[i];
                 sb.AppendLine("	,{ ");
                 sb.AppendLine("	  \"text\": \"" + ot.Name[0].Value + "\", ");
                 //sb.AppendLine("	  \"icon\" : \"fa " + ot.objIconCls + " fa-fw\", ");
@@ -1000,7 +977,7 @@ namespace dv21
                         {
 
                             dv21.SectionType refp;
-                            refp = MyUtils.ResolveReference(cards, fld.RefSection);
+                            refp = MyUtils.ResolveReference(MyUtils.cards, fld.RefSection);
                             if (refp != null)
                             {
                                 sw.Append("\r\n" + "\t" + MyUtils.C2(fld.Alias) + ":string ; //" + fld.Name[0].Value + " -> " + refp.Name);
@@ -1025,7 +1002,7 @@ namespace dv21
                             {
 
                                 dv21.SectionType refp;
-                                refp = MyUtils.ResolveReference(cards, fld.RefSection);
+                                refp = MyUtils.ResolveReference(MyUtils.cards, fld.RefSection);
                                 sw.Append("\r\n" + "\t" + MyUtils.C2(fld.Alias) + "_name :string; //" + " dereference for " + refp.Name);
                             }
                         }
@@ -2340,7 +2317,7 @@ namespace dv21
                         }
                         sb.AppendLine("	 ");
                         sb.AppendLine("	 optionLabel=\"'name'\"");
-                        refP = MyUtils.ResolveReference(cards, fld.RefSection);
+                        refP = MyUtils.ResolveReference(MyUtils.cards, fld.RefSection);
                         if (refP != null)
                         {
                             sb.AppendLine("	 [options]=\"AppService.Combo" + refP.Name + "\"");

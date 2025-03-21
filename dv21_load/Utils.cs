@@ -136,6 +136,9 @@ namespace dv21_util
 
         }
 
+
+        public static List<dv21.CardDefinition> cards = null;
+
         public static dv21.SectionType ResolveReference(List<dv21.CardDefinition> cards, String ID) {
 
             dv21.CardDefinition cd;
@@ -172,6 +175,14 @@ namespace dv21_util
             return null;
         }
 
+        public static string mProjectFile;
+        public static string ProjectFile
+        {
+            get { return mProjectFile; }
+            set { mProjectFile = value;
+                LoadCards();
+            }
+        }
 
 
         public static void SerializeObject(string filename, dv21.CardDefinition cd)
@@ -522,17 +533,18 @@ namespace dv21_util
 			return arr2;
 		}
 
-        public static CardDefinition GetReferencedType(CardDefinition cd, string RefType)
+
+
+        public static void LoadCards()
         {
 
-            if (cd.ID == RefType)
-                return cd;
+            cards = new List<dv21.CardDefinition>();
 
             dv21.DefFile df = null;
-            CardDefinition refCD;
+            CardDefinition ot = null;
             try
             {
-                df = MyUtils.DeSerializeLib(Application.StartupPath + "\\lib.xml");
+                df = MyUtils.DeSerializeLib(ProjectFile);
             }
             catch
             {
@@ -540,10 +552,36 @@ namespace dv21_util
             int i;
             for (i = 0; i < df.Paths.Length; i++)
             {
+                ot = null;
+                try
+                {
+                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (ot != null)
+                {
+                    cards.Add(ot);
+
+                }
+            }
+        }
+
+
+        public static CardDefinition GetReferencedType(CardDefinition cd, string RefType)
+        {
+
+            if (cd.ID == RefType)
+                return cd;
+
+            CardDefinition refCD;
+
+            int i;
+            for (i = 0; i < MyUtils.cards.Count; i++)
+            {
                 refCD = null;
                 try
                 {
-                    refCD = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                    refCD = MyUtils.cards[i];
                 }
                 catch { }
                 if (refCD != null)
