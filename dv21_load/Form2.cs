@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.IO;
 
 using dv21;
 using dv21_util;
@@ -118,8 +119,12 @@ namespace dv21_load
 
 			LastOpenFile = "";
 
+			if(File.Exists(Properties.Settings.Default.LastOpenProject))
+				MyUtils.ProjectFile = Properties.Settings.Default.LastOpenProject;
+			else
+				MyUtils.ProjectFile = Application.StartupPath + "\\lib.xml";
 
-            MyUtils.ProjectFile = Application.StartupPath + "\\lib.xml";
+
 
 
             this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
@@ -2210,8 +2215,9 @@ namespace dv21_load
 				{
 					MyUtils.ProjectFile = dlgOpen.FileName;
 					this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
-					ReloadTree(cd);
-				}
+                    ReloadTree(cd);
+                    Properties.Settings.Default.LastOpenProject = MyUtils.ProjectFile;
+                }
             }
             catch { }
         }
@@ -2236,6 +2242,7 @@ namespace dv21_load
                     MyUtils.ProjectFile = dlgSave.FileName;
                     this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
                     ReloadTree(cd);
+                    Properties.Settings.Default.LastOpenProject = MyUtils.ProjectFile;
 
                 }
 

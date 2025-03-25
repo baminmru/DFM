@@ -45,9 +45,9 @@ namespace dv21
             // cmdGen
             // 
             this.cmdGen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGen.Location = new System.Drawing.Point(464, 85);
+            this.cmdGen.Location = new System.Drawing.Point(25, 59);
             this.cmdGen.Name = "cmdGen";
-            this.cmdGen.Size = new System.Drawing.Size(66, 26);
+            this.cmdGen.Size = new System.Drawing.Size(496, 26);
             this.cmdGen.TabIndex = 77;
             this.cmdGen.Text = "Generate";
             this.cmdGen.UseVisualStyleBackColor = true;
@@ -77,9 +77,9 @@ namespace dv21
             this.Label3.AutoSize = true;
             this.Label3.Location = new System.Drawing.Point(22, 24);
             this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(115, 13);
+            this.Label3.Size = new System.Drawing.Size(74, 13);
             this.Label3.TabIndex = 74;
-            this.Label3.Text = "Projects Output Folder:";
+            this.Label3.Text = "Output Folder:";
             // 
             // folderBrowserDialogProjectOutput
             // 
@@ -89,13 +89,14 @@ namespace dv21
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 123);
+            this.ClientSize = new System.Drawing.Size(542, 111);
             this.Controls.Add(this.cmdGen);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBoxOutPutFolder);
             this.Controls.Add(this.Label3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmWebAPI_PrimeNG";
-            this.Text = "Prime NG  generator";
+            this.Text = "PrimeNG  Angular  generator";
             this.Load += new System.EventHandler(this.frmA4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -67,6 +67,9 @@ namespace dv21
             }
 
 
+            AppMake_module();
+
+
             for (i = 0; i < MyUtils.cards.Count; i++)
             {
               
@@ -88,8 +91,6 @@ namespace dv21
                     sw = new StringBuilder();
                     dv21.CardDefinition pkg;
                    
-
-
 
 
 
@@ -142,7 +143,7 @@ namespace dv21
 
 
 
-                    AppMake_module();
+                    
 
                     //// ''''''''''  app.service 
                     //sw = new StringBuilder();
