@@ -101,7 +101,7 @@ namespace dv21
                     sw = new StringBuilder();
 
                         
-                    sw.AppendLine("import { enums } from './enums';");
+                    sw.AppendLine("// import { enums } from './enums';");
 
                     sw.Append("\r\n" + "export namespace " + ot.Alias + " { ");
 
@@ -139,125 +139,125 @@ namespace dv21
                         TypeMake_Component(ot);
 
                         Application.DoEvents();
-                    
 
 
 
-                    
+
+
 
                     //// ''''''''''  app.service 
                     //sw = new StringBuilder();
 
-                    //sw.AppendLine("import { Injectable } from '@angular/core'; ");
-                    //sw.AppendLine("import { HttpClient, HttpRequest, HttpClientModule, HttpHeaders, HttpResponse } from '@angular/common/http'; ");
-                    //sw.AppendLine("import { Observable,BehaviorSubject } from 'rxjs'; ");
-                    //sw.AppendLine("import { environment } from '../environments/environment';");
-                    //sw.AppendLine("");
-                    //var loopTo11 = chkObjType.CheckedItems.Length - 1;
-                    //for (i = 0; i <= loopTo11; i++)
-                    //{
-                    //    ti = (tmpInst)chkObjType.CheckedItems[i];
-                    //    ot = Module1.model.OBJECTTYPE.Item(ti.ID.ToString());
-                    //    sw.AppendLine("import { %type% } from \"./../%type%\";".Replace("%type%", ot.Alias));
-                    //    Application.DoEvents();
-                    //}
-
-                    //sw.AppendLine("	");
-                    //sw.AppendLine("export class ComboInfo{ ");
-                    //sw.AppendLine("	id:string; ");
-                    //sw.AppendLine("	name:string; ");
-                    //sw.AppendLine("} ");
-
-                    //sw.AppendLine("export class enumInfo{ ");
-                    //sw.AppendLine("	id:number; ");
-                    //sw.AppendLine("	name:string; ");
-                    //sw.AppendLine("} ");
-
-                    //sw.AppendLine(" ");
-                    //sw.AppendLine("@Injectable() ");
-                    //sw.AppendLine("export class AppService { ");
-                    //sw.AppendLine("	private serviceURL: string = environment.baseAppUrl; ");
-                    //sw.AppendLine("	 ");
-                    //sw.AppendLine("	 constructor(private http:HttpClient) {  ");
-                    //sw.AppendLine("		this.RefreshCombo(); ");
-                    //sw.AppendLine("	} ");
-                    //sw.AppendLine("	");
-
-                    //sw.AppendLine(" ");
-                    //var loopTo12 = chkObjType.CheckedItems.Length - 1;
-                    //for (i = 0; i <= loopTo12; i++)
-                    //{
-                    //    ti = (tmpInst)chkObjType.CheckedItems[i];
-                    //    ot = Module1.model.OBJECTTYPE.Item(ti.ID.ToString());
-                    //    sw.AppendLine(Make_AppServiceList(ot.Sections));
-                    //    Application.DoEvents();
-                    //}
-
-                    //sw.AppendLine(" ");
-                    //var loopTo13 = chkObjType.CheckedItems.Length - 1;
-                    //for (i = 0; i <= loopTo13; i++)
-                    //{
-                    //    ti = (tmpInst)chkObjType.CheckedItems[i];
-                    //    ot = Module1.model.OBJECTTYPE.Item(ti.ID.ToString());
-                    //    sw.AppendLine(Make_AppComboSupport(ot.Sections));
-                    //    Application.DoEvents();
-                    //}
-
-                    //sw.AppendLine(" ");
-                    //sw.AppendLine("public RefreshCombo(){");
-                    //var loopTo14 = chkObjType.CheckedItems.Length - 1;
-                    //for (i = 0; i <= loopTo14; i++)
-                    //{
-                    //    ti = (tmpInst)chkObjType.CheckedItems[i];
-                    //    ot = Module1.model.OBJECTTYPE.Item(ti.ID.ToString());
-                    //    sw.AppendLine(Make_AppComboRefresh(ot.Sections));
-                    //    Application.DoEvents();
-                    //}
-                    //sw.AppendLine("}");
-                    //sw.AppendLine(" ");
+                    sw.AppendLine("import { Injectable } from '@angular/core'; ");
+                    sw.AppendLine("import { HttpClient, HttpRequest, HttpClientModule, HttpHeaders, HttpResponse } from '@angular/common/http'; ");
+                    sw.AppendLine("import { Observable,BehaviorSubject } from 'rxjs'; ");
+                    sw.AppendLine("import { environment } from '../environments/environment';");
+                    sw.AppendLine("");
 
 
-                    //sw.AppendLine(" // enum support");
+                    for (i = 0; i < MyUtils.cards.Count; i++)
+                    {
+                        ot = MyUtils.cards[i];
+                        if (ot != null)
+                            sw.AppendLine("import { %type% } from \"./../%type%\";".Replace("%type%", ot.Alias));
+                    }
 
-                    //var loopTo15 = (int)Module1.model.FieldTYPE.Length;
-                    //for (i = 1; i <= loopTo15; i++)
-                    //{
-                    //    ft = Module1.model.FieldTYPE[i - 1];
-                    //    if (ft.TypeStyle ==TypeStyle_Perecislenie)
-                    //    {
-                    //        sw.AppendLine("\r\n" + "\t" + "/* " + ft.Name + " - " + ft.the_Comment + " */ ");
-                    //        sw.AppendLine("	public enum" + LATIR2Framework.FieldTypesHelper.MakeValidName(ft.Name) + "Combo(){");
-                    //        sw.AppendLine("		return this.enum" + LATIR2Framework.FieldTypesHelper.MakeValidName(ft.Name) + ";");
-                    //        sw.AppendLine("	}");
-                    //        sw.AppendLine("	enum" + LATIR2Framework.FieldTypesHelper.MakeValidName(ft.Name) + ":Array<enumInfo> =[");
+                    Application.DoEvents();
+                
 
-                    //        var loopTo16 = (int)ft.ENUMITEM.Length;
-                    //        for (eidx = 1; eidx <= loopTo16; eidx++)
-                    //        {
-                    //            sw.Append("\r\n" + "\t");
-                    //            if (eidx > 1)
-                    //            {
-                    //                sw.Append(",");
-                    //            }
-                    //            ei = ft.ENUMITEM.Item(eidx);
-                    //            sw.Append(" {id:" + ei.NameValue + ",name:'" + ei.Name + "'}");
-                    //        }
-                    //        sw.AppendLine("	];");
-                    //    }
-                    //    Application.DoEvents();
-                    //}
+                sw.AppendLine("	");
+                sw.AppendLine("export class ComboInfo{ ");
+                sw.AppendLine("	id:string; ");
+                sw.AppendLine("	name:string; ");
+                sw.AppendLine("} ");
 
-                    //sw.AppendLine(" ");
+                sw.AppendLine("export class enumInfo{ ");
+                sw.AppendLine("	id:number; ");
+                sw.AppendLine("	name:string; ");
+                sw.AppendLine("} ");
 
+                sw.AppendLine(" ");
+                sw.AppendLine("@Injectable() ");
+                sw.AppendLine("export class AppService { ");
+                sw.AppendLine("	private serviceURL: string = environment.baseAppUrl; ");
+                sw.AppendLine("	 ");
+                sw.AppendLine("	 constructor(private http:HttpClient) {  ");
+                sw.AppendLine("		this.RefreshCombo(); ");
+                sw.AppendLine("	} ");
+                sw.AppendLine("	");
 
-
-
-                    //// end class
-                    //sw.AppendLine("}");
-
-                    //Tool_WriteFile(sw.ToString(), textBoxOutPutFolder.Text + @"\ts\", "app.service.ts", false);
-
+                sw.AppendLine(" ");
+                for (i = 0; i < MyUtils.cards.Count; i++)
+                {
+                        ot = MyUtils.cards[i];
+                        if (ot != null)
+                            sw.AppendLine(Make_AppServiceList(ot, ot.Sections));
+                    Application.DoEvents();
                 }
+
+                sw.AppendLine(" ");
+                for (i = 0; i < MyUtils.cards.Count; i++)
+                {
+                        ot = MyUtils.cards[i];
+                        if (ot != null)
+                            sw.AppendLine(Make_AppComboSupport(ot,ot.Sections));
+                    Application.DoEvents();
+                }
+
+                sw.AppendLine(" ");
+                sw.AppendLine("public RefreshCombo(){");
+                    for (i = 0; i < MyUtils.cards.Count; i++)
+                    {
+                        ot = MyUtils.cards[i];
+                        if (ot != null)
+                            sw.AppendLine(Make_AppComboRefresh(ot.Sections));
+                    Application.DoEvents();
+                }
+                sw.AppendLine("}");
+                sw.AppendLine(" ");
+
+
+                //sw.AppendLine(" // enum support");
+
+                //var loopTo15 = (int)Module1.model.FieldTYPE.Length;
+                //for (i = 1; i <= loopTo15; i++)
+                //{
+                //    ft = Module1.model.FieldTYPE[i - 1];
+                //    if (ft.TypeStyle == TypeStyle_Perecislenie)
+                //    {
+                //        sw.AppendLine("\r\n" + "\t" + "/* " + ft.Name + " - " + ft.the_Comment + " */ ");
+                //        sw.AppendLine("	public enum" + LATIR2Framework.FieldTypesHelper.MakeValidName(ft.Name) + "Combo(){");
+                //        sw.AppendLine("		return this.enum" + LATIR2Framework.FieldTypesHelper.MakeValidName(ft.Name) + ";");
+                //        sw.AppendLine("	}");
+                //        sw.AppendLine("	enum" + LATIR2Framework.FieldTypesHelper.MakeValidName(ft.Name) + ":Array<enumInfo> =[");
+
+                //        var loopTo16 = (int)ft.ENUMITEM.Length;
+                //        for (eidx = 1; eidx <= loopTo16; eidx++)
+                //        {
+                //            sw.Append("\r\n" + "\t");
+                //            if (eidx > 1)
+                //            {
+                //                sw.Append(",");
+                //            }
+                //            ei = ft.ENUMITEM.Item(eidx);
+                //            sw.Append(" {id:" + ei.NameValue + ",name:'" + ei.Name + "'}");
+                //        }
+                //        sw.AppendLine("	];");
+                //    }
+                //    Application.DoEvents();
+                //}
+
+                //sw.AppendLine(" ");
+
+
+
+
+                // end class
+                sw.AppendLine("}");
+
+                Tool_WriteFile(sw.ToString(), textBoxOutPutFolder.Text + @"\ts\", "app.service.ts", false);
+
+            }
             }
 
 
@@ -681,8 +681,8 @@ namespace dv21
             for (i = 1; i <= loopTo; i++)
             {
                 P = PCOL[i-1];
-                sb.AppendLine("import { " + MyUtils.C2(P.Alias) + "Component } from './" + P.Name + "/" + P.Name + (".component'; // " + P.Name[0].Value));
-                sb.AppendLine("import { " + MyUtils.C2(P.Alias) + "_Service } from './" + P.Name + ".service'; ");
+                sb.AppendLine("import { " + MyUtils.C2(P.Alias) + "Component } from './" + P.Alias + "/" + P.Alias + (".component'; // " + P.Name[0].Value));
+                sb.AppendLine("import { " + MyUtils.C2(P.Alias) + "_Service } from './" + P.Alias + ".service'; ");
                 Make_AddPartCompServiceToAPP(sb, P.Section);
             }
 
@@ -1008,7 +1008,8 @@ namespace dv21
 
                                 dv21.SectionType refp;
                                 refp = MyUtils.ResolveReference(MyUtils.cards, fld.RefSection);
-                                sw.Append("\r\n" + "\t" + MyUtils.C2(fld.Alias) + "_name :string; //" + " dereference for " + refp.Name);
+                                if(refp != null)
+                                    sw.Append("\r\n" + "\t" + MyUtils.C2(fld.Alias) + "_name :string; //" + " dereference for " + refp.Name);
                             }
                         }
                     }
@@ -1090,13 +1091,13 @@ namespace dv21
             for (i = 1; i <= loopTo; i++)
             {
                 P = pcol[i-1];
-                sb.AppendLine("	public Combo" + P.Name + ":Array<ComboInfo> = []; ");
-                sb.AppendLine("	public get" + P.Name + "(): Observable<ComboInfo[]> { ");
+                sb.AppendLine("	public Combo" + P.Alias + ":Array<ComboInfo> = []; ");
+                sb.AppendLine("	public get" + P.Alias + "(): Observable<ComboInfo[]> { ");
                 sb.AppendLine("     let cpHeaders = new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer '+ sessionStorage.getItem('auth_token') });");
-                sb.AppendLine("		return this.http.get<ComboInfo[]>(this.serviceURL + '/" + P.Name + "/Combo', { headers: cpHeaders }); ");
+                sb.AppendLine("		return this.http.get<ComboInfo[]>(this.serviceURL + '/" + P.Alias + "/Combo', { headers: cpHeaders }); ");
                 sb.AppendLine(" }");
-                sb.AppendLine("	public refreshCombo" + P.Name + "() { ");
-                sb.AppendLine("	this.get" + P.Name + "().subscribe(Data => {this.Combo" + P.Name + "=Data;});");
+                sb.AppendLine("	public refreshCombo" + P.Alias + "() { ");
+                sb.AppendLine("	this.get" + P.Alias + "().subscribe(Data => {this.Combo" + P.Alias + "=Data;});");
                 sb.AppendLine(" }");
 
                 sb.Append(Make_AppComboSupport(ot, P.Section));
@@ -1122,7 +1123,7 @@ namespace dv21
             for (i = 1; i <= loopTo; i++)
             {
                 P = pcol[i-1];
-                sb.AppendLine("	this.get" + P.Name + "().subscribe(data => {this.Combo" + P.Name + "=data;}); ");
+                sb.AppendLine("	this.get" + P.Alias + "().subscribe(data => {this.Combo" + P.Alias + "=data;}); ");
 
                 sb.Append(Make_AppComboRefresh(P.Section));
 
@@ -1142,7 +1143,7 @@ namespace dv21
             sb.AppendLine("import { HttpClient, HttpRequest, HttpClientModule, HttpHeaders, HttpResponse } from '@angular/common/http';");
             sb.AppendLine("import { Observable } from 'rxjs';");
             sb.AppendLine("import { environment } from '../environments/environment';");
-            sb.AppendLine("import { enums } from './enums';");
+            sb.AppendLine("// import { enums } from './enums';");
             sb.AppendLine("import { %type%} from './%type%';");
 
             sb.AppendLine("@Injectable()");
@@ -1386,28 +1387,30 @@ namespace dv21
                             }
                         }
                     }
-
-                    if (P.Section.Length > 0L)
-                    {
-                        hasChild = true;
-                    }
+                    if (P.Section != null)
+                        if (P.Section.Length > 0L)
+                        {
+                            hasChild = true;
+                        }
                 }
                 else
                 {
                     isRoot = true;
-                    if (P.Section.Length > 0L)
-                    {
-                        hasChild = true;
-                    }
+                    if(P.Section != null)
+                        if (P.Section.Length > 0L)
+                        {
+                            hasChild = true;
+                        }
                 }
             }
             else
             {
                 ParentPart = (dv21.SectionType)MyUtils.FindParentSection(ot,P);
-                if (P.Section.Length > 0L)
-                {
-                    hasChild = true;
-                }
+                if (P.Section != null)
+                    if (P.Section.Length > 0L)
+                    {
+                        hasChild = true;
+                    }
             }
             sb = new StringBuilder();
 
@@ -1424,7 +1427,10 @@ namespace dv21
 
             ss = sb.ToString();
             ss = ss.Replace("%obj%", MyUtils.C2(P.Alias));
-            ss = ss.Replace("%parent%", MyUtils.C2(ParentPart.Alias));
+            
+            if(ParentPart != null)
+                ss = ss.Replace("%parent%", MyUtils.C2(ParentPart.Alias));
+
             //ss = ss.Replace("%ns%", txtNS.Text);
             ss = ss.Replace("%type%", ot.Alias);
 
@@ -1577,8 +1583,10 @@ namespace dv21
 
                     if (fld.Reference)
                     {
-                        //part = (dv21.SectionType)fld.RefSection;
-                        sb.AppendLine("     this.AppService.refreshCombo" + fld.RefSection + "();");
+                        
+                        refP = MyUtils.ResolveReference(MyUtils.cards, fld.RefSection);
+                        if(refP != null)
+                            sb.AppendLine("     this.AppService.refreshCombo" + refP.Alias + "();");
                     }
 
 
@@ -1982,7 +1990,7 @@ namespace dv21
 
             ss = sb.ToString();
             ss = ss.Replace("%obj%", MyUtils.C2(P.Alias));
-            ss = ss.Replace("%capobj%", P.Name[0].Value);
+            ss = ss.Replace("%capobj%", P.Alias);
             if(ParentPart != null)
                 ss = ss.Replace("%parent%", MyUtils.C2(ParentPart.Alias));
             //ss = ss.Replace("%ns%", txtNS.Text);
@@ -2325,7 +2333,7 @@ namespace dv21
                         refP = MyUtils.ResolveReference(MyUtils.cards, fld.RefSection);
                         if (refP != null)
                         {
-                            sb.AppendLine("	 [options]=\"AppService.Combo" + refP.Name + "\"");
+                            sb.AppendLine("	 [options]=\"AppService.Combo" + refP.Alias + "\"");
                         }
                         sb.AppendLine("	 ");
                         sb.AppendLine("	 [(ngModel)]=\"current%obj%." + MyUtils.C2(fld.Alias) + "\"");
