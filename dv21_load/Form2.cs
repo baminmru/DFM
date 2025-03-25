@@ -2217,6 +2217,7 @@ namespace dv21_load
 					this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
                     ReloadTree(cd);
                     Properties.Settings.Default.LastOpenProject = MyUtils.ProjectFile;
+					Properties.Settings.Default.Save();
                 }
             }
             catch { }
@@ -2243,6 +2244,7 @@ namespace dv21_load
                     this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
                     ReloadTree(cd);
                     Properties.Settings.Default.LastOpenProject = MyUtils.ProjectFile;
+					Properties.Settings.Default.Save();
 
                 }
 
