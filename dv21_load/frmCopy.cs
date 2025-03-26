@@ -38,16 +38,25 @@ namespace dv21_load
         private void ReloadTree()
         {
 
-            object SyncTo = ((MyTreeNode)tvStructTo.SelectedNode).BoundObject;
+            object SyncTo = null;
+
+            if(tvStructTo.SelectedNode != null)
+                SyncTo = ((MyTreeNode)tvStructTo.SelectedNode).BoundObject;
 
             List<string> expandedFrom;
             List<string> expandedTo;
 
             expandedFrom = new List<String>();
             expandedTo = new List<String>();
+            try
+            {
+                MyUtils.CollectExpanded(expandedFrom, tvStructFrom.Nodes);
+                MyUtils.CollectExpanded(expandedTo, tvStructTo.Nodes);
 
-            MyUtils.CollectExpanded(expandedFrom,tvStructFrom.Nodes);
-            MyUtils.CollectExpanded(expandedTo,tvStructTo.Nodes);
+            }
+            catch { 
+            }
+
 
             tvStructFrom.Nodes.Clear();
             tvStructTo.Nodes.Clear();
