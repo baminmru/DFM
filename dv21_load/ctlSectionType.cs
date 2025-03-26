@@ -218,7 +218,6 @@ namespace dv21_ctl
             this.txtSequence.Name = "txtSequence";
             this.txtSequence.Size = new System.Drawing.Size(272, 20);
             this.txtSequence.TabIndex = 33;
-            this.txtSequence.Text = "0";
             this.txtSequence.TextChanged += new System.EventHandler(this.txtSequence_TextChanged);
             // 
             // label6
@@ -373,8 +372,17 @@ namespace dv21_ctl
         {
             if (!inLoad)
             {
-                mSection.SequnceSpecified = true;
-                mSection.Sequnce  = System.Convert.ToInt16( txtSequence.Text,10);
+                try
+                {
+                    mSection.SequnceSpecified = true;
+                    mSection.Sequnce = System.Convert.ToInt16(txtSequence.Text, 10);
+                }
+                catch
+                {
+                    mSection.SequnceSpecified = false;
+                    mSection.Sequnce = 0;
+                }
+                
                 UpdateNode();
             }
         }

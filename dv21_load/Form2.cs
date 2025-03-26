@@ -912,7 +912,14 @@ namespace dv21_load
 
 		private void ReloadTree(Object SyncTo)
 		{
-			MyTreeNode n, n2,n3; 
+
+
+            List<String> expandedFrom = new List<String>();
+            MyUtils.CollectExpanded(expandedFrom, tvStruct.Nodes);
+
+
+
+            MyTreeNode n, n2,n3; 
 			int i,j;
 			tvStruct.Nodes.Clear(); 
 
@@ -1029,34 +1036,27 @@ namespace dv21_load
 					}
 				}
 			}
-			
-			if (SyncTo!=null)
+
+
+            foreach (TreeNode node in tvStruct.Nodes)
+            {
+                foreach (var path in expandedFrom)
+                {
+                    MyUtils.ExpandNodes(node, path);
+                }
+            }
+
+
+            if (SyncTo!=null)
 			{	
-				tvStruct.SelectedNode = SyncToNode(tvStruct.Nodes,SyncTo); 
+				tvStruct.SelectedNode = MyUtils.SyncToNode(tvStruct.Nodes,SyncTo); 
 			}
 			
 		
 		}
 
 
-		private TreeNode SyncToNode(TreeNodeCollection root, object obj)
-		{
-			MyTreeNode m; int i; TreeNode result;
-
-			for (i=0;i<root.Count;i++)
-			{
-				m = (MyTreeNode) root[i];
-				if (m.BoundObject ==obj)
-				{
-					result =m;
-					return result;
-				}
-				result = SyncToNode(m.Nodes,obj);
-				if (result!=null) return result;
-			}
-			return null;
-			
-		}
+		
 
 		private void mnuLoad_Click(object sender, System.EventArgs e)
 		{
@@ -1726,6 +1726,7 @@ namespace dv21_load
 				ReloadTree(cd.Modes);
 			}
 		
+
 		}
 
 		private void mnuModeAddRestrict_Click(object sender, System.EventArgs e)
@@ -1808,7 +1809,8 @@ namespace dv21_load
 			System.Xml.Schema.XmlSchema schema;
 			try
 			{
-				if (dlgSaveXSD.ShowDialog() == DialogResult.OK)
+                dlgSaveXSD.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveXSD.ShowDialog() == DialogResult.OK)
 				{
 
 					dv21_xsd.XSDGen xg = new XSDGen();
@@ -2024,7 +2026,8 @@ namespace dv21_load
 			string sql;
             try
             {
-				if (dlgSaveSQL.ShowDialog() == DialogResult.OK)
+                dlgSaveSQL.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveSQL.ShowDialog() == DialogResult.OK)
 				{
 					dv21.PGGen pg = new PGGen();
 					pg.cd = this.cd;
@@ -2047,7 +2050,8 @@ namespace dv21_load
             string sql;
             try
             {
-				if (dlgSaveJDL.ShowDialog() == DialogResult.OK)
+                dlgSaveJDL.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveJDL.ShowDialog() == DialogResult.OK)
 				{
 					dv21.JDLGen pg = new JDLGen();
 					pg.cd = this.cd;
@@ -2069,7 +2073,8 @@ namespace dv21_load
             string sql;
             try
             {
-				if (dlgSaveCSV.ShowDialog() == DialogResult.OK)
+                dlgSaveCSV.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveCSV.ShowDialog() == DialogResult.OK)
 				{
 					dv21.FieldList pg = new FieldList();
 					pg.cd = this.cd;
@@ -2086,7 +2091,8 @@ namespace dv21_load
             string sql;
             try
             {
-				if (dlgSaveSQL.ShowDialog() == DialogResult.OK)
+                dlgSaveSQL.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveSQL.ShowDialog() == DialogResult.OK)
 				{
 					dv21.PGGen pg = new PGGen();
 					pg.cd = this.cd;
@@ -2103,8 +2109,8 @@ namespace dv21_load
             string sql;
             try
             {
-                
-				if (dlgSaveJDL.ShowDialog() == DialogResult.OK)
+                dlgSaveJDL.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveJDL.ShowDialog() == DialogResult.OK)
 				{
 					dv21.JDLGen pg = new JDLGen();
 					pg.cd = this.cd;
@@ -2121,7 +2127,8 @@ namespace dv21_load
             string sql;
             try
             {
-				if (dlgSaveCSV.ShowDialog() == DialogResult.OK)
+                dlgSaveCSV.InitialDirectory = dv21_load.Properties.Settings.Default.GenerationFolder;
+                if (dlgSaveCSV.ShowDialog() == DialogResult.OK)
 				{
 					dv21.FieldList pg = new FieldList();
 					pg.cd = this.cd;
@@ -2136,6 +2143,7 @@ namespace dv21_load
         private void mnuJDL_i18n_Click(object sender, EventArgs e)
         {
 			dlgFolder.ShowNewFolderButton = true;
+            dlgFolder.SelectedPath = dv21_load.Properties.Settings.Default.GenerationFolder;
 
             if (dlgFolder.ShowDialog()== DialogResult.OK)
 			{

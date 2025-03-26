@@ -34,5 +34,17 @@ namespace dv21_load.Properties {
                 this["LastOpenProject"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\")]
+        public string GenerationFolder {
+            get {
+                return ((string)(this["GenerationFolder"]));
+            }
+            set {
+                this["GenerationFolder"] = value;
+            }
+        }
     }
 }

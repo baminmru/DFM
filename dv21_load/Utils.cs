@@ -58,6 +58,45 @@ namespace dv21_util
             return p;
         }
 
+        public static TreeNode SyncToNode(TreeNodeCollection root, object obj)
+        {
+            MyTreeNode m; int i; TreeNode result;
+
+            for (i = 0; i < root.Count; i++)
+            {
+                m = (MyTreeNode)root[i];
+                if (m.BoundObject == obj)
+                {
+                    result = m;
+                    return result;
+                }
+                result = SyncToNode(m.Nodes, obj);
+                if (result != null) return result;
+            }
+            return null;
+
+        }
+
+
+        public static void CollectExpanded(List<string> expandedFrom, TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                if (node.IsExpanded) expandedFrom.Add(node.FullPath);
+                if (node.Nodes.Count > 0) CollectExpanded(expandedFrom, node.Nodes);
+            }
+        }
+
+
+
+        public static void ExpandNodes(TreeNode node, string nodeFullPath)
+        {
+            if (node.FullPath == nodeFullPath) node.Expand();
+            foreach (TreeNode n in node.Nodes)
+            {
+                if (n.Nodes.Count > 0) ExpandNodes(n, nodeFullPath);
+            }
+        }
 
 
         public  static dv21.SectionType FindParentSection(dv21.SectionType ss, dv21.SectionType child)

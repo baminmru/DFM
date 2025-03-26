@@ -94,7 +94,7 @@ namespace dv21
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBoxOutPutFolder);
             this.Controls.Add(this.Label3);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmWebAPI_PrimeNG";
             this.Text = "PrimeNG  Angular  generator";
             this.Load += new System.EventHandler(this.frmA4_Load);

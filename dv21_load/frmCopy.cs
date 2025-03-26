@@ -30,8 +30,24 @@ namespace dv21_load
         }
 
 
+       
+
+        
+
+
         private void ReloadTree()
         {
+
+            object SyncTo = ((MyTreeNode)tvStructTo.SelectedNode).BoundObject;
+
+            List<string> expandedFrom;
+            List<string> expandedTo;
+
+            expandedFrom = new List<String>();
+            expandedTo = new List<String>();
+
+            MyUtils.CollectExpanded(expandedFrom,tvStructFrom.Nodes);
+            MyUtils.CollectExpanded(expandedTo,tvStructTo.Nodes);
 
             tvStructFrom.Nodes.Clear();
             tvStructTo.Nodes.Clear();
@@ -53,7 +69,32 @@ namespace dv21_load
                     LoadTree(tvStructTo, df.Paths[i].Path);
                 }
             }
+
+            foreach (TreeNode node in tvStructFrom.Nodes)
+            {
+                foreach (var path in expandedFrom)
+                {
+                    MyUtils.ExpandNodes(node, path);
+                }
+            }
+
+
+            foreach (TreeNode node in tvStructTo.Nodes)
+            {
+                foreach (var path in expandedTo)
+                {
+                    MyUtils.ExpandNodes(node, path);
+                }
+            }
+
+            if (SyncTo != null)
+            {
+                tvStructTo.SelectedNode = MyUtils.SyncToNode(tvStructTo.Nodes, SyncTo);
+            }
+
         }
+
+       
 
 
         private void LoadSection(dv21.SectionType[] Sections, MyTreeNode n, string path)

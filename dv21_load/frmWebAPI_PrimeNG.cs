@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.ComponentModel;
+
 using dv21_util;
 using System.Collections.Generic;
 
@@ -24,14 +26,14 @@ namespace dv21
 
         private void frmA4_Load(object sender, EventArgs e)
         {
+            textBoxOutPutFolder.Text = dv21_load.Properties.Settings.Default.GenerationFolder;
 
-           
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
-            if(textBoxOutPutFolder.Text !="")
+           
+            if (textBoxOutPutFolder.Text !="")
                 folderBrowserDialogProjectOutput.SelectedPath = textBoxOutPutFolder.Text;
             else
             {
@@ -47,6 +49,10 @@ namespace dv21
                 {
                     textBoxOutPutFolder.Text += @"\";
                 }
+
+                dv21_load.Properties.Settings.Default.GenerationFolder = textBoxOutPutFolder.Text;
+                dv21_load.Properties.Settings.Default.Save();
+
             }
         }
 
