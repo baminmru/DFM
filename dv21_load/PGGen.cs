@@ -85,6 +85,9 @@ namespace dv21
                 case "image":
                     return "bytea";
 
+                case "json":
+                    return "jsonb";
+
                 case "float":
                     return "numeric(18,8)";
 

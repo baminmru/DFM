@@ -90,6 +90,9 @@ namespace dv21
                 case "image":
                     return "bytea";
 
+                case "json":
+                    return "jsonb";
+
             }
             return "integer";
 

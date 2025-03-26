@@ -213,7 +213,8 @@ namespace dv21_ctl
             "double",
             "refid",
             "text",
-            "image"});
+            "image",
+            "json"});
             this.cmbType.Location = new System.Drawing.Point(8, 128);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(272, 21);

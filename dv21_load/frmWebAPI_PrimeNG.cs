@@ -2623,6 +2623,7 @@ namespace dv21
 
         }
 
+        /*
         private string MapBaseType(string dv21Type)
         {
             switch (dv21Type)
@@ -2664,6 +2665,8 @@ namespace dv21
                 case "image":
                     return "ImageBlob";
 
+                case "json":
+                    return "TextBlob";
 
                 case "float":
                     return "Float";
@@ -2676,10 +2679,11 @@ namespace dv21
 
 
             }
-            return "Integer";  /*  " + dv21Type +" */
+            return "Integer";  
 
 
         }
+        */
 
         private string SortType(dv21.FieldType f)
         {
@@ -2712,6 +2716,9 @@ namespace dv21
                     return "string";
 
                 case "text":
+                    return "string";
+
+                case "json":
                     return "string";
 
 
@@ -2778,6 +2785,9 @@ namespace dv21
                     return "scalar";
 
                 case "text":
+                    return "scalar";
+
+                case "json":
                     return "scalar";
 
 

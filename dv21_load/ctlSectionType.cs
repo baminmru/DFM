@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
+using static System.Collections.Specialized.BitVector32;
 
 namespace dv21_ctl
 {
@@ -30,6 +31,8 @@ namespace dv21_ctl
 		private bool inLoad;
         private CheckBox cbHistory;
         private CheckBox cbWHO;
+        private TextBox txtSequence;
+        private Label label6;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
@@ -86,6 +89,8 @@ namespace dv21_ctl
             this.cmbType = new System.Windows.Forms.ComboBox();
             this.cbHistory = new System.Windows.Forms.CheckBox();
             this.cbWHO = new System.Windows.Forms.CheckBox();
+            this.txtSequence = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -100,14 +105,15 @@ namespace dv21_ctl
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
-            this.cmb1Names.Location = new System.Drawing.Point(8, 237);
+            this.cmb1Names.Location = new System.Drawing.Point(3, 284);
             this.cmb1Names.Name = "cmb1Names";
             this.cmb1Names.Size = new System.Drawing.Size(224, 95);
             this.cmb1Names.TabIndex = 7;
+            this.cmb1Names.SelectedIndexChanged += new System.EventHandler(this.cmb1Names_SelectedIndexChanged);
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(8, 221);
+            this.label5.Location = new System.Drawing.Point(3, 268);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 29;
@@ -115,7 +121,7 @@ namespace dv21_ctl
             // 
             // cmd1Names
             // 
-            this.cmd1Names.Location = new System.Drawing.Point(240, 237);
+            this.cmd1Names.Location = new System.Drawing.Point(235, 284);
             this.cmd1Names.Name = "cmd1Names";
             this.cmd1Names.Size = new System.Drawing.Size(40, 24);
             this.cmd1Names.TabIndex = 8;
@@ -187,7 +193,7 @@ namespace dv21_ctl
             // cbHistory
             // 
             this.cbHistory.AutoSize = true;
-            this.cbHistory.Location = new System.Drawing.Point(8, 171);
+            this.cbHistory.Location = new System.Drawing.Point(6, 219);
             this.cbHistory.Name = "cbHistory";
             this.cbHistory.Size = new System.Drawing.Size(125, 17);
             this.cbHistory.TabIndex = 30;
@@ -198,7 +204,7 @@ namespace dv21_ctl
             // cbWHO
             // 
             this.cbWHO.AutoSize = true;
-            this.cbWHO.Location = new System.Drawing.Point(8, 194);
+            this.cbWHO.Location = new System.Drawing.Point(6, 242);
             this.cbWHO.Name = "cbWHO";
             this.cbWHO.Size = new System.Drawing.Size(80, 17);
             this.cbWHO.TabIndex = 31;
@@ -206,8 +212,27 @@ namespace dv21_ctl
             this.cbWHO.UseVisualStyleBackColor = true;
             this.cbWHO.CheckedChanged += new System.EventHandler(this.cbWHO_CheckedChanged);
             // 
+            // txtSequence
+            // 
+            this.txtSequence.Location = new System.Drawing.Point(8, 193);
+            this.txtSequence.Name = "txtSequence";
+            this.txtSequence.Size = new System.Drawing.Size(272, 20);
+            this.txtSequence.TabIndex = 33;
+            this.txtSequence.Text = "0";
+            this.txtSequence.TextChanged += new System.EventHandler(this.txtSequence_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(8, 177);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(96, 16);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "Порядок вывода";
+            // 
             // ctlSectionType
             // 
+            this.Controls.Add(this.txtSequence);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cbWHO);
             this.Controls.Add(this.cbHistory);
             this.Controls.Add(this.cmbType);
@@ -222,7 +247,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "ctlSectionType";
-            this.Size = new System.Drawing.Size(288, 374);
+            this.Size = new System.Drawing.Size(288, 401);
             this.Load += new System.EventHandler(this.ctlSectionType_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -305,6 +330,7 @@ namespace dv21_ctl
 					cmbType.Text=mSection.Type.ToString();
                     cbHistory.Checked = mSection.AddHistory;
                     cbWHO.Checked = mSection.AddWhoInfo;
+                    txtSequence.Text = mSection.Sequnce.ToString();
 
                     int i;
 					if (mSection.Name!=null)
@@ -334,6 +360,21 @@ namespace dv21_ctl
             if (!inLoad)
             {
                 mSection.AddWhoInfo = cbWHO.Checked;
+                UpdateNode();
+            }
+        }
+
+        private void cmb1Names_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSequence_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                mSection.SequnceSpecified = true;
+                mSection.Sequnce  = System.Convert.ToInt16( txtSequence.Text,10);
                 UpdateNode();
             }
         }

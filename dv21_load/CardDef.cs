@@ -696,6 +696,9 @@ namespace dv21 {
         
         /// <remarks/>
         image,
+        
+        /// <remarks/>
+        json,
     }
     
     /// <remarks/>
@@ -720,6 +723,10 @@ namespace dv21 {
         private SectionTypeType typeField;
         
         private string idField;
+        
+        private int sequnceField;
+        
+        private bool sequnceFieldSpecified;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("LocalizedString", IsNullable=false)]
@@ -806,6 +813,28 @@ namespace dv21 {
             }
             set {
                 this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int Sequnce {
+            get {
+                return this.sequnceField;
+            }
+            set {
+                this.sequnceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool SequnceSpecified {
+            get {
+                return this.sequnceFieldSpecified;
+            }
+            set {
+                this.sequnceFieldSpecified = value;
             }
         }
     }

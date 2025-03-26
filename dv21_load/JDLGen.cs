@@ -92,6 +92,9 @@ namespace dv21
                 case "fileid":
                     return "TextBlob";
 
+                case "json":
+                    return "TextBlob";
+
                 case "image":
                     return "ImageBlob";
 
