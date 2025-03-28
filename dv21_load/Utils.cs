@@ -181,8 +181,8 @@ namespace dv21_util
 
             
             int i;
-
-            for (i = 0; i < s.Field.Length; i++)
+            if (s.Field != null)
+                for (i = 0; i < s.Field.Length; i++)
             {
                 if (s.Field[i].NotNull && s.Field[i].UseforPK)
                     return true;
@@ -198,10 +198,13 @@ namespace dv21_util
         {
 
             int i;
-            for (i = 0; i < s.Field.Length; i++)
+            if (s.Field != null)
             {
-                if (s.Field[i].NotNull && s.Field[i].UseforPK)
-                    return s.Field[i];
+                for (i = 0; i < s.Field.Length; i++)
+                {
+                    if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                        return s.Field[i];
+                }
             }
             return null;
 
@@ -214,13 +217,16 @@ namespace dv21_util
             string idType = "int";
             dv21.SectionType p;
             int i;
-            
-            for (i = 0; i < s.Field.Length; i++)
+
+            if (s.Field != null)
             {
-                if (s.Field[i].NotNull && s.Field[i].UseforPK)
-                    return s.Field[i].Type.ToString();
+                for (i = 0; i < s.Field.Length; i++)
+                {
+                    if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                        return s.Field[i].Type.ToString();
 
 
+                }
             }
             return idType;
 
@@ -233,12 +239,15 @@ namespace dv21_util
             dv21.SectionType p;
             int i;
 
-            for (i = 0; i < s.Field.Length; i++)
+            if (s.Field != null)
             {
-                if (s.Field[i].NotNull && s.Field[i].UseforPK)
-                    return s.Field[i].Alias;
+                for (i = 0; i < s.Field.Length; i++)
+                {
+                    if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                        return s.Field[i].Alias;
 
 
+                }
             }
             return idName;
 
