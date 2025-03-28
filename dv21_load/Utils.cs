@@ -176,6 +176,76 @@ namespace dv21_util
         }
 
 
+        public static bool HasIDField(dv21.SectionType s)
+        {
+
+            
+            int i;
+
+            for (i = 0; i < s.Field.Length; i++)
+            {
+                if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                    return true;
+
+
+            }
+            return false;
+
+        }
+
+
+        public static dv21.FieldType  GetIDField(dv21.SectionType s)
+        {
+
+            int i;
+            for (i = 0; i < s.Field.Length; i++)
+            {
+                if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                    return s.Field[i];
+            }
+            return null;
+
+        }
+
+
+        public static string GetIDType( dv21.SectionType s)
+        {
+
+            string idType = "int";
+            dv21.SectionType p;
+            int i;
+            
+            for (i = 0; i < s.Field.Length; i++)
+            {
+                if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                    return s.Field[i].Type.ToString();
+
+
+            }
+            return idType;
+
+        }
+
+        public static string GetIDName(dv21.SectionType s)
+        {
+
+            string idName = "id";
+            dv21.SectionType p;
+            int i;
+
+            for (i = 0; i < s.Field.Length; i++)
+            {
+                if (s.Field[i].NotNull && s.Field[i].UseforPK)
+                    return s.Field[i].Alias;
+
+
+            }
+            return idName;
+
+        }
+
+
+
         public static List<dv21.CardDefinition> cards = null;
 
         public static dv21.SectionType ResolveReference(List<dv21.CardDefinition> cards, String ID) {

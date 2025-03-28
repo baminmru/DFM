@@ -133,7 +133,7 @@ namespace dv21
                             sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "_enum','','null','" + s.Field[i].Name[0].Value +"'");
 
                     }
-                    else if (s.Field[i].ReferenceSpecified)
+                    else if (s.Field[i].Reference)
                     {
                         CardDefinition refType = null;
                         SectionType refSection = null;

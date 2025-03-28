@@ -103,6 +103,14 @@ namespace dv21
         private void  MakeSectionType(dv21.SectionType s, dv21.SectionType s_parent)
         {
 
+
+            string idType = MapBaseType(MyUtils.GetIDType(s));
+            string idName = MyUtils.GetIDName(s);
+            string idTypeRef;
+            string idNameRef;
+
+            FieldType idFld = MyUtils.GetIDField(s);
+
             StringBuilder cc = new StringBuilder();
 
             sb.AppendLine(" -- start " + s.Alias.ToLower());
@@ -110,89 +118,108 @@ namespace dv21
             cc.AppendLine("COMMENT ON TABLE " + CurrentSchema  + s.Alias.ToLower() + " IS '" + s.Name[0].Value + "';");
 
             sb.AppendLine("CREATE TABLE IF NOT EXISTS  " + CurrentSchema  + s.Alias.ToLower() + "(");
-            sb.AppendLine("\t\tid integer PRIMARY KEY");
 
-            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema  + s.Alias.ToLower() + ".id IS '" + s.Name[0].Value + " первичный ключ';");
+           
+           
+            sb.AppendLine("\t\t" + idName + " "+ idType + " PRIMARY KEY");
+            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + idName + " IS '" + s.Name[0].Value + " первичный ключ';");
+           
+
+
 
 
             if (s_parent != null)
             {
-                sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_id integer not null");
+                sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_id " + idType + " not null");
 
-                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + " FOREIGN KEY(" + s_parent.Alias.ToLower() + "_id) REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (id);");
+                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + " FOREIGN KEY(" + s_parent.Alias.ToLower() + "_id) REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" +idName+ ");");
 
-                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema  + s.Alias.ToLower() + "."+ s_parent.Alias.ToLower()  + "_id IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s_parent.Alias.ToLower() + "_id IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
             }
 
             int i;
             if (s.Field != null) {
                 for (i = 0; i < s.Field.Length; i++)
                 {
-                    string pgtype = MapBaseType(s.Field[i].Type.ToString());
-                    cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
 
-
-                    if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
+                    if (s.Field[i].Alias != idName)
                     {
-                        enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
 
-                        int f;
-                        for (f = 0; f < s.Field[i].Enum.Length; f++)
+                        string pgtype = MapBaseType(s.Field[i].Type.ToString());
+                        cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
+
+
+                        if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
                         {
-                            if (f > 0) enums.Append(",");
-                            enums.AppendLine("'" + s.Field[i].Enum[f].Name + "'");
-                        }
-                        enums.AppendLine(");");
+                            enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
+
+                            int f;
+                            for (f = 0; f < s.Field[i].Enum.Length; f++)
+                            {
+                                if (f > 0) enums.Append(",");
+                                enums.AppendLine("'" + s.Field[i].Enum[f].Name + "'");
+                            }
+                            enums.AppendLine(");");
 
 
-                        if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum not null");
-                        else
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum");
-
-                    }
-                    else if (s.Field[i].ReferenceSpecified)
-                    {
-                        CardDefinition refType = null;
-                        SectionType refSection = null;
-                        string refSchema = "";
-
-                        refType = MyUtils.GetReferencedType(cd, s.Field[i].RefType);
-                        if (refType != null)
-                            refSection = MyUtils.GetReferencedSection(refType.Sections, s.Field[i].RefSection);
-
-                        if (refSection != null)
-                        {
-                            refSchema = refType.Schema.ToLower() + ".";
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null");
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum not null");
                             else
-                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype );
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum");
 
-                            fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s.Field[i].Alias.ToLower() + " FOREIGN KEY(" + s.Field[i].Alias.ToLower() + ") REFERENCES " + refSchema + refSection.Alias.ToLower() + " (id);");
+                        }
+                        else if (s.Field[i].Reference)
+                        {
+                            CardDefinition refType = null;
+                            SectionType refSection = null;
+                            string refSchema = "";
+
+
+
+                            refType = MyUtils.GetReferencedType(cd, s.Field[i].RefType);
+                            if (refType != null)
+                                refSection = MyUtils.GetReferencedSection(refType.Sections, s.Field[i].RefSection);
+
+                            if (refSection != null)
+                            {
+
+                                idTypeRef = MapBaseType(MyUtils.GetIDType(refSection));
+                                idNameRef = MyUtils.GetIDName(refSection);
+
+
+                                // тип колонки приведем к типу ключа таблицы на которую ссылаемся
+                                refSchema = refType.Schema.ToLower() + ".";
+                                if (s.Field[i].NotNull)
+                                    sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + idTypeRef + " not null");
+                                else
+                                    sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + idTypeRef);
+
+                                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s.Field[i].Alias.ToLower() + " FOREIGN KEY(" + s.Field[i].Alias.ToLower() + ") REFERENCES " + refSchema + refSection.Alias.ToLower() + " (" + idNameRef + ");");
+                            }
+                            else
+                            {
+                                // не удалось разрезолвить - значит просто поле
+                                if (s.Field[i].NotNull)
+                                    sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
+                                else
+                                    sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
+                            }
+
+                        }
+                        else if (s.Field[i].MaxSpecified)
+                        {
+                            if (s.Field[i].NotNull)
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ") not null");
+                            else
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ")");
                         }
                         else
                         {
-                            // не удалось разрезолвить - значит просто поле
                             if (s.Field[i].NotNull)
                                 sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
                             else
                                 sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
                         }
-
-                    } else if (s.Field[i].MaxSpecified)
-                    {
-                        if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ") not null");
-                        else
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "(" + s.Field[i].Max.ToString() + ")");
-                    }
-                    else
-                    {
-                        if (s.Field[i].NotNull)
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + " not null ");
-                        else
-                            sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
                     }
                 }
 
@@ -201,8 +228,8 @@ namespace dv21
 
             if (s.Type == dv21.SectionTypeType.tree)
             {
-                sb.AppendLine("\t\t," + s.Alias.ToLower() + "_parent_id int null references  " + CurrentSchema + s.Alias.ToLower() +"( id )" );
-                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_tree FOREIGN KEY(" + s.Alias.ToLower() + "_parent_id) REFERENCES " + CurrentSchema + s.Alias.ToLower() + " (id);");
+                sb.AppendLine("\t\t," + s.Alias.ToLower() + "_parent_id " + idType + " null "); 
+                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_tree FOREIGN KEY(" + s.Alias.ToLower() + "_parent_id) REFERENCES " + CurrentSchema + s.Alias.ToLower() + " (" + idName +");");
                 cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Alias.ToLower() + "_parent_id IS ' ссылка родителя в дереве ';");
             }
 

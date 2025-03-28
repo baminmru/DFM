@@ -118,6 +118,8 @@ namespace dv21
         {
 
 
+            string idType = MapBaseType( MyUtils.GetIDType(s) );
+
             sb.AppendLine(" // " + MyUtils.C1(s.Alias));
 
             sb.AppendLine(" /* " + s.Name[0].Value + " */");
@@ -140,7 +142,7 @@ namespace dv21
             if (s_parent != null)
             {
                 sb.AppendLine("/* " + MyUtils.C1(s_parent.Alias) + "id - ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "' */");
-                sb.AppendLine("/* \t\t" + MyUtils.C1(s_parent.Alias) + "Id Integer required */");
+                sb.AppendLine("/* \t\t" + MyUtils.C1(s_parent.Alias) + "Id " + idType +" required */");
 
 
                 i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s_parent.Alias) + "Id=ссылка на родительскую таблицу");
@@ -191,7 +193,7 @@ namespace dv21
                             sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + MyUtils.C1(s.Field[i].Alias) + "Enum ");
 
                     }
-                    else if (s.Field[i].ReferenceSpecified)
+                    else if (s.Field[i].Reference)
                     {
                         CardDefinition refType = null;
                         SectionType refSection = null;
@@ -223,7 +225,11 @@ namespace dv21
                         {
                             // не удалось разрезолвить - значит просто поле
                             if (s.Field[i].NotNull)
+                            {
+                                if (s.Field[i].UseforPK)
+                                    sb.AppendLine("\t\t@id");
                                 sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required ");
+                            }
                             else
                                 sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + "");
                         }
@@ -234,14 +240,22 @@ namespace dv21
                     else if (s.Field[i].MaxSpecified)
                     {
                         if (s.Field[i].NotNull)
+                        {
+                            if (s.Field[i].UseforPK)
+                                sb.AppendLine("\t\t@id");
                             sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " maxlength(" + s.Field[i].Max.ToString() + ") required");
+                        }
                         else
                             sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " maxlength(" + s.Field[i].Max.ToString() + ")");
                     }
                     else
                     {
                         if (s.Field[i].NotNull)
+                        {
+                            if (s.Field[i].UseforPK)
+                                sb.AppendLine("\t\t@id");
                             sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + " required ");
+                        }
                         else
                             sb.AppendLine("\t\t" + MyUtils.C1(s.Field[i].Alias) + " " + pgtype + "");
                     }
@@ -252,7 +266,7 @@ namespace dv21
 
             if (s.Type == dv21.SectionTypeType.tree)
             {
-                sb.AppendLine("/* \t\t" + MyUtils.C1(s.Alias) + "_parent Integer */");
+                sb.AppendLine("/* \t\t" + MyUtils.C1(s.Alias) + "_parent " + idType +" */");
                 i18n_ru.AppendLine(MyUtils.C1(s.Alias) + "." + MyUtils.C1(s.Alias) + "_parent=родитель в деореве");
 
                 fk.AppendLine("relationship OneToMany {");
