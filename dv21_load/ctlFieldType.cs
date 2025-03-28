@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
-
+using dv21_load;
 
 namespace dv21_ctl
 {
@@ -49,11 +49,15 @@ namespace dv21_ctl
         private Label label10;
         private CheckBox chkIsBrief;
         private Label label13;
+        private CheckBox chkUseForPK;
+        private Label label14;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
 		{
 			LastNode.Text=mField.Name[0].Value + "(" + mField.Name[0].Language + ")" ;
+            frmCard f = (frmCard)this.ParentForm;
+            f.Saved = false;
 		}
 
 		/// <summary> 
@@ -92,6 +96,8 @@ namespace dv21_ctl
 
 					chkNotNull.Checked =mField.NotNull;
                     chkIsBrief.Checked = mField.IsBrief;
+
+                    chkUseForPK.Checked =mField.UseforPK;
 
                     cmbType.Text = mField.Type.ToString();
 
@@ -182,6 +188,8 @@ namespace dv21_ctl
             this.label10 = new System.Windows.Forms.Label();
             this.chkIsBrief = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.chkUseForPK = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -193,7 +201,7 @@ namespace dv21_ctl
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Поле";
+            this.label1.Text = "РџРѕР»Рµ";
             // 
             // cmbType
             // 
@@ -227,29 +235,29 @@ namespace dv21_ctl
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Тип хранения";
+            this.label2.Text = "РўРёРї С…СЂР°РЅРµРЅРёСЏ";
             // 
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
-            this.cmb1Names.Location = new System.Drawing.Point(8, 530);
+            this.cmb1Names.Location = new System.Drawing.Point(15, 579);
             this.cmb1Names.Name = "cmb1Names";
-            this.cmb1Names.Size = new System.Drawing.Size(224, 95);
+            this.cmb1Names.Size = new System.Drawing.Size(278, 95);
             this.cmb1Names.TabIndex = 12;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(9, 511);
+            this.label5.Location = new System.Drawing.Point(16, 560);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 16);
+            this.label5.Size = new System.Drawing.Size(134, 16);
             this.label5.TabIndex = 26;
-            this.label5.Text = "Названия";
+            this.label5.Text = "РќР°Р·РІР°РЅРёСЏ";
             // 
             // cmd1Names
             // 
-            this.cmd1Names.Location = new System.Drawing.Point(238, 530);
+            this.cmd1Names.Location = new System.Drawing.Point(199, 549);
             this.cmd1Names.Name = "cmd1Names";
-            this.cmd1Names.Size = new System.Drawing.Size(40, 24);
+            this.cmd1Names.Size = new System.Drawing.Size(94, 24);
             this.cmd1Names.TabIndex = 28;
             this.cmd1Names.Text = "...";
             this.cmd1Names.Click += new System.EventHandler(this.cmd1Names_Click);
@@ -285,7 +293,7 @@ namespace dv21_ctl
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Идентификатор";
+            this.label4.Text = "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ";
             // 
             // label3
             // 
@@ -293,7 +301,7 @@ namespace dv21_ctl
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Псевдоним";
+            this.label3.Text = "РџСЃРµРІРґРѕРЅРёРј";
             // 
             // label6
             // 
@@ -301,7 +309,7 @@ namespace dv21_ctl
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(112, 16);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Размер";
+            this.label6.Text = "Р Р°Р·РјРµСЂ";
             // 
             // txtMax
             // 
@@ -317,7 +325,7 @@ namespace dv21_ctl
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 16);
             this.label7.TabIndex = 9;
-            this.label7.Text = "Обязательное";
+            this.label7.Text = "РћР±СЏР·Р°С‚РµР»СЊРЅРѕРµ";
             // 
             // chkNotNull
             // 
@@ -341,7 +349,7 @@ namespace dv21_ctl
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 16);
             this.label8.TabIndex = 14;
-            this.label8.Text = "Ссылка";
+            this.label8.Text = "РЎСЃС‹Р»РєР°";
             // 
             // label9
             // 
@@ -349,7 +357,7 @@ namespace dv21_ctl
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(272, 24);
             this.label9.TabIndex = 16;
-            this.label9.Text = "Тип, куда ссылаемся (ID)";
+            this.label9.Text = "РўРёРї, РєСѓРґР° СЃСЃС‹Р»Р°РµРјСЃСЏ (ID)";
             // 
             // txtRefType
             // 
@@ -405,7 +413,7 @@ namespace dv21_ctl
             // 
             this.txtLookup.Location = new System.Drawing.Point(9, 69);
             this.txtLookup.Name = "txtLookup";
-            this.txtLookup.Size = new System.Drawing.Size(260, 20);
+            this.txtLookup.Size = new System.Drawing.Size(224, 20);
             this.txtLookup.TabIndex = 25;
             this.txtLookup.TextChanged += new System.EventHandler(this.txtLookup_TextChanged);
             // 
@@ -415,7 +423,7 @@ namespace dv21_ctl
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(190, 17);
             this.label12.TabIndex = 24;
-            this.label12.Text = "Выражение для Lookup";
+            this.label12.Text = "Р’С‹СЂР°Р¶РµРЅРёРµ РґР»СЏ Lookup";
             // 
             // groupBox1
             // 
@@ -423,9 +431,9 @@ namespace dv21_ctl
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.chkLookup);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Location = new System.Drawing.Point(6, 397);
+            this.groupBox1.Location = new System.Drawing.Point(8, 437);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(287, 97);
+            this.groupBox1.Size = new System.Drawing.Size(285, 106);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Lookup";
@@ -440,12 +448,12 @@ namespace dv21_ctl
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.chkReference);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(6, 252);
+            this.groupBox2.Location = new System.Drawing.Point(8, 292);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(287, 139);
-            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ссылочное поле";
+            this.groupBox2.Text = "РЎСЃС‹Р»РѕС‡РЅРѕРµ РїРѕР»Рµ";
             // 
             // label10
             // 
@@ -453,7 +461,7 @@ namespace dv21_ctl
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(272, 16);
             this.label10.TabIndex = 19;
-            this.label10.Text = "Раздел, куда ссылаемся (ID)";
+            this.label10.Text = "Р Р°Р·РґРµР», РєСѓРґР° СЃСЃС‹Р»Р°РµРјСЃСЏ (ID)";
             // 
             // chkIsBrief
             // 
@@ -469,10 +477,28 @@ namespace dv21_ctl
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(179, 15);
             this.label13.TabIndex = 11;
-            this.label13.Text = "Краткое отображение";
+            this.label13.Text = "РљСЂР°С‚РєРѕРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ";
+            // 
+            // chkUseForPK
+            // 
+            this.chkUseForPK.Location = new System.Drawing.Point(210, 250);
+            this.chkUseForPK.Name = "chkUseForPK";
+            this.chkUseForPK.Size = new System.Drawing.Size(24, 16);
+            this.chkUseForPK.TabIndex = 14;
+            this.chkUseForPK.CheckedChanged += new System.EventHandler(this.chkUseForPK_CheckedChanged);
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(9, 251);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(179, 15);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР°Рє РєР»СЋС‡";
             // 
             // ctlFieldType
             // 
+            this.Controls.Add(this.chkUseForPK);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.chkIsBrief);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.groupBox2);
@@ -493,7 +519,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "ctlFieldType";
-            this.Size = new System.Drawing.Size(332, 664);
+            this.Size = new System.Drawing.Size(358, 691);
             this.Load += new System.EventHandler(this.ctlFieldType_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -692,6 +718,21 @@ namespace dv21_ctl
                 catch { }
                 UpdateNode();
             }
+        }
+
+        private void chkUseForPK_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                try
+                {
+                    mField.UseforPK = chkUseForPK.Checked;
+                    mField.UseforPKSpecified = chkUseForPK.Checked;
+                }
+                catch { }
+                UpdateNode();
+            }
+
         }
     }
 }

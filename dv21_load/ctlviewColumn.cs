@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
+using dv21_load;
 
 namespace dv21_ctl
 {
@@ -31,6 +32,8 @@ namespace dv21_ctl
 		private void UpdateNode()
 		{
 			LastNode.Text=  mColumn.Name[0].Value +"(" + mColumn.Name[0].Language + ")" ;
+            frmCard f = (frmCard)this.ParentForm;
+            f.Saved = false;
 		}
 		/// <summary> 
 		/// Required designer variable.
@@ -111,7 +114,7 @@ namespace dv21_ctl
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(224, 32);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Колонка ";
+			this.label1.Text = "РљРѕР»РѕРЅРєР° ";
 			// 
 			// cmb1Names
 			// 
@@ -127,7 +130,7 @@ namespace dv21_ctl
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(80, 16);
 			this.label5.TabIndex = 5;
-			this.label5.Text = "Названия";
+			this.label5.Text = "РќР°Р·РІР°РЅРёСЏ";
 			// 
 			// cmd1Names
 			// 
@@ -171,7 +174,7 @@ namespace dv21_ctl
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(88, 16);
 			this.label4.TabIndex = 2;
-			this.label4.Text = "Идентификатор";
+			this.label4.Text = "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ";
 			// 
 			// label3
 			// 
@@ -179,7 +182,7 @@ namespace dv21_ctl
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(96, 16);
 			this.label3.TabIndex = 0;
-			this.label3.Text = "Псевдоним";
+			this.label3.Text = "РџСЃРµРІРґРѕРЅРёРј";
 			// 
 			// ctlviewColumn
 			// 

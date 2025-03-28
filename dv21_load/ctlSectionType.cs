@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
+using dv21_load;
 using static System.Collections.Specialized.BitVector32;
 
 namespace dv21_ctl
@@ -38,6 +39,8 @@ namespace dv21_ctl
 		private void UpdateNode()
 		{
 			LastNode.Text=  mSection.Name[0].Value +"(" + mSection.Name[0].Language + ")" ;
+            frmCard f = (frmCard)this.ParentForm;
+            f.Saved = false;
 		}
 
 		/// <summary> 
@@ -100,7 +103,7 @@ namespace dv21_ctl
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(280, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Раздел";
+            this.label1.Text = "Р Р°Р·РґРµР»";
             // 
             // cmb1Names
             // 
@@ -117,7 +120,7 @@ namespace dv21_ctl
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 29;
-            this.label5.Text = "Названия";
+            this.label5.Text = "РќР°Р·РІР°РЅРёСЏ";
             // 
             // cmd1Names
             // 
@@ -159,7 +162,7 @@ namespace dv21_ctl
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Идентификатор";
+            this.label4.Text = "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ";
             // 
             // label3
             // 
@@ -167,7 +170,7 @@ namespace dv21_ctl
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Псевдоним";
+            this.label3.Text = "РџСЃРµРІРґРѕРЅРёРј";
             // 
             // label2
             // 
@@ -175,7 +178,7 @@ namespace dv21_ctl
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Тип";
+            this.label2.Text = "РўРёРї";
             // 
             // cmbType
             // 
@@ -197,7 +200,7 @@ namespace dv21_ctl
             this.cbHistory.Name = "cbHistory";
             this.cbHistory.Size = new System.Drawing.Size(125, 17);
             this.cbHistory.TabIndex = 30;
-            this.cbHistory.Text = "Исторические поля";
+            this.cbHistory.Text = "РСЃС‚РѕСЂРёС‡РµСЃРєРёРµ РїРѕР»СЏ";
             this.cbHistory.UseVisualStyleBackColor = true;
             this.cbHistory.CheckedChanged += new System.EventHandler(this.cbHistory_CheckedChanged);
             // 
@@ -208,7 +211,7 @@ namespace dv21_ctl
             this.cbWHO.Name = "cbWHO";
             this.cbWHO.Size = new System.Drawing.Size(80, 17);
             this.cbWHO.TabIndex = 31;
-            this.cbWHO.Text = "WHO поля";
+            this.cbWHO.Text = "WHO РїРѕР»СЏ";
             this.cbWHO.UseVisualStyleBackColor = true;
             this.cbWHO.CheckedChanged += new System.EventHandler(this.cbWHO_CheckedChanged);
             // 
@@ -226,7 +229,7 @@ namespace dv21_ctl
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 16);
             this.label6.TabIndex = 32;
-            this.label6.Text = "Порядок вывода";
+            this.label6.Text = "РџРѕСЂСЏРґРѕРє РІС‹РІРѕРґР°";
             // 
             // ctlSectionType
             // 

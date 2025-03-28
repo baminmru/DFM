@@ -26,7 +26,7 @@ namespace dv21_util
 		[STAThread]
 		static void Main() 
 		{
-			Application.Run(new Form2());
+			Application.Run(new frmCard());
 		}
 
 

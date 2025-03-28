@@ -79,7 +79,7 @@ namespace dv21_ctl
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(144, 24);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Перечисление";
+			this.label1.Text = "РџРµСЂРµС‡РёСЃР»РµРЅРёРµ";
 			// 
 			// txtValue
 			// 
@@ -96,7 +96,7 @@ namespace dv21_ctl
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(112, 16);
 			this.label6.TabIndex = 2;
-			this.label6.Text = "Значение";
+			this.label6.Text = "Р—РЅР°С‡РµРЅРёРµ";
 			// 
 			// txt1Alias
 			// 
@@ -113,7 +113,7 @@ namespace dv21_ctl
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(96, 16);
 			this.label3.TabIndex = 0;
-			this.label3.Text = "Имя";
+			this.label3.Text = "РРјСЏ";
 			// 
 			// ctlEnum
 			// 

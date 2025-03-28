@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
+using dv21_load;
 
 namespace dv21_ctl
 {
@@ -31,6 +32,8 @@ namespace dv21_ctl
 		private void UpdateNode()
 		{
 			LastNode.Text=  mView.Name[0].Value + " (" + mView.Name[0].Language + ")" ;
+            frmCard f = (frmCard)this.ParentForm;
+            f.Saved = false;
 		}
 
 
@@ -88,7 +91,7 @@ namespace dv21_ctl
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(184, 16);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Элемент просмотра";
+			this.label1.Text = "Р­Р»РµРјРµРЅС‚ РїСЂРѕСЃРјРѕС‚СЂР°";
 			// 
 			// cmb1Names
 			// 
@@ -131,7 +134,7 @@ namespace dv21_ctl
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(88, 16);
 			this.label4.TabIndex = 2;
-			this.label4.Text = "Идентификатор";
+			this.label4.Text = "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ";
 			// 
 			// label3
 			// 
@@ -139,7 +142,7 @@ namespace dv21_ctl
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(96, 16);
 			this.label3.TabIndex = 0;
-			this.label3.Text = "По умолчанию";
+			this.label3.Text = "РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ";
 			// 
 			// chkDefault
 			// 
@@ -155,7 +158,7 @@ namespace dv21_ctl
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(104, 16);
 			this.label2.TabIndex = 5;
-			this.label2.Text = "Названия";
+			this.label2.Text = "РќР°Р·РІР°РЅРёСЏ";
 			// 
 			// ctlViewElement
 			// 

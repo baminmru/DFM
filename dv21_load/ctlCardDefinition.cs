@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
+using dv21_load;
 
 namespace dv21_ctl
 {
@@ -123,7 +124,7 @@ namespace dv21_ctl
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Названия";
+            this.label5.Text = "РќР°Р·РІР°РЅРёСЏ";
             // 
             // cmd1Names
             // 
@@ -173,7 +174,7 @@ namespace dv21_ctl
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Идентификатор";
+            this.label4.Text = "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ";
             // 
             // label3
             // 
@@ -181,7 +182,7 @@ namespace dv21_ctl
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Псевдоним";
+            this.label3.Text = "РџСЃРµРІРґРѕРЅРёРј";
             // 
             // label2
             // 
@@ -189,7 +190,7 @@ namespace dv21_ctl
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 16);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Версия";
+            this.label2.Text = "Р’РµСЂСЃРёСЏ";
             // 
             // label1
             // 
@@ -198,7 +199,7 @@ namespace dv21_ctl
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(272, 16);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Общее описание";
+            this.label1.Text = "РћР±С‰РµРµ РѕРїРёСЃР°РЅРёРµ";
             // 
             // cmb1Names
             // 
@@ -215,7 +216,7 @@ namespace dv21_ctl
             this.cbSingleTone.Name = "cbSingleTone";
             this.cbSingleTone.Size = new System.Drawing.Size(139, 17);
             this.cbSingleTone.TabIndex = 12;
-            this.cbSingleTone.Text = "Единственный объект";
+            this.cbSingleTone.Text = "Р•РґРёРЅСЃС‚РІРµРЅРЅС‹Р№ РѕР±СЉРµРєС‚";
             this.cbSingleTone.UseVisualStyleBackColor = true;
             this.cbSingleTone.CheckedChanged += new System.EventHandler(this.cbSingleTone_CheckedChanged);
             // 
@@ -233,7 +234,7 @@ namespace dv21_ctl
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 16);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Схема";
+            this.label6.Text = "РЎС…РµРјР°";
             // 
             // ctlCardDefinition
             // 
@@ -270,6 +271,7 @@ namespace dv21_ctl
 		private void cmd1NewID_Click(object sender, System.EventArgs e)
 		{
 			txt1ID.Text = System.Guid.NewGuid().ToString();
+            UpdateNode();
 
 		}
 
@@ -282,7 +284,8 @@ namespace dv21_ctl
 				f.LString=	mcd.Name ;
 				f.InitList();
 				f.ShowDialog();
-				mcd.Name = f.LString; 
+				mcd.Name = f.LString;
+                UpdateNode();
 				int i;
 				cmb1Names.Items.Clear();
 				dv21.LocalizedStringsLocalizedString ls;
@@ -301,6 +304,7 @@ namespace dv21_ctl
 			if(!inLoad)
 			{
 					cd.Version =int.Parse( txt1version.Text);
+                    UpdateNode();
 			}
 		}
 
@@ -309,6 +313,7 @@ namespace dv21_ctl
 			if(!inLoad)
 			{
 				cd.Alias =txt1Alias.Text;
+                UpdateNode();
 			}
 		}
 
@@ -317,6 +322,7 @@ namespace dv21_ctl
 			if(!inLoad)
 			{
 				cd.ID =txt1ID.Text;
+                UpdateNode();
 			}
 		}
 
@@ -326,6 +332,8 @@ namespace dv21_ctl
             if (!inLoad)
             {
                 mcd.SingleTone = cbSingleTone.Checked;
+                
+                UpdateNode();
             }
 
         }
@@ -335,7 +343,15 @@ namespace dv21_ctl
             if (!inLoad)
             {
                 cd.Schema = txtSchema.Text;
+                UpdateNode();
             }
+            }
+
+
+        private void UpdateNode()
+        {
+            frmCard f = (frmCard)this.ParentForm;
+            f.Saved = false;
         }
     }
 }

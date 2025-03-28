@@ -21,7 +21,7 @@ namespace dv21_load
 	/// Summary description for Form2.
 	/// </summary>
 	/// 
-	public class Form2 : System.Windows.Forms.Form
+	public class frmCard : System.Windows.Forms.Form
 	{
 		private System.Windows.Forms.ImageList imageList1;
 		private System.ComponentModel.IContainer components;
@@ -109,15 +109,17 @@ namespace dv21_load
         private MenuItem mnuProjectFile;
         private MenuItem mnuNewProject;
         private string LastOpenFile;
+		public bool Saved;
 
 		
 
-		public Form2()
+		public frmCard()
 		{
 			
 			InitializeComponent();
 
 			LastOpenFile = "";
+			Saved = true;
 
 			if(File.Exists(Properties.Settings.Default.LastOpenProject))
 				MyUtils.ProjectFile = Properties.Settings.Default.LastOpenProject;
@@ -159,7 +161,7 @@ namespace dv21_load
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCard));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
@@ -636,7 +638,7 @@ namespace dv21_load
             // mnuSecsAddSec
             // 
             this.mnuSecsAddSec.Index = 0;
-            this.mnuSecsAddSec.Text = "Добавить раздел";
+            this.mnuSecsAddSec.Text = "Р”РѕР±Р°РІРёС‚СЊ СЂР°Р·РґРµР»";
             this.mnuSecsAddSec.Click += new System.EventHandler(this.mnuSecsAddSec_Click);
             // 
             // mnuSection
@@ -649,19 +651,19 @@ namespace dv21_load
             // mnuSecDel
             // 
             this.mnuSecDel.Index = 0;
-            this.mnuSecDel.Text = "Удалить";
+            this.mnuSecDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuSecDel.Click += new System.EventHandler(this.mnuSecDel_Click);
             // 
             // mnuSecAddFld
             // 
             this.mnuSecAddFld.Index = 1;
-            this.mnuSecAddFld.Text = "Добваить поле";
+            this.mnuSecAddFld.Text = "Р”РѕР±РІР°РёС‚СЊ РїРѕР»Рµ";
             this.mnuSecAddFld.Click += new System.EventHandler(this.mnuSecAddFld_Click);
             // 
             // mnuSecAddSec
             // 
             this.mnuSecAddSec.Index = 2;
-            this.mnuSecAddSec.Text = "Добавить раздел";
+            this.mnuSecAddSec.Text = "Р”РѕР±Р°РІРёС‚СЊ СЂР°Р·РґРµР»";
             this.mnuSecAddSec.Click += new System.EventHandler(this.mnuSecAddSec_Click);
             // 
             // mnuField
@@ -673,13 +675,13 @@ namespace dv21_load
             // mnuFldDel
             // 
             this.mnuFldDel.Index = 0;
-            this.mnuFldDel.Text = "Удалить поле";
+            this.mnuFldDel.Text = "РЈРґР°Р»РёС‚СЊ РїРѕР»Рµ";
             this.mnuFldDel.Click += new System.EventHandler(this.mnuFldDel_Click);
             // 
             // mnuFldAddEnum
             // 
             this.mnuFldAddEnum.Index = 1;
-            this.mnuFldAddEnum.Text = "Добавить возможные значения";
+            this.mnuFldAddEnum.Text = "Р”РѕР±Р°РІРёС‚СЊ РІРѕР·РјРѕР¶РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ";
             this.mnuFldAddEnum.Click += new System.EventHandler(this.mnuFldAddEnum_Click);
             // 
             // mnuEnum
@@ -691,7 +693,7 @@ namespace dv21_load
             // mnuEnumDel
             // 
             this.mnuEnumDel.Index = 0;
-            this.mnuEnumDel.Text = "Удалить";
+            this.mnuEnumDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuEnumDel.Click += new System.EventHandler(this.mnuEnumDel_Click);
             // 
             // mnuModes
@@ -702,7 +704,7 @@ namespace dv21_load
             // mnuModesAddMode
             // 
             this.mnuModesAddMode.Index = 0;
-            this.mnuModesAddMode.Text = "Добавить режим";
+            this.mnuModesAddMode.Text = "Р”РѕР±Р°РІРёС‚СЊ СЂРµР¶РёРј";
             this.mnuModesAddMode.Click += new System.EventHandler(this.mnuModesAddMode_Click);
             // 
             // mnuMode
@@ -714,13 +716,13 @@ namespace dv21_load
             // mnuModeDel
             // 
             this.mnuModeDel.Index = 0;
-            this.mnuModeDel.Text = "Удалить";
+            this.mnuModeDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuModeDel.Click += new System.EventHandler(this.mnuModeDel_Click);
             // 
             // mnuModeAddRestrict
             // 
             this.mnuModeAddRestrict.Index = 1;
-            this.mnuModeAddRestrict.Text = "Добавить ограничение";
+            this.mnuModeAddRestrict.Text = "Р”РѕР±Р°РІРёС‚СЊ РѕРіСЂР°РЅРёС‡РµРЅРёРµ";
             this.mnuModeAddRestrict.Click += new System.EventHandler(this.mnuModeAddRestrict_Click);
             // 
             // mnuRestrict
@@ -731,7 +733,7 @@ namespace dv21_load
             // mnuRestrictDel
             // 
             this.mnuRestrictDel.Index = 0;
-            this.mnuRestrictDel.Text = "Удалить";
+            this.mnuRestrictDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuRestrictDel.Click += new System.EventHandler(this.mnuRestrictDel_Click);
             // 
             // mnuActions
@@ -742,7 +744,7 @@ namespace dv21_load
             // mnuActionsAddAction
             // 
             this.mnuActionsAddAction.Index = 0;
-            this.mnuActionsAddAction.Text = "Добавить метод";
+            this.mnuActionsAddAction.Text = "Р”РѕР±Р°РІРёС‚СЊ РјРµС‚РѕРґ";
             this.mnuActionsAddAction.Click += new System.EventHandler(this.mnuActionsAddAction_Click);
             // 
             // mnuAction
@@ -754,7 +756,7 @@ namespace dv21_load
             // mnuActionDel
             // 
             this.mnuActionDel.Index = 0;
-            this.mnuActionDel.Text = "Удалить";
+            this.mnuActionDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuActionDel.Click += new System.EventHandler(this.mnuActionDel_Click);
             // 
             // mnuViews
@@ -765,7 +767,7 @@ namespace dv21_load
             // mnuViewsAddView
             // 
             this.mnuViewsAddView.Index = 0;
-            this.mnuViewsAddView.Text = "Добавить представление";
+            this.mnuViewsAddView.Text = "Р”РѕР±Р°РІРёС‚СЊ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ";
             this.mnuViewsAddView.Click += new System.EventHandler(this.mnuViewsAddView_Click);
             // 
             // mnuView
@@ -777,13 +779,13 @@ namespace dv21_load
             // mnuViewDel
             // 
             this.mnuViewDel.Index = 0;
-            this.mnuViewDel.Text = "Удалить";
+            this.mnuViewDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuViewDel.Click += new System.EventHandler(this.mnuViewDel_Click);
             // 
             // mnuViewAddcolumn
             // 
             this.mnuViewAddcolumn.Index = 1;
-            this.mnuViewAddcolumn.Text = "Добавить  колонку";
+            this.mnuViewAddcolumn.Text = "Р”РѕР±Р°РІРёС‚СЊ  РєРѕР»РѕРЅРєСѓ";
             this.mnuViewAddcolumn.Click += new System.EventHandler(this.mnuViewAddcolumn_Click);
             // 
             // mnuColumn
@@ -794,7 +796,7 @@ namespace dv21_load
             // mnuColumnDel
             // 
             this.mnuColumnDel.Index = 0;
-            this.mnuColumnDel.Text = "Удалить";
+            this.mnuColumnDel.Text = "РЈРґР°Р»РёС‚СЊ";
             this.mnuColumnDel.Click += new System.EventHandler(this.mnuColumnDel_Click);
             // 
             // dlgSaveXSD
@@ -921,14 +923,14 @@ namespace dv21_load
 
             MyTreeNode n, n2,n3; 
 			int i,j;
-			tvStruct.Nodes.Clear(); 
+			tvStruct.Nodes.Clear();
 
-			n = new MyTreeNode("Общая информация",0,0);	
-			tvStruct.Nodes.Add(n);
+            n = new MyTreeNode("РћР±С‰Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ", 0, 0);
+            tvStruct.Nodes.Add(n);
 			if (cd == null) return;
 			n.BoundObject =cd;		
 
-			n = new MyTreeNode("Разделы",1,1);	
+			n = new MyTreeNode("Р Р°Р·РґРµР»С‹",1,1);	
 			tvStruct.Nodes.Add(n);
 			
 			if(cd.Sections != null){
@@ -937,7 +939,7 @@ namespace dv21_load
 				LoadSection(cd.Sections, n);
 			}
 
-			n = new MyTreeNode("Элементы просмотра",2,2);	
+			n = new MyTreeNode("Р­Р»РµРјРµРЅС‚С‹ РїСЂРѕСЃРјРѕС‚СЂР°",2,2);	
 			tvStruct.Nodes.Add(n);
 			n.BoundObject =cd.ViewElements;
 			n.NodeContextMenu= mnuViews ;
@@ -978,7 +980,7 @@ namespace dv21_load
 				}
 			}
 
-			n = new MyTreeNode("Методы",3,3);	
+			n = new MyTreeNode("РњРµС‚РѕРґС‹",3,3);	
 			tvStruct.Nodes.Add(n);
 			n.BoundObject =cd.Actions;
 			n.NodeContextMenu = mnuActions; 
@@ -1001,7 +1003,7 @@ namespace dv21_load
 			}
 
 
-			n = new MyTreeNode("Режимы",4,4);	
+			n = new MyTreeNode("Р РµР¶РёРјС‹",4,4);	
 			tvStruct.Nodes.Add(n);
 			n.BoundObject =cd.Modes;
 			n.NodeContextMenu=mnuModes;
@@ -1085,6 +1087,7 @@ namespace dv21_load
 
 					MyUtils.SerializeObject(LastOpenFile, cd);
                     MyUtils.LoadCards();
+					Saved = true;
                 }
 				catch { }
 			}
@@ -1109,6 +1112,8 @@ namespace dv21_load
 					LastOpenFile = dlgSave.FileName;
 					this.Text = "LIB: " + MyUtils.ProjectFile + " Card:" + LastOpenFile;
 					MyUtils.LoadCards();
+					Saved = true;
+
 				}
             }
             catch { }
@@ -1127,6 +1132,7 @@ namespace dv21_load
 			cd.Sections[0].Name[0] = new LocalizedStringsLocalizedString();
 
             ReloadTree(cd);
+			Saved = false;
 		}
 
 		private void mnuLoadData_Click(object sender, System.EventArgs e)
@@ -1139,7 +1145,7 @@ namespace dv21_load
 				
 				cd.Name[0]= new dv21.LocalizedStringsLocalizedString();
 				cd.Name[0].Language ="ru";
-				cd.Name[0].Value ="Карточка" ;
+				cd.Name[0].Value ="РљР°СЂС‚РѕС‡РєР°" ;
 
 				cd.Name[1]= new dv21.LocalizedStringsLocalizedString();
 				cd.Name[1].Language ="en";
@@ -1149,7 +1155,7 @@ namespace dv21_load
 				cd.Version =1;
 
 
-				// разделы
+				// СЂР°Р·РґРµР»С‹
 				cd.Sections= new dv21.SectionType[10]; 
 
 				int i,j;
@@ -1162,7 +1168,7 @@ namespace dv21_load
 					cd.Sections[i].Name = new dv21.LocalizedStringsLocalizedString[1];
 					cd.Sections[i].Name[0]= new dv21.LocalizedStringsLocalizedString();
 					cd.Sections[i].Name[0].Language ="ru";
-					cd.Sections[i].Name[0].Value ="Раздел " +i ;
+					cd.Sections[i].Name[0].Value ="Р Р°Р·РґРµР» " +i ;
 
 
 					cd.Sections[i].Field = new dv21.FieldType[10]; 
@@ -1191,13 +1197,13 @@ namespace dv21_load
 						cd.Sections[i].Field[j].Name = new dv21.LocalizedStringsLocalizedString[1];
 						cd.Sections[i].Field[j].Name[0]= new dv21.LocalizedStringsLocalizedString();
 						cd.Sections[i].Field[j].Name[0].Language ="ru";
-						cd.Sections[i].Field[j].Name[0].Value ="Поле " +j ;
+						cd.Sections[i].Field[j].Name[0].Value ="РџРѕР»Рµ " +j ;
 						cd.Sections[i].Field[j].NotNull = (j%2==1?true:false);
 						cd.Sections[i].Field[j].NotNullSpecified =true;
 					}
 				}
 					
-				// элементы представления
+				// СЌР»РµРјРµРЅС‚С‹ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ
 				cd.ViewElements=new dv21.ViewElementType[1];
 				cd.ViewElements[0]= new dv21.ViewElementType();
 				cd.ViewElements[0].ID = System.Guid.NewGuid().ToString();
@@ -1214,15 +1220,15 @@ namespace dv21_load
 					cd.ViewElements[0].Columns[j].Name = new dv21.LocalizedStringsLocalizedString[1];
 					cd.ViewElements[0].Columns[j].Name[0]= new dv21.LocalizedStringsLocalizedString();
 					cd.ViewElements[0].Columns[j].Name[0].Language ="ru";
-					cd.ViewElements[0].Columns[j].Name[0].Value ="Колонка " +j;
+					cd.ViewElements[0].Columns[j].Name[0].Value ="РљРѕР»РѕРЅРєР° " +j;
 				}
 
 				cd.ViewElements[0].Name = new dv21.LocalizedStringsLocalizedString[1];
 				cd.ViewElements[0].Name[0]= new dv21.LocalizedStringsLocalizedString();
 				cd.ViewElements[0].Name[0].Language ="ru";
-				cd.ViewElements[0].Name[0].Value ="Основной вид";
+				cd.ViewElements[0].Name[0].Value ="РћСЃРЅРѕРІРЅРѕР№ РІРёРґ";
 
-				// действия
+				// РґРµР№СЃС‚РІРёСЏ
 
 				cd.Actions = new dv21.ActionType[5];
 				for(i=0;i<5;i++)
@@ -1232,11 +1238,11 @@ namespace dv21_load
 					cd.Actions[i].Name = new dv21.LocalizedStringsLocalizedString[1];
 					cd.Actions[i].Name[0]= new dv21.LocalizedStringsLocalizedString();
 					cd.Actions[i].Name[0].Language ="ru";
-					cd.Actions[i].Name[0].Value ="Действие " +i;
+					cd.Actions[i].Name[0].Value ="Р”РµР№СЃС‚РІРёРµ " +i;
 
 				}
 
-				// режимы
+				// СЂРµР¶РёРјС‹
 				cd.Modes=new dv21.ModeType[1];
 				cd.Modes[0]= new dv21.ModeType();
 				cd.Modes[0].ID = System.Guid.NewGuid().ToString();
@@ -1246,9 +1252,9 @@ namespace dv21_load
 				cd.Modes[0].Name = new dv21.LocalizedStringsLocalizedString[1];
 				cd.Modes[0].Name[0]= new dv21.LocalizedStringsLocalizedString();
 				cd.Modes[0].Name[0].Language ="ru";
-				cd.Modes[0].Name[0].Value ="По умолчанию";
+				cd.Modes[0].Name[0].Value ="РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ";
 
-				// ограничение
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				cd.Modes[0].Restrict =new dv21.ModeTypeRestrict[1];
 				cd.Modes[0].Restrict[0] =new dv21.ModeTypeRestrict();
 				cd.Modes[0].Restrict[0].Type=dv21.ModeTypeRestrictType.section ;
@@ -1265,8 +1271,9 @@ namespace dv21_load
 			}
 
     		ReloadTree(cd);
-			
-		}
+            Saved = false;
+
+        }
 
 		private void prop_Click(object sender, System.EventArgs e)
 		{
@@ -1408,17 +1415,20 @@ namespace dv21_load
 
 		private void Form2_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			System.Windows.Forms.DialogResult  b=
-				System.Windows.Forms.MessageBox.Show("Save changes befor exit?","Closing...",System.Windows.Forms.MessageBoxButtons.YesNoCancel,System.Windows.Forms.MessageBoxIcon.Question);
- 
-			if (b == System.Windows.Forms.DialogResult.Yes)
-			{ 
-				mnuSave_Click(sender,e);
-				
-			}
-			if (b == System.Windows.Forms.DialogResult.Cancel )
-			{ 
-				e.Cancel =true;
+			if (Saved == false)
+			{
+				System.Windows.Forms.DialogResult b =
+					System.Windows.Forms.MessageBox.Show("Save changes befor exit?", "Closing...", System.Windows.Forms.MessageBoxButtons.YesNoCancel, System.Windows.Forms.MessageBoxIcon.Question);
+
+				if (b == System.Windows.Forms.DialogResult.Yes)
+				{
+					mnuSave_Click(sender, e);
+
+				}
+				if (b == System.Windows.Forms.DialogResult.Cancel)
+				{
+					e.Cancel = true;
+				}
 			}
 		}
 
@@ -1459,6 +1469,7 @@ namespace dv21_load
 			
 			ft.Enum = (FieldTypeEnum[])MyUtils.Remove(ft.Enum , LastNode.BoundObject,new FieldTypeEnum[ft.Enum.Length-1]);  
 			ReloadTree(ft);
+			Saved = false;
 		}
 
 		
@@ -1505,14 +1516,16 @@ namespace dv21_load
 							sta=(SectionType[])pnode.BoundObject;
 							cd.Sections=(SectionType[])MyUtils.Remove(sta,st,new SectionType[sta.Length -1]);	
 					        ReloadTree(cd.Sections);
-							break;
+                            Saved = false;
+                            break;
 
 						case "dv21.SectionType":
 							
 							sta=((SectionType)pnode.BoundObject).Section ;
 							((SectionType)pnode.BoundObject).Section =(SectionType[])MyUtils.Remove(sta,st,new SectionType[sta.Length -1]);	
 							ReloadTree(pnode.BoundObject);
-							break;
+                            Saved = false;
+                            break;
 					}
 					
 
@@ -1528,7 +1541,7 @@ namespace dv21_load
 			st.Name = new LocalizedStringsLocalizedString[1];
 			st.Name[0]=new LocalizedStringsLocalizedString();
 			st.Name[0].Language="ru";
-			st.Name[0].Value="Название";
+			st.Name[0].Value="РќР°Р·РІР°РЅРёРµ";
 			stp =(SectionType)LastNode.BoundObject; 
 			if (stp.Section ==null)
 			{
@@ -1549,7 +1562,7 @@ namespace dv21_load
 			ft.Name = new LocalizedStringsLocalizedString[1];
 			ft.Name[0]=new LocalizedStringsLocalizedString();
 			ft.Name[0].Language="ru";
-			ft.Name[0].Value="Название";
+			ft.Name[0].Value="РќР°Р·РІР°РЅРёРµ";
 
 			stp =(SectionType)LastNode.BoundObject; 
 			if (stp.Field  ==null)
@@ -1575,8 +1588,9 @@ namespace dv21_load
 				sta=((SectionType)pnode.BoundObject) ;
 				sta.Field  =(FieldType[])MyUtils.Remove(sta.Field,ft,new FieldType[sta.Field.Length -1]);	
 				ReloadTree(sta);
+                Saved = false;
 
-			}
+            }
 			catch{}
 		}
 
@@ -1703,7 +1717,8 @@ namespace dv21_load
 			{
 				cd.Actions=(ActionType[])MyUtils.Remove(cd.Actions,st,new ActionType[cd.Actions.Length -1]);	
 				ReloadTree(cd.Actions);
-			}
+                Saved = false;
+            }
 		}
 
 		private void mnuViewDel_Click(object sender, System.EventArgs e)
@@ -1713,7 +1728,8 @@ namespace dv21_load
 			{
 				cd.ViewElements =(ViewElementType[])MyUtils.Remove(cd.ViewElements,st,new ViewElementType[cd.ViewElements.Length -1]);	
 				ReloadTree(cd.ViewElements);
-			}
+                Saved = false;
+            }
 
 		}
 
@@ -1724,7 +1740,8 @@ namespace dv21_load
 			{
 				cd.Modes =(ModeType[])MyUtils.Remove(cd.Modes,st,new ModeType[cd.Modes.Length -1]);	
 				ReloadTree(cd.Modes);
-			}
+                Saved = false;
+            }
 		
 
 		}
@@ -1762,7 +1779,8 @@ namespace dv21_load
 			{
 				st.Restrict=(ModeTypeRestrict[])MyUtils.Remove( st.Restrict  ,r, new ModeTypeRestrict[st.Restrict.Length-1]);
 				ReloadTree(r);
-			}
+                Saved = false;
+            }
 
 		}
 
@@ -1801,7 +1819,8 @@ namespace dv21_load
 			{
 				st.Columns =(ViewColumnType[])MyUtils.Remove( st.Columns  ,r, new ViewColumnType[st.Columns.Length-1]);
 				ReloadTree(r);
-			}
+                Saved = false;
+            }
 		}
 
 		private void mnuConvertToXSD_Click(object sender, System.EventArgs e)
@@ -1852,7 +1871,7 @@ namespace dv21_load
 			}
 			result +="\r\n}";
 			Clipboard.SetDataObject(result,true);
-			System.Windows.Forms.MessageBox.Show(this,"Константы загружены в буфер обмена","C#"); 
+			System.Windows.Forms.MessageBox.Show(this,"РљРѕРЅСЃС‚Р°РЅС‚С‹ Р·Р°РіСЂСѓР¶РµРЅС‹ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°","C#"); 
 		}
 
 		private string ProcessSection(dv21.SectionType  s, string dialect)
@@ -1967,7 +1986,7 @@ namespace dv21_load
 				}
 			}
 			Clipboard.SetDataObject(result,true);
-			System.Windows.Forms.MessageBox.Show(this,"Константы загружены в буфер обмена","VB"); 
+			System.Windows.Forms.MessageBox.Show(this,"РљРѕРЅСЃС‚Р°РЅС‚С‹ Р·Р°РіСЂСѓР¶РµРЅС‹ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°","VB"); 
 		}
 
 		private void mnuConst_CPP_Click(object sender, System.EventArgs e)
@@ -1987,7 +2006,7 @@ namespace dv21_load
 			}
 			result +="\r\n}";
 			Clipboard.SetDataObject(result,true);
-			System.Windows.Forms.MessageBox.Show(this,"Константы загружены в буфер обмена","C++"); 		}
+			System.Windows.Forms.MessageBox.Show(this,"РљРѕРЅСЃС‚Р°РЅС‚С‹ Р·Р°РіСЂСѓР¶РµРЅС‹ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°","C++"); 		}
 
 		private void mnuTypeLib_Click(object sender, System.EventArgs e)
 		{

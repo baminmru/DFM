@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using dv21;
 using dv21_util;
 using dv21_ls;
+using dv21_load;
 
 namespace dv21_ctl
 {
@@ -27,7 +28,9 @@ namespace dv21_ctl
 		public MyTreeNode LastNode;
 
 		private void UpdateNode(){
-			LastNode.Text=mAction.Name[0].Value + "(" + mAction.Name[0].Language + ")";  
+			LastNode.Text=mAction.Name[0].Value + "(" + mAction.Name[0].Language + ")";
+			frmCard f = (frmCard)this.ParentForm;
+			f.Saved = false;
 		}
 
 		/// <summary> 
@@ -81,7 +84,7 @@ namespace dv21_ctl
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(144, 24);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "Операция";
+			this.label1.Text = "РћРїРµСЂР°С†РёСЏ";
 			// 
 			// cmb1Names
 			// 
@@ -124,7 +127,7 @@ namespace dv21_ctl
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(88, 16);
 			this.label4.TabIndex = 0;
-			this.label4.Text = "Идентификатор";
+			this.label4.Text = "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ";
 			// 
 			// label2
 			// 
@@ -133,7 +136,7 @@ namespace dv21_ctl
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(152, 16);
 			this.label2.TabIndex = 5;
-			this.label2.Text = "Названия";
+			this.label2.Text = "РќР°Р·РІР°РЅРёСЏ";
 			// 
 			// ctlAction
 			// 
