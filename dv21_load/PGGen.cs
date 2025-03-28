@@ -1,4 +1,4 @@
-﻿using dv21_util;
+using dv21_util;
 using dv21_xsd;
 using System;
 using System.Collections.Generic;
@@ -130,11 +130,15 @@ namespace dv21
 
             if (s_parent != null)
             {
-                sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_id " + idType + " not null");
 
-                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + " FOREIGN KEY(" + s_parent.Alias.ToLower() + "_id) REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" +idName+ ");");
+                idTypeRef = MapBaseType(MyUtils.GetIDType(s_parent));
+                idNameRef = MyUtils.GetIDName(s_parent);
 
-                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s_parent.Alias.ToLower() + "_id IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
+                sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_" +idNameRef+ " " + idTypeRef + " not null");
+
+                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + " FOREIGN KEY(" + s_parent.Alias.ToLower() + "_" + idNameRef + ") REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" +idNameRef+ ");");
+
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s_parent.Alias.ToLower() + "_" + idNameRef + " IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
             }
 
             int i;
