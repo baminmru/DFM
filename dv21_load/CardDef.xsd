@@ -56,6 +56,7 @@
 		</xs:sequence>
 		<xs:attribute name="Alias" type="xs:string" use="required"/>
 		<xs:attribute name="ID" type="xs:string" use="required"/>
+    
 		<xs:attribute name="Type" use="required">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
@@ -79,6 +80,7 @@
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute name="Max" type="xs:int" use="optional"/>
+    <xs:attribute name="UseforPK" type="xs:boolean" use="optional"/>
 		<xs:attribute name="NotNull" type="xs:boolean" use="optional"/>
     <xs:attribute name="IsBrief" type="xs:boolean" use="optional"/>
 		<xs:attribute name="Reference" type="xs:boolean" use="optional"/>

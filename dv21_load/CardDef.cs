@@ -390,6 +390,10 @@ namespace dv21 {
         
         private bool maxFieldSpecified;
         
+        private bool useforPKField;
+        
+        private bool useforPKFieldSpecified;
+        
         private bool notNullField;
         
         private bool notNullFieldSpecified;
@@ -486,6 +490,28 @@ namespace dv21 {
             }
             set {
                 this.maxFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool UseforPK {
+            get {
+                return this.useforPKField;
+            }
+            set {
+                this.useforPKField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool UseforPKSpecified {
+            get {
+                return this.useforPKFieldSpecified;
+            }
+            set {
+                this.useforPKFieldSpecified = value;
             }
         }
         
