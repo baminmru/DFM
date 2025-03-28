@@ -51,6 +51,7 @@ namespace dv21_ctl
         private Label label13;
         private CheckBox chkUseForPK;
         private Label label14;
+        private TextBox txtRefName;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
@@ -112,11 +113,14 @@ namespace dv21_ctl
                     {
                         txtRefType.Text = mField.RefType;
                         txtRefSection.Text = mField.RefSection;
+                        UpdateRefName();
+
                     }
                     else
                     {
                         txtRefType.Text = "";
                         txtRefSection.Text = "";
+                        txtRefName.Text = "";
                     }
 
                         int i;
@@ -190,6 +194,7 @@ namespace dv21_ctl
             this.label13 = new System.Windows.Forms.Label();
             this.chkUseForPK = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.txtRefName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -240,14 +245,14 @@ namespace dv21_ctl
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
-            this.cmb1Names.Location = new System.Drawing.Point(15, 579);
+            this.cmb1Names.Location = new System.Drawing.Point(8, 596);
             this.cmb1Names.Name = "cmb1Names";
-            this.cmb1Names.Size = new System.Drawing.Size(278, 95);
+            this.cmb1Names.Size = new System.Drawing.Size(285, 95);
             this.cmb1Names.TabIndex = 12;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(16, 560);
+            this.label5.Location = new System.Drawing.Point(9, 577);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(134, 16);
             this.label5.TabIndex = 26;
@@ -255,7 +260,7 @@ namespace dv21_ctl
             // 
             // cmd1Names
             // 
-            this.cmd1Names.Location = new System.Drawing.Point(199, 549);
+            this.cmd1Names.Location = new System.Drawing.Point(199, 566);
             this.cmd1Names.Name = "cmd1Names";
             this.cmd1Names.Size = new System.Drawing.Size(94, 24);
             this.cmd1Names.TabIndex = 28;
@@ -337,7 +342,7 @@ namespace dv21_ctl
             // 
             // chkReference
             // 
-            this.chkReference.Location = new System.Drawing.Point(204, 20);
+            this.chkReference.Location = new System.Drawing.Point(200, 19);
             this.chkReference.Name = "chkReference";
             this.chkReference.Size = new System.Drawing.Size(24, 16);
             this.chkReference.TabIndex = 15;
@@ -403,7 +408,7 @@ namespace dv21_ctl
             // 
             // chkLookup
             // 
-            this.chkLookup.Location = new System.Drawing.Point(207, 25);
+            this.chkLookup.Location = new System.Drawing.Point(200, 25);
             this.chkLookup.Name = "chkLookup";
             this.chkLookup.Size = new System.Drawing.Size(24, 16);
             this.chkLookup.TabIndex = 23;
@@ -431,7 +436,7 @@ namespace dv21_ctl
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.chkLookup);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Location = new System.Drawing.Point(8, 437);
+            this.groupBox1.Location = new System.Drawing.Point(8, 454);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(285, 106);
             this.groupBox1.TabIndex = 22;
@@ -440,6 +445,7 @@ namespace dv21_ctl
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtRefName);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.cmdRefType);
             this.groupBox2.Controls.Add(this.cmdStructID);
@@ -448,9 +454,9 @@ namespace dv21_ctl
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.chkReference);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(8, 292);
+            this.groupBox2.Location = new System.Drawing.Point(8, 272);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 139);
+            this.groupBox2.Size = new System.Drawing.Size(287, 176);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ссылочное поле";
@@ -494,6 +500,14 @@ namespace dv21_ctl
             this.label14.Size = new System.Drawing.Size(179, 15);
             this.label14.TabIndex = 13;
             this.label14.Text = "Использовать как ключ";
+            // 
+            // txtRefName
+            // 
+            this.txtRefName.Location = new System.Drawing.Point(6, 150);
+            this.txtRefName.Name = "txtRefName";
+            this.txtRefName.ReadOnly = true;
+            this.txtRefName.Size = new System.Drawing.Size(267, 20);
+            this.txtRefName.TabIndex = 22;
             // 
             // ctlFieldType
             // 
@@ -661,9 +675,27 @@ namespace dv21_ctl
 			if(f.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				txtRefSection.Text = f.ID;
-			}
+                UpdateRefName();
+            }
 
 		}
+
+        private void UpdateRefName()
+        {
+            dv21.CardDefinition refT = MyUtils.GetReferencedType(null, txtRefType.Text);
+            dv21.SectionType refS = MyUtils.ResolveReference(MyUtils.cards, txtRefSection.Text);
+            txtRefName.Text = "";
+            if (refT != null)
+                txtRefName.Text = refT.Alias;
+
+            if (refS != null)
+            {
+                string idName = MyUtils.GetIDName(refS);
+                txtRefName.Text += " :: " + refS.Alias +"." + idName;
+            }
+                
+        }
+
 
 		private void cmdRefType_Click(object sender, System.EventArgs e)
 		{
@@ -672,8 +704,13 @@ namespace dv21_ctl
 			if(f.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				txtRefType.Text = f.ID;
-			}
-		}
+                UpdateRefName();
+            }
+           
+
+
+
+        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {

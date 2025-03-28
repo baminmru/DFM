@@ -688,8 +688,9 @@ namespace dv21_util
         public static CardDefinition GetReferencedType(CardDefinition cd, string RefType)
         {
 
-            if (cd.ID == RefType)
-                return cd;
+            if(cd != null)
+                if (cd.ID == RefType)
+                    return cd;
 
             CardDefinition refCD;
 
