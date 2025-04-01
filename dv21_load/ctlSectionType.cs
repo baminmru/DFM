@@ -34,6 +34,8 @@ namespace dv21_ctl
         private CheckBox cbWHO;
         private TextBox txtSequence;
         private Label label6;
+        private Label label16;
+        private TextBox txtDocumentation;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
@@ -94,6 +96,8 @@ namespace dv21_ctl
             this.cbWHO = new System.Windows.Forms.CheckBox();
             this.txtSequence = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtDocumentation = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -231,8 +235,29 @@ namespace dv21_ctl
             this.label6.TabIndex = 32;
             this.label6.Text = "Порядок вывода";
             // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(6, 391);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(134, 16);
+            this.label16.TabIndex = 35;
+            this.label16.Text = "Комментарий";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
+            // 
+            // txtDocumentation
+            // 
+            this.txtDocumentation.Location = new System.Drawing.Point(4, 410);
+            this.txtDocumentation.Multiline = true;
+            this.txtDocumentation.Name = "txtDocumentation";
+            this.txtDocumentation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDocumentation.Size = new System.Drawing.Size(276, 83);
+            this.txtDocumentation.TabIndex = 34;
+            this.txtDocumentation.TextChanged += new System.EventHandler(this.txtDocumentation_TextChanged);
+            // 
             // ctlSectionType
             // 
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.txtDocumentation);
             this.Controls.Add(this.txtSequence);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbWHO);
@@ -249,7 +274,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "ctlSectionType";
-            this.Size = new System.Drawing.Size(288, 401);
+            this.Size = new System.Drawing.Size(288, 518);
             this.Load += new System.EventHandler(this.ctlSectionType_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -333,6 +358,7 @@ namespace dv21_ctl
                     cbHistory.Checked = mSection.AddHistory;
                     cbWHO.Checked = mSection.AddWhoInfo;
                     txtSequence.Text = mSection.Sequnce.ToString();
+                    txtDocumentation.Text = mSection.Documentation;
 
                     int i;
 					if (mSection.Name!=null)
@@ -388,6 +414,20 @@ namespace dv21_ctl
                 
                 UpdateNode();
             }
+        }
+
+        private void txtDocumentation_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                mSection.Documentation = txtDocumentation.Text;
+                UpdateNode();
+            }
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

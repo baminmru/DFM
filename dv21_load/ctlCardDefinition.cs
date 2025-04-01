@@ -33,6 +33,8 @@ namespace dv21_ctl
         private CheckBox cbSingleTone;
         private TextBox txtSchema;
         private Label label6;
+        private Label label16;
+        private TextBox txtDocumentation;
 
         public dv21.CardDefinition cd 
 		{
@@ -52,6 +54,7 @@ namespace dv21_ctl
 					txt1ID.Text = mcd.ID;
                     cbSingleTone.Checked = mcd.SingleTone;
                     txtSchema.Text = cd.Schema;
+                    txtDocumentation.Text = cd.Documentation;
                     cmb1Names.Items.Clear(); 
 					int i;
 					if (mcd.Name!=null)
@@ -116,6 +119,8 @@ namespace dv21_ctl
             this.cbSingleTone = new System.Windows.Forms.CheckBox();
             this.txtSchema = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtDocumentation = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label5
@@ -146,9 +151,9 @@ namespace dv21_ctl
             // 
             // txt1ID
             // 
-            this.txt1ID.Location = new System.Drawing.Point(16, 186);
+            this.txt1ID.Location = new System.Drawing.Point(13, 186);
             this.txt1ID.Name = "txt1ID";
-            this.txt1ID.Size = new System.Drawing.Size(224, 20);
+            this.txt1ID.Size = new System.Drawing.Size(227, 20);
             this.txt1ID.TabIndex = 5;
             this.txt1ID.TextChanged += new System.EventHandler(this.txt1ID_TextChanged);
             // 
@@ -204,7 +209,7 @@ namespace dv21_ctl
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
-            this.cmb1Names.Location = new System.Drawing.Point(16, 278);
+            this.cmb1Names.Location = new System.Drawing.Point(13, 278);
             this.cmb1Names.Name = "cmb1Names";
             this.cmb1Names.Size = new System.Drawing.Size(224, 95);
             this.cmb1Names.TabIndex = 8;
@@ -236,8 +241,28 @@ namespace dv21_ctl
             this.label6.TabIndex = 13;
             this.label6.Text = "Схема";
             // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(14, 378);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(134, 16);
+            this.label16.TabIndex = 37;
+            this.label16.Text = "Комментарий";
+            // 
+            // txtDocumentation
+            // 
+            this.txtDocumentation.Location = new System.Drawing.Point(13, 397);
+            this.txtDocumentation.Multiline = true;
+            this.txtDocumentation.Name = "txtDocumentation";
+            this.txtDocumentation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDocumentation.Size = new System.Drawing.Size(276, 83);
+            this.txtDocumentation.TabIndex = 36;
+            this.txtDocumentation.TextChanged += new System.EventHandler(this.txtDocumentation_TextChanged);
+            // 
             // ctlCardDefinition
             // 
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.txtDocumentation);
             this.Controls.Add(this.txtSchema);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbSingleTone);
@@ -253,7 +278,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ctlCardDefinition";
-            this.Size = new System.Drawing.Size(304, 392);
+            this.Size = new System.Drawing.Size(304, 503);
             this.Load += new System.EventHandler(this.ctlCardDefinition_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -352,6 +377,15 @@ namespace dv21_ctl
         {
             frmCard f = (frmCard)this.ParentForm;
             f.Saved = false;
+        }
+
+        private void txtDocumentation_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                cd.Documentation = txtDocumentation.Text;
+                UpdateNode();
+            }
         }
     }
 }

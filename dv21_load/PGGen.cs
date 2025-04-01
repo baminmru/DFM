@@ -153,9 +153,9 @@ namespace dv21
                         cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Field[i].Alias.ToLower() + " IS '" + s.Field[i].Name[0].Value + "';");
 
 
-                        if (s.Field[i].Enum != null && s.Field[i].Enum.Length > 0)
+                        if (s.Field[i].Type ==FieldTypeType.@enum && s.Field[i].Enum.Length > 0)
                         {
-                            enums.AppendLine("CREATE TYPE " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum as ENUM (");
+                            enums.AppendLine("CREATE TYPE " +  s.Field[i].EnumName + " as ENUM (");
 
                             int f;
                             for (f = 0; f < s.Field[i].Enum.Length; f++)
@@ -167,9 +167,9 @@ namespace dv21
 
 
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum not null");
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " +  s.Field[i].EnumName + " not null");
                             else
-                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + CurrentSchema + s.Field[i].Alias.ToLower() + "_enum");
+                                sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " +  s.Field[i].EnumName );
 
                         }
                         else if (s.Field[i].Reference)

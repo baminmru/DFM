@@ -103,7 +103,7 @@ namespace dv21
 
             StringBuilder cc = new StringBuilder();
 
-            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "'");
+            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "','" + s.Documentation + "'");
 
             int i;
             if (s.Field != null)
@@ -128,9 +128,11 @@ namespace dv21
 
 
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','"  + s.Field[i].Alias.ToLower() + "','"  + s.Field[i].Alias.ToLower() + "_enum','','not null','" + s.Field[i].Name[0].Value +"'" );
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','"  + s.Field[i].Alias.ToLower() + "','"  + 
+                                s.Field[i].EnumName+ "','','not null','" + s.Field[i].Name[0].Value + "','"+ s.Field[i].Documentation + "'" );
                         else
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "_enum','','null','" + s.Field[i].Name[0].Value +"'");
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" + 
+                                s.Field[i].EnumName + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
 
                     }
                     else if (s.Field[i].Reference)
@@ -147,35 +149,43 @@ namespace dv21
                         {
                             refSchema = refType.Schema.ToLower() + ".";
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" + refSection.Alias.ToLower() + "','not null','" + s.Field[i].Name[0].Value + "'");
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" 
+                                    + refSection.Alias.ToLower() +" " + refSection.Name[0].Value + "','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                             else
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" + refSection.Alias.ToLower() + "','null','" + s.Field[i].Name[0].Value + "'");
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" 
+                                    + refSection.Alias.ToLower() + " " + refSection.Name[0].Value + "','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                         }
                         else
                         {
                             // не удалось разрезолвить - значит просто поле
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "'");
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                                    + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
                             else
 
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" + pgtype + "','','null','" + s.Field[i].Name[0].Value + "'");
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                                    + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
                         }
 
                     }
                     else if (s.Field[i].MaxSpecified)
                     {
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "','" + pgtype + "(" + s.Field[i].Max.ToString() + "),'','not null,'" + s.Field[i].Name[0].Value + "'");
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "','" 
+                                + pgtype + "(" + s.Field[i].Max.ToString() + "),'','not null,'" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                         else
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "','" + pgtype + "(" + s.Field[i].Max.ToString() + ")','','null','" + s.Field[i].Name[0].Value + "'");
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "','"
+                                + pgtype + "(" + s.Field[i].Max.ToString() + ")','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                     }
                     else
                     {
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "'");
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                                + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                         else
 
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" + pgtype + "','','null','" + s.Field[i].Name[0].Value + "'");
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                                + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                     }
                 }
                 
@@ -186,7 +196,7 @@ namespace dv21
             if (s.Type == dv21.SectionTypeType.tree)
             {
                 
-               sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Alias.ToLower() + "_parent','integer','" + s.Alias.ToLower() + "','null','Организация древовидной подчиненности'");
+               sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Alias.ToLower() + "_parent','integer','" + s.Alias.ToLower() + "','null','Организация древовидной подчиненности',''");
             }
 
 
@@ -265,7 +275,7 @@ namespace dv21
            
 
             if (sb.ToString() != "") { 
-                result.AppendLine("'Схема','Таблица','Поле','Тип','Ссылка на','Обязательность','Комментарий'");
+                result.AppendLine("'Схема','Таблица','Поле','Тип','Ссылка на','Обязательность','Описание','Комментарий'");
                 result.AppendLine(sb.ToString());
             }
 
@@ -308,7 +318,7 @@ namespace dv21
 
             if (sb.ToString() != "")
             {
-                result.AppendLine("'Схема','Таблица','Поле','Тип','Ссылка на','Обязательность','Комментарий'");
+                result.AppendLine("'Схема','Таблица','Поле','Тип','Ссылка на','Обязательность','Описание','Комментарий'");
                 result.AppendLine(sb.ToString());
             }
 

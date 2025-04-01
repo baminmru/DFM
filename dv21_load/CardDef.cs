@@ -48,6 +48,8 @@ namespace dv21 {
         
         private bool singleToneField;
         
+        private string documentationField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Action", IsNullable=false)]
         public ActionType[] Actions {
@@ -176,6 +178,17 @@ namespace dv21 {
             }
             set {
                 this.singleToneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Documentation {
+            get {
+                return this.documentationField;
+            }
+            set {
+                this.documentationField = value;
             }
         }
     }
@@ -386,6 +399,8 @@ namespace dv21 {
         
         private FieldTypeType typeField;
         
+        private string enumNameField;
+        
         private int maxField;
         
         private bool maxFieldSpecified;
@@ -415,6 +430,8 @@ namespace dv21 {
         private string refSectionField;
         
         private string lookupExpressionField;
+        
+        private string documentationField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("LocalizedString", IsNullable=false)]
@@ -468,6 +485,17 @@ namespace dv21 {
             }
             set {
                 this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string EnumName {
+            get {
+                return this.enumNameField;
+            }
+            set {
+                this.enumNameField = value;
             }
         }
         
@@ -635,6 +663,17 @@ namespace dv21 {
                 this.lookupExpressionField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Documentation {
+            get {
+                return this.documentationField;
+            }
+            set {
+                this.documentationField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -754,6 +793,8 @@ namespace dv21 {
         
         private bool sequnceFieldSpecified;
         
+        private string documentationField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("LocalizedString", IsNullable=false)]
         public LocalizedStringsLocalizedString[] Name {
@@ -861,6 +902,17 @@ namespace dv21 {
             }
             set {
                 this.sequnceFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Documentation {
+            get {
+                return this.documentationField;
+            }
+            set {
+                this.documentationField = value;
             }
         }
     }

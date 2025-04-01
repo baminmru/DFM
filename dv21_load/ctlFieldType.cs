@@ -52,6 +52,10 @@ namespace dv21_ctl
         private CheckBox chkUseForPK;
         private Label label14;
         private TextBox txtRefName;
+        private Label label15;
+        private TextBox txtEnumName;
+        private TextBox txtDocumentation;
+        private Label label16;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
@@ -105,6 +109,17 @@ namespace dv21_ctl
                     chkLookup.Checked = mField.Lookup;
                     txtLookup.Text = mField.LookupExpression;
 
+
+                    if (mField.Type == FieldTypeType.@enum)
+                    {
+                        txtEnumName.ReadOnly = false;
+                        txtEnumName.Text = mField.EnumName;
+                    }
+                    else
+                    {
+                        txtEnumName.ReadOnly = true;
+                        txtEnumName.Text = "";
+                    }
                     
 
 
@@ -189,12 +204,16 @@ namespace dv21_ctl
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtRefName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.chkIsBrief = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.chkUseForPK = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.txtRefName = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtEnumName = new System.Windows.Forms.TextBox();
+            this.txtDocumentation = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -230,7 +249,7 @@ namespace dv21_ctl
             "json"});
             this.cmbType.Location = new System.Drawing.Point(8, 128);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(272, 21);
+            this.cmbType.Size = new System.Drawing.Size(136, 21);
             this.cmbType.TabIndex = 6;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
@@ -247,7 +266,7 @@ namespace dv21_ctl
             this.cmb1Names.Enabled = false;
             this.cmb1Names.Location = new System.Drawing.Point(8, 596);
             this.cmb1Names.Name = "cmb1Names";
-            this.cmb1Names.Size = new System.Drawing.Size(285, 95);
+            this.cmb1Names.Size = new System.Drawing.Size(285, 56);
             this.cmb1Names.TabIndex = 12;
             // 
             // label5
@@ -257,6 +276,7 @@ namespace dv21_ctl
             this.label5.Size = new System.Drawing.Size(134, 16);
             this.label5.TabIndex = 26;
             this.label5.Text = "Названия";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // cmd1Names
             // 
@@ -461,6 +481,14 @@ namespace dv21_ctl
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ссылочное поле";
             // 
+            // txtRefName
+            // 
+            this.txtRefName.Location = new System.Drawing.Point(6, 150);
+            this.txtRefName.Name = "txtRefName";
+            this.txtRefName.ReadOnly = true;
+            this.txtRefName.Size = new System.Drawing.Size(267, 20);
+            this.txtRefName.TabIndex = 22;
+            // 
             // label10
             // 
             this.label10.Location = new System.Drawing.Point(7, 89);
@@ -501,16 +529,46 @@ namespace dv21_ctl
             this.label14.TabIndex = 13;
             this.label14.Text = "Использовать как ключ";
             // 
-            // txtRefName
+            // label15
             // 
-            this.txtRefName.Location = new System.Drawing.Point(6, 150);
-            this.txtRefName.Name = "txtRefName";
-            this.txtRefName.ReadOnly = true;
-            this.txtRefName.Size = new System.Drawing.Size(267, 20);
-            this.txtRefName.TabIndex = 22;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(152, 104);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(87, 13);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "Название Enum";
+            // 
+            // txtEnumName
+            // 
+            this.txtEnumName.Location = new System.Drawing.Point(156, 128);
+            this.txtEnumName.Name = "txtEnumName";
+            this.txtEnumName.Size = new System.Drawing.Size(121, 20);
+            this.txtEnumName.TabIndex = 30;
+            this.txtEnumName.TextChanged += new System.EventHandler(this.txtEnumName_TextChanged);
+            // 
+            // txtDocumentation
+            // 
+            this.txtDocumentation.Location = new System.Drawing.Point(8, 682);
+            this.txtDocumentation.Multiline = true;
+            this.txtDocumentation.Name = "txtDocumentation";
+            this.txtDocumentation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDocumentation.Size = new System.Drawing.Size(284, 83);
+            this.txtDocumentation.TabIndex = 31;
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(10, 663);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(134, 16);
+            this.label16.TabIndex = 32;
+            this.label16.Text = "Комментарий";
             // 
             // ctlFieldType
             // 
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.txtDocumentation);
+            this.Controls.Add(this.txtEnumName);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.chkUseForPK);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.chkIsBrief);
@@ -533,7 +591,7 @@ namespace dv21_ctl
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "ctlFieldType";
-            this.Size = new System.Drawing.Size(358, 691);
+            this.Size = new System.Drawing.Size(358, 784);
             this.Load += new System.EventHandler(this.ctlFieldType_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -560,7 +618,16 @@ namespace dv21_ctl
 			if(!inLoad)
 			{
 				mField.Type =(dv21.FieldTypeType)  cmbType.SelectedIndex ;
-				UpdateNode();
+                if (mField.Type == FieldTypeType.@enum)
+                {
+                    txtEnumName.ReadOnly = false;
+                }
+                else
+                {
+                    txtEnumName.ReadOnly = true;
+                }
+
+                    UpdateNode();
 			}
 		}
 
@@ -769,6 +836,19 @@ namespace dv21_ctl
                 catch { }
                 UpdateNode();
             }
+
+        }
+
+        private void txtEnumName_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                mField.EnumName = txtEnumName.Text;
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
 
         }
     }
