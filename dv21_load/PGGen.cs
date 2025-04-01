@@ -122,7 +122,7 @@ namespace dv21
            
            
             sb.AppendLine("\t\t" + idName + " "+ idType + " PRIMARY KEY");
-            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + idName + " IS '" + s.Name[0].Value + " первичный ключ';");
+            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + idName + " IS '" + s.Name[0].Value + " ключ';");
            
 
 
@@ -136,7 +136,7 @@ namespace dv21
 
                 sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_" +idNameRef+ " " + idTypeRef + " not null");
 
-                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + " FOREIGN KEY(" + s_parent.Alias.ToLower() + "_" + idNameRef + ") REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" +idNameRef+ ");");
+                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT "  + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + "_" + idNameRef + "_fk FOREIGN KEY(" + s_parent.Alias.ToLower() + "_" + idNameRef + ") REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" +idNameRef+ ");");
 
                 cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s_parent.Alias.ToLower() + "_" + idNameRef + " IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
             }
@@ -198,7 +198,7 @@ namespace dv21
                                 else
                                     sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + idTypeRef);
 
-                                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_" + s.Field[i].Alias.ToLower() + " FOREIGN KEY(" + s.Field[i].Alias.ToLower() + ") REFERENCES " + refSchema + refSection.Alias.ToLower() + " (" + idNameRef + ");");
+                                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT "  + s.Alias.ToLower() + "_" + s.Field[i].Alias.ToLower() + "_fk FOREIGN KEY(" + s.Field[i].Alias.ToLower() + ") REFERENCES " + refSchema + refSection.Alias.ToLower() + " (" + idNameRef + ");");
                             }
                             else
                             {
@@ -233,7 +233,7 @@ namespace dv21
             if (s.Type == dv21.SectionTypeType.tree)
             {
                 sb.AppendLine("\t\t," + s.Alias.ToLower() + "_parent_id " + idType + " null "); 
-                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + "fk_" + s.Alias.ToLower() + "_tree FOREIGN KEY(" + s.Alias.ToLower() + "_parent_id) REFERENCES " + CurrentSchema + s.Alias.ToLower() + " (" + idName +");");
+                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT "  + s.Alias.ToLower() + "_parent_id_fk FOREIGN KEY(" + s.Alias.ToLower() + "_parent_id) REFERENCES " + CurrentSchema + s.Alias.ToLower() + " (" + idName +");");
                 cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s.Alias.ToLower() + "_parent_id IS ' ссылка родителя в дереве ';");
             }
 
