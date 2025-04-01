@@ -243,9 +243,23 @@ namespace dv21
                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Alias.ToLower() + "_parent','"+idType+"','" + s.Alias.ToLower() + "','null','Организация древовидной подчиненности',''");
             }
 
+            if (s.AddHistory)
+            {
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','effective_date_start','date','','null','Дата начала действия',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','effective_date_stop','date','','null','Дата окончания действия','у текущей записи по умолчанию - MAXDate'");
+            }
+
+            if (s.AddWhoInfo)
+            {
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamp','','null','Вемя создания',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_by','text','','null','Кем создано',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_ts','timestamp','','null','Время изменения',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_by','text','','null','Кем изменено',''");
+            }
 
 
-           
+
+
 
             if (s.Section != null && s.Section.Length > 0)
             {

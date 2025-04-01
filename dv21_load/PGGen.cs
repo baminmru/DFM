@@ -242,7 +242,7 @@ namespace dv21
             if (s.AddHistory)
             {
                 sb.AppendLine("\t\t,effective_date_start date");
-                sb.AppendLine("\t\t,effective_date_end date");
+                sb.AppendLine("\t\t,effective_date_stop date");
             }
 
             if (s.AddWhoInfo)
