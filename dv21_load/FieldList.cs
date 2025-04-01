@@ -1,6 +1,7 @@
 ﻿using dv21_util;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -105,6 +106,25 @@ namespace dv21
 
             sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "','" + s.Documentation + "'");
 
+
+            string idType = MapBaseType(MyUtils.GetIDType(s));
+            string idName = MyUtils.GetIDName(s);
+
+            if(idName == "id")
+            {
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + idName + "','" + idType + "','','key, not null','идентификатор',''");
+            }
+
+
+            if (s_parent != null)
+            {
+                string pidType = MapBaseType(MyUtils.GetIDType(s_parent));
+                string pidName = MyUtils.GetIDName(s_parent);
+
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s_parent.Alias.ToLower() +"_" + pidName + "','" + pidType + "','','not null','ссылка на родительскую таблицу',''");
+            }
+
+
             int i;
             if (s.Field != null)
             {
@@ -128,10 +148,16 @@ namespace dv21
 
 
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','"  + s.Field[i].Alias.ToLower() + "','"  + 
-                                s.Field[i].EnumName+ "','','not null','" + s.Field[i].Name[0].Value + "','"+ s.Field[i].Documentation + "'" );
+                        {
+                            if (s.Field[i].UseforPK)
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
+                                    s.Field[i].EnumName + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                            else
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
+                                                s.Field[i].EnumName + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                        }
                         else
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" + 
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
                                 s.Field[i].EnumName + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
 
                     }
@@ -150,20 +176,26 @@ namespace dv21
                             refSchema = refType.Schema.ToLower() + ".";
                             if (s.Field[i].NotNull)
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" 
-                                    + refSection.Alias.ToLower() +" " + refSection.Name[0].Value + "','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                    + "(" +refSection.Alias.ToLower() +") " + refSection.Name[0].Value + "','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                             else
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" 
-                                    + refSection.Alias.ToLower() + " " + refSection.Name[0].Value + "','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                    + "(" + refSection.Alias.ToLower() + ") " + refSection.Name[0].Value + "','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                         }
                         else
                         {
                             // не удалось разрезолвить - значит просто поле
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                            {
+                                if (s.Field[i].UseforPK)
+                                    sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
+                                    + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
+                                else
+                                    sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
                                     + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
+                            }
                             else
 
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
                                     + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
                         }
 
@@ -171,20 +203,32 @@ namespace dv21
                     else if (s.Field[i].MaxSpecified)
                     {
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "','" 
+                        {
+                            if (s.Field[i].UseforPK)
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
+                                + pgtype + "(" + s.Field[i].Max.ToString() + "),'','key, not null,'" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                            else
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
                                 + pgtype + "(" + s.Field[i].Max.ToString() + "),'','not null,'" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                        }
                         else
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" +  s.Field[i].Alias.ToLower() + "','"
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
                                 + pgtype + "(" + s.Field[i].Max.ToString() + ")','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                     }
                     else
                     {
                         if (s.Field[i].NotNull)
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                        {
+                            if (s.Field[i].UseforPK)
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
+                                + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                            else
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
                                 + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                        }
                         else
 
-                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" 
+                            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
                                 + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
                     }
                 }
@@ -196,7 +240,7 @@ namespace dv21
             if (s.Type == dv21.SectionTypeType.tree)
             {
                 
-               sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Alias.ToLower() + "_parent','integer','" + s.Alias.ToLower() + "','null','Организация древовидной подчиненности',''");
+               sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Alias.ToLower() + "_parent','"+idType+"','" + s.Alias.ToLower() + "','null','Организация древовидной подчиненности',''");
             }
 
 
