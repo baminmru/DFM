@@ -122,8 +122,9 @@ namespace dv21
            
            
             sb.AppendLine("\t\t" + idName + " "+ idType + " PRIMARY KEY");
-            cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + idName + " IS '" + s.Name[0].Value + " ключ';");
-           
+            if(idName == "id")
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + idName + " IS '" + s.Name[0].Value + ", ключ';");
+          
 
 
 
@@ -134,9 +135,9 @@ namespace dv21
                 idTypeRef = MapBaseType(MyUtils.GetIDType(s_parent));
                 idNameRef = MyUtils.GetIDName(s_parent);
 
-                sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_" +idNameRef+ " " + idTypeRef + " not null");
+                sb.AppendLine("\t\t," + s_parent.Alias.ToLower() + "_" + idNameRef + " " + idTypeRef + " not null");
 
-                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT "  + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + "_" + idNameRef + "_fk FOREIGN KEY(" + s_parent.Alias.ToLower() + "_" + idNameRef + ") REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" +idNameRef+ ");");
+                fk.AppendLine("ALTER TABLE " + CurrentSchema + s.Alias.ToLower() + " ADD CONSTRAINT " + s.Alias.ToLower() + "_" + s_parent.Alias.ToLower() + "_" + idNameRef + "_fk FOREIGN KEY(" + s_parent.Alias.ToLower() + "_" + idNameRef + ") REFERENCES " + CurrentSchema + s_parent.Alias.ToLower() + " (" + idNameRef + ");");
 
                 cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + s_parent.Alias.ToLower() + "_" + idNameRef + " IS ' ссылка на родительскую таблицу " + s_parent.Name[0].Value + "';");
             }
@@ -225,6 +226,10 @@ namespace dv21
                                 sb.AppendLine("\t\t," + s.Field[i].Alias.ToLower() + " " + pgtype + "");
                         }
                     }
+
+                    else
+                        cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + "." + idName + " IS '" + s.Field[i].Name[0].Value + ", ключ';");
+
                 }
 
             }

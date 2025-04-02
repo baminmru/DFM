@@ -112,7 +112,7 @@ namespace dv21
 
             if(idName == "id")
             {
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + idName + "','" + idType + "','','key, not null','идентификатор',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + idName + "','" + idType + "','','key, not null','" + s.Name[0].Value +", ключ',''");
             }
 
 
@@ -151,7 +151,7 @@ namespace dv21
                         {
                             if (s.Field[i].UseforPK)
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
-                                    s.Field[i].EnumName + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                    s.Field[i].EnumName + "','','key, not null','" + s.Field[i].Name[0].Value + ", ключ','" + s.Field[i].Documentation + "'");
                             else
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
                                                 s.Field[i].EnumName + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
@@ -188,15 +188,15 @@ namespace dv21
                             {
                                 if (s.Field[i].UseforPK)
                                     sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                    + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
+                                    + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation +  "'");
                                 else
                                     sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                    + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
+                                    + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation +  "'");
                             }
                             else
 
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                    + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "','" + s.Field[i].Documentation + "'");
+                                    + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation  + "'");
                         }
 
                     }
@@ -251,7 +251,7 @@ namespace dv21
 
             if (s.AddWhoInfo)
             {
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamp','','null','Вемя создания',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamp','','null','Время создания',''");
                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_by','text','','null','Кем создано',''");
                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_ts','timestamp','','null','Время изменения',''");
                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_by','text','','null','Кем изменено',''");
