@@ -108,6 +108,8 @@ namespace dv21_ctl
 
                     chkLookup.Checked = mField.Lookup;
                     txtLookup.Text = mField.LookupExpression;
+                    txtDocumentation.Text = mField.Documentation;
+
 
 
                     if (mField.Type == FieldTypeType.@enum)
@@ -554,6 +556,7 @@ namespace dv21_ctl
             this.txtDocumentation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtDocumentation.Size = new System.Drawing.Size(284, 83);
             this.txtDocumentation.TabIndex = 31;
+            this.txtDocumentation.TextChanged += new System.EventHandler(this.txtDocumentation_TextChanged);
             // 
             // label16
             // 
@@ -844,12 +847,22 @@ namespace dv21_ctl
             if (!inLoad)
             {
                 mField.EnumName = txtEnumName.Text;
+                UpdateNode();
             }
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtDocumentation_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                mField.Documentation = txtDocumentation.Text;
+                UpdateNode();
+            }
         }
     }
 }
