@@ -20,10 +20,8 @@ namespace dv21
         private System.ComponentModel.IContainer components;
         public ToolTip ToolTip1;
         public CheckedListBox lstBlocks;
-        public ProgressBar pb;
         public Label Label3;
         public GroupBox Frame1;
-        public TextBox txtLog;
         public Button cmdGo;
         public TextBox txtLogin;
         public TextBox txtPassword;
@@ -33,8 +31,6 @@ namespace dv21
         public Label lblPassword;
         public Label lblDatabase;
         public GroupBox frameRight;
-        public OpenFileDialog DlgOpen;
-        public Label Label2;
         // NOTE: The following procedure is required by the Windows Form Designer
         // It can be modified using the Windows Form Designer.
         // Do not modify it using the code editor.
@@ -45,9 +41,7 @@ namespace dv21
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Frame1 = new System.Windows.Forms.GroupBox();
             this.lstBlocks = new System.Windows.Forms.CheckedListBox();
-            this.pb = new System.Windows.Forms.ProgressBar();
             this.Label3 = new System.Windows.Forms.Label();
-            this.txtLog = new System.Windows.Forms.TextBox();
             this.cmdGo = new System.Windows.Forms.Button();
             this.frameRight = new System.Windows.Forms.GroupBox();
             this.txtServer = new System.Windows.Forms.TextBox();
@@ -60,10 +54,11 @@ namespace dv21
             this.lblLogin = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblDatabase = new System.Windows.Forms.Label();
-            this.DlgOpen = new System.Windows.Forms.OpenFileDialog();
-            this.Label2 = new System.Windows.Forms.Label();
             this.lblmsg = new System.Windows.Forms.Label();
             this.cmdConnect = new System.Windows.Forms.Button();
+            this.txtSaveTo = new System.Windows.Forms.TextBox();
+            this.cmdSaveTo = new System.Windows.Forms.Button();
+            this.dlgSaveTo = new System.Windows.Forms.SaveFileDialog();
             this.Frame1.SuspendLayout();
             this.frameRight.SuspendLayout();
             this.SuspendLayout();
@@ -74,13 +69,12 @@ namespace dv21
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Frame1.BackColor = System.Drawing.SystemColors.Control;
             this.Frame1.Controls.Add(this.lstBlocks);
-            this.Frame1.Controls.Add(this.pb);
             this.Frame1.Controls.Add(this.Label3);
             this.Frame1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Frame1.Location = new System.Drawing.Point(280, 0);
             this.Frame1.Name = "Frame1";
             this.Frame1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Frame1.Size = new System.Drawing.Size(273, 305);
+            this.Frame1.Size = new System.Drawing.Size(273, 246);
             this.Frame1.TabIndex = 16;
             this.Frame1.TabStop = false;
             this.Frame1.Text = "Процесс инсталляции";
@@ -97,20 +91,10 @@ namespace dv21
             this.lstBlocks.Name = "lstBlocks";
             this.lstBlocks.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lstBlocks.ScrollAlwaysVisible = true;
-            this.lstBlocks.Size = new System.Drawing.Size(257, 244);
+            this.lstBlocks.Size = new System.Drawing.Size(257, 199);
             this.lstBlocks.TabIndex = 7;
             this.lstBlocks.ThreeDCheckBoxes = true;
             this.lstBlocks.SelectedIndexChanged += new System.EventHandler(this.lstBlocks_SelectedIndexChanged);
-            // 
-            // pb
-            // 
-            this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb.Location = new System.Drawing.Point(6, 280);
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(257, 17);
-            this.pb.TabIndex = 8;
-            this.pb.Visible = false;
             // 
             // Label3
             // 
@@ -124,35 +108,15 @@ namespace dv21
             this.Label3.TabIndex = 19;
             this.Label3.Text = "Схемы";
             // 
-            // txtLog
-            // 
-            this.txtLog.AcceptsReturn = true;
-            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLog.BackColor = System.Drawing.SystemColors.Window;
-            this.txtLog.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtLog.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtLog.Location = new System.Drawing.Point(12, 333);
-            this.txtLog.MaxLength = 0;
-            this.txtLog.Multiline = true;
-            this.txtLog.Name = "txtLog";
-            this.txtLog.ReadOnly = true;
-            this.txtLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(533, 65);
-            this.txtLog.TabIndex = 9;
-            this.txtLog.WordWrap = false;
-            // 
             // cmdGo
             // 
             this.cmdGo.BackColor = System.Drawing.SystemColors.Control;
             this.cmdGo.Cursor = System.Windows.Forms.Cursors.Default;
             this.cmdGo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cmdGo.Location = new System.Drawing.Point(12, 272);
+            this.cmdGo.Location = new System.Drawing.Point(11, 327);
             this.cmdGo.Name = "cmdGo";
             this.cmdGo.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cmdGo.Size = new System.Drawing.Size(256, 25);
+            this.cmdGo.Size = new System.Drawing.Size(533, 25);
             this.cmdGo.TabIndex = 6;
             this.cmdGo.Text = "Импорт";
             this.cmdGo.UseVisualStyleBackColor = false;
@@ -310,18 +274,6 @@ namespace dv21
             this.lblDatabase.TabIndex = 2;
             this.lblDatabase.Text = "База данных:";
             // 
-            // Label2
-            // 
-            this.Label2.BackColor = System.Drawing.SystemColors.Control;
-            this.Label2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label2.Location = new System.Drawing.Point(16, 308);
-            this.Label2.Name = "Label2";
-            this.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Label2.Size = new System.Drawing.Size(121, 17);
-            this.Label2.TabIndex = 13;
-            this.Label2.Text = "Ошибки";
-            // 
             // lblmsg
             // 
             this.lblmsg.Location = new System.Drawing.Point(280, 311);
@@ -344,20 +296,43 @@ namespace dv21
             this.cmdConnect.UseVisualStyleBackColor = false;
             this.cmdConnect.Click += new System.EventHandler(this.cmdConnect_Click);
             // 
+            // txtSaveTo
+            // 
+            this.txtSaveTo.Location = new System.Drawing.Point(15, 288);
+            this.txtSaveTo.Name = "txtSaveTo";
+            this.txtSaveTo.Size = new System.Drawing.Size(485, 20);
+            this.txtSaveTo.TabIndex = 20;
+            // 
+            // cmdSaveTo
+            // 
+            this.cmdSaveTo.Location = new System.Drawing.Point(511, 289);
+            this.cmdSaveTo.Name = "cmdSaveTo";
+            this.cmdSaveTo.Size = new System.Drawing.Size(33, 18);
+            this.cmdSaveTo.TabIndex = 21;
+            this.cmdSaveTo.Text = "...";
+            this.cmdSaveTo.UseVisualStyleBackColor = true;
+            this.cmdSaveTo.Click += new System.EventHandler(this.cmdSaveTo_Click);
+            // 
+            // dlgSaveTo
+            // 
+            this.dlgSaveTo.Filter = "xml|*.xml|all|*.*";
+            this.dlgSaveTo.Title = "Import to";
+            // 
             // frmPGImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(562, 410);
+            this.ClientSize = new System.Drawing.Size(562, 366);
+            this.Controls.Add(this.cmdSaveTo);
+            this.Controls.Add(this.txtSaveTo);
             this.Controls.Add(this.cmdConnect);
             this.Controls.Add(this.lblmsg);
             this.Controls.Add(this.Frame1);
-            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.cmdGo);
             this.Controls.Add(this.frameRight);
-            this.Controls.Add(this.Label2);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = new System.Drawing.Point(356, 40);
             this.Name = "frmPGImport";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -378,5 +353,8 @@ namespace dv21
 
         public Button cmdConnect;
         public TextBox txtServer;
+        private TextBox txtSaveTo;
+        private Button cmdSaveTo;
+        private SaveFileDialog dlgSaveTo;
     }
 }

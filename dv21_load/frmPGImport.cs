@@ -100,33 +100,38 @@ namespace dv21
         private void cmdGo_Click(object eventSender, EventArgs eventArgs)
         {
 
-            if (lstBlocks.CheckedItems.Count > 0)
+            if (txtSaveTo.Text != "")
             {
-                string schema = lstBlocks.CheckedItems[0].ToString();
-                DataTable dt = new DataTable();
-                dt = DS.ReadData("SELECT t.table_name, obj_description(pgc.oid, 'pg_class') comment FROM information_schema.tables t INNER JOIN pg_catalog.pg_class pgc ON t.table_name = pgc.relname WHERE t.table_type = 'BASE TABLE' AND t.table_schema = '" + schema + "'; ");
-                CardDefinition cd = new CardDefinition();
-                cd.Alias = schema;
-                cd.Schema = schema;
-                cd.ID = Guid.NewGuid().ToString();
-                cd.Sections = new SectionType[dt.Rows.Count];
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    cd.Sections[i] = new SectionType();
-                    cd.Sections[i].ID = Guid.NewGuid().ToString();
-                    cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
-                    cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
-                    cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
-                    cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
-                    cd.Sections[i].Name[0].Language = "ru";
 
-                    DataTable dtFld = new DataTable();
-                    dtFld = DS.ReadData(@"select
+
+                if (lstBlocks.CheckedItems.Count > 0)
+                {
+                    string schema = lstBlocks.CheckedItems[0].ToString();
+                    DataTable dt = new DataTable();
+                    dt = DS.ReadData("SELECT t.table_name, obj_description(pgc.oid, 'pg_class') comment FROM information_schema.tables t INNER JOIN pg_catalog.pg_class pgc ON t.table_name = pgc.relname WHERE t.table_type = 'BASE TABLE' AND t.table_schema = '" + schema + "'; ");
+                    CardDefinition cd = new CardDefinition();
+                    cd.Alias = schema;
+                    cd.Schema = schema;
+                    cd.ID = Guid.NewGuid().ToString();
+                    cd.Sections = new SectionType[dt.Rows.Count];
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        cd.Sections[i] = new SectionType();
+                        cd.Sections[i].ID = Guid.NewGuid().ToString();
+                        cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
+                        cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
+                        cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
+                        cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
+                        cd.Sections[i].Name[0].Language = "ru";
+
+                        DataTable dtFld = new DataTable();
+                        dtFld = DS.ReadData(@"select
                         c.table_schema,
                         c.table_name,
                         c.column_name,
                         c.is_nullable,
                         c.data_type, 
+                        c.udt_name,
                         c.character_maximum_length len,
                         pgd.description
                     from pg_catalog.pg_statio_all_tables as st
@@ -139,217 +144,155 @@ namespace dv21
                         c.table_name   = st.relname
                     ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "';");
 
-                    cd.Sections[i].Field = new FieldType[dtFld.Rows.Count];
 
-                    for (int j = 0; j < dtFld.Rows.Count; j++)
-                    {
+                        DataTable dtPK = new DataTable();
+                        dtPK = DS.ReadData(@" select tc.constraint_type,kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name,kcu.ordinal_position pos   from information_schema.key_column_usage kcu
+JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
+     AND tc.constraint_name = kcu.constraint_name
+     and tc.constraint_type = 'PRIMARY KEY'
+ where kcu.table_name ='"+ cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='"+ schema + "' ");
 
-                        cd.Sections[i].Field[j] = new FieldType();
-                        cd.Sections[i].Field[j].ID = Guid.NewGuid().ToString();
-                        if (dtFld.Rows[j]["is_nullable"].ToString() == "YES")
+
+                        DataTable dtFK = new DataTable();
+                        dtFK = DS.ReadData(@"select kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name , kcu.ordinal_position pos ,
+ccu.table_schema to_schema , ccu.table_name to_table, ccu.column_name to_column  from information_schema.key_column_usage kcu
+join
+ information_schema.constraint_column_usage ccu on  kcu.constraint_name  = ccu.constraint_name
+  
+JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
+     AND tc.constraint_name = kcu.constraint_name
+     and tc.constraint_type = 'FOREIGN KEY'
+ where kcu.table_name ='"+ cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='"+ schema + "' and ccu.table_catalog ='" + DS.DataBaseName + "'");
+
+
+
+                        cd.Sections[i].Field = new FieldType[dtFld.Rows.Count];
+
+                        for (int j = 0; j < dtFld.Rows.Count; j++)
                         {
-                            cd.Sections[i].Field[j].NotNull = false;
-                            cd.Sections[i].Field[j].NotNullSpecified = true;
+
+                            cd.Sections[i].Field[j] = new FieldType();
+                            cd.Sections[i].Field[j].ID = Guid.NewGuid().ToString();
+                            if (dtFld.Rows[j]["is_nullable"].ToString() == "YES")
+                            {
+                                cd.Sections[i].Field[j].NotNull = false;
+                                cd.Sections[i].Field[j].NotNullSpecified = true;
+                            }
+                            else
+                            {
+                                cd.Sections[i].Field[j].NotNull = true;
+                                cd.Sections[i].Field[j].NotNullSpecified = true;
+                            }
+
+                            cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["udt_name"].ToString());
+
+
+                            cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
+
+                            if (dtPK.Rows.Count > 0)
+                            {
+                             
+                                if (dtPK.Rows[0]["column_name"].ToString() == dtFld.Rows[j]["column_name"].ToString())
+                                {
+                                    cd.Sections[i].Field[j].UseforPK = true;
+                                    cd.Sections[i].Field[j].UseforPKSpecified = true;
+                                }
+                            }
+
+
+                            if (dtFld.Rows[j]["len"].ToString() != "")
+                            {
+                                cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
+                                cd.Sections[i].Field[j].MaxSpecified = true;
+                            }
+
+                            cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
+                            cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
+                            cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
+                            cd.Sections[i].Field[j].Name[0].Language = "ru";
+
                         }
-                        else
-                        {
-                            cd.Sections[i].Field[j].NotNull = true;
-                            cd.Sections[i].Field[j].NotNullSpecified = true;
-                        }
 
-                        cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["data_type"].ToString());
-
-
-                        cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
-
-                        if (dtFld.Rows[j]["len"].ToString() != "")
-                        {
-                            cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
-                            cd.Sections[i].Field[j].MaxSpecified = true;
-                        }
-
-                        cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
-                        cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
-                        cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
-                        cd.Sections[i].Field[j].Name[0].Language = "ru";
 
                     }
-
+                    MyUtils.SerializeObject(txtSaveTo.Text, cd);
 
                 }
-                MyUtils.SerializeObject(@"c:\bami\dfm\generated\" + schema + ".xml", cd);
-
             }
 
         }
 
 
-        private int MapBaseType(string dv21Type)
+        private int MapBaseType(string pgType)
         {
-            //switch (dv21Type)
-            //{
-            //    case "int":
-            //        return "integer";
-
-            //    case "bool":
-            //        return "boolean";
-
-            //    case "datetime":
-            //        return "date";
-
-            //    case "enum":
-            //        return "integer";
-
-            //    case "bitmask":
-            //        return "bytea";
-
-            //    case "uniqueid":
-            //        return "UUID";
-
-            //    case "userid":
-            //        return "varchar (64)";
-
-            //    case "string":
-            //        return "varchar";
-
-            //    case "text":
-            //        return "text";
-
-            //    case "unistring":
-            //        return "varchar";
-
-            //    case "fileid":
-            //        return "bytea";
-
-            //    case "image":
-            //        return "bytea";
-
-            //    case "json":
-            //        return "jsonb";
-
-            //    case "float":
-            //        return "numeric(18,8)";
-
-            //    case "double":
-            //        return "numeric(18,8)";
 
 
-            //}
-            return 1;
+
+            FieldTypeType v = FieldTypeType.@int;
+            switch (pgType)
+            {
+                case "int4":
+                    v= FieldTypeType.@int;
+                    break;
+
+                case "int8":
+                    v = FieldTypeType.@int;
+                    break;
+
+                case "bool":
+                    v = FieldTypeType.@bool;
+                    break;
+
+                case "date":
+                    v = FieldTypeType.datetime;
+                    break;
+
+
+                case "timestamp":
+                    v = FieldTypeType.datetime;
+                    break;
+
+
+                case "enum":
+                    v = FieldTypeType.@enum;
+                    break;
+
+                case "bytea":
+                    v = FieldTypeType.bitmask;
+                    break;
+
+                case "UUID":
+                    v = FieldTypeType.uniqueid;
+                    break;
+
+                
+
+                case "varchar":
+                    v = FieldTypeType.@string;
+                    break;
+
+                case "text":
+                    v = FieldTypeType.text;
+                    break;
+                
+                
+                case "jsonb":
+                    v = FieldTypeType.json;
+                    break;
+
+
+                case "numeric":
+                    v = FieldTypeType.@double;
+                    break;
+
+            }
+            return (int) v;
 
         }
 
 
 
-        //            if (string.IsNullOrEmpty(txtData.Text))
-        //                return;
-        //            sOut = new StringBuilder();
-        //            sOut.AppendLine("DELIMITER $$");
-        //            txtLog.Text = "";
-        //            lstBlocks.Items.Clear();
-
-        //            string srv;
-        //            srv = Interaction.GetSetting("PGSQLDBInstall", "setup", "servers", "");
-        //            if (!srv.Contains(txtServer.Text))
-        //            {
-        //                if (!string.IsNullOrEmpty(srv))
-        //                {
-        //                    srv = srv + ";";
-        //                }
-        //                srv = srv + txtServer.Text;
-        //                Interaction.SaveSetting("PGSQLDBInstall", "setup", "servers", srv);
-        //            }
-
-        //            if (!chkNoExec.Checked)
-        //            {
-        //                DS = new pgDataSource();
-        //                DS.Server = txtServer.Text;
-
-
-        //                DS.DataBaseName = txtDatabase.Text;
-        //                DS.UserName = txtLogin.Text;
-        //                DS.Password = txtPassword.Text;
-        //                DS.Integrated = false;
-        //                if (!DS.ServerLogIn())
-        //                {
-        //                    Interaction.MsgBox("Не удается подключиться к PgSQL", MsgBoxStyle.Critical);
-        //                    // UPGRADE_NOTE: Object DS may not be destroyed until it is garbage collected. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"'
-        //                    DS = null;
-        //                    return;
-        //                }
-        //            }
-
-
-        //            GenResp = new LATIRGenerator.Response();
-        //            GenPrj = GenResp.Project;
-        //            GenPrj.Load(txtData.Text);
-        //            ;
-
-        //#error Cannot convert OnErrorResumeNextStatementSyntax - see comment for details
-        //            /* Cannot convert OnErrorResumeNextStatementSyntax, CONVERSION ERROR: Conversion for OnErrorResumeNextStatement not implemented, please report this issue in 'On Error Resume Next' at character 5679
-
-
-        //                        Input:
-
-        //                                On Error Resume Next
-
-        //                         */
-        //            int i, j;
-        //            var loopTo = GenPrj.Modules.Count;
-        //            for (i = 1; i <= loopTo; i++)
-        //            {
-        //                var loopTo1 = GenPrj.Modules.Item(i).Blocks.Count;
-        //                for (j = 1; j <= loopTo1; j++)
-        //                    lstBlocks.Items.Add(GenPrj.Modules.Item(i).ModuleName + ":" + GenPrj.Modules.Item(i).Blocks.Item(j).BlockName);
-        //            }
-        //            int k;
-        //            k = 0;
-        //            var loopTo2 = GenPrj.Modules.Count;
-        //            for (i = 1; i <= loopTo2; i++)
-        //            {
-        //                var loopTo3 = GenPrj.Modules.Item(i).Blocks.Count;
-        //                for (j = 1; j <= loopTo3; j++)
-        //                {
-        //                    // If lstBlocks.Selected(k) = True Then
-        //                    var argb = GenPrj.Modules.Item(i).Blocks.Item(j);
-        //                    var argmodulename = GenPrj.Modules.Item(i).ModuleName;
-        //                    execBlock(ref argb, ref argmodulename);
-        //                    lstBlocks.SetItemChecked(k, true);
-        //                    k = k + 1;
-        //                }
-        //            }
-
-
-        //            var outfile = new StreamWriter(txtData.Text + "_out.txt");
-
-        //            outfile.Write(sOut.ToString());
-
-        //            outfile.Close();
-
-        //            if (chkNoExec.Checked)
-        //            {
-
-        //                Interaction.MsgBox("Формирование скрипта завершено. Файл:" + Constants.vbCrLf + txtData.Text + "_out.txt", MsgBoxStyle.Information);
-        //            }
-
-
-        //            else if (string.IsNullOrEmpty(txtLog.Text))
-        //            {
-        //                Interaction.MsgBox("Создание базы данных завершено", MsgBoxStyle.Information);
-        //            }
-        //            else
-        //            {
-        //                Interaction.MsgBox("Создание базы данных завершено с ошибками", MsgBoxStyle.Critical);
-        //            }
-        //            DS = null;
-
-        //            GenResp = (object)null;
-
-        //            GenPrj = (object)null;
- 
-
-
-
+        
 
 
 
@@ -396,6 +339,14 @@ namespace dv21
         private void lstBlocks_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmdSaveTo_Click(object sender, EventArgs e)
+        {
+            if(dlgSaveTo.ShowDialog() == DialogResult.OK)
+            {
+                txtSaveTo.Text = dlgSaveTo.FileName;
+            }
         }
     }
 }
