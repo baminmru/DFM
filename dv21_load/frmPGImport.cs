@@ -119,6 +119,8 @@ namespace dv21
                     {
                         cd.Sections[i] = new SectionType();
                         cd.Sections[i].ID = Guid.NewGuid().ToString();
+                        cd.Sections[i].Type = SectionTypeType.coll;
+                        cd.Sections[i].Sequnce = i;
                         cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
                         cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
                         cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
@@ -248,6 +250,7 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
 
                     MyUtils.SerializeObject(txtSaveTo.Text, cd);
+                    MessageBox.Show("Импорт завершен");
 
                 }
             }
