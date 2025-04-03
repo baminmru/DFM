@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Reflection;
 using dv21_util;
+using System.Security.AccessControl;
 
 
 namespace dv21
@@ -153,19 +154,6 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
  where kcu.table_name ='"+ cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='"+ schema + "' ");
 
 
-                        DataTable dtFK = new DataTable();
-                        dtFK = DS.ReadData(@"select kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name , kcu.ordinal_position pos ,
-ccu.table_schema to_schema , ccu.table_name to_table, ccu.column_name to_column  from information_schema.key_column_usage kcu
-join
- information_schema.constraint_column_usage ccu on  kcu.constraint_name  = ccu.constraint_name
-  
-JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
-     AND tc.constraint_name = kcu.constraint_name
-     and tc.constraint_type = 'FOREIGN KEY'
- where kcu.table_name ='"+ cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='"+ schema + "' and ccu.table_catalog ='" + DS.DataBaseName + "'");
-
-
-
                         cd.Sections[i].Field = new FieldType[dtFld.Rows.Count];
 
                         for (int j = 0; j < dtFld.Rows.Count; j++)
@@ -215,6 +203,50 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
 
                     }
+
+
+                    for (int i = 0; i < cd.Sections.Length; i++)
+                    {
+                        DataTable dtFK = new DataTable();
+                        dtFK = DS.ReadData(@"select kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name , kcu.ordinal_position pos ,
+                            ccu.table_schema to_schema , ccu.table_name to_table, ccu.column_name to_column  from information_schema.key_column_usage kcu
+                            join
+                             information_schema.constraint_column_usage ccu on  kcu.constraint_name  = ccu.constraint_name
+  
+                            JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
+                                 AND tc.constraint_name = kcu.constraint_name
+                                 and tc.constraint_type = 'FOREIGN KEY'
+                             where kcu.table_name ='" + cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='" + schema + "' and  ccu.table_schema ='" + schema + "' and ccu.table_catalog ='" + DS.DataBaseName + "'"
+                         );
+
+                        for (int r = 0; r < dtFK.Rows.Count; r++) {
+
+                            for (int j = 0; j < cd.Sections[i].Field.Length; j++)
+                            {
+                                if (cd.Sections[i].Field[j].Alias == dtFK.Rows[r]["column_name"].ToString())
+                                {
+                                    cd.Sections[i].Field[j].Reference = true;
+                                    cd.Sections[i].Field[j].ReferenceSpecified = true;
+                                    cd.Sections[i].Field[j].RefType = cd.ID.ToString();
+
+                                    for(int k = 0;k< cd.Sections.Length; k++)
+                                    {
+                                        if(cd.Sections[k].Alias == dtFK.Rows[r]["to_table"].ToString())
+                                        {
+                                            cd.Sections[i].Field[j].RefSection = cd.Sections[k].ID.ToString();
+                                        }
+                                    }
+                                
+                                }
+                             }
+                        
+
+                        }
+
+
+                    }
+
+
                     MyUtils.SerializeObject(txtSaveTo.Text, cd);
 
                 }
