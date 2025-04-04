@@ -685,6 +685,67 @@ namespace dv21_util
         }
 
 
+
+        public static void LoadCards(List<dv21.CardDefinition> cards)
+        {
+
+            dv21.DefFile df = null;
+            CardDefinition ot = null;
+            try
+            {
+                df = MyUtils.DeSerializeLib(ProjectFile);
+            }
+            catch
+            {
+            }
+            int i;
+            for (i = 0; i < df.Paths.Length; i++)
+            {
+                ot = null;
+                try
+                {
+                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (ot != null)
+                {
+                    cards.Add(ot);
+
+                }
+            }
+        }
+
+
+        public static void LoadCards(List<dv21.CardDefinition> cards, string ProjectFile)
+        {
+
+            dv21.DefFile df = null;
+            CardDefinition ot = null;
+            try
+            {
+                df = MyUtils.DeSerializeLib(ProjectFile);
+            }
+            catch
+            {
+            }
+            int i;
+            for (i = 0; i < df.Paths.Length; i++)
+            {
+                ot = null;
+                try
+                {
+                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                }
+                catch { }
+                if (ot != null)
+                {
+                    cards.Add(ot);
+
+                }
+            }
+        }
+
+
         public static CardDefinition GetReferencedType(CardDefinition cd, string RefType)
         {
 
@@ -713,6 +774,57 @@ namespace dv21_util
         }
 
 
+
+        public static CardDefinition GetReferencedType(List<CardDefinition> cards, string RefType)
+        {
+
+            CardDefinition refCD;
+
+            int i;
+            for (i = 0; i < cards.Count; i++)
+            {
+                refCD = null;
+                try
+                {
+                    refCD = cards[i];
+                }
+                catch { }
+                if (refCD != null)
+                {
+                    if (refCD.ID == RefType)
+                        return refCD;
+                }
+            }
+            return null;
+        }
+
+
+        public static CardDefinition GetReferencedTypeByName(List<CardDefinition> cards, string TypeAlias)
+        {
+
+            CardDefinition refCD;
+
+            int i;
+            for (i = 0; i < cards.Count; i++)
+            {
+                refCD = null;
+                try
+                {
+                    refCD = cards[i];
+                }
+                catch { }
+                if (refCD != null)
+                {
+                    if (refCD.Alias.ToLower() == TypeAlias.ToLower())
+                        return refCD;
+                }
+            }
+            return null;
+        }
+
+
+
+
         public static SectionType GetReferencedSection(SectionType[] Sections, string RefSection)
         {
             SectionType st;
@@ -731,6 +843,29 @@ namespace dv21_util
 
             return null;
         }
+
+
+
+
+        public static SectionType GetReferencedSectionByName(SectionType[] Sections, string SectionAlias)
+        {
+            SectionType st;
+            if (Sections == null) return null;
+            for (int i = 0; i < Sections.Length; i++)
+            {
+                st = Sections[i];
+                if (st.Alias.ToLower() == SectionAlias.ToLower())
+                    return st;
+                else
+                {
+                    st = GetReferencedSectionByName(st.Section, SectionAlias);
+                    if (st != null) return st;
+                }
+            }
+
+            return null;
+        }
+
 
 
         public static string GetSectionBrief(SectionType St)

@@ -752,7 +752,7 @@ namespace dv21_ctl
 
         private void UpdateRefName()
         {
-            dv21.CardDefinition refT = MyUtils.GetReferencedType(null, txtRefType.Text);
+            dv21.CardDefinition refT = MyUtils.GetReferencedType(MyUtils.cards, txtRefType.Text);
             dv21.SectionType refS = MyUtils.ResolveReference(MyUtils.cards, txtRefSection.Text);
             txtRefName.Text = "";
             if (refT != null)

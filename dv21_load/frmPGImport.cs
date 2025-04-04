@@ -7,6 +7,7 @@ using System.Data;
 using System.Reflection;
 using dv21_util;
 using System.Security.AccessControl;
+using System.Collections.Generic;
 
 
 namespace dv21
@@ -97,38 +98,29 @@ namespace dv21
         //}
 
 
-
-        private void cmdGo_Click(object eventSender, EventArgs eventArgs)
+         private void ImportSingleSchema( string schema)
         {
-
-            if (txtSaveTo.Text != "")
+            DataTable dt = new DataTable();
+            dt = DS.ReadData("SELECT t.table_name, obj_description(pgc.oid, 'pg_class') comment FROM information_schema.tables t INNER JOIN pg_catalog.pg_class pgc ON t.table_name = pgc.relname WHERE t.table_type = 'BASE TABLE' AND t.table_schema = '" + schema + "'; ");
+            CardDefinition cd = new CardDefinition();
+            cd.Alias = schema;
+            cd.Schema = schema;
+            cd.ID = Guid.NewGuid().ToString();
+            cd.Sections = new SectionType[dt.Rows.Count];
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
+                cd.Sections[i] = new SectionType();
+                cd.Sections[i].ID = Guid.NewGuid().ToString();
+                cd.Sections[i].Type = SectionTypeType.coll;
+                cd.Sections[i].Sequnce = i;
+                cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
+                cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
+                cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
+                cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
+                cd.Sections[i].Name[0].Language = "ru";
 
-
-                if (lstBlocks.CheckedItems.Count > 0)
-                {
-                    string schema = lstBlocks.CheckedItems[0].ToString();
-                    DataTable dt = new DataTable();
-                    dt = DS.ReadData("SELECT t.table_name, obj_description(pgc.oid, 'pg_class') comment FROM information_schema.tables t INNER JOIN pg_catalog.pg_class pgc ON t.table_name = pgc.relname WHERE t.table_type = 'BASE TABLE' AND t.table_schema = '" + schema + "'; ");
-                    CardDefinition cd = new CardDefinition();
-                    cd.Alias = schema;
-                    cd.Schema = schema;
-                    cd.ID = Guid.NewGuid().ToString();
-                    cd.Sections = new SectionType[dt.Rows.Count];
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        cd.Sections[i] = new SectionType();
-                        cd.Sections[i].ID = Guid.NewGuid().ToString();
-                        cd.Sections[i].Type = SectionTypeType.coll;
-                        cd.Sections[i].Sequnce = i;
-                        cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
-                        cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
-                        cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
-                        cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
-                        cd.Sections[i].Name[0].Language = "ru";
-
-                        DataTable dtFld = new DataTable();
-                        dtFld = DS.ReadData(@"select
+                DataTable dtFld = new DataTable();
+                dtFld = DS.ReadData(@"select
                         c.table_schema,
                         c.table_name,
                         c.column_name,
@@ -148,69 +140,74 @@ namespace dv21
                     ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "';");
 
 
-                        DataTable dtPK = new DataTable();
-                        dtPK = DS.ReadData(@" select tc.constraint_type,kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name,kcu.ordinal_position pos   from information_schema.key_column_usage kcu
+                DataTable dtPK = new DataTable();
+                dtPK = DS.ReadData(@" select tc.constraint_type,kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name,kcu.ordinal_position pos   from information_schema.key_column_usage kcu
 JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
      AND tc.constraint_name = kcu.constraint_name
      and tc.constraint_type = 'PRIMARY KEY'
- where kcu.table_name ='"+ cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='"+ schema + "' ");
+ where kcu.table_name ='" + cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='" + schema + "' ");
 
 
-                        cd.Sections[i].Field = new FieldType[dtFld.Rows.Count];
+                cd.Sections[i].Field = new FieldType[dtFld.Rows.Count];
 
-                        for (int j = 0; j < dtFld.Rows.Count; j++)
+                for (int j = 0; j < dtFld.Rows.Count; j++)
+                {
+
+                    cd.Sections[i].Field[j] = new FieldType();
+                    cd.Sections[i].Field[j].ID = Guid.NewGuid().ToString();
+                    if (dtFld.Rows[j]["is_nullable"].ToString() == "YES")
+                    {
+                        cd.Sections[i].Field[j].NotNull = false;
+                        cd.Sections[i].Field[j].NotNullSpecified = true;
+                    }
+                    else
+                    {
+                        cd.Sections[i].Field[j].NotNull = true;
+                        cd.Sections[i].Field[j].NotNullSpecified = true;
+                    }
+
+                    cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["udt_name"].ToString());
+
+
+                    cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
+
+                    if (dtPK.Rows.Count > 0)
+                    {
+
+                        if (dtPK.Rows[0]["column_name"].ToString() == dtFld.Rows[j]["column_name"].ToString())
                         {
-
-                            cd.Sections[i].Field[j] = new FieldType();
-                            cd.Sections[i].Field[j].ID = Guid.NewGuid().ToString();
-                            if (dtFld.Rows[j]["is_nullable"].ToString() == "YES")
+                            cd.Sections[i].Field[j].UseforPK = true;
+                            cd.Sections[i].Field[j].UseforPKSpecified = true;
+                            if (cd.Sections[i].Field[j].Type != FieldTypeType.@int)
                             {
-                                cd.Sections[i].Field[j].NotNull = false;
-                                cd.Sections[i].Field[j].NotNullSpecified = true;
+                                cd.Sections[i].Field[j].IsBrief = true;
+                                cd.Sections[i].Field[j].IsBriefSpecified = true;
                             }
-                            else
-                            {
-                                cd.Sections[i].Field[j].NotNull = true;
-                                cd.Sections[i].Field[j].NotNullSpecified = true;
-                            }
-
-                            cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["udt_name"].ToString());
-
-
-                            cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
-
-                            if (dtPK.Rows.Count > 0)
-                            {
-                             
-                                if (dtPK.Rows[0]["column_name"].ToString() == dtFld.Rows[j]["column_name"].ToString())
-                                {
-                                    cd.Sections[i].Field[j].UseforPK = true;
-                                    cd.Sections[i].Field[j].UseforPKSpecified = true;
-                                }
-                            }
-
-
-                            if (dtFld.Rows[j]["len"].ToString() != "")
-                            {
-                                cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
-                                cd.Sections[i].Field[j].MaxSpecified = true;
-                            }
-
-                            cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
-                            cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
-                            cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
-                            cd.Sections[i].Field[j].Name[0].Language = "ru";
-
                         }
-
-
                     }
 
 
-                    for (int i = 0; i < cd.Sections.Length; i++)
+                    if (dtFld.Rows[j]["len"].ToString() != "")
                     {
-                        DataTable dtFK = new DataTable();
-                        dtFK = DS.ReadData(@"select kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name , kcu.ordinal_position pos ,
+                        cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
+                        cd.Sections[i].Field[j].MaxSpecified = true;
+                    }
+
+                    cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
+                    cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
+                    cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
+                    cd.Sections[i].Field[j].Name[0].Language = "ru";
+
+                }
+
+
+            }
+
+
+            for (int i = 0; i < cd.Sections.Length; i++)
+            {
+                DataTable dtFK = new DataTable();
+                dtFK = DS.ReadData(@"select kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name , kcu.ordinal_position pos ,
                             ccu.table_schema to_schema , ccu.table_name to_table, ccu.column_name to_column  from information_schema.key_column_usage kcu
                             join
                              information_schema.constraint_column_usage ccu on  kcu.constraint_name  = ccu.constraint_name
@@ -219,40 +216,265 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                                  AND tc.constraint_name = kcu.constraint_name
                                  and tc.constraint_type = 'FOREIGN KEY'
                              where kcu.table_name ='" + cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='" + schema + "' and  ccu.table_schema ='" + schema + "' and ccu.table_catalog ='" + DS.DataBaseName + "'"
-                         );
+                 );
 
-                        for (int r = 0; r < dtFK.Rows.Count; r++) {
+                for (int r = 0; r < dtFK.Rows.Count; r++)
+                {
 
-                            for (int j = 0; j < cd.Sections[i].Field.Length; j++)
+                    for (int j = 0; j < cd.Sections[i].Field.Length; j++)
+                    {
+                        if (cd.Sections[i].Field[j].Alias == dtFK.Rows[r]["column_name"].ToString())
+                        {
+                            cd.Sections[i].Field[j].Reference = true;
+                            cd.Sections[i].Field[j].ReferenceSpecified = true;
+                            cd.Sections[i].Field[j].RefType = cd.ID.ToString();
+
+                            for (int k = 0; k < cd.Sections.Length; k++)
                             {
-                                if (cd.Sections[i].Field[j].Alias == dtFK.Rows[r]["column_name"].ToString())
+                                if (cd.Sections[k].Alias == dtFK.Rows[r]["to_table"].ToString())
+                                {
+                                    cd.Sections[i].Field[j].RefSection = cd.Sections[k].ID.ToString();
+                                }
+                            }
+
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+            MyUtils.SerializeObject(txtSaveTo.Text, cd);
+        }
+
+        private List<dv21.CardDefinition> cards;
+        private dv21.DefFile prj;
+
+        private void ImportSchemas()
+        {
+            string ImportFolder;
+            //string ProjectFileName;
+            FileInfo f = new FileInfo(txtSaveTo.Text);
+            ImportFolder = f.DirectoryName;
+            cards = new List<CardDefinition>();
+            prj = new dv21.DefFile();
+            prj.Paths = new DefFilePaths[lstBlocks.CheckedItems.Count];
+
+
+            // save import project
+            for (int i = 0; i < lstBlocks.CheckedItems.Count; i++)
+            {
+                prj.Paths[i] = new dv21.DefFilePaths();
+                prj.Paths[i].Path = ImportFolder + @"\" + lstBlocks.CheckedItems[i].ToString() + ".xml";
+            }
+            MyUtils.SerializeObject(txtSaveTo.Text, prj);
+
+            for (int c = 0; c < lstBlocks.CheckedItems.Count; c++)
+            {
+                string schema = lstBlocks.CheckedItems[c].ToString();
+                DataTable dt = new DataTable();
+                dt = DS.ReadData("SELECT t.table_name, obj_description(pgc.oid, 'pg_class') comment FROM information_schema.tables t INNER JOIN pg_catalog.pg_class pgc ON t.table_name = pgc.relname WHERE t.table_type = 'BASE TABLE' AND t.table_schema = '" + schema + "'; ");
+
+                CardDefinition cd = new CardDefinition();
+                cd.Alias = schema;
+                cd.Schema = schema;
+                cd.ID = Guid.NewGuid().ToString();
+                cd.Sections = new SectionType[dt.Rows.Count];
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    cd.Sections[i] = new SectionType();
+                    cd.Sections[i].ID = Guid.NewGuid().ToString();
+                    cd.Sections[i].Type = SectionTypeType.coll;
+                    cd.Sections[i].Sequnce = i;
+                    cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
+                    cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
+                    cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
+                    cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
+                    cd.Sections[i].Name[0].Language = "ru";
+
+                    DataTable dtFld = new DataTable();
+                    dtFld = DS.ReadData(@"select
+                            c.table_schema,
+                            c.table_name,
+                            c.column_name,
+                            c.is_nullable,
+                            c.data_type, 
+                            c.udt_name,
+                            c.character_maximum_length len,
+                            pgd.description
+                        from pg_catalog.pg_statio_all_tables as st
+                        inner join pg_catalog.pg_description pgd on (
+                            pgd.objoid = st.relid
+                        )
+                        inner join information_schema.columns c on (
+                            pgd.objsubid   = c.ordinal_position and
+                            c.table_schema = st.schemaname and
+                            c.table_name   = st.relname
+                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "';");
+
+
+                    DataTable dtPK = new DataTable();
+                    dtPK = DS.ReadData(@" select tc.constraint_type,kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name,kcu.ordinal_position pos   from information_schema.key_column_usage kcu
+    JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
+         AND tc.constraint_name = kcu.constraint_name
+         and tc.constraint_type = 'PRIMARY KEY'
+     where kcu.table_name ='" + cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='" + schema + "' ");
+
+
+                    cd.Sections[i].Field = new FieldType[dtFld.Rows.Count];
+
+                    for (int j = 0; j < dtFld.Rows.Count; j++)
+                    {
+
+                        cd.Sections[i].Field[j] = new FieldType();
+                        cd.Sections[i].Field[j].ID = Guid.NewGuid().ToString();
+                        if (dtFld.Rows[j]["is_nullable"].ToString() == "YES")
+                        {
+                            cd.Sections[i].Field[j].NotNull = false;
+                            cd.Sections[i].Field[j].NotNullSpecified = true;
+                        }
+                        else
+                        {
+                            cd.Sections[i].Field[j].NotNull = true;
+                            cd.Sections[i].Field[j].NotNullSpecified = true;
+                        }
+
+                        cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["udt_name"].ToString());
+
+
+                        cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
+
+                        if (dtPK.Rows.Count > 0)
+                        {
+
+                            if (dtPK.Rows[0]["column_name"].ToString() == dtFld.Rows[j]["column_name"].ToString())
+                            {
+                                cd.Sections[i].Field[j].UseforPK = true;
+                                cd.Sections[i].Field[j].UseforPKSpecified = true;
+                                if(cd.Sections[i].Field[j].Type != FieldTypeType.@int)
+                                {
+                                    cd.Sections[i].Field[j].IsBrief = true;
+                                    cd.Sections[i].Field[j].IsBriefSpecified = true;
+                                }
+
+                            }
+                        }
+
+
+                        if (dtFld.Rows[j]["len"].ToString() != "")
+                        {
+                            cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
+                            cd.Sections[i].Field[j].MaxSpecified = true;
+                        }
+
+                        cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
+                        cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
+                        cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
+                        cd.Sections[i].Field[j].Name[0].Language = "ru";
+
+                    }
+
+
+                }
+                MyUtils.SerializeObject(ImportFolder + @"\" + schema + ".xml", cd);
+
+            }
+
+            // load import project
+            MyUtils.LoadCards(cards, txtSaveTo.Text);
+            for (int c = 0; c < lstBlocks.CheckedItems.Count; c++)
+            {
+                string schema = lstBlocks.CheckedItems[c].ToString();
+
+                CardDefinition cd = MyUtils.GetReferencedTypeByName(cards, schema);
+
+                for (int i = 0; i < cd.Sections.Length; i++)
+                {
+                    DataTable dtFK = new DataTable();
+                    dtFK = DS.ReadData(@"select kcu.constraint_schema ,kcu.constraint_name ,  kcu.table_schema ,kcu.table_name ,kcu.column_name , kcu.ordinal_position pos ,
+                            ccu.table_schema to_schema , ccu.table_name to_table, ccu.column_name to_column  from information_schema.key_column_usage kcu
+                            join
+                             information_schema.constraint_column_usage ccu on  kcu.constraint_name  = ccu.constraint_name
+  
+                            JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.constraint_schema 
+                                 AND tc.constraint_name = kcu.constraint_name
+                                 and tc.constraint_type = 'FOREIGN KEY'
+                             where kcu.table_name ='" + cd.Sections[i].Alias + "' and kcu.constraint_catalog ='" + DS.DataBaseName + "' and kcu.constraint_schema ='" + schema + "'  and ccu.table_catalog ='" + DS.DataBaseName + "'"
+                     );
+
+                    for (int r = 0; r < dtFK.Rows.Count; r++)
+                    {
+
+                        for (int j = 0; j < cd.Sections[i].Field.Length; j++)
+                        {
+                            if (cd.Sections[i].Field[j].Alias == dtFK.Rows[r]["column_name"].ToString())
+                            {
+
+
+                                CardDefinition refType = null;
+                                SectionType refSection = null;
+                                string refSchema = dtFK.Rows[r]["to_schema"].ToString();
+
+                                refType = MyUtils.GetReferencedTypeByName(cards, dtFK.Rows[r]["to_schema"].ToString() );
+                                if (refType != null)
+                                    refSection = MyUtils.GetReferencedSectionByName(refType.Sections, dtFK.Rows[r]["to_table"].ToString());
+
+                                if (refSection != null)
                                 {
                                     cd.Sections[i].Field[j].Reference = true;
                                     cd.Sections[i].Field[j].ReferenceSpecified = true;
-                                    cd.Sections[i].Field[j].RefType = cd.ID.ToString();
-
-                                    for(int k = 0;k< cd.Sections.Length; k++)
-                                    {
-                                        if(cd.Sections[k].Alias == dtFK.Rows[r]["to_table"].ToString())
-                                        {
-                                            cd.Sections[i].Field[j].RefSection = cd.Sections[k].ID.ToString();
-                                        }
-                                    }
-                                
+                                    cd.Sections[i].Field[j].RefType = refType.ID.ToString();
+                                    cd.Sections[i].Field[j].RefSection = refSection.ID.ToString();
                                 }
-                             }
-                        
+                                
 
+                            }
                         }
 
 
                     }
 
 
-                    MyUtils.SerializeObject(txtSaveTo.Text, cd);
+                }
+                MyUtils.SerializeObject(ImportFolder + @"\" + schema + ".xml", cd);
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+
+        private void cmdGo_Click(object eventSender, EventArgs eventArgs)
+        {
+
+            if (txtSaveTo.Text != "")
+            {
+                
+
+                if (lstBlocks.CheckedItems.Count == 1)
+                {
+                    string schema = lstBlocks.CheckedItems[0].ToString();
+                    ImportSingleSchema(schema);
                     MessageBox.Show("Импорт завершен");
 
                 }
+
+                if (lstBlocks.CheckedItems.Count > 1)
+                {
+                    ImportSchemas();
+                    MessageBox.Show("Импорт завершен");
+                }
+
+
             }
 
         }
