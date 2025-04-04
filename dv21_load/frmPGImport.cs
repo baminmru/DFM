@@ -486,13 +486,21 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
 
             FieldTypeType v = FieldTypeType.@int;
-            switch (pgType)
+            switch (pgType.ToLower())
             {
                 case "int4":
                     v= FieldTypeType.@int;
                     break;
 
                 case "int8":
+                    v = FieldTypeType.@int;
+                    break;
+
+                case "integer":
+                    v = FieldTypeType.@int;
+                    break;
+
+                case "bigint":
                     v = FieldTypeType.@int;
                     break;
 
@@ -509,6 +517,19 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     v = FieldTypeType.datetime;
                     break;
 
+                case "timestamptz":
+                    v = FieldTypeType.datetime;
+                    break;
+
+
+                case "char":
+                    v = FieldTypeType.@string;
+                    break;
+
+                case "character":
+                    v = FieldTypeType.@string;
+                    break;
+
 
                 case "enum":
                     v = FieldTypeType.@enum;
@@ -518,7 +539,7 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     v = FieldTypeType.bitmask;
                     break;
 
-                case "UUID":
+                case "uuid":
                     v = FieldTypeType.uniqueid;
                     break;
 
@@ -528,15 +549,22 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     v = FieldTypeType.@string;
                     break;
 
-                case "text":
-                    v = FieldTypeType.text;
+                case "character varying":
+                    v = FieldTypeType.@string;
                     break;
-                
-                
+
+
                 case "jsonb":
                     v = FieldTypeType.json;
                     break;
 
+                case "json":
+                    v = FieldTypeType.json;
+                    break;
+
+                case "xml":
+                    v = FieldTypeType.json;
+                    break;
 
                 case "numeric":
                     v = FieldTypeType.@double;
