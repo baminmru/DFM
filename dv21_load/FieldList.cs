@@ -52,6 +52,9 @@ namespace dv21
                 case "int":
                     return "integer";
 
+                case "int8":
+                    return "int8";
+
                 case "bool":
                     return "boolean";
 

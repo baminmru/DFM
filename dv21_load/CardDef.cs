@@ -721,6 +721,9 @@ namespace dv21 {
         @int,
         
         /// <remarks/>
+        int8,
+        
+        /// <remarks/>
         @bool,
         
         /// <remarks/>

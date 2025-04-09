@@ -234,6 +234,7 @@ namespace dv21_ctl
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.Items.AddRange(new object[] {
             "int",
+            "int8",
             "bool",
             "datetime",
             "enum",
