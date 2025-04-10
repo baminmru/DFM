@@ -784,6 +784,8 @@ namespace dv21 {
         
         private string aliasField;
         
+        private string idTypeField;
+        
         private bool addHistoryField;
         
         private bool addWhoInfoField;
@@ -839,6 +841,17 @@ namespace dv21 {
             }
             set {
                 this.aliasField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string IdType {
+            get {
+                return this.idTypeField;
+            }
+            set {
+                this.idTypeField = value;
             }
         }
         

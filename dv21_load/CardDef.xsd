@@ -101,6 +101,7 @@
 			<xs:element name="Section" type="SectionType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="Alias" type="xs:string" use="required"/>
+		<xs:attribute name="IdType" type="xs:string" use="optional"/>
     <xs:attribute name="AddHistory" type="xs:boolean" use="required"/>
     <xs:attribute name="AddWhoInfo" type="xs:boolean" use="required"/>
 		<xs:attribute name="Type" use="required">
