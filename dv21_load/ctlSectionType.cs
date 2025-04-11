@@ -36,6 +36,8 @@ namespace dv21_ctl
         private Label label6;
         private Label label16;
         private TextBox txtDocumentation;
+        private Label label7;
+        private TextBox txtIDType;
         public MyTreeNode LastNode;
 
 		private void UpdateNode()
@@ -98,6 +100,8 @@ namespace dv21_ctl
             this.label6 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.txtDocumentation = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtIDType = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -137,7 +141,7 @@ namespace dv21_ctl
             // 
             // cmd1NewID
             // 
-            this.cmd1NewID.Location = new System.Drawing.Point(240, 97);
+            this.cmd1NewID.Location = new System.Drawing.Point(110, 97);
             this.cmd1NewID.Name = "cmd1NewID";
             this.cmd1NewID.Size = new System.Drawing.Size(40, 24);
             this.cmd1NewID.TabIndex = 4;
@@ -148,7 +152,7 @@ namespace dv21_ctl
             // 
             this.txt1ID.Location = new System.Drawing.Point(8, 97);
             this.txt1ID.Name = "txt1ID";
-            this.txt1ID.Size = new System.Drawing.Size(224, 20);
+            this.txt1ID.Size = new System.Drawing.Size(96, 20);
             this.txt1ID.TabIndex = 3;
             this.txt1ID.TextChanged += new System.EventHandler(this.txt1ID_TextChanged);
             // 
@@ -254,8 +258,27 @@ namespace dv21_ctl
             this.txtDocumentation.TabIndex = 34;
             this.txtDocumentation.TextChanged += new System.EventHandler(this.txtDocumentation_TextChanged);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(165, 82);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(81, 13);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "Тип для ключа";
+            // 
+            // txtIDType
+            // 
+            this.txtIDType.Location = new System.Drawing.Point(164, 97);
+            this.txtIDType.Name = "txtIDType";
+            this.txtIDType.Size = new System.Drawing.Size(111, 20);
+            this.txtIDType.TabIndex = 37;
+            this.txtIDType.TextChanged += new System.EventHandler(this.txtIDType_TextChanged);
+            // 
             // ctlSectionType
             // 
+            this.Controls.Add(this.txtIDType);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.txtDocumentation);
             this.Controls.Add(this.txtSequence);
@@ -360,6 +383,12 @@ namespace dv21_ctl
                     txtSequence.Text = mSection.Sequnce.ToString();
                     txtDocumentation.Text = mSection.Documentation;
 
+                    if(mSection.IdType == null || mSection.IdType == "")
+                        txtIDType.Text = FieldTypeType.@int.ToString();
+                    
+                    else
+                        txtIDType.Text = mSection.IdType;
+
                     int i;
 					if (mSection.Name!=null)
 					{	
@@ -428,6 +457,15 @@ namespace dv21_ctl
         private void label16_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtIDType_TextChanged(object sender, EventArgs e)
+        {
+            if (!inLoad)
+            {
+                mSection.IdType = txtIDType.Text;
+                UpdateNode();
+            }
         }
     }
 }

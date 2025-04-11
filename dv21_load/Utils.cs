@@ -14,6 +14,9 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
@@ -214,7 +217,10 @@ namespace dv21_util
         public static string GetIDType( dv21.SectionType s)
         {
 
-            string idType = "int";
+            string idType = s.IdType;
+            if (idType == "")
+                idType = FieldTypeType.@int.ToString();
+
             dv21.SectionType p;
             int i;
 
@@ -303,6 +309,7 @@ namespace dv21_util
         }
 
 
+
         public static void SerializeObject(string filename, dv21.CardDefinition cd)
 		{
 			try 
@@ -358,7 +365,95 @@ namespace dv21_util
 		}
 
 
-		public static void SerializeObject(string filename, dv21.DefFile  cd)
+
+        public static void SerializeObjectToJSON(string filename, dv21.CardDefinition cd)
+        {
+            try
+            {
+
+                var options = new JsonSerializerOptions
+                {
+                    //Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true
+                };
+                string sJSON = JsonSerializer.Serialize<dv21.CardDefinition>( cd, options);
+                
+
+                if (sJSON != "")
+                {
+                    if (File.Exists(filename))
+                    {
+                        DateTime d = DateTime.Now;
+                        string fnBack = filename.Replace(".json", "")
+                            + "_" + d.ToString("yyddMMHHmmss") + ".json";
+
+                        File.Copy(filename, fnBack, true);
+                    }
+
+                    File.WriteAllText(filename, sJSON);
+
+                }
+                else
+                {
+                    MessageBox.Show("JSON backup Save Error");
+                }
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show("JSON Save Error:" + e.InnerException.Message);
+            }
+
+
+        }
+
+
+        public static void SerializeObjectToJSON(string filename, dv21.DefFile df)
+        {
+            try
+            {
+
+                var options = new JsonSerializerOptions
+                {
+                    //Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true
+                };
+
+                string sJSON =   JsonSerializer.Serialize<dv21.DefFile>(df, options);
+        
+
+
+                if (sJSON != "")
+                {
+                    if (File.Exists(filename))
+                    {
+                        DateTime d = DateTime.Now;
+                        string fnBack = filename.Replace(".json", "")
+                            + "_" + d.ToString("yyddMMHHmmss") + ".json";
+
+                        File.Copy(filename, fnBack, true);
+                    }
+
+                    File.WriteAllText(filename, sJSON);
+
+                }
+                else
+                {
+                    MessageBox.Show("JSON backup Save Error");
+                }
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show("JSON Save Error:" + e.InnerException.Message);
+            }
+
+
+        }
+
+
+
+        public static void SerializeObject(string filename, dv21.DefFile  cd)
 		{
 			try 
 			{  
@@ -412,6 +507,9 @@ namespace dv21_util
                 MessageBox.Show("XML Save Error:" + e.Message);
             }
         }
+
+
+        
 
 
 
@@ -565,7 +663,26 @@ namespace dv21_util
 			}
 		}
 
-		public static dv21.DefFile DeSerializeLib(string filename)
+        public static dv21.CardDefinition DeSerializeObjectFromJSON(string filename)
+        {
+            try
+            {
+                ;
+
+
+                string jsonString = File.ReadAllText(filename);
+                dv21.CardDefinition cd = JsonSerializer.Deserialize<dv21.CardDefinition>(jsonString);
+                
+                return cd;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        public static dv21.DefFile DeSerializeLib(string filename)
 		{
 			try 
 			{  
@@ -586,34 +703,50 @@ namespace dv21_util
 			}
 		}
 
-
-/*		public static dv21_list.CardDefinition DeSerializeObject2(string filename)
-		{
-			try 
-			{  
-				dv21_list.CardDefinition cd;
-
-				// Create an instance of the XmlSerializer.
-				XmlSerializer serializer = 
-					new XmlSerializer(typeof(dv21_list.CardDefinition));
-				// Reading the XML document requires a FileStream.
-				Stream reader= new FileStream(filename,FileMode.Open);
-          
-				// Call the Deserialize method to restore the object's state.
-				cd=(dv21_list.CardDefinition) serializer.Deserialize(reader);
-				reader.Close();
-				reader = null;
-				return cd;
-			} 
-			catch
-			{
-				return null;
-			}
-		}
-		*/
+        public static dv21.DefFile DeSerializeLibFromJSON(string filename)
+        {
+            try
+            {
+                dv21.DefFile cd;
+                cd = JsonSerializer.Deserialize< dv21.DefFile>(filename);
+                return cd;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
 
-		public static Array Add(Array arr, Object Item,Array arr2)
+
+
+        /*		public static dv21_list.CardDefinition DeSerializeObject2(string filename)
+                {
+                    try 
+                    {  
+                        dv21_list.CardDefinition cd;
+
+                        // Create an instance of the XmlSerializer.
+                        XmlSerializer serializer = 
+                            new XmlSerializer(typeof(dv21_list.CardDefinition));
+                        // Reading the XML document requires a FileStream.
+                        Stream reader= new FileStream(filename,FileMode.Open);
+
+                        // Call the Deserialize method to restore the object's state.
+                        cd=(dv21_list.CardDefinition) serializer.Deserialize(reader);
+                        reader.Close();
+                        reader = null;
+                        return cd;
+                    } 
+                    catch
+                    {
+                        return null;
+                    }
+                }
+                */
+
+
+        public static Array Add(Array arr, Object Item,Array arr2)
 		{
 			if(arr !=null)
 			{
@@ -667,13 +800,14 @@ namespace dv21_util
             catch
             {
             }
+            if (df == null) return;
             int i;
-            for (i = 0; i < df.Paths.Length; i++)
+            for (i = 0; i < df.Paths.Count; i++)
             {
                 ot = null;
                 try
                 {
-                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                    ot = MyUtils.DeSerializeObject(df.Paths[i]);
                 }
                 catch { }
                 if (ot != null)
@@ -699,12 +833,12 @@ namespace dv21_util
             {
             }
             int i;
-            for (i = 0; i < df.Paths.Length; i++)
+            for (i = 0; i < df.Paths.Count; i++)
             {
                 ot = null;
                 try
                 {
-                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                    ot = MyUtils.DeSerializeObject(df.Paths[i]);
                 }
                 catch { }
                 if (ot != null)
@@ -723,18 +857,22 @@ namespace dv21_util
             CardDefinition ot = null;
             try
             {
-                df = MyUtils.DeSerializeLib(ProjectFile);
+
+                if(ProjectFile.Contains(".xml"))
+                    df = MyUtils.DeSerializeLib(ProjectFile);
+                if (ProjectFile.Contains(".json"))
+                    df = MyUtils.DeSerializeLibFromJSON(ProjectFile);
             }
             catch
             {
             }
             int i;
-            for (i = 0; i < df.Paths.Length; i++)
+            for (i = 0; i < df.Paths.Count; i++)
             {
                 ot = null;
                 try
                 {
-                    ot = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                    ot = MyUtils.DeSerializeObject(df.Paths[i]);
                 }
                 catch { }
                 if (ot != null)

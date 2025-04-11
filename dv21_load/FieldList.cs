@@ -254,9 +254,9 @@ namespace dv21
 
             if (s.AddWhoInfo)
             {
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamp','','null','Время создания',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamptz','','null','Время создания',''");
                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_by','text','','null','Кем создано',''");
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_ts','timestamp','','null','Время изменения',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_ts','timestamptz','','null','Время изменения',''");
                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_by','text','','null','Кем изменено',''");
             }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using dv21;
@@ -20,7 +21,7 @@ namespace dv21_tl
 		private System.Windows.Forms.Button cmdAdd;
 		private System.Windows.Forms.Button cmdDel;
 		private System.Windows.Forms.TextBox txtValue;
-		private dv21.DefFilePaths[] mDefFilePaths;
+		private List<string> mDefFilePaths;
 		private bool inClick;
 		private System.Windows.Forms.Button cmdOK;
 		private System.Windows.Forms.Label label1;
@@ -28,7 +29,7 @@ namespace dv21_tl
 		private System.Windows.Forms.Button cmdFile;
 		private System.Windows.Forms.Label label2;
 
-		public dv21.DefFilePaths[]   DefFilePaths
+		public List<string>   DefFilePaths
 		{
 			get 
 			{
@@ -147,6 +148,10 @@ namespace dv21_tl
             this.label1.TabIndex = 9;
             this.label1.Text = "Project fiels";
             // 
+            // dlgOpen
+            // 
+            this.dlgOpen.Filter = "JSON file|*.json|XML file|*.xml|All files|*.*";
+            // 
             // cmdFile
             // 
             this.cmdFile.Location = new System.Drawing.Point(360, 168);
@@ -209,12 +214,12 @@ namespace dv21_tl
 				inClick = true;
 				lstStrings.Items.Clear();
 				int i;
-				DefFilePaths ls;
+				String ls;
 				
-				for(i=0;i<DefFilePaths.Length ;i++)
+				for(i=0;i<DefFilePaths.Count ;i++)
 				{
-					ls=(DefFilePaths)DefFilePaths[i];
-					lstStrings.Items.Add(ls.Path) ;
+					ls=DefFilePaths[i];
+					lstStrings.Items.Add(ls) ;
 				}
 				inClick = false;
 			}
@@ -224,9 +229,8 @@ namespace dv21_tl
 		{
 			if(DefFilePaths !=null)
 			{
-				DefFilePaths p = new DefFilePaths();
-				p.Path="C:\\";
-				DefFilePaths = (DefFilePaths[])MyUtils.Add(DefFilePaths,	p,new DefFilePaths[DefFilePaths.Length+1]);
+				
+				DefFilePaths.Add("C:\\");
 				lstStrings.SelectedIndex = lstStrings.Items.Add("c:\\");
 			}
 		}
@@ -239,7 +243,7 @@ namespace dv21_tl
 				{
 
 				
-					DefFilePaths = (DefFilePaths[])MyUtils.RemoveAt(DefFilePaths,	lstStrings.SelectedIndex,new DefFilePaths[DefFilePaths.Length-1]);
+					DefFilePaths.RemoveAt(lstStrings.SelectedIndex);
 					InitList();
 				}
 			}
@@ -258,10 +262,10 @@ namespace dv21_tl
 				{
 
 					int i=lstStrings.SelectedIndex;
-					DefFilePaths ls;
-					ls = (DefFilePaths)DefFilePaths[i];
-					ls.Path=txtValue.Text; 
-					lstStrings.Items[i]=ls.Path;
+					String ls;
+					ls = DefFilePaths[i];
+					ls=txtValue.Text; 
+					lstStrings.Items[i]=ls;
 					
 				}
 			}
@@ -273,9 +277,9 @@ namespace dv21_tl
 			try
 			{
 				int i=lstStrings.SelectedIndex;
-				DefFilePaths ls;
-				ls = (DefFilePaths)DefFilePaths[i];
-				txtValue.Text=ls.Path;
+				String ls;
+				ls = DefFilePaths[i];
+				txtValue.Text=ls;
 			}
 			catch{}
 			inClick = false;

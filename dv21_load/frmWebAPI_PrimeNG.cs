@@ -2699,6 +2699,8 @@ namespace dv21
             {
                 case "int":
                     return "number";
+                case "int8":
+                    return "number";
 
                 case "bool":
                     return "string";

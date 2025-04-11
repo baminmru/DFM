@@ -64,18 +64,18 @@ namespace dv21_load
             dv21.DefFile df;
             df = MyUtils.DeSerializeLib(MyUtils.ProjectFile);
             int i;
-            for (i = 0; i < df.Paths.Length; i++)
+            for (i = 0; i < df.Paths.Count; i++)
             {
                 cd = null;
                 try
                 {
-                    cd = MyUtils.DeSerializeObject(df.Paths[i].Path);
+                    cd = MyUtils.DeSerializeObject(df.Paths[i]);
                 }
                 catch { }
                 if (cd != null)
                 {
                     LoadTree(tvStructFrom, "");
-                    LoadTree(tvStructTo, df.Paths[i].Path);
+                    LoadTree(tvStructTo, df.Paths[i]);
                 }
             }
 

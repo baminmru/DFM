@@ -255,9 +255,9 @@ namespace dv21
 
             if (s.AddWhoInfo)
             {
-                sb.AppendLine("\t\t,created_ts timestamp");
+                sb.AppendLine("\t\t,created_ts timestamptz");
                 sb.AppendLine("\t\t,created_by text");
-                sb.AppendLine("\t\t,modified_ts timestamp");
+                sb.AppendLine("\t\t,modified_ts timestamptz");
                 sb.AppendLine("\t\t,modified_by text");
             }
 

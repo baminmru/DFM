@@ -121,19 +121,18 @@
   <data name="cmdAdd.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAkElEQVQ4T7WOSRIDIQwDefo8jZ9NIhlj
-        YTxLDukqHUBuQxPOH7NxvgWzpqyM0nPwXIFZU1ZGGQt677zLYNaUiYqeYyYDwbxJlnMaf+M/wplaEK+F
-        pHePCwgHdIFLmtsFVl4vcDBryoqWTCWD0W+MegddkQ0O47VvPV/lWbsLGcRQseBJBhQyIt7KQAer/IPW
-        PiYSpusgdYcmAAAAAElFTkSuQmCC
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAfUlEQVQ4T7WQUQ7AIAhDPfqO5s1cKFE7
+        RMSPvaRZjPbJLGXSLrPQsoQC+Wge2xukBbVW2wWOgItT0GNJCjgF0/SJHMG8zZsgIQA4wIJe4oQC3dwL
+        gjcAvPkZm8tHgQdLKQs4jHdoevtY896mLISCU1kYIzNUDMuC/Uebf3gBJhKm61gQBc4AAAAASUVORK5C
+        YII=
 </value>
   </data>
   <data name="cmdDel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAf0lEQVQ4T7WNCw6AIAxDuf+puBnSfWRj
-        AzTRlzRR2gfF0F4m0J6CLSseqc9gy0qnf+FknwnWBDdcBDMLa4KOdsGs1kr5/gJBD5c5XQCoVFSwUbBl
-        xSP1IJMBtqx4pI6gSxKgMV7r9f0q/dtuIYMxSi44yYCEGSNuZWCHWf6glAstN7lJgmMvaQAAAABJRU5E
-        rkJggg==
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAZUlEQVQ4T7WPUQ7AIAhDuf+puBlLt6CM
+        TWDqXtIPY/q0RB35mAdSZa9AUMyyKvC/mxIw85n9gu6JkwnAbacWbJSSALyVQVmg+DmhAK+RXJvb2d4N
+        yiAUZGXQvmwxxbAM/EaffzgALTe5SSbyJqYAAAAASUVORK5CYII=
 </value>
   </data>
   <metadata name="dlgOpen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

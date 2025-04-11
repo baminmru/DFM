@@ -178,10 +178,15 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                         {
                             cd.Sections[i].Field[j].UseforPK = true;
                             cd.Sections[i].Field[j].UseforPKSpecified = true;
-                            if (cd.Sections[i].Field[j].Type != FieldTypeType.@int)
+                           
+                            if (cd.Sections[i].Field[j].Type != FieldTypeType.@int  || cd.Sections[i].Field[j].Type != FieldTypeType.int8)
                             {
                                 cd.Sections[i].Field[j].IsBrief = true;
                                 cd.Sections[i].Field[j].IsBriefSpecified = true;
+                            }
+                            else
+                            {
+                                cd.Sections[i].IdType = cd.Sections[i].Field[j].Type.ToString();
                             }
                         }
                     }
@@ -260,14 +265,13 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
             ImportFolder = f.DirectoryName;
             cards = new List<CardDefinition>();
             prj = new dv21.DefFile();
-            prj.Paths = new DefFilePaths[lstBlocks.CheckedItems.Count];
+            prj.Paths = new List<String>();
 
 
             // save import project
             for (int i = 0; i < lstBlocks.CheckedItems.Count; i++)
             {
-                prj.Paths[i] = new dv21.DefFilePaths();
-                prj.Paths[i].Path = ImportFolder + @"\" + lstBlocks.CheckedItems[i].ToString() + ".xml";
+                prj.Paths.Add(  ImportFolder + @"\" + lstBlocks.CheckedItems[i].ToString() + ".xml");
             }
             MyUtils.SerializeObject(txtSaveTo.Text, prj);
 
@@ -353,10 +357,14 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                             {
                                 cd.Sections[i].Field[j].UseforPK = true;
                                 cd.Sections[i].Field[j].UseforPKSpecified = true;
-                                if(cd.Sections[i].Field[j].Type != FieldTypeType.@int)
+                                if (cd.Sections[i].Field[j].Type != FieldTypeType.@int || cd.Sections[i].Field[j].Type != FieldTypeType.int8)
                                 {
                                     cd.Sections[i].Field[j].IsBrief = true;
                                     cd.Sections[i].Field[j].IsBriefSpecified = true;
+                                }
+                                else
+                                {
+                                    cd.Sections[i].IdType = cd.Sections[i].Field[j].Type.ToString();
                                 }
 
                             }
@@ -493,7 +501,7 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     break;
 
                 case "int8":
-                    v = FieldTypeType.@int;
+                    v = FieldTypeType.int8;
                     break;
 
                 case "integer":
@@ -501,7 +509,7 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     break;
 
                 case "bigint":
-                    v = FieldTypeType.@int;
+                    v = FieldTypeType.int8;
                     break;
 
                 case "bool":
