@@ -70,6 +70,12 @@ namespace dv21
                 case "datetime":
                     return "LocalDate";
 
+                case "timestamp":
+                    return "LocalDate";
+
+                case "timestamptz":
+                    return "ZonedDateTime";
+
                 case "enum":
                     return "Enum";
 

@@ -249,10 +249,12 @@ namespace dv21_ctl
             "refid",
             "text",
             "image",
-            "json"});
+            "json",
+            "timestamp",
+            "timestamptz"});
             this.cmbType.Location = new System.Drawing.Point(8, 128);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(136, 21);
+            this.cmbType.Size = new System.Drawing.Size(136, 28);
             this.cmbType.TabIndex = 6;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
@@ -267,9 +269,10 @@ namespace dv21_ctl
             // cmb1Names
             // 
             this.cmb1Names.Enabled = false;
+            this.cmb1Names.ItemHeight = 20;
             this.cmb1Names.Location = new System.Drawing.Point(8, 596);
             this.cmb1Names.Name = "cmb1Names";
-            this.cmb1Names.Size = new System.Drawing.Size(285, 56);
+            this.cmb1Names.Size = new System.Drawing.Size(285, 44);
             this.cmb1Names.TabIndex = 12;
             // 
             // label5
@@ -303,7 +306,7 @@ namespace dv21_ctl
             // 
             this.txt1ID.Location = new System.Drawing.Point(8, 80);
             this.txt1ID.Name = "txt1ID";
-            this.txt1ID.Size = new System.Drawing.Size(224, 20);
+            this.txt1ID.Size = new System.Drawing.Size(224, 26);
             this.txt1ID.TabIndex = 3;
             this.txt1ID.TextChanged += new System.EventHandler(this.txt1ID_TextChanged);
             // 
@@ -311,7 +314,7 @@ namespace dv21_ctl
             // 
             this.txt1Alias.Location = new System.Drawing.Point(6, 41);
             this.txt1Alias.Name = "txt1Alias";
-            this.txt1Alias.Size = new System.Drawing.Size(272, 20);
+            this.txt1Alias.Size = new System.Drawing.Size(272, 26);
             this.txt1Alias.TabIndex = 1;
             this.txt1Alias.TextChanged += new System.EventHandler(this.txt1Alias_TextChanged);
             // 
@@ -343,7 +346,7 @@ namespace dv21_ctl
             // 
             this.txtMax.Location = new System.Drawing.Point(8, 168);
             this.txtMax.Name = "txtMax";
-            this.txtMax.Size = new System.Drawing.Size(272, 20);
+            this.txtMax.Size = new System.Drawing.Size(272, 26);
             this.txtMax.TabIndex = 8;
             this.txtMax.TextChanged += new System.EventHandler(this.txtMax_TextChanged);
             // 
@@ -391,7 +394,7 @@ namespace dv21_ctl
             // 
             this.txtRefType.Location = new System.Drawing.Point(7, 62);
             this.txtRefType.Name = "txtRefType";
-            this.txtRefType.Size = new System.Drawing.Size(232, 20);
+            this.txtRefType.Size = new System.Drawing.Size(232, 26);
             this.txtRefType.TabIndex = 17;
             this.txtRefType.TextChanged += new System.EventHandler(this.txtRefType_TextChanged);
             // 
@@ -399,7 +402,7 @@ namespace dv21_ctl
             // 
             this.txtRefSection.Location = new System.Drawing.Point(7, 110);
             this.txtRefSection.Name = "txtRefSection";
-            this.txtRefSection.Size = new System.Drawing.Size(232, 20);
+            this.txtRefSection.Size = new System.Drawing.Size(232, 26);
             this.txtRefSection.TabIndex = 20;
             this.txtRefSection.TextChanged += new System.EventHandler(this.txtRefSection_TextChanged);
             // 
@@ -441,7 +444,7 @@ namespace dv21_ctl
             // 
             this.txtLookup.Location = new System.Drawing.Point(9, 69);
             this.txtLookup.Name = "txtLookup";
-            this.txtLookup.Size = new System.Drawing.Size(224, 20);
+            this.txtLookup.Size = new System.Drawing.Size(224, 26);
             this.txtLookup.TabIndex = 25;
             this.txtLookup.TextChanged += new System.EventHandler(this.txtLookup_TextChanged);
             // 
@@ -489,7 +492,7 @@ namespace dv21_ctl
             this.txtRefName.Location = new System.Drawing.Point(6, 150);
             this.txtRefName.Name = "txtRefName";
             this.txtRefName.ReadOnly = true;
-            this.txtRefName.Size = new System.Drawing.Size(267, 20);
+            this.txtRefName.Size = new System.Drawing.Size(267, 26);
             this.txtRefName.TabIndex = 22;
             // 
             // label10
@@ -537,7 +540,7 @@ namespace dv21_ctl
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(152, 104);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(87, 13);
+            this.label15.Size = new System.Drawing.Size(129, 20);
             this.label15.TabIndex = 29;
             this.label15.Text = "Название Enum";
             // 
@@ -545,7 +548,7 @@ namespace dv21_ctl
             // 
             this.txtEnumName.Location = new System.Drawing.Point(156, 128);
             this.txtEnumName.Name = "txtEnumName";
-            this.txtEnumName.Size = new System.Drawing.Size(121, 20);
+            this.txtEnumName.Size = new System.Drawing.Size(121, 26);
             this.txtEnumName.TabIndex = 30;
             this.txtEnumName.TextChanged += new System.EventHandler(this.txtEnumName_TextChanged);
             // 

@@ -333,8 +333,11 @@ namespace dv21_util
 					if (File.Exists(filename))
 					{
 						DateTime d = DateTime.Now;
-						string fnBack = filename.Replace(".xml", "")
-							+"_" + d.ToString("yyddMMHHmmss") + ".bak";
+						//string fnBack = filename.Replace(".xml", "")
+						//	+"_" + d.ToString("yyddMMHHmmss") + ".bak";
+
+
+                        string fnBack = filename + ".bak";
 
                         File.Copy(filename, fnBack, true);
 					}
@@ -385,8 +388,10 @@ namespace dv21_util
                     if (File.Exists(filename))
                     {
                         DateTime d = DateTime.Now;
-                        string fnBack = filename.Replace(".json", "")
-                            + "_" + d.ToString("yyddMMHHmmss") + ".json";
+                        //string fnBack = filename.Replace(".json", "")
+                        //    + "_" + d.ToString("yyddMMHHmmss") + ".json";
+
+                        string fnBack = filename + ".bak";
 
                         File.Copy(filename, fnBack, true);
                     }
@@ -429,8 +434,8 @@ namespace dv21_util
                     if (File.Exists(filename))
                     {
                         DateTime d = DateTime.Now;
-                        string fnBack = filename.Replace(".json", "")
-                            + "_" + d.ToString("yyddMMHHmmss") + ".json";
+                        string fnBack = filename+ ".bak";
+                        //+"_" + d.ToString("yyddMMHHmmss") + ".json.bak";
 
                         File.Copy(filename, fnBack, true);
                     }
@@ -480,8 +485,10 @@ namespace dv21_util
                     if (File.Exists(filename))
                     {
                         DateTime d = DateTime.Now;
-                        string fnBack = filename.Replace(".xml", "")
-                            + "_" + d.ToString("yyddMMHHmmss") + ".bak";
+                        //string fnBack = filename.Replace(".xml", "")
+                        //    + "_" + d.ToString("yyddMMHHmmss") + ".bak";
+
+                        string fnBack = filename + ".bak";
 
                         File.Copy(filename, fnBack, true);
                     }
@@ -1088,6 +1095,41 @@ namespace dv21_util
             return result.ToString();
 
         }
+
+
+
+        public static string CropComment(string comment)
+        {
+
+
+            if (comment == null) return "?";
+
+            if (comment.Length < 50)
+                return comment;
+
+            StringBuilder result = new StringBuilder(comment.Length);
+
+
+
+            // try to crop only first sentence          
+            foreach (var c in comment)
+            {
+
+                if (c == '.' || c == ',' )
+                {
+                    result.Append(c);
+                    return result.ToString();
+                }
+                else
+                {
+                    result.Append(c);
+                }
+            }
+
+            return comment.Substring(0, 50);
+
+        }
+
 
 
     }

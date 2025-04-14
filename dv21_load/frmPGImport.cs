@@ -155,6 +155,7 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
                     cd.Sections[i].Field[j] = new FieldType();
                     cd.Sections[i].Field[j].ID = Guid.NewGuid().ToString();
+
                     if (dtFld.Rows[j]["is_nullable"].ToString() == "YES")
                     {
                         cd.Sections[i].Field[j].NotNull = false;
@@ -168,6 +169,16 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
                     cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["udt_name"].ToString());
 
+                    cd.Sections[i].Field[j].Documentation = "Import data type: " + dtFld.Rows[j]["udt_name"].ToString() ;
+
+                    if (dtFld.Rows[j]["data_type"].ToString() == "USER-DEFINED")
+                        if (dtFld.Rows[j]["udt_name"].ToString().ToLower().Contains("enum"))
+                        {
+                            cd.Sections[i].Field[j].Type = FieldTypeType.@enum;
+                            cd.Sections[i].Field[j].EnumName = dtFld.Rows[j]["udt_name"].ToString();
+                        }
+                
+            
 
                     cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
 
@@ -196,11 +207,13 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     {
                         cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
                         cd.Sections[i].Field[j].MaxSpecified = true;
+                        cd.Sections[i].Field[j].Documentation += " (" + dtFld.Rows[j]["len"].ToString() + ")";
                     }
 
                     cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
                     cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
-                    cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
+                    cd.Sections[i].Field[j].Name[0].Value = MyUtils.CropComment(dtFld.Rows[j]["description"].ToString());
+                    cd.Sections[i].Field[j].Documentation += "\r\n" +dtFld.Rows[j]["description"].ToString();
                     cd.Sections[i].Field[j].Name[0].Language = "ru";
 
                 }
@@ -347,6 +360,17 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
                         cd.Sections[i].Field[j].Type = (FieldTypeType)MapBaseType(dtFld.Rows[j]["udt_name"].ToString());
 
+                        cd.Sections[i].Field[j].Documentation = "Import data type: " + dtFld.Rows[j]["udt_name"].ToString();
+
+                        if (dtFld.Rows[j]["data_type"].ToString() == "USER-DEFINED")
+                            if (dtFld.Rows[j]["udt_name"].ToString().ToLower().Contains("enum"))
+                            {
+                                cd.Sections[i].Field[j].Type = FieldTypeType.@enum;
+                                cd.Sections[i].Field[j].EnumName = dtFld.Rows[j]["udt_name"].ToString();
+                            }
+
+
+
 
                         cd.Sections[i].Field[j].Alias = dtFld.Rows[j]["column_name"].ToString();
 
@@ -375,11 +399,13 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                         {
                             cd.Sections[i].Field[j].Max = (int)dtFld.Rows[j]["len"];
                             cd.Sections[i].Field[j].MaxSpecified = true;
+                            cd.Sections[i].Field[j].Documentation += " (" + dtFld.Rows[j]["len"].ToString() + ")";
                         }
 
                         cd.Sections[i].Field[j].Name = new LocalizedStringsLocalizedString[1];
                         cd.Sections[i].Field[j].Name[0] = new LocalizedStringsLocalizedString();
-                        cd.Sections[i].Field[j].Name[0].Value = dtFld.Rows[j]["description"].ToString();
+                        cd.Sections[i].Field[j].Name[0].Value = MyUtils.CropComment( dtFld.Rows[j]["description"].ToString());
+                        cd.Sections[i].Field[j].Documentation += "\r\n" + dtFld.Rows[j]["description"].ToString();
                         cd.Sections[i].Field[j].Name[0].Language = "ru";
 
                     }
@@ -522,15 +548,19 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
 
                 case "timestamp":
-                    v = FieldTypeType.datetime;
+                    v = FieldTypeType.timestamp;
                     break;
 
                 case "timestamptz":
-                    v = FieldTypeType.datetime;
+                    v = FieldTypeType.timestamptz;
                     break;
 
 
                 case "char":
+                    v = FieldTypeType.@string;
+                    break;
+
+                case "bpchar":
                     v = FieldTypeType.@string;
                     break;
 
@@ -551,7 +581,10 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     v = FieldTypeType.uniqueid;
                     break;
 
-                
+                case "text":
+                    v = FieldTypeType.text;
+                    break;
+
 
                 case "varchar":
                     v = FieldTypeType.@string;

@@ -78,6 +78,8 @@
           <xs:enumeration value="text"/>
           <xs:enumeration value="image"/>
           <xs:enumeration value="json"/>
+          <xs:enumeration value="timestamp"/>
+          <xs:enumeration value="timestamptz"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>

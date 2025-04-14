@@ -61,6 +61,12 @@ namespace dv21
                 case "datetime":
                     return "date";
 
+                case "timestamp":
+                    return "timestamp";
+
+                case "timestamptz":
+                    return "timestamptz";
+
                 case "enum":
                     return "integer";
 

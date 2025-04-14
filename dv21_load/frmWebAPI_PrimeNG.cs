@@ -2708,6 +2708,12 @@ namespace dv21
                 case "datetime":
                     return "date";
 
+                case "tomestamp":
+                    return "date";
+
+                case "timestamptz":
+                    return "date";
+
                 case "enum":
                     return "string";
 
@@ -2776,6 +2782,13 @@ namespace dv21
 
                 case "datetime":
                     return "scalar";
+
+                case "tomestamp":
+                    return "scalar";
+
+                case "timestamptz":
+                    return "scalar";
+
 
                 case "enum":
                     return "enum";
