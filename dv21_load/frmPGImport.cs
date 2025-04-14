@@ -116,7 +116,8 @@ namespace dv21
                 cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
                 cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
                 cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
-                cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
+                cd.Sections[i].Name[0].Value = MyUtils.CropComment(dt.Rows[i]["comment"].ToString());
+                cd.Sections[i].Documentation = dt.Rows[i]["comment"].ToString();
                 cd.Sections[i].Name[0].Language = "ru";
 
                 DataTable dtFld = new DataTable();
@@ -308,7 +309,8 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     cd.Sections[i].Alias = dt.Rows[i]["table_name"].ToString();
                     cd.Sections[i].Name = new LocalizedStringsLocalizedString[1];
                     cd.Sections[i].Name[0] = new LocalizedStringsLocalizedString();
-                    cd.Sections[i].Name[0].Value = dt.Rows[i]["comment"].ToString();
+                    cd.Sections[i].Name[0].Value = MyUtils.CropComment(dt.Rows[i]["comment"].ToString());
+                    cd.Sections[i].Documentation = dt.Rows[i]["comment"].ToString();
                     cd.Sections[i].Name[0].Language = "ru";
 
                     DataTable dtFld = new DataTable();
@@ -638,6 +640,11 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
         private void cmdConnect_Click(object sender, EventArgs e)
         {
+
+            try
+            {
+
+            
             DS = new pgDataSource();
             DS.Server = txtServer.Text;
             DS.DataBaseName = txtDatabase.Text;
@@ -657,6 +664,10 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
             for (int i = 0; i < shemas.Rows.Count; i++) {
                 lstBlocks.Items.Add(shemas.Rows[i]["schema_name"].ToString());
+            }
+            } catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
 

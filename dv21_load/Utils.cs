@@ -1131,6 +1131,20 @@ namespace dv21_util
         }
 
 
+        public static string CatCR(string comment)
+        {
+
+
+            if (comment == null) return "";
+
+            
+            string sOut = comment.Replace("\r"," ");
+            sOut = sOut.Replace("\n", " ");
+            sOut = sOut.Replace("\t", " ");
+            return sOut;
+        }
+
+
 
     }
 

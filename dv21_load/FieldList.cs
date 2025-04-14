@@ -113,7 +113,7 @@ namespace dv21
 
             StringBuilder cc = new StringBuilder();
 
-            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "','" + s.Documentation + "'");
+            sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','','','','','" + s.Name[0].Value + "','" + MyUtils.CatCR(s.Documentation) + "'");
 
 
             string idType = MapBaseType(MyUtils.GetIDType(s));
@@ -160,14 +160,14 @@ namespace dv21
                         {
                             if (s.Field[i].UseforPK)
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
-                                    s.Field[i].EnumName + "','','key, not null','" + s.Field[i].Name[0].Value + ", ключ','" + s.Field[i].Documentation + "'");
+                                    s.Field[i].EnumName + "','','key, not null','" + s.Field[i].Name[0].Value + ", ключ','" + MyUtils.CatCR( s.Field[i].Documentation) + "'");
                             else
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
-                                                s.Field[i].EnumName + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                                s.Field[i].EnumName + "','','not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                         }
                         else
                             sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','" +
-                                s.Field[i].EnumName + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                s.Field[i].EnumName + "','','null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
 
                     }
                     else if (s.Field[i].Reference)
@@ -182,13 +182,17 @@ namespace dv21
 
                         if (refSection != null)
                         {
+
+                            string refIDType;
+                            refIDType = MyUtils.GetIDType(refSection);
+
                             refSchema = refType.Schema.ToLower() + ".";
                             if (s.Field[i].NotNull)
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" 
-                                    + "(" +refSection.Alias.ToLower() +") " + refSection.Name[0].Value + "','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference "+ refIDType + "','" 
+                                    + "(" +refSection.Alias.ToLower() +") " + refSection.Name[0].Value + "','not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                             else
-                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference','" 
-                                    + "(" + refSection.Alias.ToLower() + ") " + refSection.Name[0].Value + "','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','reference " + refIDType + "','"
+                                    + "(" + refSection.Alias.ToLower() + ") " + refSection.Name[0].Value + "','null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                         }
                         else
                         {
@@ -197,15 +201,15 @@ namespace dv21
                             {
                                 if (s.Field[i].UseforPK)
                                     sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                    + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation +  "'");
+                                    + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) +  "'");
                                 else
                                     sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                    + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation +  "'");
+                                    + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) +  "'");
                             }
                             else
 
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                    + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation  + "'");
+                                    + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                         }
 
                     }
@@ -215,14 +219,14 @@ namespace dv21
                         {
                             if (s.Field[i].UseforPK)
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                + pgtype + "(" + s.Field[i].Max.ToString() + "),'','key, not null,'" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                + pgtype + "(" + s.Field[i].Max.ToString() + ")','','key, not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                             else
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                + pgtype + "(" + s.Field[i].Max.ToString() + "),'','not null,'" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                + pgtype + "(" + s.Field[i].Max.ToString() + ")','','not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                         }
                         else
                             sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                + pgtype + "(" + s.Field[i].Max.ToString() + ")','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                + pgtype + "(" + s.Field[i].Max.ToString() + ")','','null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                     }
                     else
                     {
@@ -230,15 +234,15 @@ namespace dv21
                         {
                             if (s.Field[i].UseforPK)
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                + pgtype + "','','key, not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                             else
                                 sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                + pgtype + "','','not null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                         }
                         else
 
                             sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Field[i].Alias.ToLower() + "','"
-                                + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + s.Field[i].Documentation + "'");
+                                + pgtype + "','','null','" + s.Field[i].Name[0].Value + "','" + MyUtils.CatCR(s.Field[i].Documentation) + "'");
                     }
                 }
                 
