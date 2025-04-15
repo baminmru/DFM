@@ -766,7 +766,113 @@ namespace dv21_util
 			return arr2;
 		}
 
-		public static Array RemoveAt(Array arr, int Index, Array arr2)
+
+        public static T[] AddAt<T>(T[] arr, int Index, T Item, T[] arr2)
+        {
+            if (arr != null)
+            {
+                if (Index < arr.Length)
+                {
+
+
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (i <Index )
+                        {
+                            arr2[i] = arr[i];
+                        }
+
+                        if (i >= Index)
+                        {
+                            arr2[i+1] = arr[i];
+                        }
+
+                        
+                    }
+                    arr2[Index] = Item;
+
+                }
+                else
+                {
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        arr2[i] = arr[i];
+                    }
+                    arr2[arr.Length] = Item;
+                }
+                
+            }
+            return arr2;
+        }
+
+
+
+        public static T[] MoveUp<T>(T[] arr, int Index)
+        {
+            if (arr != null)
+            {
+                if (Index > 0 && Index <= arr.Length)
+                {
+
+                    List<T> arr2 = new List<T>();
+
+                    T Item = arr[Index];
+                    T Prev = arr[Index-1];
+
+                    for (int i = 0; i < Index - 1; i++)
+                    {
+                        arr2.Add(arr[i]);
+                    }
+
+                    arr2.Add(Item);
+                    arr2.Add(Prev);
+
+                    for (int i = Index+1; i < arr.Length; i++)
+                    {
+                        arr2.Add(arr[i]);
+                    }
+                    return arr2.ToArray();
+                }
+
+            }
+            return null;
+        }
+
+        public static T[] MoveDn<T>(T[] arr, int Index)
+        {
+            if (arr != null)
+            {
+                if (Index >= 0 && Index < arr.Length - 1)
+                {
+
+                    List<T> arr2 = new List<T>();
+
+                    T Item = arr[Index];
+                    T nextItem = arr[Index+1];
+
+                    for (int i = 0; i <= Index - 1; i++)
+                    {
+                        arr2.Add(arr[i]);
+                    }
+
+                    arr2.Add(nextItem);
+                    arr2.Add(Item);
+                    
+
+                    for (int i = Index + 2; i < arr.Length; i++)
+                    {
+                        arr2.Add(arr[i]);
+                    }
+                    return arr2.ToArray();
+                }
+
+            }
+            return null;
+        }
+
+
+
+        public static Array RemoveAt(Array arr, int Index, Array arr2)
 		{
 			if(arr !=null)
 			{
@@ -778,6 +884,7 @@ namespace dv21_util
 			}
 			return arr2;
 		}
+
 		public static Array Remove(Array arr, Object Item, Array arr2)
 		{
 			if(arr !=null)

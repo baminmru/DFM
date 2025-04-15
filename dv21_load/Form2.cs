@@ -11,6 +11,7 @@ using dv21_util;
 using dv21_xsd;
 using dv21_ctl;
 using dv21_tl;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 
 namespace dv21_load
@@ -110,6 +111,10 @@ namespace dv21_load
         private MenuItem mnuNewProject;
         private string LastOpenFile;
         private MenuItem mnuImportPG;
+        private MenuItem mnuUp;
+        private MenuItem mnuDn;
+        private MenuItem mnuFldUp;
+        private MenuItem mnuFldDn;
         public bool Saved;
 
 		
@@ -220,6 +225,8 @@ namespace dv21_load
             this.mnuField = new System.Windows.Forms.ContextMenu();
             this.mnuFldDel = new System.Windows.Forms.MenuItem();
             this.mnuFldAddEnum = new System.Windows.Forms.MenuItem();
+            this.mnuFldUp = new System.Windows.Forms.MenuItem();
+            this.mnuFldDn = new System.Windows.Forms.MenuItem();
             this.mnuEnum = new System.Windows.Forms.ContextMenu();
             this.mnuEnumDel = new System.Windows.Forms.MenuItem();
             this.mnuModes = new System.Windows.Forms.ContextMenu();
@@ -240,6 +247,8 @@ namespace dv21_load
             this.mnuViewAddcolumn = new System.Windows.Forms.MenuItem();
             this.mnuColumn = new System.Windows.Forms.ContextMenu();
             this.mnuColumnDel = new System.Windows.Forms.MenuItem();
+            this.mnuUp = new System.Windows.Forms.MenuItem();
+            this.mnuDn = new System.Windows.Forms.MenuItem();
             this.dlgSaveXSD = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveSQL = new System.Windows.Forms.SaveFileDialog();
             this.dlgSaveJDL = new System.Windows.Forms.SaveFileDialog();
@@ -679,7 +688,9 @@ namespace dv21_load
             // 
             this.mnuField.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.mnuFldDel,
-            this.mnuFldAddEnum});
+            this.mnuFldAddEnum,
+            this.mnuFldUp,
+            this.mnuFldDn});
             // 
             // mnuFldDel
             // 
@@ -692,6 +703,18 @@ namespace dv21_load
             this.mnuFldAddEnum.Index = 1;
             this.mnuFldAddEnum.Text = "Добавить возможные значения";
             this.mnuFldAddEnum.Click += new System.EventHandler(this.mnuFldAddEnum_Click);
+            // 
+            // mnuFldUp
+            // 
+            this.mnuFldUp.Index = 2;
+            this.mnuFldUp.Text = "Выше";
+            this.mnuFldUp.Click += new System.EventHandler(this.mnuFldUp_Click);
+            // 
+            // mnuFldDn
+            // 
+            this.mnuFldDn.Index = 3;
+            this.mnuFldDn.Text = "Ниже";
+            this.mnuFldDn.Click += new System.EventHandler(this.mnuFldDn_Click);
             // 
             // mnuEnum
             // 
@@ -800,13 +823,27 @@ namespace dv21_load
             // mnuColumn
             // 
             this.mnuColumn.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.mnuColumnDel});
+            this.mnuColumnDel,
+            this.mnuUp,
+            this.mnuDn});
             // 
             // mnuColumnDel
             // 
             this.mnuColumnDel.Index = 0;
             this.mnuColumnDel.Text = "Удалить";
             this.mnuColumnDel.Click += new System.EventHandler(this.mnuColumnDel_Click);
+            // 
+            // mnuUp
+            // 
+            this.mnuUp.Index = 1;
+            this.mnuUp.Text = "Выше";
+            this.mnuUp.Click += new System.EventHandler(this.mnuUp_Click);
+            // 
+            // mnuDn
+            // 
+            this.mnuDn.Index = 2;
+            this.mnuDn.Text = "Ниже";
+            this.mnuDn.Click += new System.EventHandler(this.mnuDn_Click);
             // 
             // dlgSaveXSD
             // 
@@ -2313,6 +2350,131 @@ namespace dv21_load
         {
 			frmPGImport pgImp = new frmPGImport();
 			pgImp.ShowDialog();
+        }
+
+        private void mnuFldUp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FieldType ft = (FieldType)LastNode.BoundObject;
+                SectionType sta;
+                MyTreeNode pnode;
+                pnode = (MyTreeNode)LastNode.Parent;
+                sta = ((SectionType)pnode.BoundObject);
+
+				int Index=0;
+				for(int i = 0; i < sta.Field.Length; i++)
+				{
+					if(ft == sta.Field[i])
+					{
+						Index = i;
+						break;
+					}
+				}
+				if (Index > 0)
+				{
+					sta.Field = (FieldType[])MyUtils.MoveUp(sta.Field, Index);
+					ReloadTree(sta);
+					Saved = false;
+				}
+
+            }
+            catch { }
+        }
+
+        private void mnuFldDn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FieldType ft = (FieldType)LastNode.BoundObject;
+                SectionType sta;
+                MyTreeNode pnode;
+                pnode = (MyTreeNode)LastNode.Parent;
+                sta = ((SectionType)pnode.BoundObject);
+
+                int Index = sta.Field.Length;
+                for (int i = 0; i < sta.Field.Length; i++)
+                {
+                    if (ft == sta.Field[i])
+                    {
+                        Index = i;
+                        break;
+                    }
+                }
+                if (Index < sta.Field.Length)
+                {
+                    sta.Field = (FieldType[])MyUtils.MoveDn(sta.Field, Index);
+                    ReloadTree(sta);
+                    Saved = false;
+                }
+
+            }
+            catch { }
+        }
+
+        private void mnuUp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MyTreeNode parent;
+                parent = (MyTreeNode)LastNode.Parent;
+                ViewElementType st = (ViewElementType)parent.BoundObject;
+                ViewColumnType r = (ViewColumnType)LastNode.BoundObject;
+
+
+                           
+
+                int Index = 0;
+                for (int i = 0; i < st.Columns.Length; i++)
+                {
+                    if (r == st.Columns[i])
+                    {
+                        Index = i;
+                        break;
+                    }
+                }
+                if (Index > 0)
+                {
+                    st.Columns = (ViewColumnType[])MyUtils.MoveUp(st.Columns, Index);
+                    ReloadTree(st);
+                    Saved = false;
+                }
+
+            }
+            catch { }
+        }
+
+        private void mnuDn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MyTreeNode parent;
+                parent = (MyTreeNode)LastNode.Parent;
+                ViewElementType st = (ViewElementType)parent.BoundObject;
+                ViewColumnType r = (ViewColumnType)LastNode.BoundObject;
+
+
+
+
+                int Index = st.Columns.Length;
+                for (int i = 0; i < st.Columns.Length; i++)
+                {
+                    if (r == st.Columns[i])
+                    {
+                        Index = i;
+                        break;
+                    }
+                }
+                if (Index < st.Columns.Length)
+                {
+                    st.Columns = (ViewColumnType[])MyUtils.MoveDn(st.Columns, Index);
+                    ReloadTree(st);
+                    Saved = false;
+                }
+
+
+            }
+            catch { }
         }
     }
 
