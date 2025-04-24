@@ -59,6 +59,7 @@
             dgDest.Margin = new Padding(4, 3, 4, 3);
             dgDest.Name = "dgDest";
             dgDest.ReadOnly = true;
+            dgDest.RowHeadersVisible = false;
             dgDest.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgDest.ShowEditingIcon = false;
             dgDest.Size = new Size(559, 595);
@@ -76,6 +77,7 @@
             dgSrc.Margin = new Padding(4, 3, 4, 3);
             dgSrc.Name = "dgSrc";
             dgSrc.ReadOnly = true;
+            dgSrc.RowHeadersVisible = false;
             dgSrc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgSrc.ShowEditingIcon = false;
             dgSrc.Size = new Size(451, 588);
@@ -205,6 +207,7 @@
             Name = "frmMapper";
             Text = "Отображение полей";
             FormClosed += frmMapper_FormClosed;
+            Load += frmMapper_Load_1;
             ((System.ComponentModel.ISupportInitialize)dgDest).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgSrc).EndInit();
             ResumeLayout(false);

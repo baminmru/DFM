@@ -42,6 +42,16 @@ namespace mapper
             dgSrc.ClearSelection();
 
 
+            dgDest.Columns["id"].Visible = false;
+            dgSrc.Columns["id"].Visible = false;
+
+            dgDest.Columns["comment"].Width *=3;
+            dgSrc.Columns["comment"].Width *= 3;
+
+            txtComment.Enabled = false;
+            cmdDelLink.Enabled = false;
+            cmdSaveLink.Enabled = false;
+
         }
 
         private void dgDest_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -79,6 +89,7 @@ namespace mapper
                                     txtComment.Text = map.Rows[0]["comment"].ToString();
                                     txtComment.Enabled = true;
                                     cmdDelLink.Enabled = true;
+                                    cmdSaveLink.Enabled = true;
                                     break;
                                 }
                             }
@@ -98,6 +109,7 @@ namespace mapper
                     txtComment.Text = "";
                     txtComment.Enabled = false;
                     cmdDelLink.Enabled = false;
+                    cmdSaveLink.Enabled = false;
                     dgSrc.ClearSelection();
                 }
 
@@ -123,6 +135,7 @@ namespace mapper
                 dgSrc.ClearSelection();
                 txtComment.Enabled = false;
                 cmdDelLink.Enabled = false;
+                cmdSaveLink.Enabled = false;
             }
         }
 
@@ -133,14 +146,12 @@ namespace mapper
                 DataGridViewRow row = this.dgSrc.SelectedRows[0];
                 SelectedSRC = (int)row.Cells["id"].Value;
                 txtComment.Enabled = true;
+                cmdSaveLink.Enabled = true;
 
             }
         }
 
-        private void txtDoc_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
@@ -218,6 +229,11 @@ namespace mapper
                     }
                 }
             }
+        }
+
+        private void frmMapper_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
