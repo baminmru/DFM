@@ -139,37 +139,39 @@ namespace dv21_xsd
 					}
 					SType.Attributes.Add(a); 
 				}
-
-				if (s.Section.Length>0 || s.Type==dv21.SectionTypeType.tree)
-				{ 
-					XmlSchemaSequence _all = new XmlSchemaSequence();
-					SType.Particle =_all;
-					_all.MinOccurs =0;
-					XmlSchemaElement e;
-
-					if(s.Type==dv21.SectionTypeType.tree)
+				if (s.Section != null)
+				{
+					if (s.Section.Length > 0 || s.Type == dv21.SectionTypeType.tree)
 					{
-						e=XSDT.NewElement(s.Alias,s.Name[0].Value + "( as tree subitem )" );	
-						e.SchemaTypeName =MapBaseType( s.Alias + "_TYPE"); 
-						MakeOccurs(e,s.Type);
-						XmlSchemaUnique element_unique = new XmlSchemaUnique();
-						element_unique.Name = e.Name + "_ID";
-						element_unique.Selector = new XmlSchemaXPath();
-						element_unique.Selector.XPath = e.Name;
-						XmlSchemaXPath field = new XmlSchemaXPath();
-						field.XPath = "@ID";
-						element_unique.Fields.Add(field);
-						e.Constraints.Add(element_unique);
-						_all.Items.Add(e);
-					}
+						XmlSchemaSequence _all = new XmlSchemaSequence();
+						SType.Particle = _all;
+						_all.MinOccurs = 0;
+						XmlSchemaElement e;
 
-					for(i=0;i<s.Section.Length;i++)
-					{
-						XmlSchemaComplexType SectionType = MakeSectionType( s.Section[i], schema);
-						e=XSDT.NewSimpleElementUnq (s.Section[i].Alias, SectionType.Name,s.Section[i].Name[0].Value );					
-						MakeOccurs(e,s.Section[i].Type);
-						_all.Items.Add(e);
-						schema.Items.Add (SectionType);
+						if (s.Type == dv21.SectionTypeType.tree)
+						{
+							e = XSDT.NewElement(s.Alias, s.Name[0].Value + "( as tree subitem )");
+							e.SchemaTypeName = MapBaseType(s.Alias + "_TYPE");
+							MakeOccurs(e, s.Type);
+							XmlSchemaUnique element_unique = new XmlSchemaUnique();
+							element_unique.Name = e.Name + "_ID";
+							element_unique.Selector = new XmlSchemaXPath();
+							element_unique.Selector.XPath = e.Name;
+							XmlSchemaXPath field = new XmlSchemaXPath();
+							field.XPath = "@ID";
+							element_unique.Fields.Add(field);
+							e.Constraints.Add(element_unique);
+							_all.Items.Add(e);
+						}
+
+						for (i = 0; i < s.Section.Length; i++)
+						{
+							XmlSchemaComplexType SectionType = MakeSectionType(s.Section[i], schema);
+							e = XSDT.NewSimpleElementUnq(s.Section[i].Alias, SectionType.Name, s.Section[i].Name[0].Value);
+							MakeOccurs(e, s.Section[i].Type);
+							_all.Items.Add(e);
+							schema.Items.Add(SectionType);
+						}
 					}
 				}
 			}

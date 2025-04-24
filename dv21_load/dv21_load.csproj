@@ -202,6 +202,12 @@
     <Compile Include="frmCopy.Designer.cs">
       <DependentUpon>frmCopy.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMapper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMapper.Designer.cs">
+      <DependentUpon>frmMapper.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPGImport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +216,12 @@
     </Compile>
     <Compile Include="frmSectionView.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSortList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSortList.Designer.cs">
+      <DependentUpon>frmSortList.cs</DependentUpon>
     </Compile>
     <Compile Include="frmWebAPI_PrimeNG.cs">
       <SubType>Form</SubType>
@@ -220,6 +232,9 @@
     <Compile Include="JDLGen.cs" />
     <Compile Include="LStringEditor.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mapper.cs">
+      <DependentUpon>mapper.xsd</DependentUpon>
     </Compile>
     <Compile Include="pgDataSource.cs">
       <SubType>Code</SubType>
@@ -272,12 +287,18 @@
     <EmbeddedResource Include="frmCopy.resx">
       <DependentUpon>frmCopy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMapper.resx">
+      <DependentUpon>frmMapper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPGImport.resX">
       <DependentUpon>frmPGImport.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSectionView.resx">
       <DependentUpon>frmSectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSortList.resx">
+      <DependentUpon>frmSortList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWebAPI_PrimeNG.resx">
       <DependentUpon>frmWebAPI_PrimeNG.cs</DependentUpon>
@@ -296,6 +317,9 @@
     </None>
     <None Include="CardDef.xsx">
       <DependentUpon>CardDef.xsd</DependentUpon>
+    </None>
+    <None Include="mapper.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

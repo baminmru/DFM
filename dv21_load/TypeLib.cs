@@ -266,8 +266,10 @@ namespace dv21_tl
 					ls = DefFilePaths[i];
 					ls=txtValue.Text; 
 					lstStrings.Items[i]=ls;
-					
-				}
+					DefFilePaths[i] = ls;
+
+
+                }
 			}
 		}
 

@@ -2079,8 +2079,6 @@ namespace dv21_load
 			{
 				df = new DefFile ();
 				df.Paths = new List<string>();
-				df.Paths.Add("c:\\");
-				
 			}	
 			
 			dv21_tl.TypeLibEditor t = new dv21_tl.TypeLibEditor();

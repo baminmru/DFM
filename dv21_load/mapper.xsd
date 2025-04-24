@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GUID_TYPE">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="38" />
+      <xs:minLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="mapper">
+    <xs:annotation>
+      <xs:documentation>Маппинг</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="src_data" type="src_data_TYPE">
+          <xs:annotation>
+            <xs:documentation>Система источник</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="src_data_ID">
+            <xs:selector xpath="src_data" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="dest_data" type="dest_data_TYPE">
+          <xs:annotation>
+            <xs:documentation>Система приемник</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="dest_data_ID">
+            <xs:selector xpath="dest_data" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="mapping" type="mapping_TYPE">
+          <xs:annotation>
+            <xs:documentation>Маппинг</xs:documentation>
+          </xs:annotation>
+          <xs:unique name="mapping_ID">
+            <xs:selector xpath="mapping" />
+            <xs:field xpath="@ID" />
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ID" type="GUID_TYPE" use="required">
+        <xs:annotation>
+          <xs:documentation>Card id</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="src_data_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="table_name" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Таблица</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="field" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Поле</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="field_type" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Тип поля</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="comment" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Комментарий</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="documentation" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Документация</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="dest_data_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="table_name" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Таблица</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="field" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Поле</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="field_type" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Тип поля</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="comment" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Комментарий</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="documentation" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Документация</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="mapping_TYPE">
+    <xs:attribute name="ID" type="GUID_TYPE" use="required">
+      <xs:annotation>
+        <xs:documentation>row id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="dest_field" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>Приемник</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="src_data" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>Источник</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="comment" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Комментарий</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="documentation" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Документация</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
