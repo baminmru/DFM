@@ -28,138 +28,140 @@
         /// </summary>
         private void InitializeComponent()
         {
-            fontDialog1 = new FontDialog();
-            fontDialog2 = new FontDialog();
-            dgDest = new DataGridView();
-            dgSrc = new DataGridView();
-            cmdSaveLink = new Button();
-            txtFilter = new TextBox();
-            txtComment = new TextBox();
-            cmdDelLink = new Button();
-            label1 = new Label();
-            cmdFind = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgDest).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgSrc).BeginInit();
-            SuspendLayout();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.fontDialog2 = new System.Windows.Forms.FontDialog();
+            this.dgDest = new System.Windows.Forms.DataGridView();
+            this.dgSrc = new System.Windows.Forms.DataGridView();
+            this.cmdSaveLink = new System.Windows.Forms.Button();
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.txtComment = new System.Windows.Forms.TextBox();
+            this.cmdDelLink = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmdFind = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgDest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).BeginInit();
+            this.SuspendLayout();
             // 
             // dgDest
             // 
-            dgDest.AllowUserToAddRows = false;
-            dgDest.AllowUserToDeleteRows = false;
-            dgDest.AllowUserToOrderColumns = true;
-            dgDest.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            dgDest.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
-            dgDest.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgDest.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgDest.Location = new Point(22, 23);
-            dgDest.Margin = new Padding(4, 3, 4, 3);
-            dgDest.Name = "dgDest";
-            dgDest.ReadOnly = true;
-            dgDest.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgDest.Size = new Size(400, 658);
-            dgDest.TabIndex = 0;
-            dgDest.CellContentClick += dgDest_CellContentClick;
-            dgDest.SelectionChanged += dgDest_SelectionChanged;
+            this.dgDest.AllowUserToAddRows = false;
+            this.dgDest.AllowUserToDeleteRows = false;
+            this.dgDest.AllowUserToOrderColumns = true;
+            this.dgDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgDest.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgDest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgDest.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgDest.Location = new System.Drawing.Point(22, 23);
+            this.dgDest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dgDest.Name = "dgDest";
+            this.dgDest.ReadOnly = true;
+            this.dgDest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgDest.Size = new System.Drawing.Size(400, 658);
+            this.dgDest.TabIndex = 0;
+            this.dgDest.SelectionChanged += new System.EventHandler(this.dgDest_SelectionChanged);
             // 
             // dgSrc
             // 
-            dgSrc.AllowUserToAddRows = false;
-            dgSrc.AllowUserToDeleteRows = false;
-            dgSrc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgSrc.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgSrc.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgSrc.Location = new Point(948, 93);
-            dgSrc.Margin = new Padding(4, 3, 4, 3);
-            dgSrc.Name = "dgSrc";
-            dgSrc.ReadOnly = true;
-            dgSrc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgSrc.Size = new Size(451, 588);
-            dgSrc.TabIndex = 1;
-            dgSrc.SelectionChanged += dgSrc_SelectionChanged;
+            this.dgSrc.AllowUserToAddRows = false;
+            this.dgSrc.AllowUserToDeleteRows = false;
+            this.dgSrc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgSrc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgSrc.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgSrc.Location = new System.Drawing.Point(948, 93);
+            this.dgSrc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dgSrc.Name = "dgSrc";
+            this.dgSrc.ReadOnly = true;
+            this.dgSrc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgSrc.Size = new System.Drawing.Size(451, 588);
+            this.dgSrc.TabIndex = 1;
+            this.dgSrc.SelectionChanged += new System.EventHandler(this.dgSrc_SelectionChanged);
             // 
             // cmdSaveLink
             // 
-            cmdSaveLink.Location = new Point(445, 23);
-            cmdSaveLink.Margin = new Padding(4, 3, 4, 3);
-            cmdSaveLink.Name = "cmdSaveLink";
-            cmdSaveLink.Size = new Size(257, 48);
-            cmdSaveLink.TabIndex = 2;
-            cmdSaveLink.Text = "Save Link";
-            cmdSaveLink.UseVisualStyleBackColor = true;
-            cmdSaveLink.Click += cmdSaveLink_Click;
+            this.cmdSaveLink.Location = new System.Drawing.Point(445, 23);
+            this.cmdSaveLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmdSaveLink.Name = "cmdSaveLink";
+            this.cmdSaveLink.Size = new System.Drawing.Size(257, 48);
+            this.cmdSaveLink.TabIndex = 2;
+            this.cmdSaveLink.Text = "Save Link";
+            this.cmdSaveLink.UseVisualStyleBackColor = true;
+            this.cmdSaveLink.Click += new System.EventHandler(this.cmdSaveLink_Click);
             // 
             // txtFilter
             // 
-            txtFilter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtFilter.Location = new Point(1004, 48);
-            txtFilter.Margin = new Padding(4, 3, 4, 3);
-            txtFilter.Name = "txtFilter";
-            txtFilter.Size = new Size(395, 23);
-            txtFilter.TabIndex = 3;
-            txtFilter.TextChanged += txtFilter_TextChanged;
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.Location = new System.Drawing.Point(1004, 48);
+            this.txtFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(395, 23);
+            this.txtFilter.TabIndex = 3;
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
             // txtComment
             // 
-            txtComment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            txtComment.Location = new Point(445, 86);
-            txtComment.Margin = new Padding(4, 3, 4, 3);
-            txtComment.Multiline = true;
-            txtComment.Name = "txtComment";
-            txtComment.Size = new Size(485, 595);
-            txtComment.TabIndex = 4;
+            this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtComment.Location = new System.Drawing.Point(445, 86);
+            this.txtComment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtComment.Multiline = true;
+            this.txtComment.Name = "txtComment";
+            this.txtComment.Size = new System.Drawing.Size(485, 595);
+            this.txtComment.TabIndex = 4;
             // 
             // cmdDelLink
             // 
-            cmdDelLink.Location = new Point(709, 23);
-            cmdDelLink.Margin = new Padding(4, 3, 4, 3);
-            cmdDelLink.Name = "cmdDelLink";
-            cmdDelLink.Size = new Size(221, 48);
-            cmdDelLink.TabIndex = 6;
-            cmdDelLink.Text = "Delete Link";
-            cmdDelLink.UseVisualStyleBackColor = true;
-            cmdDelLink.Click += cmdDelLink_Click;
+            this.cmdDelLink.Location = new System.Drawing.Point(709, 23);
+            this.cmdDelLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmdDelLink.Name = "cmdDelLink";
+            this.cmdDelLink.Size = new System.Drawing.Size(221, 48);
+            this.cmdDelLink.TabIndex = 6;
+            this.cmdDelLink.Text = "Delete Link";
+            this.cmdDelLink.UseVisualStyleBackColor = true;
+            this.cmdDelLink.Click += new System.EventHandler(this.cmdDelLink_Click);
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(948, 16);
-            label1.Name = "label1";
-            label1.Size = new Size(30, 15);
-            label1.TabIndex = 7;
-            label1.Text = "Find";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(948, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Find";
             // 
             // cmdFind
             // 
-            cmdFind.Location = new Point(951, 43);
-            cmdFind.Name = "cmdFind";
-            cmdFind.Size = new Size(39, 28);
-            cmdFind.TabIndex = 8;
-            cmdFind.Text = "!";
-            cmdFind.UseVisualStyleBackColor = true;
-            cmdFind.Click += cmdFind_Click;
+            this.cmdFind.Location = new System.Drawing.Point(951, 43);
+            this.cmdFind.Name = "cmdFind";
+            this.cmdFind.Size = new System.Drawing.Size(39, 28);
+            this.cmdFind.TabIndex = 8;
+            this.cmdFind.Text = "!";
+            this.cmdFind.UseVisualStyleBackColor = true;
+            this.cmdFind.Click += new System.EventHandler(this.cmdFind_Click);
             // 
             // frmMapper
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1412, 703);
-            Controls.Add(cmdFind);
-            Controls.Add(label1);
-            Controls.Add(cmdDelLink);
-            Controls.Add(txtComment);
-            Controls.Add(txtFilter);
-            Controls.Add(cmdSaveLink);
-            Controls.Add(dgSrc);
-            Controls.Add(dgDest);
-            Margin = new Padding(4, 3, 4, 3);
-            Name = "frmMapper";
-            Text = "frmMapper";
-            FormClosed += frmMapper_FormClosed;
-            Load += frmMapper_Load;
-            ((System.ComponentModel.ISupportInitialize)dgDest).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgSrc).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1412, 703);
+            this.Controls.Add(this.cmdFind);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cmdDelLink);
+            this.Controls.Add(this.txtComment);
+            this.Controls.Add(this.txtFilter);
+            this.Controls.Add(this.cmdSaveLink);
+            this.Controls.Add(this.dgSrc);
+            this.Controls.Add(this.dgDest);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "frmMapper";
+            this.Text = "Отображение полей";
+            ((System.ComponentModel.ISupportInitialize)(this.dgDest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

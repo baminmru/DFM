@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>mapper.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="mapper.sql" />
     <None Remove="mapper.xsd" />
   </ItemGroup>
 

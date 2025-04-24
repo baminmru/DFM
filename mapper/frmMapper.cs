@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace mapper
 {
     public partial class frmMapper : Form
@@ -31,11 +33,11 @@ namespace mapper
         public void Init()
         {
 
-            DataTable dst = DS.ReadData("select * from dest_data order by table_name, field_name");
+            DataTable dst = DS.ReadData("select table_name,field_name, comment,id from dest_data order by table_name, field_name");
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
-            DataTable src = DS.ReadData("select * from src_data order by table_name, field_name");
+            DataTable src = DS.ReadData("select table_name,field_name,field_type, comment,id from src_data order by table_name, field_name");
             dgSrc.DataSource = src;
             dgSrc.ClearSelection();
 
@@ -67,19 +69,21 @@ namespace mapper
                     {
                         try
                         {
-                            if (!(srow.Cells is null) && !(srow.Cells[4] is null))
+                            if (!(srow.Cells is null) && !(srow.Cells["id"] is null))
                             {
-                                if (srow.Cells[4].Value.ToString().Equals(SelectedSRC.ToString()))
+                                if (srow.Cells["id"].Value.ToString().Equals(SelectedSRC.ToString()))
                                 {
                                     dgSrc.Rows[srow.Index].Selected = true;
-                                    if (!dgSrc.Rows[srow.Index].Visible)
+                                    //if (!dgSrc.Rows[srow.Index].Visible)
                                         dgSrc.FirstDisplayedScrollingRowIndex = srow.Index;
                                     txtComment.Text = map.Rows[0]["comment"].ToString();
                                     break;
                                 }
                             }
                         }
-                        catch { }
+                        catch(System.Exception ex) {
+                            Console.WriteLine(ex.Message);
+                        }
                     }
 
 
@@ -135,9 +139,10 @@ namespace mapper
             {
                 foreach (DataGridViewRow row in dgSrc.Rows)
                 {
-                    if (row.Cells[0].Value.ToString().Equals(txtFilter.Text))
+                    String v = row.Cells["table_name"].Value.ToString();
+                    if (v.StartsWith(txtFilter.Text))
                     {
-                        if (!dgSrc.Rows[row.Index].Visible)
+                        //if (!dgSrc.Rows[row.Index].Visible)
                             dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
 
                         break;
@@ -152,9 +157,11 @@ namespace mapper
             {
                 foreach (DataGridViewRow row in dgSrc.Rows)
                 {
-                    if (row.Cells[0].Value.ToString().Equals(txtFilter.Text))
+
+                    String v = row.Cells["table_name"].Value.ToString();
+                    if (v.StartsWith(txtFilter.Text))
                     {
-                        if (!dgSrc.Rows[row.Index].Visible)
+                        //if (!dgSrc.Rows[row.Index].Visible)
                             dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
 
                         break;
