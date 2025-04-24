@@ -75,13 +75,16 @@ namespace mapper
                                 {
                                     dgSrc.Rows[srow.Index].Selected = true;
                                     //if (!dgSrc.Rows[srow.Index].Visible)
-                                        dgSrc.FirstDisplayedScrollingRowIndex = srow.Index;
+                                    dgSrc.FirstDisplayedScrollingRowIndex = srow.Index;
                                     txtComment.Text = map.Rows[0]["comment"].ToString();
+                                    txtComment.Enabled = true;
+                                    cmdDelLink.Enabled = true;
                                     break;
                                 }
                             }
                         }
-                        catch(System.Exception ex) {
+                        catch (System.Exception ex)
+                        {
                             Console.WriteLine(ex.Message);
                         }
                     }
@@ -93,6 +96,8 @@ namespace mapper
                 else
                 {
                     txtComment.Text = "";
+                    txtComment.Enabled = false;
+                    cmdDelLink.Enabled = false;
                     dgSrc.ClearSelection();
                 }
 
@@ -106,6 +111,7 @@ namespace mapper
             {
                 DS.Execute("delete from  mapper where dest_id= " + SelectedDST.ToString());
                 DS.Execute("insert into mapper(src_id,dest_id,comment) values(" + SelectedSRC.ToString() + "," + SelectedDST.ToString() + ",'" + txtComment.Text + "')");
+                cmdDelLink.Enabled = true;
             }
         }
 
@@ -115,6 +121,8 @@ namespace mapper
             {
                 DS.Execute("delete from  mapper where dest_id= " + SelectedDST.ToString());
                 dgSrc.ClearSelection();
+                txtComment.Enabled = false;
+                cmdDelLink.Enabled = false;
             }
         }
 
@@ -124,6 +132,7 @@ namespace mapper
             {
                 DataGridViewRow row = this.dgSrc.SelectedRows[0];
                 SelectedSRC = (int)row.Cells["id"].Value;
+                txtComment.Enabled = true;
 
             }
         }
@@ -143,7 +152,7 @@ namespace mapper
                     if (v.StartsWith(txtFilter.Text))
                     {
                         //if (!dgSrc.Rows[row.Index].Visible)
-                            dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                        dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
 
                         break;
                     }
@@ -162,7 +171,7 @@ namespace mapper
                     if (v.StartsWith(txtFilter.Text))
                     {
                         //if (!dgSrc.Rows[row.Index].Visible)
-                            dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                        dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
 
                         break;
                     }
@@ -173,6 +182,42 @@ namespace mapper
         private void frmMapper_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void txtFindDest_TextChanged(object sender, EventArgs e)
+        {
+            if (txtFindDest.Text != "")
+            {
+                foreach (DataGridViewRow row in dgDest.Rows)
+                {
+                    String v = row.Cells["table_name"].Value.ToString();
+                    if (v.StartsWith(txtFindDest.Text))
+                    {
+                        //if (!dgSrc.Rows[row.Index].Visible)
+                        dgDest.FirstDisplayedScrollingRowIndex = row.Index;
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void cmdFindDest_Click(object sender, EventArgs e)
+        {
+            if (txtFindDest.Text != "")
+            {
+                foreach (DataGridViewRow row in dgDest.Rows)
+                {
+                    String v = row.Cells["table_name"].Value.ToString();
+                    if (v.StartsWith(txtFindDest.Text))
+                    {
+                        //if (!dgSrc.Rows[row.Index].Visible)
+                        dgDest.FirstDisplayedScrollingRowIndex = row.Index;
+
+                        break;
+                    }
+                }
+            }
         }
     }
 }
