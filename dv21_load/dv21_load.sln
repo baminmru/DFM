@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dv21_load", "dv21_load.csproj", "{0E913070-AE93-453F-8FCF-336F9D4C1603}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mapper", "..\mapper\mapper.csproj", "{A6C76EED-A3E9-492B-B35D-83CC8C68566A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		all|Any CPU = all|Any CPU
@@ -18,6 +20,12 @@ Global
 		{0E913070-AE93-453F-8FCF-336F9D4C1603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E913070-AE93-453F-8FCF-336F9D4C1603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E913070-AE93-453F-8FCF-336F9D4C1603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C76EED-A3E9-492B-B35D-83CC8C68566A}.all|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C76EED-A3E9-492B-B35D-83CC8C68566A}.all|Any CPU.Build.0 = Debug|Any CPU
+		{A6C76EED-A3E9-492B-B35D-83CC8C68566A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C76EED-A3E9-492B-B35D-83CC8C68566A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C76EED-A3E9-492B-B35D-83CC8C68566A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C76EED-A3E9-492B-B35D-83CC8C68566A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
