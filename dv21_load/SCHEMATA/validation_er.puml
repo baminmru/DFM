@@ -1,0 +1,57 @@
+@startuml
+class ValidationType {
+  - Code: Integer
+  - Name: String
+  - SourceSystem: Integer
+  + getCode(): Integer
+  + getName(): String
+  + getSourceSystem(): Integer
+}
+
+class ValidationReason {
+  - Code: String
+  - Name: String
+  + getCode(): String
+  + getName(): String
+}
+
+class ValidationPrc {
+  - SourceObject: String
+  - Name: String
+  - JavaBeen: String
+  - CreatedAt: LocalDate
+  - CreatedBy: String
+  - UpdatedAt: LocalDate
+  - UpdatedBy: String
+  + getSourceObject(): String
+  + getName(): String
+  + getJavaBeen(): String
+  + getCreatedAt(): LocalDate
+  + getCreatedBy(): String
+  + getUpdatedAt(): LocalDate
+  + getUpdatedBy(): String
+}
+
+class ValidatorInput {
+  - ValidationPrcId: Integer
+  - SrcTable: String
+  - SrcField: String
+  - SubCondition: String
+  - IsArray: Boolean
+  + getValidationPrcId(): Integer
+  + getSrcTable(): String
+  + getSrcField(): String
+  + getSubCondition(): String
+  + getIsArray(): Boolean
+}
+
+class ValidationControl {
+  - IsEnabled: Boolean
+  + getIsEnabled(): Boolean
+}
+
+ValidationPrc "1" -- "0..*" ValidatorInput : has
+ValidationType "1" -- "0..*" ValidationControl : has
+ValidationReason "1" -- "0..*" ValidationControl : has
+ValidationPrc "1" -- "0..*" ValidationControl : has
+@enduml

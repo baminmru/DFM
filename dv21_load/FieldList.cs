@@ -256,22 +256,24 @@ namespace dv21
                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + s.Alias.ToLower() + "_parent','"+idType+"','" + s.Alias.ToLower() + "','null','Организация древовидной подчиненности',''");
             }
 
+
+
+
             if (s.AddHistory)
             {
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','effective_date_start','date','','null','Дата начала действия',''");
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','effective_date_stop','date','','null','Дата окончания действия','у текущей записи по умолчанию - MAXDate'");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','is_effective','bool','','not null',Флаг актуальности записи',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','effective_begin_date','date','','not null','Дата начала действия записи',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','effective_end_date','date','','not null','Дата окончания действия записи',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','process_id','int8','','null','Идентификатор процесса (workflow), создавшего новую версию записи'");
             }
 
             if (s.AddWhoInfo)
             {
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamptz','','null','Время создания',''");
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_by','text','','null','Кем создано',''");
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_ts','timestamptz','','null','Время изменения',''");
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_by','text','','null','Кем изменено',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_ts','timestamptz','','not null','Когда создана запись',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','created_by','text','','not null','Кем создана запись',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_ts','timestamptz','','not null','Когда изменена запись',''");
+                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','modified_by','text','','null','Кем изменена запись',''");
             }
-
-
-
 
 
             if (s.Section != null && s.Section.Length > 0)

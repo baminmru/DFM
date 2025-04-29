@@ -255,16 +255,27 @@ namespace dv21
 
             if (s.AddHistory)
             {
-                sb.AppendLine("\t\t,effective_date_start date");
-                sb.AppendLine("\t\t,effective_date_stop date");
+                sb.AppendLine("\t\t,is_effective bool not null default false");
+                sb.AppendLine("\t\t,effective_begin_date date not null");
+                sb.AppendLine("\t\t,effective_end_date date not null");
+                sb.AppendLine("\t\t,process_id int8");
+
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".is_effective IS 'Флаг актуальности записи';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".effective_begin_date IS 'Дата начала действия записи';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".effective_end_date IS 'Дата окончания действия записи';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".process_id IS 'Идентификатор процесса (workflow), создавшего новую версию записи';");
             }
 
             if (s.AddWhoInfo)
             {
-                sb.AppendLine("\t\t,created_ts timestamptz");
-                sb.AppendLine("\t\t,created_by text");
-                sb.AppendLine("\t\t,modified_ts timestamptz");
+                sb.AppendLine("\t\t,created_ts timestamptz not null default clock_timestamp()");
+                sb.AppendLine("\t\t,created_by text not null");
+                sb.AppendLine("\t\t,modified_ts timestamptz not null default clock_timestamp()");
                 sb.AppendLine("\t\t,modified_by text");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".created_ts IS 'Когда создана запись';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".created_by IS 'Кем создана запись';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".modified_ts IS 'Когда изменена запись';");
+                cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + s.Alias.ToLower() + ".modified_by IS 'Кем изменена запись';");
             }
 
 

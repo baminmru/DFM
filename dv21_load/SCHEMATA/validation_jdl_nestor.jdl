@@ -1,0 +1,129 @@
+application {
+  config {
+    baseName gateway
+    applicationType gateway
+    authenticationType jwt
+    serverPort 8080
+    buildTool maven
+    databaseType no
+    devDatabaseType no
+    prodDatabaseType no
+    clientFramework angularX
+    languages [ru, en]
+    packageName com.bami.validation.gateway
+  }
+  entities *
+}
+
+application {
+  config {
+    baseName validationTypeService
+    applicationType microservice
+    authenticationType jwt
+    serverPort 8081
+    buildTool maven
+    databaseType sql
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    clientFramework no
+    languages [ru, en]
+    packageName com.bami.validation.validationTypeService
+  }
+  entities ValidationType, ValidationControl
+}
+
+application {
+  config {
+    baseName validationReasonService
+    applicationType microservice
+    authenticationType jwt
+    serverPort 8082
+    buildTool maven
+    databaseType sql
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    clientFramework no
+    languages [ru, en]
+    packageName com.bami.validation.validationReasonService
+  }
+  entities ValidationReason, ValidationControl
+}
+
+application {
+  config {
+    baseName validationPrcService
+    applicationType microservice
+    authenticationType jwt
+    serverPort 8083
+    buildTool maven
+    databaseType sql
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    clientFramework no
+    languages [ru, en]
+    packageName com.bami.validation.validationPrcService
+  }
+  entities ValidationPrc, ValidatorInput, ValidationControl
+}
+
+entity ValidationType {
+  Code Integer required
+  Name String maxlength(64) required
+  SourceSystem Integer
+}
+
+entity ValidationReason {
+  Code String maxlength(64) required
+  Name String maxlength(255)
+}
+
+entity ValidationPrc {
+  SourceObject String required
+  Name String maxlength(255)
+  JavaBeen String maxlength(255) required
+  CreatedAt LocalDate
+  CreatedBy String maxlength(64)
+  UpdatedAt LocalDate
+  UpdatedBy String maxlength(64)
+}
+
+entity ValidatorInput {
+  ValidationPrcId Integer required
+  SrcTable String maxlength(64) required
+  SrcField String maxlength(64) required
+  SubCondition String maxlength(255)
+  IsArray Boolean
+}
+
+entity ValidationControl {
+  IsEnabled Boolean
+}
+
+relationship OneToMany {
+  ValidationPrc to ValidatorInput{ ValidationPrcId }
+}
+
+relationship OneToMany {
+  ValidationType to ValidationControl { ValidationType(Code) }
+}
+
+relationship OneToMany {
+  ValidationReason to ValidationControl { ValidationReason(Code) }
+}
+
+relationship OneToMany {
+  ValidationPrc to ValidationControl { Validator }
+}
+
+microservice ValidationType with validationTypeService
+microservice ValidationReason with validationReasonService
+microservice ValidationPrc with validationPrcService
+microservice ValidatorInput with validationPrcService
+microservice ValidationControl with validationPrcService
+
+deployments {
+  deploymentType docker-compose
+  appsFolders [gateway, validationTypeService, validationReasonService, validationPrcService]
+  dockerRepositoryName "your-docker-repo"
+  serviceDiscoveryType eureka
+}
