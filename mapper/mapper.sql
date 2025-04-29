@@ -21,6 +21,7 @@ CREATE TABLE public.dest_data (
 -- DROP TABLE public.src_data;
 
 CREATE TABLE public.src_data (
+	api text NULL,
 	table_name text NOT NULL,
 	field_name text NOT NULL,
 	field_type text NULL,

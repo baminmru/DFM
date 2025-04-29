@@ -37,7 +37,7 @@ namespace mapper
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
-            DataTable src = DS.ReadData("select table_name,field_name,field_type, comment,id from src_data order by table_name, field_name");
+            DataTable src = DS.ReadData("select api, table_name,field_name,field_type, comment,id from src_data order by table_name, field_name");
             dgSrc.DataSource = src;
             dgSrc.ClearSelection();
 
