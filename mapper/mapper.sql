@@ -22,11 +22,14 @@ CREATE TABLE public.dest_data (
 
 CREATE TABLE public.src_data (
 	api text NULL,
+	api_comment text NULL,
 	table_name text NOT NULL,
+	table_comment text NULL,
 	field_name text NOT NULL,
 	field_type text NULL,
 	"comment" text NULL,
 	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
+	
 	CONSTRAINT src_data_pk PRIMARY KEY (id)
 );
 
