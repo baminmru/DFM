@@ -37,22 +37,73 @@ namespace mapper
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
-            DataTable src = DS.ReadData("select api, table_name,field_name,field_type, comment,id from src_data order by table_name, field_name");
+            DataTable src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data order by table_name, field_name");
             dgSrc.DataSource = src;
             dgSrc.ClearSelection();
 
 
             dgDest.Columns["id"].Visible = false;
             dgSrc.Columns["id"].Visible = false;
+            dgSrc.Columns["api_comment"].Visible = false;
+            dgSrc.Columns["table_comment"].Visible = false;
 
             dgDest.Columns["comment"].Width *=3;
-            dgSrc.Columns["comment"].Width *= 3;
+
+
+            //dgSrc.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dgSrc.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dgSrc.Columns["comment"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgSrc.Columns["comment"].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+            dgSrc.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+          
+            dgSrc.Columns["comment"].Width =300;
 
             txtComment.Enabled = false;
             cmdDelLink.Enabled = false;
             cmdSaveLink.Enabled = false;
 
+            MergeGridviewCells(dgDest, new int[] { 0 });
+            MergeGridviewCells(dgSrc, new int[] { 0,1 });
+
         }
+
+        private void MergeGridviewCells(DataGridView DGV, int[] idx)
+        {
+            DataGridViewRow Prev = null;
+
+            foreach (DataGridViewRow item in DGV.Rows)
+            {
+                if (Prev != null)
+                {
+                    string firstCellText = string.Empty;
+                    string secondCellText = string.Empty;
+
+                    foreach (int i in idx)
+                    {
+                        DataGridViewCell firstCell = Prev.Cells[i];
+                        DataGridViewCell secondCell = item.Cells[i];
+
+                        firstCellText = (firstCell != null && firstCell.Value != null ? firstCell.Value.ToString() : string.Empty);
+                        secondCellText = (secondCell != null && secondCell.Value != null ? secondCell.Value.ToString() : string.Empty);
+
+                        if (firstCellText == secondCellText)
+                        {
+                            secondCell.Style.ForeColor = Color.Transparent;
+                        }
+                        else
+                        {
+                            Prev = item;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Prev = item;
+                }
+            }
+        }
+
 
         private void dgDest_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -159,12 +210,12 @@ namespace mapper
             {
                 foreach (DataGridViewRow row in dgSrc.Rows)
                 {
-                    String v = row.Cells["table_name"].Value.ToString();
-                    if (v.StartsWith(txtFilter.Text))
+                    String v = row.Cells["table_name"].Value.ToString().ToLower();
+                    String a = row.Cells["api"].Value.ToString().ToLower();
+                    if (v.StartsWith(txtFilter.Text.ToLower()) || a.StartsWith(txtFilter.Text.ToLower()))
                     {
                         //if (!dgSrc.Rows[row.Index].Visible)
                         dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
-
                         break;
                     }
                 }
@@ -178,8 +229,9 @@ namespace mapper
                 foreach (DataGridViewRow row in dgSrc.Rows)
                 {
 
-                    String v = row.Cells["table_name"].Value.ToString();
-                    if (v.StartsWith(txtFilter.Text))
+                    String v = row.Cells["table_name"].Value.ToString().ToLower();
+                    String a = row.Cells["api"].Value.ToString().ToLower();
+                    if (v.StartsWith(txtFilter.Text.ToLower()) || a.StartsWith(txtFilter.Text.ToLower()))
                     {
                         //if (!dgSrc.Rows[row.Index].Visible)
                         dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
@@ -201,8 +253,8 @@ namespace mapper
             {
                 foreach (DataGridViewRow row in dgDest.Rows)
                 {
-                    String v = row.Cells["table_name"].Value.ToString();
-                    if (v.StartsWith(txtFindDest.Text))
+                    String v = row.Cells["table_name"].Value.ToString().ToLower();
+                    if (v.StartsWith(txtFindDest.Text.ToLower()))
                     {
                         //if (!dgSrc.Rows[row.Index].Visible)
                         dgDest.FirstDisplayedScrollingRowIndex = row.Index;
@@ -219,8 +271,8 @@ namespace mapper
             {
                 foreach (DataGridViewRow row in dgDest.Rows)
                 {
-                    String v = row.Cells["table_name"].Value.ToString();
-                    if (v.StartsWith(txtFindDest.Text))
+                    String v = row.Cells["table_name"].Value.ToString().ToLower();
+                    if (v.StartsWith(txtFindDest.Text.ToLower()))
                     {
                         //if (!dgSrc.Rows[row.Index].Visible)
                         dgDest.FirstDisplayedScrollingRowIndex = row.Index;
@@ -234,6 +286,35 @@ namespace mapper
         private void frmMapper_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgSrc_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            String v;
+            if ((e.ColumnIndex == this.dgSrc.Columns["table_name"].Index))
+            {
+                DataGridViewCell cell = this.dgSrc.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                v = this.dgSrc.Rows[e.RowIndex].Cells["table_comment"].Value.ToString();
+                if (v != "")
+                {
+                    cell.ToolTipText = v;
+                }
+            }
+
+            if ((e.ColumnIndex == this.dgSrc.Columns["api"].Index))
+            {
+                DataGridViewCell cell = this.dgSrc.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                v = this.dgSrc.Rows[e.RowIndex].Cells["api_comment"].Value.ToString();
+                if (v != "")
+                {
+                    cell.ToolTipText = v;
+                }
+            }
+        }
+
+        private void cmdRefresh_Click(object sender, EventArgs e)
+        {
+            Init();
         }
     }
 }

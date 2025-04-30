@@ -28,190 +28,208 @@
         /// </summary>
         private void InitializeComponent()
         {
-            fontDialog1 = new FontDialog();
-            fontDialog2 = new FontDialog();
-            dgDest = new DataGridView();
-            dgSrc = new DataGridView();
-            cmdSaveLink = new Button();
-            txtFilter = new TextBox();
-            txtComment = new TextBox();
-            cmdDelLink = new Button();
-            label1 = new Label();
-            cmdFind = new Button();
-            cmdFindDest = new Button();
-            label2 = new Label();
-            txtFindDest = new TextBox();
-            label3 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgDest).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgSrc).BeginInit();
-            SuspendLayout();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.fontDialog2 = new System.Windows.Forms.FontDialog();
+            this.dgDest = new System.Windows.Forms.DataGridView();
+            this.dgSrc = new System.Windows.Forms.DataGridView();
+            this.cmdSaveLink = new System.Windows.Forms.Button();
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.txtComment = new System.Windows.Forms.TextBox();
+            this.cmdDelLink = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmdFind = new System.Windows.Forms.Button();
+            this.cmdFindDest = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtFindDest = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmdRefresh = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgDest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).BeginInit();
+            this.SuspendLayout();
             // 
             // dgDest
             // 
-            dgDest.AllowUserToAddRows = false;
-            dgDest.AllowUserToDeleteRows = false;
-            dgDest.AllowUserToOrderColumns = true;
-            dgDest.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            dgDest.ClipboardCopyMode = DataGridViewClipboardCopyMode.Disable;
-            dgDest.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgDest.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgDest.Location = new Point(22, 86);
-            dgDest.Margin = new Padding(4, 3, 4, 3);
-            dgDest.Name = "dgDest";
-            dgDest.ReadOnly = true;
-            dgDest.RowHeadersVisible = false;
-            dgDest.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgDest.ShowEditingIcon = false;
-            dgDest.Size = new Size(559, 595);
-            dgDest.TabIndex = 0;
-            dgDest.SelectionChanged += dgDest_SelectionChanged;
+            this.dgDest.AllowUserToAddRows = false;
+            this.dgDest.AllowUserToDeleteRows = false;
+            this.dgDest.AllowUserToOrderColumns = true;
+            this.dgDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgDest.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgDest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgDest.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgDest.Location = new System.Drawing.Point(22, 114);
+            this.dgDest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dgDest.Name = "dgDest";
+            this.dgDest.ReadOnly = true;
+            this.dgDest.RowHeadersVisible = false;
+            this.dgDest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgDest.ShowEditingIcon = false;
+            this.dgDest.Size = new System.Drawing.Size(692, 567);
+            this.dgDest.TabIndex = 0;
+            this.dgDest.SelectionChanged += new System.EventHandler(this.dgDest_SelectionChanged);
             // 
             // dgSrc
             // 
-            dgSrc.AllowUserToAddRows = false;
-            dgSrc.AllowUserToDeleteRows = false;
-            dgSrc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgSrc.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgSrc.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgSrc.Location = new Point(948, 93);
-            dgSrc.Margin = new Padding(4, 3, 4, 3);
-            dgSrc.Name = "dgSrc";
-            dgSrc.ReadOnly = true;
-            dgSrc.RowHeadersVisible = false;
-            dgSrc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgSrc.ShowEditingIcon = false;
-            dgSrc.Size = new Size(451, 588);
-            dgSrc.TabIndex = 1;
-            dgSrc.SelectionChanged += dgSrc_SelectionChanged;
+            this.dgSrc.AllowUserToAddRows = false;
+            this.dgSrc.AllowUserToDeleteRows = false;
+            this.dgSrc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgSrc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgSrc.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgSrc.Location = new System.Drawing.Point(722, 114);
+            this.dgSrc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dgSrc.Name = "dgSrc";
+            this.dgSrc.ReadOnly = true;
+            this.dgSrc.RowHeadersVisible = false;
+            this.dgSrc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgSrc.ShowEditingIcon = false;
+            this.dgSrc.Size = new System.Drawing.Size(677, 567);
+            this.dgSrc.TabIndex = 1;
+            this.dgSrc.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgSrc_CellFormatting);
+            this.dgSrc.SelectionChanged += new System.EventHandler(this.dgSrc_SelectionChanged);
             // 
             // cmdSaveLink
             // 
-            cmdSaveLink.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cmdSaveLink.ForeColor = Color.Green;
-            cmdSaveLink.Location = new Point(589, 23);
-            cmdSaveLink.Margin = new Padding(4, 3, 4, 3);
-            cmdSaveLink.Name = "cmdSaveLink";
-            cmdSaveLink.Size = new Size(167, 48);
-            cmdSaveLink.TabIndex = 2;
-            cmdSaveLink.Text = "Save Link";
-            cmdSaveLink.UseVisualStyleBackColor = true;
-            cmdSaveLink.Click += cmdSaveLink_Click;
+            this.cmdSaveLink.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cmdSaveLink.ForeColor = System.Drawing.Color.Green;
+            this.cmdSaveLink.Location = new System.Drawing.Point(668, 4);
+            this.cmdSaveLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmdSaveLink.Name = "cmdSaveLink";
+            this.cmdSaveLink.Size = new System.Drawing.Size(218, 30);
+            this.cmdSaveLink.TabIndex = 2;
+            this.cmdSaveLink.Text = "Save Link";
+            this.cmdSaveLink.UseVisualStyleBackColor = true;
+            this.cmdSaveLink.Click += new System.EventHandler(this.cmdSaveLink_Click);
             // 
             // txtFilter
             // 
-            txtFilter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtFilter.Location = new Point(1004, 48);
-            txtFilter.Margin = new Padding(4, 3, 4, 3);
-            txtFilter.Name = "txtFilter";
-            txtFilter.Size = new Size(395, 23);
-            txtFilter.TabIndex = 3;
-            txtFilter.TextChanged += txtFilter_TextChanged;
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.Location = new System.Drawing.Point(1122, 74);
+            this.txtFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(231, 23);
+            this.txtFilter.TabIndex = 3;
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
             // txtComment
             // 
-            txtComment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            txtComment.Location = new Point(589, 103);
-            txtComment.Margin = new Padding(4, 3, 4, 3);
-            txtComment.Multiline = true;
-            txtComment.Name = "txtComment";
-            txtComment.Size = new Size(351, 578);
-            txtComment.TabIndex = 4;
+            this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtComment.Location = new System.Drawing.Point(380, 37);
+            this.txtComment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtComment.Multiline = true;
+            this.txtComment.Name = "txtComment";
+            this.txtComment.Size = new System.Drawing.Size(725, 60);
+            this.txtComment.TabIndex = 4;
             // 
             // cmdDelLink
             // 
-            cmdDelLink.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cmdDelLink.ForeColor = Color.Red;
-            cmdDelLink.Location = new Point(764, 23);
-            cmdDelLink.Margin = new Padding(4, 3, 4, 3);
-            cmdDelLink.Name = "cmdDelLink";
-            cmdDelLink.Size = new Size(166, 48);
-            cmdDelLink.TabIndex = 6;
-            cmdDelLink.Text = "Delete Link";
-            cmdDelLink.UseVisualStyleBackColor = true;
-            cmdDelLink.Click += cmdDelLink_Click;
+            this.cmdDelLink.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cmdDelLink.ForeColor = System.Drawing.Color.Red;
+            this.cmdDelLink.Location = new System.Drawing.Point(894, 4);
+            this.cmdDelLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmdDelLink.Name = "cmdDelLink";
+            this.cmdDelLink.Size = new System.Drawing.Size(211, 30);
+            this.cmdDelLink.TabIndex = 6;
+            this.cmdDelLink.Text = "Delete Link";
+            this.cmdDelLink.UseVisualStyleBackColor = true;
+            this.cmdDelLink.Click += new System.EventHandler(this.cmdDelLink_Click);
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(948, 16);
-            label1.Name = "label1";
-            label1.Size = new Size(97, 15);
-            label1.TabIndex = 7;
-            label1.Text = "Find source table";
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1302, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Find source table";
             // 
             // cmdFind
             // 
-            cmdFind.Location = new Point(951, 43);
-            cmdFind.Name = "cmdFind";
-            cmdFind.Size = new Size(39, 28);
-            cmdFind.TabIndex = 8;
-            cmdFind.Text = "!";
-            cmdFind.UseVisualStyleBackColor = true;
-            cmdFind.Click += cmdFind_Click;
+            this.cmdFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdFind.Location = new System.Drawing.Point(1361, 69);
+            this.cmdFind.Name = "cmdFind";
+            this.cmdFind.Size = new System.Drawing.Size(39, 28);
+            this.cmdFind.TabIndex = 8;
+            this.cmdFind.Text = "!";
+            this.cmdFind.UseVisualStyleBackColor = true;
+            this.cmdFind.Click += new System.EventHandler(this.cmdFind_Click);
             // 
             // cmdFindDest
             // 
-            cmdFindDest.Location = new Point(23, 43);
-            cmdFindDest.Name = "cmdFindDest";
-            cmdFindDest.Size = new Size(39, 28);
-            cmdFindDest.TabIndex = 11;
-            cmdFindDest.Text = "!";
-            cmdFindDest.UseVisualStyleBackColor = true;
-            cmdFindDest.Click += cmdFindDest_Click;
+            this.cmdFindDest.Location = new System.Drawing.Point(23, 70);
+            this.cmdFindDest.Name = "cmdFindDest";
+            this.cmdFindDest.Size = new System.Drawing.Size(39, 28);
+            this.cmdFindDest.TabIndex = 11;
+            this.cmdFindDest.Text = "!";
+            this.cmdFindDest.UseVisualStyleBackColor = true;
+            this.cmdFindDest.Click += new System.EventHandler(this.cmdFindDest_Click);
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(20, 16);
-            label2.Name = "label2";
-            label2.Size = new Size(121, 15);
-            label2.TabIndex = 10;
-            label2.Text = "Find destination table";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(121, 15);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Find destination table";
             // 
             // txtFindDest
             // 
-            txtFindDest.Location = new Point(76, 48);
-            txtFindDest.Margin = new Padding(4, 3, 4, 3);
-            txtFindDest.Name = "txtFindDest";
-            txtFindDest.Size = new Size(505, 23);
-            txtFindDest.TabIndex = 9;
-            txtFindDest.TextChanged += txtFindDest_TextChanged;
+            this.txtFindDest.Location = new System.Drawing.Point(69, 74);
+            this.txtFindDest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtFindDest.Name = "txtFindDest";
+            this.txtFindDest.Size = new System.Drawing.Size(294, 23);
+            this.txtFindDest.TabIndex = 9;
+            this.txtFindDest.TextChanged += new System.EventHandler(this.txtFindDest_TextChanged);
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(597, 85);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 15);
-            label3.TabIndex = 12;
-            label3.Text = "Link comment";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(380, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 15);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Link comment";
+            // 
+            // cmdRefresh
+            // 
+            this.cmdRefresh.Location = new System.Drawing.Point(23, 4);
+            this.cmdRefresh.Name = "cmdRefresh";
+            this.cmdRefresh.Size = new System.Drawing.Size(170, 27);
+            this.cmdRefresh.TabIndex = 13;
+            this.cmdRefresh.Text = "Refresh";
+            this.cmdRefresh.UseVisualStyleBackColor = true;
+            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // frmMapper
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1412, 703);
-            Controls.Add(label3);
-            Controls.Add(cmdFindDest);
-            Controls.Add(label2);
-            Controls.Add(txtFindDest);
-            Controls.Add(cmdFind);
-            Controls.Add(label1);
-            Controls.Add(cmdDelLink);
-            Controls.Add(txtComment);
-            Controls.Add(txtFilter);
-            Controls.Add(cmdSaveLink);
-            Controls.Add(dgSrc);
-            Controls.Add(dgDest);
-            Margin = new Padding(4, 3, 4, 3);
-            Name = "frmMapper";
-            Text = "Отображение полей";
-            FormClosed += frmMapper_FormClosed;
-            Load += frmMapper_Load_1;
-            ((System.ComponentModel.ISupportInitialize)dgDest).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgSrc).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1412, 703);
+            this.Controls.Add(this.cmdRefresh);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cmdFindDest);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtFindDest);
+            this.Controls.Add(this.cmdFind);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cmdDelLink);
+            this.Controls.Add(this.txtComment);
+            this.Controls.Add(this.txtFilter);
+            this.Controls.Add(this.cmdSaveLink);
+            this.Controls.Add(this.dgSrc);
+            this.Controls.Add(this.dgDest);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "frmMapper";
+            this.Text = "Отображение полей";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMapper_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.dgDest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -231,5 +249,6 @@
         private Label label2;
         private TextBox txtFindDest;
         private Label label3;
+        private Button cmdRefresh;
     }
 }
