@@ -44,6 +44,7 @@ CREATE TABLE public.mapper (
 	dest_id int4 NOT NULL,
 	src_id int4 NOT NULL,
 	"comment" text NULL,
+	map_name text NULL,
 	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
 	CONSTRAINT mapper_pk PRIMARY KEY (id),
 	CONSTRAINT mapper_dest_data_fk FOREIGN KEY (dest_id) REFERENCES public.dest_data(id),
