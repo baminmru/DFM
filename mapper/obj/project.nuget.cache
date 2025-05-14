@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "InqkvcvLUgS10hpmQ+blzEfteewrs/uMrtFJBtG1qXTGrudw0pPn/HGYw07Y1JBUtVWGC7Ppjo1NWfn50hUFcA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\m.m.baranov\\Documents\\src\\DFM\\mapper\\mapper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\m.m.baranov\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\m.m.baranov\\.nuget\\packages\\npgsql\\7.0.10\\npgsql.7.0.10.nupkg.sha512",
+    "C:\\Users\\m.m.baranov\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

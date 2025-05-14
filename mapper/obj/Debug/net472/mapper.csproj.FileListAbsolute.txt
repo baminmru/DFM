@@ -1,0 +1,10 @@
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.csproj.SuggestedBindingRedirects.cache
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.exe.config
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.frmMapper.resources
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.frmPGLogin.resources
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.csproj.GenerateResource.cache
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.AssemblyInfoInputs.cache
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.AssemblyInfo.cs
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.csproj.CoreCompileInputs.cache
+C:\Users\m.m.baranov\Documents\src\DFM\mapper\obj\Debug\net472\mapper.csproj.AssemblyReference.cache

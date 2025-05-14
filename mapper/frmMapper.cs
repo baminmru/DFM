@@ -37,7 +37,7 @@ namespace mapper
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
-            DataTable src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data order by table_name, field_name");
+            DataTable src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data order by api, table_name, field_name");
             dgSrc.DataSource = src;
             dgSrc.ClearSelection();
 
@@ -64,6 +64,7 @@ namespace mapper
 
             MergeGridviewCells(dgDest, new int[] { 0 });
             MergeGridviewCells(dgSrc, new int[] { 0,1 });
+            ReloadMapName();
 
         }
 
@@ -120,7 +121,7 @@ namespace mapper
             {
                 DataGridViewRow row = this.dgDest.SelectedRows[0];
                 SelectedDST = (int)row.Cells["id"].Value;
-                DataTable map = DS.ReadData("select * from mapper where dest_id = " + SelectedDST.ToString());
+                DataTable map = DS.ReadData("select * from mapper where map_name ='" +cmbMapName.Text +"' and  dest_id = " + SelectedDST.ToString());
                 if (map.Rows.Count > 0)
                 {
                     SelectedSRC = (int)map.Rows[0]["src_id"];
@@ -168,13 +169,31 @@ namespace mapper
             }
         }
 
+        private void ReloadMapName()
+        {
+            DataTable dt = DS.ReadData("select distinct map_name from mapper");
+
+            string s = cmbMapName.Text;
+            cmbMapName.Items.Clear();
+
+            for(int i = 0; i < dt.Rows.Count; i++)
+            {
+                cmbMapName.Items.Add(dt.Rows[i]["map_name"].ToString());
+                    
+            }
+
+            cmbMapName.Text = s;
+
+        }
+
         private void cmdSaveLink_Click(object sender, EventArgs e)
         {
             if (dgSrc.SelectedRows.Count == 1 && dgDest.SelectedRows.Count == 1)
             {
-                DS.Execute("delete from  mapper where dest_id= " + SelectedDST.ToString());
-                DS.Execute("insert into mapper(src_id,dest_id,comment) values(" + SelectedSRC.ToString() + "," + SelectedDST.ToString() + ",'" + txtComment.Text + "')");
+                DS.Execute("delete from  mapper where map_name ='" + cmbMapName.Text + "' and dest_id= " + SelectedDST.ToString());
+                DS.Execute("insert into mapper(src_id,dest_id,comment,map_name) values(" + SelectedSRC.ToString() + "," + SelectedDST.ToString() + ",'" + txtComment.Text + "','" + cmbMapName.Text + "')");
                 cmdDelLink.Enabled = true;
+                ReloadMapName();
             }
         }
 
@@ -182,11 +201,12 @@ namespace mapper
         {
             if (dgDest.SelectedRows.Count == 1)
             {
-                DS.Execute("delete from  mapper where dest_id= " + SelectedDST.ToString());
+                DS.Execute("delete from  mapper where map_name ='" + cmbMapName.Text + "' and dest_id= " + SelectedDST.ToString());
                 dgSrc.ClearSelection();
                 txtComment.Enabled = false;
                 cmdDelLink.Enabled = false;
                 cmdSaveLink.Enabled = false;
+                ReloadMapName();
             }
         }
 
@@ -283,10 +303,7 @@ namespace mapper
             }
         }
 
-        private void frmMapper_Load_1(object sender, EventArgs e)
-        {
-
-        }
+  
 
         private void dgSrc_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -315,6 +332,43 @@ namespace mapper
         private void cmdRefresh_Click(object sender, EventArgs e)
         {
             Init();
+        }
+
+        private void generatePtablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dlgSave.Filter = "SQL files|*.sql";
+            if(dlgSave.ShowDialog() == DialogResult.OK)
+            {
+                string fn = dlgSave.FileName;
+                PGGen g = new PGGen();
+                g.ds = DS;
+                string sql = g.GenerateAll();
+
+                File.WriteAllText(fn, sql);
+
+            }
+        }
+
+        private void mnuGenViews_Click(object sender, EventArgs e)
+        {
+
+            dlgSave.Filter = "SQL files|*.sql";
+            if (dlgSave.ShowDialog() == DialogResult.OK)
+            {
+                string fn = dlgSave.FileName;
+                viewGen g = new viewGen();
+                g.ds = DS;
+                string sql = g.GenerateAll();
+
+                File.WriteAllText(fn, sql);
+
+            }
+        }
+
+        private void cmbMapName_TextChanged(object sender, EventArgs e)
+        {
+            if (cmbMapName.Text != "")
+                dgDest_SelectionChanged(sender, e);
         }
     }
 }

@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.fontDialog2 = new System.Windows.Forms.FontDialog();
+            this.components = new System.ComponentModel.Container();
             this.dgDest = new System.Windows.Forms.DataGridView();
             this.dgSrc = new System.Windows.Forms.DataGridView();
             this.cmdSaveLink = new System.Windows.Forms.Button();
@@ -41,10 +40,19 @@
             this.cmdFindDest = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFindDest = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.cmdRefresh = new System.Windows.Forms.Button();
+            this.dlgSave = new System.Windows.Forms.SaveFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.generatePtablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuGenViews = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cmbMapName = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgDest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgDest
@@ -62,6 +70,7 @@
             this.dgDest.Name = "dgDest";
             this.dgDest.ReadOnly = true;
             this.dgDest.RowHeadersVisible = false;
+            this.dgDest.RowHeadersWidth = 51;
             this.dgDest.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgDest.ShowEditingIcon = false;
             this.dgDest.Size = new System.Drawing.Size(692, 567);
@@ -82,6 +91,7 @@
             this.dgSrc.Name = "dgSrc";
             this.dgSrc.ReadOnly = true;
             this.dgSrc.RowHeadersVisible = false;
+            this.dgSrc.RowHeadersWidth = 51;
             this.dgSrc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgSrc.ShowEditingIcon = false;
             this.dgSrc.Size = new System.Drawing.Size(677, 567);
@@ -93,7 +103,7 @@
             // 
             this.cmdSaveLink.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.cmdSaveLink.ForeColor = System.Drawing.Color.Green;
-            this.cmdSaveLink.Location = new System.Drawing.Point(668, 4);
+            this.cmdSaveLink.Location = new System.Drawing.Point(291, 3);
             this.cmdSaveLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmdSaveLink.Name = "cmdSaveLink";
             this.cmdSaveLink.Size = new System.Drawing.Size(218, 30);
@@ -116,18 +126,19 @@
             // 
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComment.Location = new System.Drawing.Point(380, 37);
+            this.txtComment.Location = new System.Drawing.Point(291, 36);
             this.txtComment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(725, 60);
+            this.txtComment.Size = new System.Drawing.Size(437, 60);
             this.txtComment.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.txtComment, "Link comment");
             // 
             // cmdDelLink
             // 
             this.cmdDelLink.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.cmdDelLink.ForeColor = System.Drawing.Color.Red;
-            this.cmdDelLink.Location = new System.Drawing.Point(894, 4);
+            this.cmdDelLink.Location = new System.Drawing.Point(517, 3);
             this.cmdDelLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmdDelLink.Name = "cmdDelLink";
             this.cmdDelLink.Size = new System.Drawing.Size(211, 30);
@@ -185,18 +196,9 @@
             this.txtFindDest.TabIndex = 9;
             this.txtFindDest.TextChanged += new System.EventHandler(this.txtFindDest_TextChanged);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(380, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 15);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Link comment";
-            // 
             // cmdRefresh
             // 
-            this.cmdRefresh.Location = new System.Drawing.Point(23, 4);
+            this.cmdRefresh.Location = new System.Drawing.Point(176, 27);
             this.cmdRefresh.Name = "cmdRefresh";
             this.cmdRefresh.Size = new System.Drawing.Size(170, 27);
             this.cmdRefresh.TabIndex = 13;
@@ -204,39 +206,98 @@
             this.cmdRefresh.UseVisualStyleBackColor = true;
             this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generatePtablesToolStripMenuItem,
+            this.mnuGenViews});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1412, 24);
+            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // generatePtablesToolStripMenuItem
+            // 
+            this.generatePtablesToolStripMenuItem.Name = "generatePtablesToolStripMenuItem";
+            this.generatePtablesToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
+            this.generatePtablesToolStripMenuItem.Text = "Generate p-tables";
+            this.generatePtablesToolStripMenuItem.Click += new System.EventHandler(this.generatePtablesToolStripMenuItem_Click);
+            // 
+            // mnuGenViews
+            // 
+            this.mnuGenViews.Name = "mnuGenViews";
+            this.mnuGenViews.Size = new System.Drawing.Size(98, 20);
+            this.mnuGenViews.Text = "Generate views";
+            this.mnuGenViews.Click += new System.EventHandler(this.mnuGenViews_Click);
+            // 
+            // cmbMapName
+            // 
+            this.cmbMapName.FormattingEnabled = true;
+            this.cmbMapName.Location = new System.Drawing.Point(17, 68);
+            this.cmbMapName.Name = "cmbMapName";
+            this.cmbMapName.Size = new System.Drawing.Size(256, 23);
+            this.cmbMapName.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.cmbMapName, "Map Name");
+            this.cmbMapName.TextChanged += new System.EventHandler(this.cmbMapName_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 15);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Map Name";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.cmbMapName);
+            this.groupBox1.Controls.Add(this.cmdDelLink);
+            this.groupBox1.Controls.Add(this.txtComment);
+            this.groupBox1.Controls.Add(this.cmdSaveLink);
+            this.groupBox1.Location = new System.Drawing.Point(377, 1);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(733, 102);
+            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Mapping";
+            // 
             // frmMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 703);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdRefresh);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.cmdFindDest);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtFindDest);
             this.Controls.Add(this.cmdFind);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cmdDelLink);
-            this.Controls.Add(this.txtComment);
             this.Controls.Add(this.txtFilter);
-            this.Controls.Add(this.cmdSaveLink);
             this.Controls.Add(this.dgSrc);
             this.Controls.Add(this.dgDest);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "frmMapper";
             this.Text = "Отображение полей";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMapper_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgDest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.FontDialog fontDialog2;
         private System.Windows.Forms.DataGridView dgDest;
         private System.Windows.Forms.DataGridView dgSrc;
         private System.Windows.Forms.Button cmdSaveLink;
@@ -248,7 +309,14 @@
         private Button cmdFindDest;
         private Label label2;
         private TextBox txtFindDest;
-        private Label label3;
         private Button cmdRefresh;
+        private SaveFileDialog dlgSave;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem generatePtablesToolStripMenuItem;
+        private ToolStripMenuItem mnuGenViews;
+        private ToolTip toolTip1;
+        private ComboBox cmbMapName;
+        private Label label3;
+        private GroupBox groupBox1;
     }
 }
