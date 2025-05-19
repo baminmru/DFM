@@ -148,10 +148,41 @@ namespace mapper
 
                     string f = tbl.Rows[i]["field_name"].ToString().ToLower();
                     string c = tbl.Rows[i]["comment"].ToString();
+                    c.Replace("'", " ");
 
                     string pgtype = MapBaseType(tbl.Rows[i]["field_type"].ToString());
                         cc.AppendLine("COMMENT ON COLUMN " + CurrentSchema + t + "." + f+ " IS '" + c + "';");
-                    sb.AppendLine("\t\t," + f + " " + pgtype + "");
+
+
+                    //////////////////////////////////
+
+                 
+
+                    string func = MyUtils.MapFunc(f);
+
+                    if (func == "?" || func == "")
+                    {
+                        string caser = MyUtils.MakeCase(f, c);
+                        if (caser != "")
+                        {
+                            sb.AppendLine("\t\t," + f + " " + pgtype + "");
+                            sb.AppendLine("\t\t," + f + "_text text ");
+                        }
+                        else
+                            sb.AppendLine("\t\t," + f + " " + pgtype + "");
+
+
+                    }
+                    else
+                    {
+                        sb.AppendLine("\t\t , " + f + " " + pgtype + "");
+                        sb.AppendLine("\t\t," + f + "_text text ");
+
+                    }
+
+                    /////////////////////////////////
+
+                    //sb.AppendLine("\t\t," + f + " " + pgtype + "");
                 }
 
             }
@@ -204,7 +235,10 @@ namespace mapper
 
             sb.AppendLine("-- start " + API + ";");
 
-            DataTable tbl = ds.ReadData("select distinct table_name from src_data where api ='" + API + "'");
+            //DataTable tbl = ds.ReadData("select distinct table_name from src_data where api ='" + API + "'");
+
+            DataTable tbl = ds.ReadData("select distinct table_name from src_data where for_output =1 and  api ='" + API + "' order by table_name");
+
 
             for (i = 0; i < tbl.Rows.Count ; i++)
             {
@@ -226,7 +260,8 @@ namespace mapper
             result.AppendLine("CREATE SCHEMA IF NOT EXISTS " + CurrentSchema + ";");
             CurrentSchema = CurrentSchema + ".";
 
-            DataTable a = ds.ReadData("select distinct api from src_data where api like 'API%'");
+            //DataTable a = ds.ReadData("select distinct api from src_data where api like 'API%'");
+            DataTable a = ds.ReadData("select distinct api from used_api order by api");
 
             int i;
             for (i = 0; i < a.Rows.Count; i++)

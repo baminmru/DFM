@@ -37,7 +37,16 @@ namespace mapper
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
-            DataTable src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data order by api, table_name, field_name");
+            DataTable src;
+            if (chkUsedOnly.Checked)
+            {
+                src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data where api in (select api from used_api)  order by api, table_name, field_name");
+            }
+            else
+            {
+                src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data order by api, table_name, field_name");
+            }
+
             dgSrc.DataSource = src;
             dgSrc.ClearSelection();
 
@@ -112,28 +121,49 @@ namespace mapper
         }
 
 
-        private int SelectedDST { get; set; }
-        private int SelectedSRC { get; set; }
+       
+        private string DestTBL { get; set; }
+        private string DestFLD { get; set; }
+
+
+        private string SrcAPI { get; set; }
+        private string SrcTBL { get; set; }
+        private string SrcFLD { get; set; }
 
         private void dgDest_SelectionChanged(object sender, EventArgs e)
         {
             if (dgDest.SelectedRows.Count == 1)
             {
                 DataGridViewRow row = this.dgDest.SelectedRows[0];
-                SelectedDST = (int)row.Cells["id"].Value;
-                DataTable map = DS.ReadData("select * from mapper where map_name ='" +cmbMapName.Text +"' and  dest_id = " + SelectedDST.ToString());
+               DestTBL = row.Cells["table_name"].Value.ToString();
+               DestFLD = row.Cells["field_name"].Value.ToString();
+
+                
+
+
+
+                DataTable map = DS.ReadData("select * from map_data where map_name ='" + cmbMapName.Text + "' and to_table ='" + DestTBL +"' and to_field ='" + DestFLD + "'");
                 if (map.Rows.Count > 0)
                 {
-                    SelectedSRC = (int)map.Rows[0]["src_id"];
+                    //SelectedSRC = (int)map.Rows[0]["src_id"];
+                    SrcAPI = map.Rows[0]["api"].ToString();
+                    SrcTBL = map.Rows[0]["table_name"].ToString();
+                    SrcFLD = map.Rows[0]["field_name"].ToString();
+
+
+
+
                     dgSrc.ClearSelection();
 
                     foreach (DataGridViewRow srow in dgSrc.Rows)
                     {
                         try
                         {
-                            if (!(srow.Cells is null) && !(srow.Cells["id"] is null))
+                            if (!(srow.Cells is null) )
                             {
-                                if (srow.Cells["id"].Value.ToString().Equals(SelectedSRC.ToString()))
+                                if (srow.Cells["api"].Value.ToString().Equals(SrcAPI.ToString())  &&
+                                    srow.Cells["table_name"].Value.ToString().Equals(SrcTBL.ToString()) &&
+                                    srow.Cells["field_name"].Value.ToString().Equals(SrcFLD.ToString()) )
                                 {
                                     dgSrc.Rows[srow.Index].Selected = true;
                                     //if (!dgSrc.Rows[srow.Index].Visible)
@@ -171,7 +201,7 @@ namespace mapper
 
         private void ReloadMapName()
         {
-            DataTable dt = DS.ReadData("select distinct map_name from mapper");
+            DataTable dt = DS.ReadData("select distinct map_name from map_data");
 
             string s = cmbMapName.Text;
             cmbMapName.Items.Clear();
@@ -188,10 +218,12 @@ namespace mapper
 
         private void cmdSaveLink_Click(object sender, EventArgs e)
         {
-            if (dgSrc.SelectedRows.Count == 1 && dgDest.SelectedRows.Count == 1)
+             if (dgSrc.SelectedRows.Count == 1 && dgDest.SelectedRows.Count == 1)
             {
-                DS.Execute("delete from  mapper where map_name ='" + cmbMapName.Text + "' and dest_id= " + SelectedDST.ToString());
-                DS.Execute("insert into mapper(src_id,dest_id,comment,map_name) values(" + SelectedSRC.ToString() + "," + SelectedDST.ToString() + ",'" + txtComment.Text + "','" + cmbMapName.Text + "')");
+
+                DS.Execute("delete from  map_data  where map_name ='" + cmbMapName.Text + "' and to_table ='" + DestTBL + "' and to_field ='" + DestFLD + "'");
+                DS.Execute("insert into map_data (api,table_name,field_name, to_table, to_field,comment,map_name) values('" + SrcAPI + "','" + SrcTBL + "','" + SrcFLD + "','" + DestTBL + "','" + DestFLD + "','" + txtComment.Text.Replace("'", "''") + "','" + cmbMapName.Text + "')");
+
                 cmdDelLink.Enabled = true;
                 ReloadMapName();
             }
@@ -201,7 +233,7 @@ namespace mapper
         {
             if (dgDest.SelectedRows.Count == 1)
             {
-                DS.Execute("delete from  mapper where map_name ='" + cmbMapName.Text + "' and dest_id= " + SelectedDST.ToString());
+                DS.Execute("delete from  map_data  where map_name ='" + cmbMapName.Text + "' and to_table ='" + DestTBL + "' and to_field ='" + DestFLD + "'");
                 dgSrc.ClearSelection();
                 txtComment.Enabled = false;
                 cmdDelLink.Enabled = false;
@@ -215,7 +247,10 @@ namespace mapper
             if (dgSrc.SelectedRows.Count == 1)
             {
                 DataGridViewRow row = this.dgSrc.SelectedRows[0];
-                SelectedSRC = (int)row.Cells["id"].Value;
+                SrcAPI = row.Cells["api"].Value.ToString();
+                SrcTBL = row.Cells["table_name"].Value.ToString();
+                SrcFLD = row.Cells["field_name"].Value.ToString();
+
                 txtComment.Enabled = true;
                 cmdSaveLink.Enabled = true;
 
@@ -226,39 +261,52 @@ namespace mapper
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
-            if (txtFilter.Text != "")
-            {
-                foreach (DataGridViewRow row in dgSrc.Rows)
-                {
-                    String v = row.Cells["table_name"].Value.ToString().ToLower();
-                    String a = row.Cells["api"].Value.ToString().ToLower();
-                    if (v.StartsWith(txtFilter.Text.ToLower()) || a.StartsWith(txtFilter.Text.ToLower()))
-                    {
-                        //if (!dgSrc.Rows[row.Index].Visible)
-                        dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
-                        break;
-                    }
-                }
-            }
+            cmdFind_Click(sender,  e);
         }
 
         private void cmdFind_Click(object sender, EventArgs e)
         {
-            if (txtFilter.Text != "")
+            string api = "";
+
+            int idx = 0;
+
+
+            if (cmbAPI.Text != "")
             {
+                api = cmbAPI.Text;
+
                 foreach (DataGridViewRow row in dgSrc.Rows)
                 {
-
-                    String v = row.Cells["table_name"].Value.ToString().ToLower();
                     String a = row.Cells["api"].Value.ToString().ToLower();
-                    if (v.StartsWith(txtFilter.Text.ToLower()) || a.StartsWith(txtFilter.Text.ToLower()))
+                    if ( a.StartsWith(api.ToLower()))
                     {
-                        //if (!dgSrc.Rows[row.Index].Visible)
                         dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
-
+                        idx = row.Index;
                         break;
                     }
                 }
+
+
+
+            }
+            
+            if (txtFilter.Text != "")
+            {
+                for ( ; idx < dgSrc.Rows.Count; idx++)
+                {
+
+                    DataGridViewRow row = dgSrc.Rows[idx];
+                    String v = row.Cells["table_name"].Value.ToString().ToLower();
+                    
+                    if (v.StartsWith(txtFilter.Text.ToLower()))
+                    {
+                        dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                        break;
+                    }
+                }
+
+
+
             }
         }
 
@@ -369,6 +417,64 @@ namespace mapper
         {
             if (cmbMapName.Text != "")
                 dgDest_SelectionChanged(sender, e);
+        }
+
+        private void mnuRefresh_Click(object sender, EventArgs e)
+        {
+            Init();
+        }
+
+        private void textAPIMAsk_TextChanged(object sender, EventArgs e)
+        {
+            DataTable api;
+            if (chkUsedOnly.Checked)
+            {
+                if (txtAPIMask.Text != "")
+                    api = DS.ReadData("select distinct api from used_api where api like '" + txtAPIMask.Text + "' order by api");
+                else
+                    api = DS.ReadData("select distinct api from used_api  order by api");
+            }
+            else
+            {
+
+                if (txtAPIMask.Text != "")
+                    api = DS.ReadData("select distinct api from src_data where api like '" + txtAPIMask.Text + "' order by api");
+                else
+                    api = DS.ReadData("select distinct api from src_data  order by api");
+            }
+
+            cmbAPI.ValueMember = "api";
+            cmbAPI.DisplayMember = "api";
+            cmbAPI.DataSource = api;
+            
+
+        }
+
+        private void cmbAPI_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmdFind_Click(sender, e);
+        }
+
+        private void chkUsedOnly_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmdToUsed_Click(object sender, EventArgs e)
+        {
+            if( cmbAPI.Text != "")
+            {
+                try
+                {
+                    DS.Execute("insert into used_api (api) values ('" + cmbAPI.Text + "')");
+                    Init();
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
         }
     }
 }

@@ -35,24 +35,30 @@
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.txtComment = new System.Windows.Forms.TextBox();
             this.cmdDelLink = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.cmdFind = new System.Windows.Forms.Button();
             this.cmdFindDest = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.txtFindDest = new System.Windows.Forms.TextBox();
-            this.cmdRefresh = new System.Windows.Forms.Button();
             this.dlgSave = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.generatePtablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuGenViews = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmbMapName = new System.Windows.Forms.ComboBox();
+            this.cmbAPI = new System.Windows.Forms.ComboBox();
+            this.txtAPIMask = new System.Windows.Forms.TextBox();
+            this.cmdToUsed = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkUsedOnly = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgDest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgSrc)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgDest
@@ -65,7 +71,7 @@
             this.dgDest.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgDest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgDest.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgDest.Location = new System.Drawing.Point(22, 114);
+            this.dgDest.Location = new System.Drawing.Point(13, 162);
             this.dgDest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dgDest.Name = "dgDest";
             this.dgDest.ReadOnly = true;
@@ -86,7 +92,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgSrc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgSrc.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgSrc.Location = new System.Drawing.Point(722, 114);
+            this.dgSrc.Location = new System.Drawing.Point(713, 162);
             this.dgSrc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dgSrc.Name = "dgSrc";
             this.dgSrc.ReadOnly = true;
@@ -103,7 +109,7 @@
             // 
             this.cmdSaveLink.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.cmdSaveLink.ForeColor = System.Drawing.Color.Green;
-            this.cmdSaveLink.Location = new System.Drawing.Point(291, 3);
+            this.cmdSaveLink.Location = new System.Drawing.Point(291, 22);
             this.cmdSaveLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmdSaveLink.Name = "cmdSaveLink";
             this.cmdSaveLink.Size = new System.Drawing.Size(218, 30);
@@ -114,23 +120,25 @@
             // 
             // txtFilter
             // 
-            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilter.Location = new System.Drawing.Point(1122, 74);
+            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFilter.Location = new System.Drawing.Point(7, 97);
             this.txtFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(231, 23);
+            this.txtFilter.Size = new System.Drawing.Size(217, 23);
             this.txtFilter.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.txtFilter, "Table prefix");
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
             // txtComment
             // 
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComment.Location = new System.Drawing.Point(291, 36);
+            this.txtComment.Location = new System.Drawing.Point(291, 58);
             this.txtComment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(437, 60);
+            this.txtComment.Size = new System.Drawing.Size(435, 60);
             this.txtComment.TabIndex = 4;
             this.toolTip1.SetToolTip(this.txtComment, "Link comment");
             // 
@@ -138,7 +146,7 @@
             // 
             this.cmdDelLink.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.cmdDelLink.ForeColor = System.Drawing.Color.Red;
-            this.cmdDelLink.Location = new System.Drawing.Point(517, 3);
+            this.cmdDelLink.Location = new System.Drawing.Point(515, 22);
             this.cmdDelLink.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmdDelLink.Name = "cmdDelLink";
             this.cmdDelLink.Size = new System.Drawing.Size(211, 30);
@@ -147,30 +155,21 @@
             this.cmdDelLink.UseVisualStyleBackColor = true;
             this.cmdDelLink.Click += new System.EventHandler(this.cmdDelLink_Click);
             // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1302, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Find source table";
-            // 
             // cmdFind
             // 
             this.cmdFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdFind.Location = new System.Drawing.Point(1361, 69);
+            this.cmdFind.Location = new System.Drawing.Point(228, 93);
             this.cmdFind.Name = "cmdFind";
             this.cmdFind.Size = new System.Drawing.Size(39, 28);
             this.cmdFind.TabIndex = 8;
             this.cmdFind.Text = "!";
+            this.toolTip1.SetToolTip(this.cmdFind, "Find at Source API");
             this.cmdFind.UseVisualStyleBackColor = true;
             this.cmdFind.Click += new System.EventHandler(this.cmdFind_Click);
             // 
             // cmdFindDest
             // 
-            this.cmdFindDest.Location = new System.Drawing.Point(23, 70);
+            this.cmdFindDest.Location = new System.Drawing.Point(313, 48);
             this.cmdFindDest.Name = "cmdFindDest";
             this.cmdFindDest.Size = new System.Drawing.Size(39, 28);
             this.cmdFindDest.TabIndex = 11;
@@ -178,40 +177,23 @@
             this.cmdFindDest.UseVisualStyleBackColor = true;
             this.cmdFindDest.Click += new System.EventHandler(this.cmdFindDest_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 15);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Find destination table";
-            // 
             // txtFindDest
             // 
-            this.txtFindDest.Location = new System.Drawing.Point(69, 74);
+            this.txtFindDest.Location = new System.Drawing.Point(22, 52);
             this.txtFindDest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFindDest.Name = "txtFindDest";
-            this.txtFindDest.Size = new System.Drawing.Size(294, 23);
+            this.txtFindDest.Size = new System.Drawing.Size(275, 23);
             this.txtFindDest.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.txtFindDest, "table prefix");
             this.txtFindDest.TextChanged += new System.EventHandler(this.txtFindDest_TextChanged);
-            // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.Location = new System.Drawing.Point(176, 27);
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(170, 27);
-            this.cmdRefresh.TabIndex = 13;
-            this.cmdRefresh.Text = "Refresh";
-            this.cmdRefresh.UseVisualStyleBackColor = true;
-            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.generatePtablesToolStripMenuItem,
-            this.mnuGenViews});
+            this.mnuGenViews,
+            this.mnuRefresh});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1412, 24);
@@ -232,20 +214,63 @@
             this.mnuGenViews.Text = "Generate views";
             this.mnuGenViews.Click += new System.EventHandler(this.mnuGenViews_Click);
             // 
+            // mnuRefresh
+            // 
+            this.mnuRefresh.Name = "mnuRefresh";
+            this.mnuRefresh.Size = new System.Drawing.Size(58, 20);
+            this.mnuRefresh.Text = "Refresh";
+            this.mnuRefresh.Click += new System.EventHandler(this.mnuRefresh_Click);
+            // 
             // cmbMapName
             // 
             this.cmbMapName.FormattingEnabled = true;
-            this.cmbMapName.Location = new System.Drawing.Point(17, 68);
+            this.cmbMapName.Location = new System.Drawing.Point(17, 58);
             this.cmbMapName.Name = "cmbMapName";
             this.cmbMapName.Size = new System.Drawing.Size(256, 23);
             this.cmbMapName.TabIndex = 15;
             this.toolTip1.SetToolTip(this.cmbMapName, "Map Name");
             this.cmbMapName.TextChanged += new System.EventHandler(this.cmbMapName_TextChanged);
             // 
+            // cmbAPI
+            // 
+            this.cmbAPI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbAPI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAPI.FormattingEnabled = true;
+            this.cmbAPI.Location = new System.Drawing.Point(6, 64);
+            this.cmbAPI.Name = "cmbAPI";
+            this.cmbAPI.Size = new System.Drawing.Size(218, 23);
+            this.cmbAPI.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.cmbAPI, "scroll to selected API ");
+            this.cmbAPI.SelectedIndexChanged += new System.EventHandler(this.cmbAPI_SelectedIndexChanged);
+            // 
+            // txtAPIMask
+            // 
+            this.txtAPIMask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAPIMask.Location = new System.Drawing.Point(6, 35);
+            this.txtAPIMask.Name = "txtAPIMask";
+            this.txtAPIMask.Size = new System.Drawing.Size(261, 23);
+            this.txtAPIMask.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.txtAPIMask, "API mask");
+            this.txtAPIMask.TextChanged += new System.EventHandler(this.textAPIMAsk_TextChanged);
+            // 
+            // cmdToUsed
+            // 
+            this.cmdToUsed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdToUsed.Location = new System.Drawing.Point(229, 64);
+            this.cmdToUsed.Name = "cmdToUsed";
+            this.cmdToUsed.Size = new System.Drawing.Size(37, 24);
+            this.cmdToUsed.TabIndex = 21;
+            this.cmdToUsed.Text = "2U";
+            this.toolTip1.SetToolTip(this.cmdToUsed, "Add api to Used_API ");
+            this.cmdToUsed.UseVisualStyleBackColor = true;
+            this.cmdToUsed.Click += new System.EventHandler(this.cmdToUsed_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 36);
+            this.label3.Location = new System.Drawing.Point(17, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 15);
             this.label3.TabIndex = 16;
@@ -258,26 +283,62 @@
             this.groupBox1.Controls.Add(this.cmdDelLink);
             this.groupBox1.Controls.Add(this.txtComment);
             this.groupBox1.Controls.Add(this.cmdSaveLink);
-            this.groupBox1.Location = new System.Drawing.Point(377, 1);
+            this.groupBox1.Location = new System.Drawing.Point(382, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(733, 102);
+            this.groupBox1.Size = new System.Drawing.Size(733, 129);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mapping";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cmdToUsed);
+            this.groupBox2.Controls.Add(this.chkUsedOnly);
+            this.groupBox2.Controls.Add(this.txtAPIMask);
+            this.groupBox2.Controls.Add(this.cmbAPI);
+            this.groupBox2.Controls.Add(this.cmdFind);
+            this.groupBox2.Controls.Add(this.txtFilter);
+            this.groupBox2.Location = new System.Drawing.Point(1116, 27);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(273, 134);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Find source api \\  table";
+            // 
+            // chkUsedOnly
+            // 
+            this.chkUsedOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUsedOnly.AutoSize = true;
+            this.chkUsedOnly.Location = new System.Drawing.Point(168, 10);
+            this.chkUsedOnly.Name = "chkUsedOnly";
+            this.chkUsedOnly.Size = new System.Drawing.Size(99, 19);
+            this.chkUsedOnly.TabIndex = 20;
+            this.chkUsedOnly.Text = "Used API only";
+            this.toolTip1.SetToolTip(this.chkUsedOnly, "Find from used API only");
+            this.chkUsedOnly.UseVisualStyleBackColor = true;
+            this.chkUsedOnly.CheckedChanged += new System.EventHandler(this.chkUsedOnly_CheckedChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.cmdFindDest);
+            this.groupBox3.Controls.Add(this.txtFindDest);
+            this.groupBox3.Location = new System.Drawing.Point(10, 33);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(367, 123);
+            this.groupBox3.TabIndex = 21;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Find target";
             // 
             // frmMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 703);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.cmdRefresh);
-            this.Controls.Add(this.cmdFindDest);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtFindDest);
-            this.Controls.Add(this.cmdFind);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtFilter);
             this.Controls.Add(this.dgSrc);
             this.Controls.Add(this.dgDest);
             this.Controls.Add(this.menuStrip1);
@@ -292,6 +353,10 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,12 +369,9 @@
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.TextBox txtComment;
         private Button cmdDelLink;
-        private Label label1;
         private Button cmdFind;
         private Button cmdFindDest;
-        private Label label2;
         private TextBox txtFindDest;
-        private Button cmdRefresh;
         private SaveFileDialog dlgSave;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem generatePtablesToolStripMenuItem;
@@ -318,5 +380,12 @@
         private ComboBox cmbMapName;
         private Label label3;
         private GroupBox groupBox1;
+        private ToolStripMenuItem mnuRefresh;
+        private ComboBox cmbAPI;
+        private TextBox txtAPIMask;
+        private GroupBox groupBox2;
+        private GroupBox groupBox3;
+        private CheckBox chkUsedOnly;
+        private Button cmdToUsed;
     }
 }

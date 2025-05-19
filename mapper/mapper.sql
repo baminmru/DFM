@@ -36,17 +36,31 @@ CREATE TABLE public.src_data (
 
 -- public.mapper определение
 
+-- public.map_data определение
+
 -- Drop table
 
--- DROP TABLE public.mapper;
+-- DROP TABLE public.map_data;
 
-CREATE TABLE public.mapper (
-	dest_id int4 NOT NULL,
-	src_id int4 NOT NULL,
-	"comment" text NULL,
+CREATE TABLE public.map_data (
 	map_name text NULL,
-	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
-	CONSTRAINT mapper_pk PRIMARY KEY (id),
-	CONSTRAINT mapper_dest_data_fk FOREIGN KEY (dest_id) REFERENCES public.dest_data(id),
-	CONSTRAINT mapper_src_data_fk FOREIGN KEY (src_id) REFERENCES public.src_data(id)
+	api text NULL,
+	table_name text NULL,
+	field_name text NULL,
+	to_table text NULL,
+	to_field text NULL,
+	"comment" text NULL
+);
+CREATE UNIQUE INDEX map_data_map_name_idx ON public.map_data USING btree (map_name, to_table, to_field);
+
+
+-- public.used_api определение
+
+-- Drop table
+
+-- DROP TABLE public.used_api;
+
+CREATE TABLE public.used_api (
+	api text NOT NULL,
+	CONSTRAINT used_api_pk PRIMARY KEY (api)
 );
