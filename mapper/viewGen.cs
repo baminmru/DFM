@@ -46,8 +46,6 @@ namespace mapper
 
 
             loader.Append("\\COPY migration." + t + " (spid");
-            //ApplicationDate, ApplicationNumber, AssetLimitPeriodEndDate, AssetLimitPeriodFlag, AssetLimitTerm, AssetLimitTermkind, BankProductID, BatchID, BranchID, Comment, CoverQuality, CredLID, CurrencyID, Date, DateClose, DateEnd, DateGrantingBKI, DateLong, DateReceptionBKI, DateSigning, DateValue, DivisionID, ExternalID, ExternalRequestID, ExtNumber, FinOperBrief, FinOperID, FlagGrantingBKI, FlagReceptionBKI, FullNumber, InDateTime, IndividualInterestRateFlag, IndividualRiskFlag, InividualPriorityRdmptFlag, LastTrancheDate, LimitDebts, LimitPayment, LimitPeriodFlag, LimitType, MainContractID, ModuleID, MultyCurFlag, Number, ParticipantID, PaymentDate, PortfolioSimilarFlag, ResPayAccNumberFlag, SPID, StateFlag, Status, TrancheDateControl, TrancheMaxTerm, TrancheMaxTermKind, UserID, UUID)FROM 'C:\Users\m.m.baranov\Documents\T-ENT\generated\CSV\baseAttr.csv' DELIMITER ';' CSV;
-
 
 
             int i;
@@ -66,17 +64,19 @@ namespace mapper
                     if (func=="?" || func =="" )
                     {
                         string caser = MyUtils.MakeCase(f, c);
-                        if(caser != "")
+                        if (caser != "")
                         {
                             sb.AppendLine("\t\t," + f);
                             sb.AppendLine("\t\t," + caser);
 
                             loader.Append("," + lf);
-                            loader.Append("," + lf +"_text");
+                            loader.Append("," + lf + "_text");
                         }
                         else
+                        {
                             sb.AppendLine("\t\t," + f);
                             loader.Append("," + lf);
+                        }
                         
 
 
@@ -128,7 +128,7 @@ namespace mapper
 
             sb.AppendLine("-- start " + API + ";");
 
-            DataTable tbl = ds.ReadData("select distinct table_name from src_data where for_output =1 and  api ='" + API + "' order by table_name");
+            DataTable tbl = ds.ReadData("select distinct table_name from src_data where  api ='" + API + "' order by table_name");
 
             for (i = 0; i < tbl.Rows.Count; i++)
             {

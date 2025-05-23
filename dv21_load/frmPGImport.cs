@@ -314,7 +314,8 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                     cd.Sections[i].Name[0].Language = "ru";
 
                     DataTable dtFld = new DataTable();
-                    dtFld = DS.ReadData(@"select
+                    dtFld = DS.ReadData(
+                        @"select
                             c.table_schema,
                             c.table_name,
                             c.column_name,
@@ -331,7 +332,29 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                             pgd.objsubid   = c.ordinal_position and
                             c.table_schema = st.schemaname and
                             c.table_name   = st.relname
-                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "';");
+                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "'" +
+                        @"union all                        
+                        select
+                            c.table_schema,
+                            c.table_name,
+                            c.column_name,
+                            c.is_nullable,
+                            c.data_type, 
+                            c.udt_name,
+                            c.character_maximum_length len,
+                            pgd.description
+                        from pg_catalog.pg_partitioned_table  as st
+                        inner join pg_catalog.pg_description pgd on (
+                            pgd.objoid = st.partrelid
+                        )
+                        inner join pg_class pc on pc.oid = st.partrelid
+                        join pg_namespace sp on sp.oid  = pc.relnamespace  
+                        inner join information_schema.columns c on(
+                            pgd.objsubid = c.ordinal_position and
+                            c.table_schema = sp.nspname and
+                            c.table_name = pc.relname
+                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema = '" + schema + "'; "                      
+                        );
 
 
                     DataTable dtPK = new DataTable();
@@ -442,30 +465,32 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
 
                     for (int r = 0; r < dtFK.Rows.Count; r++)
                     {
+                        if (cd.Sections[i] != null && cd.Sections[i].Field != null) {
 
-                        for (int j = 0; j < cd.Sections[i].Field.Length; j++)
-                        {
-                            if (cd.Sections[i].Field[j].Alias == dtFK.Rows[r]["column_name"].ToString())
+                            for (int j = 0; j < cd.Sections[i].Field.Length; j++)
                             {
-
-
-                                CardDefinition refType = null;
-                                SectionType refSection = null;
-                                string refSchema = dtFK.Rows[r]["to_schema"].ToString();
-
-                                refType = MyUtils.GetReferencedTypeByName(cards, dtFK.Rows[r]["to_schema"].ToString() );
-                                if (refType != null)
-                                    refSection = MyUtils.GetReferencedSectionByName(refType.Sections, dtFK.Rows[r]["to_table"].ToString());
-
-                                if (refSection != null)
+                                if (cd.Sections[i].Field[j].Alias == dtFK.Rows[r]["column_name"].ToString())
                                 {
-                                    cd.Sections[i].Field[j].Reference = true;
-                                    cd.Sections[i].Field[j].ReferenceSpecified = true;
-                                    cd.Sections[i].Field[j].RefType = refType.ID.ToString();
-                                    cd.Sections[i].Field[j].RefSection = refSection.ID.ToString();
-                                }
-                                
 
+
+                                    CardDefinition refType = null;
+                                    SectionType refSection = null;
+                                    string refSchema = dtFK.Rows[r]["to_schema"].ToString();
+
+                                    refType = MyUtils.GetReferencedTypeByName(cards, dtFK.Rows[r]["to_schema"].ToString());
+                                    if (refType != null)
+                                        refSection = MyUtils.GetReferencedSectionByName(refType.Sections, dtFK.Rows[r]["to_table"].ToString());
+
+                                    if (refSection != null)
+                                    {
+                                        cd.Sections[i].Field[j].Reference = true;
+                                        cd.Sections[i].Field[j].ReferenceSpecified = true;
+                                        cd.Sections[i].Field[j].RefType = refType.ID.ToString();
+                                        cd.Sections[i].Field[j].RefSection = refSection.ID.ToString();
+                                    }
+
+
+                                }
                             }
                         }
 
