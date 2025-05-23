@@ -132,14 +132,16 @@ namespace dv21
                             c.character_maximum_length len,
                             pgd.description
                         from pg_catalog.pg_statio_all_tables as st
-                        inner join pg_catalog.pg_description pgd on (
-                            pgd.objoid = st.relid
-                        )
                         inner join information_schema.columns c on (
-                            pgd.objsubid   = c.ordinal_position and
+                        
                             c.table_schema = st.schemaname and
                             c.table_name   = st.relname
-                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "'" +
+                        )
+                        left join pg_catalog.pg_description pgd on (
+                            pgd.objsubid   = c.ordinal_position and
+                            pgd.objoid = st.relid
+                        )
+                         where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "'" +
                     @"union all                        
                         select
                             c.table_schema,
@@ -151,16 +153,19 @@ namespace dv21
                             c.character_maximum_length len,
                             pgd.description
                         from pg_catalog.pg_partitioned_table  as st
-                        inner join pg_catalog.pg_description pgd on (
-                            pgd.objoid = st.partrelid
-                        )
+                        
                         inner join pg_class pc on pc.oid = st.partrelid
                         join pg_namespace sp on sp.oid  = pc.relnamespace  
                         inner join information_schema.columns c on(
-                            pgd.objsubid = c.ordinal_position and
                             c.table_schema = sp.nspname and
                             c.table_name = pc.relname
-                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema = '" + schema + "'; "
+                        )
+                        left join pg_catalog.pg_description pgd on (
+                            pgd.objsubid = c.ordinal_position and                            
+                            pgd.objoid = st.partrelid
+                        )
+
+                         where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema = '" + schema + "'; "
                     );
 
 
@@ -348,14 +353,16 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                             c.character_maximum_length len,
                             pgd.description
                         from pg_catalog.pg_statio_all_tables as st
-                        inner join pg_catalog.pg_description pgd on (
-                            pgd.objoid = st.relid
-                        )
                         inner join information_schema.columns c on (
-                            pgd.objsubid   = c.ordinal_position and
+                        
                             c.table_schema = st.schemaname and
                             c.table_name   = st.relname
-                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "'" +
+                        )
+                        left join pg_catalog.pg_description pgd on (
+                            pgd.objsubid   = c.ordinal_position and
+                            pgd.objoid = st.relid
+                        )
+                         where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema ='" + schema + "'" +
                         @"union all                        
                         select
                             c.table_schema,
@@ -367,16 +374,19 @@ JOIN information_schema.table_constraints tc ON tc.constraint_schema = kcu.const
                             c.character_maximum_length len,
                             pgd.description
                         from pg_catalog.pg_partitioned_table  as st
-                        inner join pg_catalog.pg_description pgd on (
-                            pgd.objoid = st.partrelid
-                        )
+                        
                         inner join pg_class pc on pc.oid = st.partrelid
                         join pg_namespace sp on sp.oid  = pc.relnamespace  
                         inner join information_schema.columns c on(
-                            pgd.objsubid = c.ordinal_position and
                             c.table_schema = sp.nspname and
                             c.table_name = pc.relname
-                        ) where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema = '" + schema + "'; "                      
+                        )
+                        left join pg_catalog.pg_description pgd on (
+                            pgd.objsubid = c.ordinal_position and                            
+                            pgd.objoid = st.partrelid
+                        )
+
+                         where c.table_name = '" + cd.Sections[i].Alias + "' and c.table_schema = '" + schema + "'; "                      
                         );
 
 

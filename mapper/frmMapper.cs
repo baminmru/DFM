@@ -30,10 +30,10 @@ namespace mapper
 
         }
 
-        public void Init()
+        public void Init(bool setupGrid = true)
         {
 
-            DataTable dst = DS.ReadData("select table_name,field_name, comment, entity_key, entity_root from dest_data where field_name not in ('created_ts', 'created_by', 'modified_ts', 'modified_by','effective_end_date','effective_begin_date') order by table_name, field_name");
+            DataTable dst = DS.ReadData("select table_name,field_name, comment, entity_key, entity_root from dest_data where field_name not in ('created_ts', 'created_by', 'modified_ts', 'modified_by','effective_end_date','effective_begin_date', 'is_effective', 'process_id') order by table_name, field_name");
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
@@ -51,22 +51,24 @@ namespace mapper
             dgSrc.ClearSelection();
 
 
-           // dgDest.Columns["id"].Visible = false;
-           // dgSrc.Columns["id"].Visible = false;
-            dgSrc.Columns["api_comment"].Visible = false;
-            dgSrc.Columns["table_comment"].Visible = false;
+            if (setupGrid)
+            {
+                dgSrc.Columns["api_comment"].Visible = false;
+                dgSrc.Columns["table_comment"].Visible = false;
 
-            dgDest.Columns["comment"].Width *=3;
+                
+                dgDest.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dgDest.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+                dgDest.Columns["comment"].Width = 300;
+                dgDest.Columns["comment"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dgDest.Columns["comment"].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
 
-
-            //dgSrc.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dgSrc.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dgSrc.Columns["comment"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dgSrc.Columns["comment"].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-            dgSrc.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-          
-            dgSrc.Columns["comment"].Width =300;
-
+                dgSrc.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dgSrc.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+                dgSrc.Columns["comment"].Width = 300;
+                dgSrc.Columns["comment"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dgSrc.Columns["comment"].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+            }
             txtComment.Enabled = false;
             txtCondition.Enabled = false;
             cmdDelLink.Enabled = false;
@@ -74,6 +76,7 @@ namespace mapper
 
             MergeGridviewCells(dgDest, new int[] { 0 });
             MergeGridviewCells(dgSrc, new int[] { 0,1 });
+
             ReloadMapName();
 
         }
