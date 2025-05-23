@@ -14,6 +14,7 @@ namespace mapper
     public class PGGen
     {
 
+        private StringBuilder declare;
         private StringBuilder sb;
         private StringBuilder fk;
         private StringBuilder enums;
@@ -26,11 +27,12 @@ namespace mapper
         public PGGen()
         {
            
-            sb = new StringBuilder();
+            
             fk = new StringBuilder();
             enums = new StringBuilder();
             result = new StringBuilder();
-
+            sb = new StringBuilder();
+            declare = new StringBuilder();
 
         }
 
@@ -125,7 +127,7 @@ namespace mapper
             if (s == "") return;
             
 
-            DataTable tbl = ds.ReadData("select * from src_data where api ='" + API + "' and table_name = '" + s + "' order by field_order");
+            DataTable tbl = ds.ReadData("select distinct field_name, comment, field_type, field_order, table_comment from src_data where api ='" + API + "' and table_name = '" + s + "' order by field_order");
 
             string t = s.ToLower();
 
@@ -145,8 +147,8 @@ namespace mapper
             if (tbl != null) {
                 for (i = 0; i < tbl.Rows.Count; i++)
                 {
-
-                    string f = tbl.Rows[i]["field_name"].ToString().ToLower();
+                    string fo = tbl.Rows[i]["field_name"].ToString();
+                    string f = fo.ToLower();
                     string c = tbl.Rows[i]["comment"].ToString();
                     c.Replace("'", " ");
 
@@ -158,7 +160,7 @@ namespace mapper
 
                  
 
-                    string func = MyUtils.MapFunc(f);
+                    string func = MyUtils.MapFunc(fo);
 
                     if (func == "?" || func == "")
                     {
@@ -169,8 +171,9 @@ namespace mapper
                             sb.AppendLine("\t\t," + f + "_text text ");
                         }
                         else
+                        {
                             sb.AppendLine("\t\t," + f + " " + pgtype + "");
-
+                        }
 
                     }
                     else
@@ -237,7 +240,7 @@ namespace mapper
 
             //DataTable tbl = ds.ReadData("select distinct table_name from src_data where api ='" + API + "'");
 
-            DataTable tbl = ds.ReadData("select distinct table_name from src_data where for_output =1 and  api ='" + API + "' order by table_name");
+            DataTable tbl = ds.ReadData("select distinct table_name from src_data where  api ='" + API + "' order by table_name");
 
 
             for (i = 0; i < tbl.Rows.Count ; i++)
@@ -279,6 +282,140 @@ namespace mapper
 
             return result.ToString();
 
+        }
+
+
+
+        public string BuildMap()
+        {
+            DataTable m = ds.ReadData("select distinct map_name  from map_data ");
+            for (int i = 0; i < m.Rows.Count; i++)
+            {
+                BuildMapScript(m.Rows[i]["map_name"].ToString());
+
+            }
+            return result.ToString();
+        }
+
+
+        private string GetKeyField( string SrcAPI, string SrcTBL)
+        {
+           DataTable keys = ds.ReadData("select field_name from  src_data   where entity_key = true and api='" + SrcAPI + "' and table_name = '" + SrcTBL + "'");
+            if (keys.Rows.Count > 0)
+            {
+                return keys.Rows[0]["field_name"].ToString();
+            }
+            return "";
+
+        }
+
+
+            public void BuildMapScript( string mapping)
+        {
+
+
+            DataTable md = ds.ReadData("select *  from map_data where map_name ='" + mapping + "' order by to_table, to_field");
+            StringBuilder fields = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+
+            sb = new StringBuilder();
+            declare = new StringBuilder();
+
+
+            result.AppendLine("-- " +mapping );
+            result.AppendLine("DO $$");
+
+            string tbl = md.Rows[0]["to_table"].ToString() ;
+            string schema = md.Rows[0]["to_schema"].ToString();
+            if (schema == "") schema = "public";
+
+            declare.AppendLine("DECLARE migration_id  text ; ");
+            declare.AppendLine("DECLARE migration_spid  text ; ");
+            declare.AppendLine("DECLARE migration_list cursor for  select id from  test ;  --  change to real select");
+
+
+            for (int i = 0; i < md.Rows.Count; i++)
+            {
+
+                if (tbl != md.Rows[i]["to_table"].ToString())
+                {
+                    sb.AppendLine("");
+
+
+                    sb.AppendLine("\t\tinsert into " + schema +"."+ tbl.ToLower() + "(\r\n\t\t\t" + fields.ToString() + "\r\n\t\t\t)values (\r\n\t\t\t " + values.ToString() + "\r\n\t\t\t);");
+                    sb.AppendLine("");
+                    tbl = md.Rows[i]["to_table"].ToString();
+                    values.Clear();
+                    fields.Clear();
+                }
+
+
+
+                string n = "v_" + md.Rows[i]["to_table"].ToString() + "_" + md.Rows[i]["to_field"].ToString();
+                n = n.ToLower();
+                declare.AppendLine("DECLARE " + n + "  text ; ");
+
+
+                if (md.Rows[i]["comment"].ToString() != "")
+                {
+                    sb.AppendLine("\t\t\t-- " + md.Rows[i]["comment"].ToString());
+                }
+
+                sb.AppendLine("\t\tselect  migration." + md.Rows[i]["table_name"].ToString().ToLower() + "." + md.Rows[i]["field_name"].ToString().ToLower() + "  into " + n);
+                sb.AppendLine("\t\t\tfrom  migration." + md.Rows[i]["table_name"].ToString().ToLower() );
+                string fkey = GetKeyField(md.Rows[i]["api"].ToString(), md.Rows[i]["table_name"].ToString());
+
+                if (fkey != "")
+                {
+                    if (md.Rows[i]["condition"].ToString().Trim() != "")
+                        sb.AppendLine("\t\t\twhere spid = migration_spid and " +fkey.ToLower() + " = migration_id  and " + md.Rows[i]["condition"].ToString() + "  LIMIT 1;");
+                    else
+                        sb.AppendLine("\t\t\twhere spid = migration_spid and " + fkey.ToLower() + " = migration_id   LIMIT 1;");
+                    sb.AppendLine("");
+                }
+                else
+                {
+
+                    if (md.Rows[i]["condition"].ToString().Trim() != "")
+                        sb.AppendLine("\t\t\twhere spid = migration_spid and  " + md.Rows[i]["condition"].ToString() + "  LIMIT 1;");
+                    else
+                        sb.AppendLine("\t\t\twhere spid = migration_spid  LIMIT 1;");
+                    sb.AppendLine("");
+
+                }
+
+                if (fields.ToString() != "")
+                    fields.Append(",\r\n\t\t\t");
+                fields.Append(md.Rows[i]["to_field"].ToString().ToLower());
+
+                if (values.ToString() != "")
+                    values.Append(",\r\n\t\t\t");
+                values.Append(n);
+
+            }
+
+            if (fields.ToString() != "")
+            {
+                sb.AppendLine("");
+                sb.AppendLine("\t\tinsert into " + tbl.ToLower() + "(\r\n\t\t\t" + fields.ToString() + "\r\n\t\t\t)values (\r\n\t\t\t " + values.ToString() + "\r\n\t\t\t);");
+                sb.AppendLine("");
+            }
+
+
+
+            result.AppendLine(declare.ToString());
+            result.AppendLine("BEGIN");
+            result.AppendLine("OPEN migration_list;");
+            result.AppendLine("LOOP");
+            result.AppendLine("FETCH NEXT FROM migration_list INTO migration_id;");
+            result.AppendLine("EXIT WHEN NOT FOUND;");
+            result.AppendLine(sb.ToString());
+            result.AppendLine("END LOOP;");
+            result.AppendLine("CLOSE migration_list;");
+            result.AppendLine("END $$;");
+            result.AppendLine("LANGUAGE PLPGSQL;");
+            result.AppendLine("-- end of " + mapping);
+            result.AppendLine("");
         }
 
 

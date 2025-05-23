@@ -118,10 +118,24 @@ namespace dv21
 
             string idType = MapBaseType(MyUtils.GetIDType(s));
             string idName = MyUtils.GetIDName(s);
+            int i;
+            bool hasId = false;
 
-            if(idName == "id")
+            if (idName == "id")
             {
-                sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + idName + "','" + idType + "','','key, not null','" + s.Name[0].Value +", ключ',''");
+                if (s.Field != null)
+                {
+                    for (i = 0; i < s.Field.Length; i++)
+                    {
+                        if (s.Field[i].Alias == "id")
+                        {
+                            hasId = true;
+                            break;
+                        }
+                    }
+                }
+                if(!hasId)
+                   sb.AppendLine("'" + CurrentSchema + "','" + s.Alias.ToLower() + "','" + idName + "','" + idType + "','','key, not null','" + s.Name[0].Value +", ключ',''");
             }
 
 
@@ -134,7 +148,7 @@ namespace dv21
             }
 
 
-            int i;
+            
             if (s.Field != null)
             {
                 for (i = 0; i < s.Field.Length; i++)

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mapper", "mapper.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dv21_load", "..\dv21_load\dv21_load.csproj", "{0E913070-AE93-453F-8FCF-336F9D4C1603}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NulChanger", "..\NulChanger\NulChanger.csproj", "{D065A14D-6388-4D19-BA78-49C9DB74FAF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		all|Any CPU = all|Any CPU
@@ -26,6 +28,12 @@ Global
 		{0E913070-AE93-453F-8FCF-336F9D4C1603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E913070-AE93-453F-8FCF-336F9D4C1603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E913070-AE93-453F-8FCF-336F9D4C1603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D065A14D-6388-4D19-BA78-49C9DB74FAF7}.all|Any CPU.ActiveCfg = Debug|Any CPU
+		{D065A14D-6388-4D19-BA78-49C9DB74FAF7}.all|Any CPU.Build.0 = Debug|Any CPU
+		{D065A14D-6388-4D19-BA78-49C9DB74FAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D065A14D-6388-4D19-BA78-49C9DB74FAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D065A14D-6388-4D19-BA78-49C9DB74FAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D065A14D-6388-4D19-BA78-49C9DB74FAF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

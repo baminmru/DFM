@@ -5,14 +5,15 @@
 -- DROP TABLE public.dest_data;
 
 CREATE TABLE public.dest_data (
+	"schema" text NOT NULL,
 	table_name text NOT NULL,
 	field_name text NOT NULL,
 	field_type text NULL,
 	"comment" text NULL,
-	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
-	CONSTRAINT dest_data_pk PRIMARY KEY (id)
+	entity_key bool DEFAULT false NULL
 );
-
+CREATE INDEX dest_data_schema_idx ON public.dest_data USING btree (schema, table_name, field_name);
+CREATE INDEX dest_data_table_name_idx ON public.dest_data USING btree (table_name, field_name);
 
 -- public.src_data определение
 
@@ -21,18 +22,18 @@ CREATE TABLE public.dest_data (
 -- DROP TABLE public.src_data;
 
 CREATE TABLE public.src_data (
-	api text NULL,
-	api_comment text NULL,
 	table_name text NOT NULL,
-	table_comment text NULL,
 	field_name text NOT NULL,
 	field_type text NULL,
 	"comment" text NULL,
-	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
-	
-	CONSTRAINT src_data_pk PRIMARY KEY (id)
+	api text NULL,
+	api_comment text NULL,
+	table_comment text NULL,
+	field_order int4 NULL,
+	for_output int2 DEFAULT 1 NULL,
+	entity_key bool DEFAULT false NOT NULL
 );
-
+CREATE INDEX src_data_api_idx ON public.src_data USING btree (api, table_name, field_name, field_order);
 
 -- public.mapper определение
 

@@ -806,7 +806,8 @@ namespace mapper
         {
             string func = "";
 
-            
+            if (f == "LegalID") func = "partner";
+            if (f == "PersonID") func = "partner";
             if (f == "ValueID") func = "";
             if (f == "BorrowerID") func = "";
             if (f == "ProductTypeID") func = "bank_product";
@@ -1048,8 +1049,8 @@ namespace mapper
                         caser.AppendLine("\t\t\t when " + key.ToString() + " then '" + items[key].TrimStart().TrimEnd() + "'");
 
                     }
-                    caser.AppendLine("\t\t\t else  convert(nvarchar(max)," + f + "_text) ");
-                    caser.AppendLine("\t\tend " + f);
+                    caser.AppendLine("\t\t\t else  convert(nvarchar(max)," + f + ") ");
+                    caser.AppendLine("\t\tend " + f + "_text");
 
                 }
 

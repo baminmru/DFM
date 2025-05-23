@@ -33,26 +33,26 @@ namespace mapper
         public void Init()
         {
 
-            DataTable dst = DS.ReadData("select table_name,field_name, comment,id from dest_data order by table_name, field_name");
+            DataTable dst = DS.ReadData("select table_name,field_name, comment, entity_key, entity_root from dest_data where field_name not in ('created_ts', 'created_by', 'modified_ts', 'modified_by','effective_end_date','effective_begin_date') order by table_name, field_name");
             dgDest.DataSource = dst;
             dgDest.ClearSelection();
 
             DataTable src;
             if (chkUsedOnly.Checked)
             {
-                src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data where api in (select api from used_api)  order by api, table_name, field_name");
+                src = DS.ReadData("select api, table_name,field_name,field_type, comment,entity_key, api_comment, table_comment from src_data where api in (select api from used_api)  order by api, table_name, field_name");
             }
             else
             {
-                src = DS.ReadData("select api, table_name,field_name,field_type, comment,id,api_comment, table_comment from src_data order by api, table_name, field_name");
+                src = DS.ReadData("select api, table_name,field_name,field_type, comment,entity_key, api_comment, table_comment from src_data order by api, table_name, field_name");
             }
 
             dgSrc.DataSource = src;
             dgSrc.ClearSelection();
 
 
-            dgDest.Columns["id"].Visible = false;
-            dgSrc.Columns["id"].Visible = false;
+           // dgDest.Columns["id"].Visible = false;
+           // dgSrc.Columns["id"].Visible = false;
             dgSrc.Columns["api_comment"].Visible = false;
             dgSrc.Columns["table_comment"].Visible = false;
 
@@ -68,6 +68,7 @@ namespace mapper
             dgSrc.Columns["comment"].Width =300;
 
             txtComment.Enabled = false;
+            txtCondition.Enabled = false;
             cmdDelLink.Enabled = false;
             cmdSaveLink.Enabled = false;
 
@@ -168,8 +169,13 @@ namespace mapper
                                     dgSrc.Rows[srow.Index].Selected = true;
                                     //if (!dgSrc.Rows[srow.Index].Visible)
                                     dgSrc.FirstDisplayedScrollingRowIndex = srow.Index;
+
                                     txtComment.Text = map.Rows[0]["comment"].ToString();
                                     txtComment.Enabled = true;
+                                    
+                                    txtCondition.Text = map.Rows[0]["condition"].ToString();
+                                    txtCondition.Enabled = true;
+                                    
                                     cmdDelLink.Enabled = true;
                                     cmdSaveLink.Enabled = true;
                                     break;
@@ -190,6 +196,9 @@ namespace mapper
                 {
                     txtComment.Text = "";
                     txtComment.Enabled = false;
+                    txtCondition.Text = "";
+                    txtCondition.Enabled = false;
+
                     cmdDelLink.Enabled = false;
                     cmdSaveLink.Enabled = false;
                     dgSrc.ClearSelection();
@@ -222,7 +231,7 @@ namespace mapper
             {
 
                 DS.Execute("delete from  map_data  where map_name ='" + cmbMapName.Text + "' and to_table ='" + DestTBL + "' and to_field ='" + DestFLD + "'");
-                DS.Execute("insert into map_data (api,table_name,field_name, to_table, to_field,comment,map_name) values('" + SrcAPI + "','" + SrcTBL + "','" + SrcFLD + "','" + DestTBL + "','" + DestFLD + "','" + txtComment.Text.Replace("'", "''") + "','" + cmbMapName.Text + "')");
+                DS.Execute("insert into map_data (api,table_name,field_name, to_table, to_field,comment,condition,map_name) values('" + SrcAPI + "','" + SrcTBL + "','" + SrcFLD + "','" + DestTBL + "','" + DestFLD + "','" + txtComment.Text.Replace("'", "''")+"','" + txtCondition.Text.Replace("'", "''") + "','" + cmbMapName.Text + "')");
 
                 cmdDelLink.Enabled = true;
                 ReloadMapName();
@@ -236,6 +245,7 @@ namespace mapper
                 DS.Execute("delete from  map_data  where map_name ='" + cmbMapName.Text + "' and to_table ='" + DestTBL + "' and to_field ='" + DestFLD + "'");
                 dgSrc.ClearSelection();
                 txtComment.Enabled = false;
+                txtCondition.Enabled = false;
                 cmdDelLink.Enabled = false;
                 cmdSaveLink.Enabled = false;
                 ReloadMapName();
@@ -252,6 +262,8 @@ namespace mapper
                 SrcFLD = row.Cells["field_name"].Value.ToString();
 
                 txtComment.Enabled = true;
+                txtCondition.Enabled = true;
+
                 cmdSaveLink.Enabled = true;
 
             }
@@ -475,6 +487,92 @@ namespace mapper
                 }
                 
             }
+        }
+
+        private void mnuBuildMap_Click(object sender, EventArgs e)
+        {
+
+            dlgSave.Filter = "SQL files|*.sql";
+            if (dlgSave.ShowDialog() == DialogResult.OK)
+            {
+                string fn = dlgSave.FileName;
+                PGGen g = new PGGen();
+                g.ds = DS;
+                string sql = g.BuildMap();
+
+                File.WriteAllText(fn, sql);
+
+            }
+
+        }
+
+        private void dgSrc_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+                
+            DataGridViewRow row = this.dgSrc.Rows[e.RowIndex];
+            DataGridViewColumn c = this.dgSrc.Columns[e.ColumnIndex];
+            if (c.Name == "entity_key")
+            {
+
+                SrcAPI = row.Cells["api"].Value.ToString();
+                SrcTBL = row.Cells["table_name"].Value.ToString();
+                SrcFLD = row.Cells["field_name"].Value.ToString();
+
+                //if (MessageBox.Show("Изменить признак ключа для поля " + SrcFLD + " таблицы " + SrcFLD +"?","Подтвердите",MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+                {
+
+                    if ((bool)row.Cells["entity_key"].Value)
+                    {
+                        DS.Execute("update src_data set entity_key = false where api='" + SrcAPI + "' and table_name = '" + SrcTBL + "' and field_name ='" + SrcFLD + "'");
+                        row.Cells["entity_key"].Value = false;
+                    }
+                    else
+                    {
+                        DS.Execute("update src_data set entity_key = true where api='" + SrcAPI + "' and table_name = '" + SrcTBL + "' and field_name ='" + SrcFLD + "'");
+                        row.Cells["entity_key"].Value = true;
+                    }
+                }
+            }
+        }
+
+        private void dgDest_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewRow row = this.dgDest.Rows[e.RowIndex];
+            DataGridViewColumn c = this.dgDest.Columns[e.ColumnIndex];
+            DestTBL = row.Cells["table_name"].Value.ToString();
+            DestFLD = row.Cells["field_name"].Value.ToString();
+
+            if (c.Name == "entity_key")
+            {
+
+                if ((bool)row.Cells["entity_key"].Value)
+                {
+                    DS.Execute("update dest_data set entity_key = false where  table_name = '" + DestTBL + "' and field_name ='" + DestFLD + "'");
+                    row.Cells["entity_key"].Value = false;
+                }
+                else
+                {
+                    DS.Execute("update dest_data set entity_key = true where  table_name = '" + DestTBL + "' and field_name ='" + DestFLD + "'");
+                    row.Cells["entity_key"].Value = true;
+                }
+            }
+
+
+            if (c.Name == "entity_root")
+            {
+
+                if ((bool)row.Cells["entity_root"].Value)
+                {
+                    DS.Execute("update dest_data set entity_root = false where  table_name = '" + DestTBL + "' and field_name ='" + DestFLD + "'");
+                    row.Cells["entity_root"].Value = false;
+                }
+                else
+                {
+                    DS.Execute("update dest_data set entity_root = true where  table_name = '" + DestTBL + "' and field_name ='" + DestFLD + "'");
+                    row.Cells["entity_root"].Value = true;
+                }
+            }
+
         }
     }
 }
