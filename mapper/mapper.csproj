@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mapper.Tests\**" />
+    <EmbeddedResource Remove="Mapper.Tests\**" />
+    <None Remove="Mapper.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Form1.cs" />
     <Compile Remove="Form1.Designer.cs" />
     <Compile Remove="mapper.cs" />
@@ -26,7 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="7.0.10" />
+    <PackageReference Include="Npgsql" Version="8.0.7" />
+    <PackageReference Include="NUnitLite" Version="4.2.2" />
   </ItemGroup>
 
   <ItemGroup>

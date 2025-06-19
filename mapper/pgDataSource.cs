@@ -57,7 +57,7 @@ namespace mapper
             mPgSQLConnection = null;
         }
 
-        public DataTable ReadData(string SqlString)
+        public virtual DataTable ReadData(string SqlString)
         {
             DataTable dt = new DataTable();
             NpgsqlCommand cmd = new NpgsqlCommand(SqlString, mPgSQLConnection);

@@ -402,29 +402,38 @@ namespace mapper
             dlgSave.Filter = "SQL files|*.sql";
             if(dlgSave.ShowDialog() == DialogResult.OK)
             {
-                string fn = dlgSave.FileName;
-                PGGen g = new PGGen();
-                g.ds = DS;
-                string sql = g.GenerateAll();
-
-                File.WriteAllText(fn, sql);
-
+                try
+                {
+                    string fn = dlgSave.FileName;
+                    PGGen g = new PGGen();
+                    g.ds = DS;
+                    string sql = g.GenerateAll();
+                    File.WriteAllText(fn, sql);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error generating tables: " + ex.Message);
+                }
             }
         }
 
         private void mnuGenViews_Click(object sender, EventArgs e)
         {
-
             dlgSave.Filter = "SQL files|*.sql";
             if (dlgSave.ShowDialog() == DialogResult.OK)
             {
-                string fn = dlgSave.FileName;
-                viewGen g = new viewGen();
-                g.ds = DS;
-                string sql = g.GenerateAll();
-
-                File.WriteAllText(fn, sql);
-
+                try
+                {
+                    string fn = dlgSave.FileName;
+                    viewGen g = new viewGen();
+                    g.ds = DS;
+                    string sql = g.GenerateAll();
+                    File.WriteAllText(fn, sql);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error generating views: " + ex.Message);
+                }
             }
         }
 
@@ -494,19 +503,22 @@ namespace mapper
 
         private void mnuBuildMap_Click(object sender, EventArgs e)
         {
-
             dlgSave.Filter = "SQL files|*.sql";
             if (dlgSave.ShowDialog() == DialogResult.OK)
             {
-                string fn = dlgSave.FileName;
-                PGGen g = new PGGen();
-                g.ds = DS;
-                string sql = g.BuildMap();
-
-                File.WriteAllText(fn, sql);
-
+                try
+                {
+                    string fn = dlgSave.FileName;
+                    PGGen g = new PGGen();
+                    g.ds = DS;
+                    string sql = g.BuildMap();
+                    File.WriteAllText(fn, sql);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error building map: " + ex.Message);
+                }
             }
-
         }
 
         private void dgSrc_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

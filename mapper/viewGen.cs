@@ -123,66 +123,51 @@ namespace mapper
 
         public void GenerateOne()
         {
-            int i;
-
-
-            sb.AppendLine("-- start " + API + ";");
-
-            DataTable tbl = ds.ReadData("select distinct table_name from src_data where  api ='" + API + "' order by table_name");
-
-            for (i = 0; i < tbl.Rows.Count; i++)
+            try
             {
-                MakeSectionType(tbl.Rows[i]["table_name"].ToString());
+                int i;
+                sb.AppendLine("-- start " + API + ";");
+                DataTable tbl = ds.ReadData("select distinct table_name from src_data where  api ='" + API + "' order by table_name");
+                for (i = 0; i < tbl.Rows.Count; i++)
+                {
+                    MakeSectionType(tbl.Rows[i]["table_name"].ToString());
+                }
+                sb.AppendLine("-- end " + API + ";");
+                sb.AppendLine("");
             }
-
-            sb.AppendLine("-- end " + API + ";");
-            sb.AppendLine("");
+            catch (Exception ex)
+            {
+                throw new Exception("Error in GenerateOne: " + ex.Message, ex);
+            }
         }
 
 
         public string GenerateAll()
         {
-
-            result = new StringBuilder();
-            sb = new StringBuilder();
-            loader = new StringBuilder();
-        
-
-
-
-
-            //DataTable a = ds.ReadData("select distinct api from src_data where api like 'API%'");
-            DataTable a = ds.ReadData("select distinct api from used_api order by api");
-
-            int i;
-            for (i = 0; i < a.Rows.Count; i++)
+            try
             {
-                API = a.Rows[i]["api"].ToString();
-                GenerateOne();
+                result = new StringBuilder();
+                sb = new StringBuilder();
+                loader = new StringBuilder();
+                DataTable a = ds.ReadData("select distinct api from used_api order by api");
+                int i;
+                for (i = 0; i < a.Rows.Count; i++)
+                {
+                    API = a.Rows[i]["api"].ToString();
+                    GenerateOne();
+                }
+                result.AppendLine(sb.ToString());
+                result.AppendLine("");
+                result.AppendLine("/* loader script ");
+                result.AppendLine(loader.ToString());
+                result.AppendLine("");
+                result.AppendLine("*/");
+                return result.ToString();
             }
-
-
-
-
-            
-            result.AppendLine(sb.ToString());
-
-
-       
-
-
-            result.AppendLine("");
-            result.AppendLine("/* loader script ");
-            result.AppendLine(loader.ToString());
-            result.AppendLine("");
-            result.AppendLine("*/");
-
-            return result.ToString();
-
-
-        
-
-
+            catch (Exception ex)
+            {
+                throw new Exception("Error in GenerateAll: " + ex.Message, ex);
+            }
         }
 
 
