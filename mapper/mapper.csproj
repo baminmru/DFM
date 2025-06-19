@@ -21,6 +21,8 @@
   <ItemGroup>
     <None Remove="mapper.sql" />
     <None Remove="mapper.xsd" />
+    <None Remove="update_dest.sql" />
+    <None Remove="used_api.sql" />
   </ItemGroup>
 
   <ItemGroup>

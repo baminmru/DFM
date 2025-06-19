@@ -52,45 +52,46 @@ namespace mapper
   //          return p;
   //      }
 
-        public static TreeNode SyncToNode(TreeNodeCollection root, object obj)
-        {
-            MyTreeNode m; int i; TreeNode result;
-
-            for (i = 0; i < root.Count; i++)
-            {
-                m = (MyTreeNode)root[i];
-                if (m.BoundObject == obj)
-                {
-                    result = m;
-                    return result;
-                }
-                result = SyncToNode(m.Nodes, obj);
-                if (result != null) return result;
-            }
-            return null;
-
-        }
-
-
-        public static void CollectExpanded(List<string> expandedFrom, TreeNodeCollection nodes)
-        {
-            foreach (TreeNode node in nodes)
-            {
-                if (node.IsExpanded) expandedFrom.Add(node.FullPath);
-                if (node.Nodes.Count > 0) CollectExpanded(expandedFrom, node.Nodes);
-            }
-        }
+        // public static TreeNode SyncToNode(TreeNodeCollection root, object obj)
+        // {
+        //     MyTreeNode m; int i; TreeNode result;
+        //
+        //     for (i = 0; i < root.Count; i++)
+        //     {
+        //         m = (MyTreeNode)root[i];
+        //         if (m.BoundObject == obj)
+        //         {
+        //             result = m;
+        //             return result;
+        //         }
+        //         result = SyncToNode(m.Nodes, obj);
+        //         if (result != null) return result;
+        //     }
+        //     return null;
+        //
+        // }
 
 
 
-        public static void ExpandNodes(TreeNode node, string nodeFullPath)
-        {
-            if (node.FullPath == nodeFullPath) node.Expand();
-            foreach (TreeNode n in node.Nodes)
-            {
-                if (n.Nodes.Count > 0) ExpandNodes(n, nodeFullPath);
-            }
-        }
+        // public static void CollectExpanded(List<string> expandedFrom, TreeNodeCollection nodes)
+        // {
+        //     foreach (TreeNode node in nodes)
+        //     {
+        //         if (node.IsExpanded) expandedFrom.Add(node.FullPath);
+        //         if (node.Nodes.Count > 0) CollectExpanded(expandedFrom, node.Nodes);
+        //     }
+        // }
+
+
+
+        // public static void ExpandNodes(TreeNode node, string nodeFullPath)
+        // {
+        //     if (node.FullPath == nodeFullPath) node.Expand();
+        //     foreach (TreeNode n in node.Nodes)
+        //     {
+        //         if (n.Nodes.Count > 0) ExpandNodes(n, nodeFullPath);
+        //     }
+        // }
 
 
         
@@ -966,7 +967,7 @@ namespace mapper
             Dictionary<int, string> items = new Dictionary<int, string>();
 
             string[] spl;
-            char[] sep0 = { '–', '-', '–' };
+            char[] sep0 = { 'пїЅ', '-', 'пїЅ' };
             spl = c.Split(sep0);
 
             if (spl.Length > 2)
@@ -1023,7 +1024,7 @@ namespace mapper
                             }
                         }
 
-                        name = name.Replace("(по умолчанию)", "");
+                        name = name.Replace("(пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)", "");
 
                         char[] brc = { '(', ')', '{', '}', '[', ']' };
                         string[] nobrc = name.Split(brc);
@@ -1062,64 +1063,64 @@ namespace mapper
 
     }
 
-	public class MyTreeNode:  TreeNode 
-	{
-		private Object mBoundObject;
-		private System.Windows.Forms.ContextMenuStrip  mMenu;
-        private String mPath;
+	// public class MyTreeNode:  TreeNode 
+	// {
+	// 	private Object mBoundObject;
+	// 	private System.Windows.Forms.ContextMenuStrip  mMenu;
+    //     private String mPath;
 
-        public System.Windows.Forms.ContextMenuStrip NodeContextMenu               // Topic is a named parameter
-		{
-			get 
-			{ 
-				return mMenu; 
-			}
-			set 
-			{ 
+    //     public System.Windows.Forms.ContextMenuStrip NodeContextMenu               // Topic is a named parameter
+	// 	{
+	// 		get 
+	// 		{ 
+	// 			return mMenu; 
+	// 		}
+	// 		set 
+	// 		{ 
 
-				mMenu = value; 
-			}
-		}
-
-
-        public String Path               
-        {
-            get
-            {
-                return mPath;
-            }
-            set
-            {
-
-                mPath = value;
-            }
-        }
-
-        public object BoundObject               // Topic is a named parameter
-		{
-			get 
-			{ 
-				return mBoundObject; 
-			}
-			set 
-			{ 
-
-				mBoundObject = value; 
-			}
-		}
+	// 			mMenu = value; 
+	// 		}
+	// 	}
 
 
-		public MyTreeNode():base()
-		{}
+    //     public String Path               
+    //     {
+    //         get
+    //         {
+    //             return mPath;
+    //         }
+    //         set
+    //         {
 
-		public MyTreeNode(string s):base(s)
-		{}
-		
-		public MyTreeNode(string s, int ImageIndex, int SelIndex):base(s,ImageIndex,SelIndex)
-		{}
+    //             mPath = value;
+    //         }
+    //     }
 
-      
+    //     public object BoundObject               // Topic is a named parameter
+	// 	{
+	// 		get 
+	// 		{ 
+	// 			return mBoundObject; 
+	// 		}
+	// 		set 
+	// 		{ 
 
-    }
+	// 			mBoundObject = value; 
+	// 		}
+	// 	}
+
+
+	// 	public MyTreeNode():base()
+	// 	{}
+
+	// 	public MyTreeNode(string s):base(s)
+	// 	{}
+	// 	
+	// 	public MyTreeNode(string s, int ImageIndex, int SelIndex):base(s,ImageIndex,SelIndex)
+	// 	{}
+
+    //   
+
+    // }
 
 }
