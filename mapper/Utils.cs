@@ -24,6 +24,9 @@ namespace mapper
 	public class MyUtils
 	{
 
+<<<<<<< HEAD
+	
+=======
 		//public static MyTreeNode FindCDNode( MyTreeNode n)
 		//{
 
@@ -304,6 +307,7 @@ namespace mapper
 
 
         
+>>>>>>> cb82fa9b740c8b7c3807675873cb54e19a4476fe
 
 
 
@@ -346,346 +350,7 @@ namespace mapper
         }
 
 
-        /*
-                public static void SerializeObject(string filename, dv21_list.CardDefinition cd)
-                {
-                    try 
-                    {  
-                        XmlSerializer serializer = 
-                            new XmlSerializer(typeof(dv21_list.CardDefinition));
-
-                        // Create an XmlSerializerNamespaces object.
-                        XmlSerializerNamespaces ns = 
-                            new XmlSerializerNamespaces();
-                        // Add two namespaces with prefixes.
-                        //ns.Add("inventory", "http://www.cpandl.com");
-                        //ns.Add("money", "http://www.cohowinery.com");
-
-                        // Create an XmlTextWriter using a FileStream.
-                        Stream fs = new FileStream(filename, FileMode.Create);
-                        System.Xml.XmlWriter writer = 
-                            new System.Xml.XmlTextWriter(fs, new System.Text.UTF8Encoding());
-                        // Serialize using the XmlTextWriter.
-                        serializer.Serialize(writer, cd, ns);
-                        writer.Close();
-                        writer=null;
-                    } 
-                    catch
-                    {
-                    }
-                }
-
-
-                public static dv21_list.CardDefinition ArrayToList(dv21.CardDefinition FromObject)
-                {
-                    dv21_list.CardDefinition ToObject;
-                    Stream stm= new MemoryStream();
-
-
-                    try 
-                    {  
-                        XmlSerializer serializer1 = 
-                            new XmlSerializer(typeof(dv21.CardDefinition));
-
-                        XmlSerializerNamespaces ns = 
-                            new XmlSerializerNamespaces();
-
-                        System.Xml.XmlWriter writer = 
-                            new System.Xml.XmlTextWriter(stm, new System.Text.UTF8Encoding());
-                        serializer1.Serialize(writer, FromObject, ns);
-                        stm.Position    =0;
-                        XmlSerializer serializer2 = 
-                            new XmlSerializer(typeof(dv21_list.CardDefinition));
-                        ToObject=(dv21_list.CardDefinition) serializer2.Deserialize(stm);
-                        stm.Close();
-                        stm = null;
-                    }
-                    catch{ ToObject=null; }
-                    return ToObject;
-                }
-
-
-                public static dv21.CardDefinition ListToArray(dv21_list.CardDefinition FromObject )
-                {
-                    dv21.CardDefinition ToObject;
-                    Stream stm= new MemoryStream();
-
-
-                    try 
-                    {  
-                        XmlSerializer serializer1 = 
-                            new XmlSerializer(typeof(dv21_list.CardDefinition));
-
-                        XmlSerializerNamespaces ns = 
-                            new XmlSerializerNamespaces();
-
-                        System.Xml.XmlWriter writer = 
-                            new System.Xml.XmlTextWriter(stm, new System.Text.UTF8Encoding());
-                        serializer1.Serialize(writer, FromObject, ns);
-                        stm.Position    =0;
-                        XmlSerializer serializer2 = 
-                            new XmlSerializer(typeof(dv21.CardDefinition));
-                        ToObject=(dv21.CardDefinition) serializer2.Deserialize(stm);
-                        stm.Close();
-                        stm = null;
-                    }
-                    catch{ToObject=null;}
-                    return ToObject;
-                }
-        */
-  //      public static dv21.CardDefinition DeSerializeObject(string filename)
-		//{
-		//	try 
-		//	{  
-		//			dv21.CardDefinition cd;
-
-		//			// Create an instance of the XmlSerializer.
-		//			XmlSerializer serializer = 
-		//				new XmlSerializer(typeof(dv21.CardDefinition));
-		//			// Reading the XML document requires a FileStream.
-		//			Stream reader= new FileStream(filename,FileMode.Open);
-          
-		//			// Call the Deserialize method to restore the object's state.
-		//			cd=(dv21.CardDefinition) serializer.Deserialize(reader);
-		//			reader.Close();
-		//			reader = null;
-		//			return cd;
-		//	} 
-		//	catch
-		//	{
-		//			return null;
-		//	}
-		//}
-
-  //      public static dv21.CardDefinition DeSerializeObjectFromJSON(string filename)
-  //      {
-  //          try
-  //          {
-  //              ;
-
-
-  //              string jsonString = File.ReadAllText(filename);
-  //              dv21.CardDefinition cd = JsonSerializer.Deserialize<dv21.CardDefinition>(jsonString);
-                
-  //              return cd;
-  //          }
-  //          catch
-  //          {
-  //              return null;
-  //          }
-  //      }
-
-
-  //      public static dv21.DefFile DeSerializeLib(string filename)
-		//{
-		//	try 
-		//	{  
-		//		dv21.DefFile cd;
-				
-		//		XmlSerializer serializer = 
-		//			new XmlSerializer(typeof(dv21.DefFile));
-				
-		//		Stream reader= new FileStream(filename,FileMode.Open);
-		//		cd=(dv21.DefFile) serializer.Deserialize(reader);
-		//		reader.Close();
-		//		reader = null;
-		//		return cd;
-		//	} 
-		//	catch
-		//	{
-		//		return null;
-		//	}
-		//}
-
-  //      public static dv21.DefFile DeSerializeLibFromJSON(string filename)
-  //      {
-  //          try
-  //          {
-  //              dv21.DefFile cd;
-  //              cd = JsonSerializer.Deserialize< dv21.DefFile>(filename);
-  //              return cd;
-  //          }
-  //          catch
-  //          {
-  //              return null;
-  //          }
-  //      }
-
-
-
-
-        /*		public static dv21_list.CardDefinition DeSerializeObject2(string filename)
-                {
-                    try 
-                    {  
-                        dv21_list.CardDefinition cd;
-
-                        // Create an instance of the XmlSerializer.
-                        XmlSerializer serializer = 
-                            new XmlSerializer(typeof(dv21_list.CardDefinition));
-                        // Reading the XML document requires a FileStream.
-                        Stream reader= new FileStream(filename,FileMode.Open);
-
-                        // Call the Deserialize method to restore the object's state.
-                        cd=(dv21_list.CardDefinition) serializer.Deserialize(reader);
-                        reader.Close();
-                        reader = null;
-                        return cd;
-                    } 
-                    catch
-                    {
-                        return null;
-                    }
-                }
-                */
-
-
-        public static Array Add(Array arr, Object Item,Array arr2)
-		{
-			if(arr !=null)
-			{
-				ArrayList lsa = new ArrayList();
-				lsa.InsertRange(0,arr);
-				lsa.Add(Item);
-				lsa.CopyTo(arr2,0);
-				lsa=null;
-			}
-			return arr2;
-		}
-
-
-        public static T[] AddAt<T>(T[] arr, int Index, T Item, T[] arr2)
-        {
-            if (arr != null)
-            {
-                if (Index < arr.Length)
-                {
-
-
-                    for (int i = 0; i < arr.Length; i++)
-                    {
-                        if (i <Index )
-                        {
-                            arr2[i] = arr[i];
-                        }
-
-                        if (i >= Index)
-                        {
-                            arr2[i+1] = arr[i];
-                        }
-
-                        
-                    }
-                    arr2[Index] = Item;
-
-                }
-                else
-                {
-                    for (int i = 0; i < arr.Length; i++)
-                    {
-                        arr2[i] = arr[i];
-                    }
-                    arr2[arr.Length] = Item;
-                }
-                
-            }
-            return arr2;
-        }
-
-
-
-        public static T[] MoveUp<T>(T[] arr, int Index)
-        {
-            if (arr != null)
-            {
-                if (Index > 0 && Index <= arr.Length)
-                {
-
-                    List<T> arr2 = new List<T>();
-
-                    T Item = arr[Index];
-                    T Prev = arr[Index-1];
-
-                    for (int i = 0; i < Index - 1; i++)
-                    {
-                        arr2.Add(arr[i]);
-                    }
-
-                    arr2.Add(Item);
-                    arr2.Add(Prev);
-
-                    for (int i = Index+1; i < arr.Length; i++)
-                    {
-                        arr2.Add(arr[i]);
-                    }
-                    return arr2.ToArray();
-                }
-
-            }
-            return null;
-        }
-
-        public static T[] MoveDn<T>(T[] arr, int Index)
-        {
-            if (arr != null)
-            {
-                if (Index >= 0 && Index < arr.Length - 1)
-                {
-
-                    List<T> arr2 = new List<T>();
-
-                    T Item = arr[Index];
-                    T nextItem = arr[Index+1];
-
-                    for (int i = 0; i <= Index - 1; i++)
-                    {
-                        arr2.Add(arr[i]);
-                    }
-
-                    arr2.Add(nextItem);
-                    arr2.Add(Item);
-                    
-
-                    for (int i = Index + 2; i < arr.Length; i++)
-                    {
-                        arr2.Add(arr[i]);
-                    }
-                    return arr2.ToArray();
-                }
-
-            }
-            return null;
-        }
-
-
-
-        public static Array RemoveAt(Array arr, int Index, Array arr2)
-		{
-			if(arr !=null)
-			{
-				ArrayList lsa = new ArrayList();
-				lsa.InsertRange(0,arr);
-				lsa.RemoveAt(Index);
-				lsa.CopyTo(arr2,0);
-				lsa=null;
-			}
-			return arr2;
-		}
-
-		public static Array Remove(Array arr, Object Item, Array arr2)
-		{
-			if(arr !=null)
-			{
-				ArrayList lsa = new ArrayList();
-				lsa.InsertRange(0,arr);
-				lsa.Remove(Item);
-				lsa.CopyTo(arr2,0);
-				lsa=null;
-			}
-			return arr2;
-		}
-
-
+        
 
       
 
@@ -1024,7 +689,12 @@ namespace mapper
                             }
                         }
 
+<<<<<<< HEAD
+                        //name = name.Replace("(�� ���������)", "");
+                        name = name.Replace("(по умолчанию)", "");
+=======
                         name = name.Replace("(�� ���������)", "");
+>>>>>>> cb82fa9b740c8b7c3807675873cb54e19a4476fe
 
                         char[] brc = { '(', ')', '{', '}', '[', ']' };
                         string[] nobrc = name.Split(brc);
@@ -1050,7 +720,7 @@ namespace mapper
                         caser.AppendLine("\t\t\t when " + key.ToString() + " then '" + items[key].TrimStart().TrimEnd() + "'");
 
                     }
-                    caser.AppendLine("\t\t\t else  convert(nvarchar(max)," + f + ") ");
+                    caser.AppendLine("\t\t\t else  dbo.c2t_str(convert(nvarchar(max)," + f + ")) ");
                     caser.AppendLine("\t\tend " + f + "_text");
 
                 }

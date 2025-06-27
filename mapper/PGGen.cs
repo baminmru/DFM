@@ -256,6 +256,49 @@ namespace mapper
 
         public string GenerateAll()
         {
+<<<<<<< HEAD
+
+            CurrentSchema = "migration";
+
+
+            result.AppendLine("CREATE SCHEMA IF NOT EXISTS " + CurrentSchema + ";");
+            CurrentSchema = CurrentSchema + ".";
+
+            
+
+            int i;
+
+
+            
+
+            DataTable tbl = ds.ReadData("select distinct table_name from src_data where  api  in ( select api from used_api) and for_output =1 order by table_name");
+
+            
+
+            for (i = 0; i < tbl.Rows.Count; i++)
+            {
+                DataTable apis = ds.ReadData("select api from src_data where table_name = '"+tbl.Rows[i]["table_name"].ToString() +"' and   api  in ( select api from used_api) limit 1");
+                if (apis.Rows.Count > 0)
+                {
+                    API = apis.Rows[0]["api"].ToString();
+                }
+
+                MakeSectionType(tbl.Rows[i]["table_name"].ToString());
+            }
+
+            
+            sb.AppendLine("");
+
+
+            
+
+            result.AppendLine(enums.ToString());
+            result.AppendLine(sb.ToString());
+            result.AppendLine(fk.ToString());
+
+            return result.ToString();
+
+=======
             try
             {
                 CurrentSchema = "migration";
@@ -277,6 +320,7 @@ namespace mapper
             {
                 throw new Exception("Error in GenerateAll: " + ex.Message, ex);
             }
+>>>>>>> cb82fa9b740c8b7c3807675873cb54e19a4476fe
         }
 
 

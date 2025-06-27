@@ -66,7 +66,7 @@ namespace mapper
                         string caser = MyUtils.MakeCase(f, c);
                         if (caser != "")
                         {
-                            sb.AppendLine("\t\t," + f);
+                            sb.AppendLine("\t\t , dbo.c2t_str(convert(nvarchar(max)," + f +"))" +f);
                             sb.AppendLine("\t\t," + caser);
 
                             loader.Append("," + lf);
@@ -74,7 +74,8 @@ namespace mapper
                         }
                         else
                         {
-                            sb.AppendLine("\t\t," + f);
+                            sb.AppendLine("\t\t , dbo.c2t_str(convert(nvarchar(max)," + f +"))" +f);
+                            
                             loader.Append("," + lf);
                         }
                         
@@ -83,7 +84,7 @@ namespace mapper
                     }
                     else
                     {
-                        sb.AppendLine("\t\t , " + f);
+                        sb.AppendLine("\t\t , dbo.c2t_str(convert(nvarchar(max)," + f +"))" +f);
                         sb.AppendLine("\t\t , dbo.c2t_" + func + "( " + f + ") " + f +"_text");
 
                         loader.Append("," + lf);
@@ -144,6 +145,53 @@ namespace mapper
 
         public string GenerateAll()
         {
+<<<<<<< HEAD
+
+            result = new StringBuilder();
+            sb = new StringBuilder();
+            loader = new StringBuilder();
+        
+
+
+
+
+            DataTable tbl = ds.ReadData("select distinct table_name from src_data where  api  in ( select api from used_api) and for_output =1  order by table_name");
+
+            
+
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                DataTable apis = ds.ReadData("select api from src_data where table_name = '"+tbl.Rows[i]["table_name"].ToString() +"' and   api  in ( select api from used_api) limit 1");
+                if (apis.Rows.Count > 0)
+                {
+                    API = apis.Rows[0]["api"].ToString();
+                }
+
+                MakeSectionType(tbl.Rows[i]["table_name"].ToString());
+            }
+
+
+
+            
+            result.AppendLine(sb.ToString());
+
+
+       
+
+
+            result.AppendLine("");
+            result.AppendLine("/* loader script ");
+            result.AppendLine(loader.ToString());
+            result.AppendLine("");
+            result.AppendLine("*/");
+
+            return result.ToString();
+
+
+        
+
+
+=======
             try
             {
                 result = new StringBuilder();
@@ -168,6 +216,7 @@ namespace mapper
             {
                 throw new Exception("Error in GenerateAll: " + ex.Message, ex);
             }
+>>>>>>> cb82fa9b740c8b7c3807675873cb54e19a4476fe
         }
 
 
