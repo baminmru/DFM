@@ -256,7 +256,7 @@ namespace mapper
 
         public string GenerateAll()
         {
-<<<<<<< HEAD
+
 
             CurrentSchema = "migration";
 
@@ -298,29 +298,7 @@ namespace mapper
 
             return result.ToString();
 
-=======
-            try
-            {
-                CurrentSchema = "migration";
-                result.AppendLine("CREATE SCHEMA IF NOT EXISTS " + CurrentSchema + ";");
-                CurrentSchema = CurrentSchema + ".";
-                DataTable a = ds.ReadData("select distinct api from used_api order by api");
-                int i;
-                for (i = 0; i < a.Rows.Count; i++)
-                {
-                    API = a.Rows[i]["api"].ToString();
-                    GenerateOne();
-                }
-                result.AppendLine(enums.ToString());
-                result.AppendLine(sb.ToString());
-                result.AppendLine(fk.ToString());
-                return result.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error in GenerateAll: " + ex.Message, ex);
-            }
->>>>>>> cb82fa9b740c8b7c3807675873cb54e19a4476fe
+
         }
 
 

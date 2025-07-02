@@ -145,7 +145,7 @@ namespace mapper
 
         public string GenerateAll()
         {
-<<<<<<< HEAD
+
 
             result = new StringBuilder();
             sb = new StringBuilder();
@@ -191,32 +191,7 @@ namespace mapper
         
 
 
-=======
-            try
-            {
-                result = new StringBuilder();
-                sb = new StringBuilder();
-                loader = new StringBuilder();
-                DataTable a = ds.ReadData("select distinct api from used_api order by api");
-                int i;
-                for (i = 0; i < a.Rows.Count; i++)
-                {
-                    API = a.Rows[i]["api"].ToString();
-                    GenerateOne();
-                }
-                result.AppendLine(sb.ToString());
-                result.AppendLine("");
-                result.AppendLine("/* loader script ");
-                result.AppendLine(loader.ToString());
-                result.AppendLine("");
-                result.AppendLine("*/");
-                return result.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error in GenerateAll: " + ex.Message, ex);
-            }
->>>>>>> cb82fa9b740c8b7c3807675873cb54e19a4476fe
+
         }
 
 
