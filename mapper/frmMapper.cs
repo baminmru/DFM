@@ -321,15 +321,15 @@ namespace mapper
                         if (v.StartsWith(p[0].ToLower()) && f.StartsWith(p[1].ToLower()))
                         {
                             dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                            break;
                         }
-
-
                     }
                     else
                     {
                         if (v.StartsWith(p[0].ToLower()))
                         {
                             dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                            break;
                         }
                     }
 
