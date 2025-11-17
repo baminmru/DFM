@@ -307,20 +307,33 @@ namespace mapper
             
             if (txtFilter.Text != "")
             {
-                for ( ; idx < dgSrc.Rows.Count; idx++)
+                string[] p = txtFilter.Text.Split('.');
+                for (; idx < dgSrc.Rows.Count; idx++)
                 {
 
                     DataGridViewRow row = dgSrc.Rows[idx];
                     String v = row.Cells["table_name"].Value.ToString().ToLower();
-                    
-                    if (v.StartsWith(txtFilter.Text.ToLower()))
+
+                    if (p.Length > 1)
                     {
-                        dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
-                        break;
+
+                        String f = row.Cells["field_name"].Value.ToString().ToLower();
+                        if (v.StartsWith(p[0].ToLower()) && f.StartsWith(p[1].ToLower()))
+                        {
+                            dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                        }
+
+
                     }
+                    else
+                    {
+                        if (v.StartsWith(p[0].ToLower()))
+                        {
+                            dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                        }
+                    }
+
                 }
-
-
 
             }
         }
