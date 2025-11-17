@@ -285,6 +285,7 @@ namespace mapper
 
             int idx = 0;
 
+            dgSrc.ClearSelection();
 
             if (cmbAPI.Text != "")
             {
@@ -297,11 +298,13 @@ namespace mapper
                     {
                         dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
                         idx = row.Index;
+                        dgSrc.ClearSelection();
+                        row.Selected = true;
                         break;
                     }
                 }
 
-
+               
 
             }
             
@@ -321,6 +324,8 @@ namespace mapper
                         if (v.StartsWith(p[0].ToLower()) && f.StartsWith(p[1].ToLower()))
                         {
                             dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                            dgSrc.ClearSelection();
+                            row.Selected = true;
                             break;
                         }
                     }
@@ -329,11 +334,14 @@ namespace mapper
                         if (v.StartsWith(p[0].ToLower()))
                         {
                             dgSrc.FirstDisplayedScrollingRowIndex = row.Index;
+                            dgSrc.ClearSelection();
+                            row.Selected = true;
                             break;
                         }
                     }
 
                 }
+                
 
             }
         }
